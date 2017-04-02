@@ -6,20 +6,20 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0",
-        "predis/predis": "^1.1.0",
-        "yajra/laravel-datatables-oracle": "^7.2",
-        "namshi/jose": "^7.0",
+        "anlutro/l4-settings": "^0.5.0",
         "guzzlehttp/guzzle": "^6.2",
+        "laravel/framework": "5.4.*",
+        "laravel/socialite": "^3.0",
+        "laravel/tinker": "~1.0",
         "league/csv": "^8.0",
-        "dingo/api": "1.0.*@beta",
-        "tymon/jwt-auth": "1.0.*@beta",
+        "predis/predis": "^1.1.0",
+        "propaganistas/laravel-phone": "^2.8",
         "ramsey/uuid": "^3.6",
-        "sentry/sentry-laravel": "^0.6",
-        "propaganistas/laravel-phone": "^2.8"
+        "spatie/laravel-menu": "^2.1",
+        "yajra/laravel-datatables-oracle": "^7.2"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.3",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7"
