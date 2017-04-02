@@ -1,8 +1,8 @@
 {
-    "name": "jano/jano-ticketing",
+    "name": "jano-may-ball/ticketing",
     "description": "Jano Ticketing System",
     "keywords": ["php", "mysql", "redis", "event-ticketing"],
-    "license": "GPL-3.0+",
+    "license": "GPL-3.0",
     "type": "project",
     "require": {
         "php": ">=5.6.4",
