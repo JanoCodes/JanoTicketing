@@ -6,9 +6,8 @@
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * modify it under the terms of the GNU General Public License v3.0 as
+ * published by the Free Software Foundation.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -34,7 +33,15 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('slug')->unique();
+            $table->string('name');
+            $table->dateTime('can_order_at');
+            $table->integer('ticket_limit')->unsigned();
+            $table->integer('surcharge')->unsigned();
             $table->timestamps();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 
@@ -45,6 +52,9 @@ class CreateGroupsTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['group_id']);
+        });
         Schema::dropIfExists('groups');
     }
 }

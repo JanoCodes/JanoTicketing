@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateAttendeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,21 +31,22 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('attendees', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid')->unique();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('order_id')->unsigned();
             $table->string('title');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
-            $table->enum('method', ['database', 'oauth']);
-            $table->string('password')->nullable();
-            $table->integer('oauth_id')->unsigned()->nullable();
-            $table->integer('group_id')->unsigned();
+            $table->string('email');
             $table->string('college');
-            $table->string('phone')->nullable();
-            $table->integer('right_to_buy')->unsigned();
-            $table->integer('guranteed_addon')->unsigned();
-            $table->rememberToken();
+            $table->boolean('primary_ticket_holder');
+            $table->integer('ticket_id')->unsigned();
+            $table->boolean('checked_in');
+            $table->dateTime('checked_in_at');
+            $table->dateTime('deleted_at');
             $table->timestamps();
         });
     }
@@ -57,6 +58,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('attendees');
     }
 }

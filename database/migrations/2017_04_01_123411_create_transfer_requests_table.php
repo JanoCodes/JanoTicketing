@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTransferRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,21 +31,25 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('transfer_requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('attendee_id')->unsigned();
+            $table->foreign('attendee_id')->references('id')->on('attendees');
             $table->string('title');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
-            $table->enum('method', ['database', 'oauth']);
-            $table->string('password')->nullable();
-            $table->integer('oauth_id')->unsigned()->nullable();
-            $table->integer('group_id')->unsigned();
+            $table->string('email');
             $table->string('college');
-            $table->string('phone')->nullable();
-            $table->integer('right_to_buy')->unsigned();
-            $table->integer('guranteed_addon')->unsigned();
-            $table->rememberToken();
+            $table->boolean('primary_ticket_holder');
+            $table->integer('new_user_id')->unsigned();
+            $table->foreign('new_user_id')->references('id')->on('users');
+            $table->integer('price_difference')->unsigned();
+            $table->boolean('processed');
+            $table->dateTime('processed_at')->nullable();
+            $table->integer('new_attendee_id')->unsigned()->nullable();
+            $table->foreign('new_attendee_id')->references('id')->on('attendees');
             $table->timestamps();
         });
     }
@@ -57,6 +61,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('transfer_requests');
     }
 }
