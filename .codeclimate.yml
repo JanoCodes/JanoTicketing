@@ -36,6 +36,7 @@ ratings:
   - "**.php"
   - "**.scss"
 exclude_paths:
+- .phpstorm.meta.php
 - config/
 - public/css/
 - public/js/
