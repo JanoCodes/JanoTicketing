@@ -17,41 +17,76 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Foundation for Sites by ZURB
+// foundation.zurb.com
+// Licensed under MIT Open Source
 
-// Body
-$body-bg: #f5f8fa;
+////
+/// @group global
+////
 
-// Borders
-$laravel-border-color: darken($body-bg, 10%);
-$list-group-border: $laravel-border-color;
-$navbar-default-border: $laravel-border-color;
-$panel-default-border: $laravel-border-color;
-$panel-inner-border: $laravel-border-color;
+/// Font size attribute applied to `<html>` and `<body>`. We use 100% by default so the value is inherited from the user's browser settings.
+/// @type Number
+$global-font-size: 100% !default;
 
-// Brands
-$brand-primary: #3097D1;
-$brand-info: #8eb4cb;
-$brand-success: #2ab27b;
-$brand-warning: #cbb956;
-$brand-danger: #bf5329;
+/// Global width of your site. Used by the grid to determine row width.
+/// @type Number
+$global-width: rem-calc(1200) !default;
 
-// Typography
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 14px;
-$line-height-base: 1.6;
-$text-color: #636b6f;
+/// Default line height for all type. `$global-lineheight` is 24px while `$global-font-size` is 16px
+/// @type Number
+$global-lineheight: 1.5 !default;
 
-// Navbar
-$navbar-default-bg: #fff;
+/// Colors used for buttons, callouts, links, etc. There must always be a color called `primary`.
+/// @type Map
+$foundation-palette: (
+  primary: #1779ba,
+  secondary: #767676,
+  success: #3adb76,
+  warning: #ffae00,
+  alert: #cc4b37,
+) !default;
 
-// Buttons
-$btn-default-color: $text-color;
+/// Color used for light gray UI items.
+/// @type Color
+$light-gray: #e6e6e6 !default;
 
-// Inputs
-$input-border: lighten($text-color, 40%);
-$input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
+/// Color used for medium gray UI items.
+/// @type Color
+$medium-gray: #cacaca !default;
 
-// Panels
-$panel-default-heading-bg: #fff;
+/// Color used for dark gray UI items.
+/// @type Color
+$dark-gray: #8a8a8a !default;
+
+/// Color used for black ui items.
+/// @type Color
+$black: #0a0a0a !default;
+
+/// Color used for white ui items.
+/// @type Color
+$white: #fefefe !default;
+
+/// Background color of the body.
+/// @type Color
+$body-background: $white !default;
+
+/// Text color of the body.
+/// @type Color
+$body-font-color: $black !default;
+
+/// Font stack of the body.
+/// @type List
+$body-font-family: 'Raleway', Helvetica, Roboto, Arial, sans-serif !default;
+
+/// Global value used for margin on components.
+/// @type Number
+$global-margin: 1rem !default;
+
+/// Global value used for padding on components.
+/// @type Number
+$global-padding: 1rem !default;
+
+/// Global value used for all elements that have a border radius.
+/// @type Number
+$global-radius: 0 !default;
