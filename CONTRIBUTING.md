@@ -2,9 +2,9 @@
 Thank you for your interest in contributing to the Jano Ticketing System. We are a very tiny team and so rely on the help of the community to make improvements which we wouldn't otherwise have time to make!
 
 ## Getting Started
-* Make sure you have a [GitHub account](https://github.com/signup/free)
+* Make sure you have a [GitHub account](https://github.com/signup/free) and a [planio account](https://jano.plan.io/account/register)
 * Read through this Guide and our [Code of Conduct](CODE_OF_CONDUCT.md) and make sure that you're happy with them
-* Look through the list of [outstanding issues](https://github.com/jano-may-ball/ticketing/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20no%3Aassignee), or [create a new issue](https://github.com/jano-may-ball/ticketing/issues/new) if it has not already been reported
+* Look through the list of [outstanding issues](https://jano.plan.io/projects/ticketing/issues), or [create a new issue](https://jano.plan.io/projects/ticketing/issues/new) if it has not already been reported
 * Assign the issue to yourself so everyone knows that you're working on it
 * Fork this repository and create a new branch (e.g. `bug-42`) 
 * Start working!
@@ -24,7 +24,7 @@ Thank you for your interest in contributing to the Jano Ticketing System ("We" o
 
 This contributor agreement ("Agreement") documents the rights granted by contributors to Us. To make this document effective, please sign it and send it to Us by email or electronic submission, following the instructions at the Contributing Guide. This is a legally binding document, so please read it carefully before agreeing to it. The Agreement may cover more than one software project managed by Us.
 
-###1. Definitions
+### 1. Definitions
 
 "You" means the individual who Submits a Contribution to Us.
 
@@ -42,7 +42,7 @@ This contributor agreement ("Agreement") documents the rights granted by contrib
 
 "Media" means any portion of a Contribution which is not software.
 
-###2. Grant of Rights
+### 2. Grant of Rights
 
 2.1 **Copyright License**
 
@@ -64,7 +64,7 @@ Based on the grant of rights in Sections 2.1 and 2.2, if We include Your Contrib
 
 2.6 **Reservation of Rights**. Any rights not expressly licensed under this section are expressly reserved by You.
 
-###3. Agreement
+### 3. Agreement
 
 You confirm that:
 
@@ -74,15 +74,15 @@ You confirm that:
 
 (c) The grant of rights under Section 2 does not violate any grant of rights which You have made to third parties, including Your employer. If You are an employee, You have had Your employer approve this Agreement or sign the Entity version of this document. If You are less than eighteen years old, please have Your parents or guardian sign the Agreement.
 
-###4. Disclaimer
+### 4. Disclaimer
 
 EXCEPT FOR THE EXPRESS WARRANTIES IN SECTION 3, THE CONTRIBUTION IS PROVIDED "AS IS". MORE PARTICULARLY, ALL EXPRESS OR IMPLIED WARRANTIES INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE EXPRESSLY DISCLAIMED BY YOU TO US AND BY US TO YOU. TO THE EXTENT THAT ANY SUCH WARRANTIES CANNOT BE DISCLAIMED, SUCH WARRANTY IS LIMITED IN DURATION TO THE MINIMUM PERIOD PERMITTED BY LAW.
 
-###5. Consequential Damage Waiver
+### 5. Consequential Damage Waiver
 
 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL YOU OR US BE LIABLE FOR ANY LOSS OF PROFITS, LOSS OF ANTICIPATED SAVINGS, LOSS OF DATA, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL AND EXEMPLARY DAMAGES ARISING OUT OF THIS AGREEMENT REGARDLESS OF THE LEGAL OR EQUITABLE THEORY (CONTRACT, TORT OR OTHERWISE) UPON WHICH THE CLAIM IS BASED.
 
-###6. Miscellaneous
+### 6. Miscellaneous
 
 6.1 This Agreement will be governed by and construed in accordance with the laws of Hong Kong Speical Administrative Region excluding its conflicts of law provisions. Under certain circumstances, the governing law in this section might be superseded by the United Nations Convention on Contracts for the International Sale of Goods ("UN Convention") and the parties intend to avoid the application of the UN Convention to this Agreement and, thus, exclude the application of the UN Convention in its entirety to this Agreement.
 
