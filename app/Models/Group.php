@@ -24,5 +24,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    //
+    /**
+     * The users associated with the group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user()
+    {
+        return $this->hasMany('Jano\Models\User');
+    }
 }

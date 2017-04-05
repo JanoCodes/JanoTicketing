@@ -21,8 +21,49 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransferRequest extends Model
 {
-    //
+    use SoftDeletes;
+
+    /**
+     * The user associated with the ticket transfer request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Jano\Models\User');
+    }
+
+    /**
+     * The order associated with the ticket transfer request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function order()
+    {
+        return $this->belongsTo('Jano\Models\Order');
+    }
+
+    /**
+     * The attendee associated with the ticket transfer request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function attendee()
+    {
+        return $this->hasOne('Jano\Models\Attendee');
+    }
+
+    /**
+     * The new attendee associated with the ticket transfer request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function newAttendee()
+    {
+        return $this->hasOne('Jano\Models\Attendee', 'id', 'new_attendee_id');
+    }
 }

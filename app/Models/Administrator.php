@@ -24,5 +24,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Administrator extends Model
 {
-    //
+    /**
+     * The user associated with the administrator.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Jano\Models\User');
+    }
 }

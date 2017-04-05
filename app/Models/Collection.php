@@ -24,5 +24,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
 {
-    //
+    /*
+     * The user associated with the attendee
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Jano\Models\User');
+    }
+
+    /*
+     * The attendees associated with the collection
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function attendees()
+    {
+        return $this->hasManyThrough('Jano\Models\Attendee', 'Jano\Models\User');
+    }
 }

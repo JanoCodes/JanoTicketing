@@ -42,6 +42,86 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'oauth_id',
     ];
+
+    /**
+     * The group associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group()
+    {
+        return $this->belongsTo('Jano\Models\Group');
+    }
+
+    /**
+     * The administrator associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function administrator()
+    {
+        return $this->hasOne('Jano\Models\Administrator');
+    }
+
+    /**
+     * The attendees associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendees()
+    {
+        return $this->hasMany('Jano\Models\Attendee');
+    }
+
+    /**
+     * The orders associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany('Jano\Models\Order');
+    }
+
+    /**
+     * The payments associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany('Jano\Models\Payment');
+    }
+
+    /**
+     * The ticket transfer requests associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transferRequest()
+    {
+        return $this->hasMany('Jano\Models\TransferRequest');
+    }
+
+    /**
+     * The ticket requests associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ticketRequest()
+    {
+        return $this->hasMany('Jano\Models\TicketRequest');
+    }
+
+    /**
+     * The ticket collection associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function collection()
+    {
+        return $this->hasOne('Jano\Models\Collection');
+    }
 }

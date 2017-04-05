@@ -24,5 +24,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    //
+    /**
+     * The attendees associated with the ticket.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendees()
+    {
+        return $this->hasMany('Jano\Models\Attendee');
+    }
 }

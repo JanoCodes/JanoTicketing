@@ -21,8 +21,49 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    //
+    use SoftDeletes;
+
+    /**
+     * The user associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('\Jano\Model\User');
+    }
+
+    /**
+     * The attendees associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendees()
+    {
+        return $this->hasMany('Jano\Models\Attendee');
+    }
+
+    /**
+     * The ticket transfer request associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function transferRequest()
+    {
+        return $this->hasOne('Jano\Models\TransferRequest');
+    }
+
+    /**
+     * The payments associated with the order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany('Jano\Models\Payment');
+    }
 }

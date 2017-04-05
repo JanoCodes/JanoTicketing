@@ -21,8 +21,19 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TicketRequest extends Model
 {
-    //
+    use SoftDeletes;
+
+    /**
+     * The user associated with the ticekt request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('Jano\Models\User');
+    }
 }
