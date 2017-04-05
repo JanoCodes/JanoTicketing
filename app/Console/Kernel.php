@@ -20,6 +20,7 @@
 
 namespace Jano\Console;
 
+use Jano\Console\Application as Artisan;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -54,5 +55,19 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         require base_path('routes/console.php');
+    }
+
+    /**
+     * Get the Artisan application instance.
+     *
+     * @return \Illuminate\Console\Application
+     */
+    protected function getArtisan()
+    {
+        if (is_null($this->artisan)) {
+            return $this->artisan = (new Artisan($this->app, $this->events, $this->app->version()))
+                ->resolveCommands($this->commands);
+        }
+        return $this->artisan;
     }
 }
