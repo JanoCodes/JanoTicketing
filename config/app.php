@@ -169,6 +169,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers
@@ -231,8 +232,8 @@ return [
         /*
          * Package aliases
          */
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
     ],
 
 ];
