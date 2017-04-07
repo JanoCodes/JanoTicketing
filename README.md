@@ -1,5 +1,6 @@
-# Jano Ticketing System
-[![Code Climate](https://img.shields.io/codeclimate/github/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing) [![license](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](LICENSE.md)
+![Jano](logo.png)
+
+[![Code Climate](https://img.shields.io/codeclimate/github/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing) [![license](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](LICENSE.md) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/jano-may-ball/Lobby)
 
 Copyright &copy; Andrew Ying 2016-2017
 
