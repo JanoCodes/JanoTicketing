@@ -1,6 +1,7 @@
-<img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75">
+<p style="text-align:center;"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
 
-[![Code Climate](https://img.shields.io/codeclimate/github/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing) [![license](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](LICENSE.md) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/jano-may-ball/Lobby)
+<p style="text-align:center;"><a href="https://codeclimate.com/github/jano-may-ball/ticketing" target="_blank"><img src="https://img.shields.io/codeclimate/github/jano-may-ball/ticketing.svg" alt="Code Climate"></a>
+<a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="Licensed under GNU GPL v3.0"></a> <a href="https://gitter.im/jano-may-ball/ticketing" target="_blank"><img src="https://img.shields.io/gitter/room/nwjs/nw.js.svg" alt="Chat on Gitter"></a></p>
 
 Copyright &copy; Andrew Ying 2016-2017
 
