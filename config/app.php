@@ -233,6 +233,7 @@ return [
          * Package aliases
          */
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Setting' => anlutro\LaravelSettings\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
