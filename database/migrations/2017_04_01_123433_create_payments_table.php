@@ -38,7 +38,7 @@ class CreatePaymentsTable extends Migration
             $table->enum('type',['bank_transfer','manual','discount']);
             $table->integer('amount')->unsigned();
             $table->string('reference');
-            $table->string('internal_reference');
+            $table->string('internal_reference')->nullable();
             $table->dateTime('made_at');
             $table->timestamps();
         });

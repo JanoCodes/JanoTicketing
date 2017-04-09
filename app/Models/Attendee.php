@@ -22,12 +22,61 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Ramsey\Uuid\Uuid;
 
 class Attendee extends Model
 {
     use SoftDeletes;
 
-    /*
+    /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['user', 'order'];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Create new attendees.
+     *
+     * @param \Jano\Models\Order $order
+     * @param array $data
+     * @return array
+     */
+    public static function createMany(Order $order, $data)
+    {
+        $user_id = $order->user->id;
+        $order_id = $order->id;
+        $attendees = array();
+
+        foreach($data as $data_entry) {
+            $attendee = new self();
+            $attendee->uuid = Uuid::uuid4();
+            $attendee->user_id = $user_id;
+            $attendee->order_id = $order_id;
+            $attendee->title = $data_entry['title'];
+            $attendee->first_name = $data_entry['first_name'];
+            $attendee->last_name = $data_entry['last_name'];
+            $attendee->email = $data_entry['email'];
+            $attendee->college = $data_entry['college'];
+            $attendee->primary_ticket_holder = $data_entry['primary_ticket_holder'];
+            $attendee->ticket_id = $data_entry['ticket_id'];
+            $attendee->checked_in = false;
+            $attendee->save();
+
+            $attendees[] = $attendee;
+        }
+
+        return $attendees;
+    }
+
+    /**
      * The user associated with the attendee
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

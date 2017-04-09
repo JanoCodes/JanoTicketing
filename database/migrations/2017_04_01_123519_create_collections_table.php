@@ -39,7 +39,7 @@ class CreateCollectionsTable extends Migration
             $table->integer('last_name');
             $table->integer('email');
             $table->boolean('collected');
-            $table->dateTime('collected_at');
+            $table->dateTime('collected_at')->nullable();
             $table->timestamps();
         });
     }

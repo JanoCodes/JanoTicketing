@@ -28,15 +28,6 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -44,6 +35,32 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'oauth_id',
     ];
+
+    /**
+     * Create a new user.
+     *
+     * @param array $data
+     * @return \Jano\Models\User
+     */
+    public static function create($data)
+    {
+        $user = new self();
+        $user->title = $data['title'] ?? null;
+        $user->first_name = $data['first_name'];
+        $user->last_name = $data['last_name'];
+        $user->email = $data['email'];
+        $user->method = $data['method'];
+        $user->password = isset($data['password']) ? bcrypt($data['password']) : null;
+        $user->oauth_id = $data['oauth_id'] ?? null;
+        $user->group_id = $data['group_id'];
+        $user->college = $data['college'];
+        $user->phone = $data['phone'] ?? null;
+        $user->right_to_buy = $data['right_to_buy'] ?? null;
+        $user->guranteed_addon = $data['guranteed_addon'] ?? null;
+        $user->save();
+
+        return $user;
+    }
 
     /**
      * The group associated with the user.

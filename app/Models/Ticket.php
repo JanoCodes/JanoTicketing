@@ -25,6 +25,22 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     /**
+     * Create new ticket.
+     *
+     * @param array $data
+     * @return \Jano\Models\Ticket
+     */
+    public static function create($data)
+    {
+        $ticket = new self();
+        $ticket->name = $data['name'];
+        $ticket->price = $data['price'];
+        $ticket->save();
+
+        return $ticket;
+    }
+
+    /**
      * The attendees associated with the ticket.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

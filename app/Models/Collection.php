@@ -24,8 +24,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
 {
-    /*
-     * The user associated with the attendee
+    /**
+     * Create a new collection.
+     *
+     * @param \Jano\Models\User $user
+     * @return \Jano\Models\Collection
+     */
+    public static function create(User $user)
+    {
+        $collection = new self();
+        $collection->user_id = $user->id;
+        $collection->first_name = $user->first_name;
+        $collection->last_name = $user->last_name;
+        $collection->email = $user->email;
+        $collection->collected = false;
+        $collection->save();
+
+        return $collection;
+    }
+
+    /**
+     * The user associated with the collection
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -34,7 +53,7 @@ class Collection extends Model
         return $this->belongsTo('Jano\Models\User');
     }
 
-    /*
+    /**
      * The attendees associated with the collection
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough

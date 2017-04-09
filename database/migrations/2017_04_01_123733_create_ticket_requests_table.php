@@ -48,7 +48,7 @@ class CreateTicketRequestsTable extends Migration
             $table->integer('status')->unsigned();
             $table->integer('attendee_id')->unsigned()->nullable();
             $table->foreign('attendee_id')->references('id')->on('attendees');
-            $table->dateTime('deleted_at');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

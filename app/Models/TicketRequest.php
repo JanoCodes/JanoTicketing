@@ -28,6 +28,20 @@ class TicketRequest extends Model
     use SoftDeletes;
 
     /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['user'];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
      * The user associated with the ticekt request.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

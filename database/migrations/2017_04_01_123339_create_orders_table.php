@@ -42,7 +42,7 @@ class CreateOrdersTable extends Migration
             $table->integer('donation_paid')->unsigned()->nullable();
             $table->boolean('paid');
             $table->dateTime('payment_due_at');
-            $table->dateTime('deleted_at');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
         Schema::table('attendees', function (Blueprint $table) {

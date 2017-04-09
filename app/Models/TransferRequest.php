@@ -28,6 +28,45 @@ class TransferRequest extends Model
     use SoftDeletes;
 
     /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['user', 'order', 'attendee'];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Create a new ticket transfer request.
+     *
+     * @param \Jano\Models\User $user
+     * @param \Jano\Models\Attendee $attendee
+     * @param array $data
+     * @return \Jano\Models\TransferRequest
+     */
+    public static function create(User $user, Attendee $attendee, $data)
+    {
+        $request = new self();
+        $request->user_id = $user->id;
+        $request->attendee_id = $attendee->id;
+        $request->title = $data['title'];
+        $request->first_name = $data['first_name'];
+        $request->last_name = $data['last_name'];
+        $request->email = $data['email'];
+        $request->college = $data['college'];
+        $request->primary_ticket_holder = $attendee->primary_ticket_holder;
+        $request->processed = false;
+        $request->save();
+
+        return $request;
+    }
+
+    /**
      * The user associated with the ticket transfer request.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

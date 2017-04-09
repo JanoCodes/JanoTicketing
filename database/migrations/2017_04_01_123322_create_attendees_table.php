@@ -45,8 +45,8 @@ class CreateAttendeesTable extends Migration
             $table->boolean('primary_ticket_holder');
             $table->integer('ticket_id')->unsigned();
             $table->boolean('checked_in');
-            $table->dateTime('checked_in_at');
-            $table->dateTime('deleted_at');
+            $table->dateTime('checked_in_at')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -20,12 +20,43 @@
 
 namespace Jano\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
     use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Create a new order.
+     *
+     * @param \Jano\Models\User $user
+     * @param array $data
+     * @return \Jano\Models\Order
+     */
+    public static function create(User $user,  $data)
+    {
+        $order = new self();
+        $order->user_id = $user->id;
+        $order->type = $data['type'];
+        $order->amount_due = $data['amount_due'];
+        $order->donation_due = $data['donation_due'] ?? 0;
+        $order->amount_paid = 0;
+        $order->donation_paid = 0;
+        $order->paid = false;
+        $order->payment_due_at = Carbon::now()->addDays(Setting::get('payment.deadline'));
+        $order->save();
+
+        return $order;
+    }
 
     /**
      * The user associated with the order.

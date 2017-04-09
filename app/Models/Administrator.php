@@ -25,6 +25,30 @@ use Illuminate\Database\Eloquent\Model;
 class Administrator extends Model
 {
     /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['user'];
+
+    /**
+     * Create a new administrator.
+     *
+     * @param \Jano\Models\User $user
+     * @param int $level
+     * @return \Jano\Models\Administrator
+     */
+    public static function create(User $user, $level)
+    {
+        $admin = new self();
+        $admin->user_id = $user->id;
+        $admin->access_level = $level;
+        $admin->save();
+
+        return $admin;
+    }
+
+    /**
      * The user associated with the administrator.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
