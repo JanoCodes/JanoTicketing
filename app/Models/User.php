@@ -73,7 +73,7 @@ class User extends Authenticatable
         $user->college = $data['college'];
         $user->phone = $data['phone'] ?? null;
         $user->right_to_buy = $data['right_to_buy'] ?? null;
-        $user->guranteed_addon = $data['guranteed_addon'] ?? null;
+        $user->guaranteed_addon = $data['guranteed_addon'] ?? null;
         $user->save();
 
         return $user;

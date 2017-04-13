@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $type
  * @property int $amount
  * @property string $reference
- * @property string $reference
+ * @property string $internal_reference
  * @property \Carbon\Carbon $made_at
  */
 class Payment extends Model
