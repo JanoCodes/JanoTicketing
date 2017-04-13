@@ -22,11 +22,30 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * Class Attendee
+ *
+ * @property int $id
+ * @property string $uuid
+ * @property int $user_id
+ * @property int $order_id
+ * @property string $title
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $college
+ * @property boolean $primary_ticket_holder
+ * @property int $ticket_id
+ * @property boolean $checked_in
+ * @property \Carbon\Carbon $checked_in_at
+ *
+ */
 class Attendee extends Model
 {
-    use SoftDeletes;
+    use Notifiable, SoftDeletes;
 
     /**
      * All of the relationships to be touched.
@@ -41,6 +60,16 @@ class Attendee extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'primary_ticket_holder' => 'boolean',
+        'checked_in' => 'boolean',
+    ];
 
     /**
      * Create new attendees.

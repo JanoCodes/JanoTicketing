@@ -22,6 +22,13 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Administrator
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $access_level
+ */
 class Administrator extends Model
 {
     /**

@@ -23,6 +23,24 @@ namespace Jano\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class TransferRequest
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $attendee_id
+ * @property string $title
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $college
+ * @property boolean $primary_ticket_holder
+ * @property int $new_user_id
+ * @property int $price_difference
+ * @property boolean $processed
+ * @property \Carbon\Carbon $processed_at
+ * @property int $new_attendee_id
+ */
 class TransferRequest extends Model
 {
     use SoftDeletes;
@@ -40,6 +58,16 @@ class TransferRequest extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'primary_ticket_holder' => 'boolean',
+        'processed' => 'boolean',
+    ];
 
     /**
      * Create a new ticket transfer request.

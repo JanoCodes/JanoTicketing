@@ -21,9 +21,39 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
+/**
+ * Class Collection
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property boolean $collected
+ * @property \Carbon\Carbon $collected_at
+ */
 class Collection extends Model
 {
+    use Notifiable;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['collected_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'collected' => 'boolean',
+    ];
+
     /**
      * Create a new collection.
      *

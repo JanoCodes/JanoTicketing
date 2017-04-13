@@ -23,6 +23,23 @@ namespace Jano\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $method
+ * @property string $password
+ * @property int $oauth_id
+ * @property int $group_id
+ * @property string $college
+ * @property string $phone
+ * @property int $right_to_buy
+ * @property int $guaranteed_addon
+ */
 class User extends Authenticatable
 {
     use Notifiable;

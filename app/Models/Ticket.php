@@ -22,6 +22,13 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Ticket
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $price
+ */
 class Ticket extends Model
 {
     /**

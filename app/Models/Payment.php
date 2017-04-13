@@ -22,8 +22,26 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Payment
+ *
+ * @property int $id
+ * @property int $order_id
+ * @property string $type
+ * @property int $amount
+ * @property string $reference
+ * @property string $reference
+ * @property \Carbon\Carbon $made_at
+ */
 class Payment extends Model
 {
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['made_at'];
+
     /**
      * Create a new payment
      *

@@ -24,6 +24,19 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class Order
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $type
+ * @property int $amount_due
+ * @property int $donation_due
+ * @property int $amount_paid
+ * @property int $donation_paid
+ * @property boolean $paid
+ * @property \Carbon\Carbon $payment_due_at
+ */
 class Order extends Model
 {
     use SoftDeletes;
@@ -33,7 +46,16 @@ class Order extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['payment_due_at', 'deleted_at'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'paid' => 'boolean',
+    ];
 
     /**
      * Create a new order.

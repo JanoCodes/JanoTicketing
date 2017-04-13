@@ -23,6 +23,24 @@ namespace Jano\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class TicketRequest
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $title
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $college
+ * @property array $ticket_preference
+ * @property boolean $right_to_buy
+ * @property boolean $guaranteed_addon
+ * @property int $priority
+ * @property int $addon_priority
+ * @property int $status
+ * @property int $attendee_id
+ */
 class TicketRequest extends Model
 {
     use SoftDeletes;
@@ -42,7 +60,18 @@ class TicketRequest extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * The user associated with the ticekt request.
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'ticket_preference' => 'array',
+        'right_to_buy' => 'boolean',
+        'guaranteed_addon' => 'boolean',
+    ];
+
+    /**
+     * The user associated with the ticket request.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

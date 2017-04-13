@@ -22,6 +22,17 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Group
+ *
+ * @property int $id
+ * @property string $slug
+ * @property \Carbon\Carbon $can_order_at
+ * @property int $ticket_limit
+ * @property int $surcharge
+ * @property int $right_to_buy
+ * @property int $guaranteed_addon
+ */
 class Group extends Model
 {
     /**
