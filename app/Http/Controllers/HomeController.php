@@ -18,19 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+namespace Jano\Http\Controllers;
 
-Route::get('/', 'HomeController@index');
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-Auth::routes();
-Route::get('/auth/login/oauth', 'Auth/LoginController@redirectToProvider');
-Route::get('/auth/oauth/callback', 'Auth/LoginControll@handleProviderCallback');
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('home');
+    }
+}

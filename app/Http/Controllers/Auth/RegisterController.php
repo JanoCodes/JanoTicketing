@@ -20,10 +20,13 @@
 
 namespace Jano\Http\Controllers\Auth;
 
+use Setting;
+use Illuminate\Http\Request;
 use Jano\Models\User;
 use Jano\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Laravel\Socialite\Two\User as SocialiteUser;
 
 class RegisterController extends Controller
 {
@@ -45,12 +48,10 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -66,9 +67,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'title' => 'required|max:20',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'group_id' => 'required|exists:groups,id',
+            'college' => 'required|max:255',
         ]);
     }
 
@@ -81,5 +86,58 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create($data);
+    }
+
+    /**
+     * Handle a registration default for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $data = $request->all();
+        $data['method'] = 'database';
+        if (!isset($data['group_id'])) {
+            $data['group_id'] = Setting::get('register.default_group');
+        }
+        if (!isset($data['college'])) {
+            $data['college'] = Setting::get('register.default_college');
+        }
+
+        $this->validator($data)->validate();
+
+        $user = $this->create($data);
+        $this->guard()->login($user);
+
+        return redirect($this->redirectPath());
+    }
+
+    /**
+     * Create a new user instance after OAuth authentication.
+     *
+     * @param \Laravel\Socialite\Two\User $user
+     * @return \Jano\Models\User
+     */
+    public function oauthCreate(SocialiteUser $user)
+    {
+        $raw = $user->getRaw();
+
+        $name = $user->getName();
+        $parts = explode(' ', $name);
+        $lastname = array_pop($parts);
+        $firstname = implode(' ', $parts);
+
+        return $this->create([
+            'first_name' => $firstname,
+            'last_name' => $lastname,
+            'email' => $user->getEmail(),
+            'method' => 'oauth',
+            'oauth_id' => $user->getId(),
+            'group_id' => $raw['group'],
+            'college' => $raw['college'],
+            'right_to_buy' => $raw['right_to_buy'] ?? null,
+            'guaranteed_addon' => $raw['guaranteed_addon'] ?? null,
+        ]);
     }
 }

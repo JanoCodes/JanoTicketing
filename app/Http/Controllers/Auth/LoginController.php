@@ -20,8 +20,11 @@
 
 namespace Jano\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Jano\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Jano\Models\User;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -43,15 +46,43 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Redirect the user to third-party authentication provider.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('oauth')->redirect();
+    }
+
+    /**
+     * Handle provider callback.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback(Request $request)
+    {
+        $identity = Socialite::driver('oauth')->user();
+
+        if (!$user = User::where('email', $identity->getEmail())->first()) {
+            $register_controller = new RegisterController();
+            $user = $register_controller->oauthCreate($identity);
+        }
+
+        $this->guard()->login($user);
+
+        return $this->sendLoginResponse($request);
     }
 }

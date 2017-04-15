@@ -1,4 +1,8 @@
 {
+  "register": {
+    "default_group": 1,
+    "default_college": "Default College"
+  },
   "payment": {
     "deadline": 3
   }
