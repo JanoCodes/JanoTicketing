@@ -25,7 +25,7 @@
 
 /// Font size attribute applied to `<html>` and `<body>`. We use 100% by default so the value is inherited from the user's browser settings.
 /// @type Number
-$global-font-size: 100% !default;
+$global-font-size: 14px !default;
 
 /// Global width of your site. Used by the grid to determine row width.
 /// @type Number
@@ -87,4 +87,4 @@ $global-padding: 1rem !default;
 
 /// Global value used for all elements that have a border radius.
 /// @type Number
-$global-radius: 0 !default;
+$global-radius: 5px !default;
