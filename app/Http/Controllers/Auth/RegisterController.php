@@ -102,7 +102,7 @@ class RegisterController extends Controller
             $data['group_id'] = Setting::get('register.default_group');
         }
         if (!isset($data['college'])) {
-            $data['college'] = Setting::get('register.default_college');
+            $data['college'] = __('default_college');
         }
 
         $this->validator($data)->validate();
