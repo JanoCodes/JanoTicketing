@@ -64,7 +64,7 @@ class Order extends Model
      * @param array $data
      * @return \Jano\Models\Order
      */
-    public static function create(User $user,  $data)
+    public static function create(User $user, $data)
     {
         $order = new self();
         $order->user_id = $user->id;

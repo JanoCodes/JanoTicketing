@@ -84,7 +84,7 @@ class Attendee extends Model
         $order_id = $order->id;
         $attendees = array();
 
-        foreach($data as $data_entry) {
+        foreach ($data as $data_entry) {
             $attendee = new self();
             $attendee->uuid = Uuid::uuid4();
             $attendee->user_id = $user_id;

@@ -5,8 +5,8 @@
  *
  * This file is part of Jano Ticketing System.
  *
- * Jano Ticketing System is free software: you can redistribute it and/or 
- * modify it under the terms of the GNU General Public License v3.0 as 
+ * Jano Ticketing System is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License v3.0 as
  * published by the Free Software Foundation.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
@@ -70,8 +70,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+                ->namespace($this->namespace)
+                ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -84,8 +84,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/api.php'));
     }
 }
