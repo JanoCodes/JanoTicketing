@@ -1,4 +1,5 @@
 /node_modules
+/docs/_api
 /docs/_build
 /public/css
 /public/js
@@ -11,3 +12,4 @@ Homestead.json
 Homestead.yaml
 .env
 .DS_Store
+phpDocumentor.phar
