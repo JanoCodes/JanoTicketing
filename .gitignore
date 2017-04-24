@@ -2,9 +2,11 @@
 /docs/_api
 /docs/_build
 /public/css
+/public/fonts
 /public/js
 /public/storage
 /public/hot
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 /.idea
