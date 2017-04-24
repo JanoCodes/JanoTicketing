@@ -23,3 +23,59 @@
 
 // Foundation
 @import 'node_modules/foundation-sites/scss/foundation';
+@include foundation-everything;
+
+// Font Awesome
+@import 'node_modules/font-awesome/scss/font-awesome';
+
+.sidebar {
+  background-color: $light-gray;
+  min-height: 100vh;
+  padding-left: 0;
+  padding-right: 0;
+
+  .logo {
+    max-width: 170px;
+    width: 80%;
+  }
+}
+
+.sidebar-footer {
+  @include grid-column-gutter(auto, $grid-column-gutter);
+  bottom: 0;
+  font-size: 90%;
+  position: fixed;
+  width: inherit;
+}
+
+.off-canvas-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.mobile-header {
+  background-color: $light-gray;
+
+  .logo {
+    max-width: 170px;
+    width: 80%;
+  }
+
+  .header-icon {
+    @include grid-column-gutter(auto, (
+       small: map-get($grid-column-gutter, small) * 2,
+       medium: map-get($grid-column-gutter, medium) * 2
+    ));
+    color: get-color(secondary);
+  }
+}
+
+.content {
+  @include grid-column-gutter(auto, $grid-column-gutter);
+}
+
+@media print, screen and (min-width: 64em) {
+  .sidebar {
+    width: inherit;
+  }
+}

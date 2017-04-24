@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Jano Ticketing System') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -21,67 +21,43 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+<div class="expanded row off-canvas-wrapper">
+    <div class="small-12 large-3 columns sidebar-wrapper">
+        <div class="sidebar off-canvas position-left reveal-for-large" id="sidebarCanvas" data-off-canvas>
+            <ul class="menu vertical">
+                <li class="menu-text">
+                    <img class="logo" src="{{ asset('images/logo.png') }}" />
+                    <button class="close-button hide-for-large" aria-label="Close menu" type="button" data-close>
+                        <span aria-hidden="true">&times;</span>
                     </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
+                </li>
+                <li class="active"><a href="#">Purchase Tickets</a></li>
+                <li><a href="#">Your Account</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                Powered by Jano Ticket System.<br />
+                &copy; Andrew Ying 2016-17.<br />
+                Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GNU GPL v3.0</a>.
             </div>
-        </nav>
-
-        @yield('content')
+        </div>
     </div>
-
+    <div class="small-12 large-9 columns off-canvas-content" data-off-canvas-content>
+        <div class="row mobile-header hide-for-large">
+            <div class="small-2 columns">
+                <button class="header-icon" type="button" data-open="sidebarCanvas"><i class="fa fa-bars fa-3x"></i></button>
+            </div>
+            <div class="small-8 columns">
+                <img class="logo" src="{{ asset('images/logo.png') }}" />
+            </div>
+        </div>
+        <div class="content">
+            @yield('content')
+        </div>
+    </div>
+</div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/vendor.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

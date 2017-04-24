@@ -19,6 +19,8 @@
 
 require('./bootstrap');
 
+$(document).foundation();
+
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({
