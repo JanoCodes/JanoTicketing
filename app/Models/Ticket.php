@@ -21,6 +21,7 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Ticket
@@ -31,6 +32,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ticket extends Model
 {
+    use HasTranslations;
+
+    /**
+     * The attributes which can be translated.
+     *
+     * @var array
+     */
+    public $translatable = ['name'];
+
     /**
      * Create new ticket.
      *

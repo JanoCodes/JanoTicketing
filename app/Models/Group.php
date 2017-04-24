@@ -21,6 +21,7 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Group
@@ -35,6 +36,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Group extends Model
 {
+    use HasTranslations;
+
+    /**
+     * The attributes which can be translated.
+     *
+     * @var array
+     */
+    public $translatable = ['name'];
+
     /**
      * Create a new group
      *

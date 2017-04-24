@@ -170,6 +170,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Spatie\Translatable\TranslatableServiceProvider::class,
 
         /*
          * Application Service Providers
@@ -232,6 +234,7 @@ return [
         /*
          * Package aliases
          */
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Setting' => anlutro\LaravelSettings\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
