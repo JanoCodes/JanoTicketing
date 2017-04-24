@@ -5,8 +5,8 @@
  *
  * This file is part of Jano Ticketing System.
  *
- * Jano Ticketing System is free software: you can redistribute it and/or 
- * modify it under the terms of the GNU General Public License v3.0 as 
+ * Jano Ticketing System is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License v3.0 as
  * published by the Free Software Foundation.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
@@ -30,6 +30,8 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
+
+    'errors_in_form' => 'Opps! There are some errors in your form.',
 
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',

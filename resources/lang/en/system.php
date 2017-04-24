@@ -20,6 +20,29 @@
 
 return [
 
-    'default_college' => 'Default College',
+    /**
+     * List of Colleges available for selection.
+     *
+     * The first item should be the default option for all registrations.
+     */
+    'colleges' => [
+        'Default College',
+    ],
+
+    /**
+     * System Languages
+     */
+    'confirm_password' => 'Confirm Password',
+    'email' => 'Email Address',
+    'first_name' => 'First Name',
+    'forgot_your_password' => 'Forgot Your Password?',
+    'last_name' => 'Last Name',
+    'login' => 'Login',
+    'new_password' => 'New Password',
+    'password' => 'Password',
+    'register' => 'Register',
+    'remember_me' => 'Remember Me',
+    'reset_password' => 'Reset Password',
+    'send_password_reset_link' => 'Send Password Reset Link',
 
 ];
