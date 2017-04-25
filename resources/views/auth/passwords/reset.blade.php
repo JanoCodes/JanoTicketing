@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="row columns">
-                        <label for="password" class="col-md-4 control-label">
+                        <label{{ $errors->has('password') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.new_password') }}
                             <input id="password" type="password"
                                    {{ $errors->has('password') ? 'class="is-invalid-input" aria-invalid ' : '' }}
@@ -45,11 +45,11 @@
                     </div>
 
                     <div class="row columns">
-                        <label>
+                        <label{{ $errors->has('password_confirmation') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.confirm_password') }}
                             <input id="password_confirmation" type="password"
                                    {{ $errors->has('password_confirmation') ? 'class="is-invalid-input" aria-invalid '
-                                   : '' }}name="password_confirmation" data-match="password" required>
+                                   : '' }}name="password_confirmation" data-equalto="password" required>
 
                             @if ($errors->has('password_confirmation'))
                                 <span class="form-error is-visible">

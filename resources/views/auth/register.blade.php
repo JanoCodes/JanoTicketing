@@ -65,10 +65,15 @@
                     </div>
 
                     <div class="row columns">
-                        <label>
+                        <label{{ $errors->has('password_confirmation') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.confirm_password') }}
                             <input id="password_confirmation" type="password" name="password_confirmation"
                                    data-equalto="password" required>
+                            @if ($errors->has('password_confirmation'))
+                                <span class="form-error is-visible">
+                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                </span>
+                            @endif
                         </label>
                     </div>
 
