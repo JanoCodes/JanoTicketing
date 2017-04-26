@@ -88,3 +88,7 @@ $global-padding: 1rem !default;
 /// Global value used for all elements that have a border radius.
 /// @type Number
 $global-radius: 5px !default;
+
+/// Margin between buttons in a button group.
+/// @type Number
+$buttongroup-spacing: 2.5px;

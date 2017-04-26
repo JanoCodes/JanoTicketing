@@ -20,16 +20,10 @@
 
 namespace Jano\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -37,6 +31,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (!Auth::check()) {
+            return view('welcome');
+        }
+
+        return view('dashboard');
     }
 }

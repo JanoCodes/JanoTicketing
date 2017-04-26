@@ -44,5 +44,7 @@ return [
     'remember_me' => 'Remember Me',
     'reset_password' => 'Reset Password',
     'send_password_reset_link' => 'Send Password Reset Link',
+    'welcome' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, 
+        either register or login below.',
 
 ];
