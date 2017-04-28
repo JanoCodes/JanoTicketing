@@ -10,7 +10,7 @@
                     {{ Setting::get('system.registration.method.oauth.name.' . App::getLocale()) }}
                 </a>
             @endif
-            @if (Settings::get('system.registration.method.generic.active'))
+            @if (Setting::get('system.registration.method.generic.active'))
                 <a class="button" href="{{ route('login') }}">
                     {{ Setting::get('system.registration.method.generic.name.' . App::getLocale()) }}
                 </a>

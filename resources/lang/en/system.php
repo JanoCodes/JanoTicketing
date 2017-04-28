@@ -21,15 +21,6 @@
 return [
 
     /**
-     * List of Colleges available for selection.
-     *
-     * The first item should be the default option for all registrations.
-     */
-    'colleges' => [
-        'Default College',
-    ],
-
-    /**
      * System Languages
      */
     'confirm_password' => 'Confirm Password',

@@ -4,55 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fd1f2ea7cc410ca9b39e2591da716c8e",
-    "content-hash": "e20205b72699bd0f93dfa8b388c09426",
+    "hash": "cd34b99d6c769468f01d79fbd2b72b2d",
+    "content-hash": "8cc51c9b8ede320c27dbeddca6996ec6",
     "packages": [
-        {
-            "name": "anlutro/l4-settings",
-            "version": "0.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/anlutro/laravel-settings.git",
-                "reference": "8bbaa98a7962e0e6106eb98aae03cfcabe78d848"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/anlutro/laravel-settings/zipball/8bbaa98a7962e0e6106eb98aae03cfcabe78d848",
-                "reference": "8bbaa98a7962e0e6106eb98aae03cfcabe78d848",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=4.1 <6.0",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "illuminate/database": ">=4.1 <6.0",
-                "illuminate/filesystem": ">=4.1 <6.0",
-                "mockery/mockery": "0.9.*"
-            },
-            "suggest": {
-                "illuminate/database": "Save settings to a database table.",
-                "illuminate/filesystem": "Save settings to a JSON file."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "anlutro\\LaravelSettings\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Lutro",
-                    "email": "anlutro@gmail.com"
-                }
-            ],
-            "description": "Persistent settings in Laravel.",
-            "time": "2017-03-06 09:37:21"
-        },
         {
             "name": "barryvdh/laravel-dompdf",
             "version": "v0.8.0",
@@ -307,16 +261,16 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.4.1",
+            "version": "8.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "eeb3835c8afc6ab35427bc9771ffc7851ce4ed8f"
+                "reference": "01c72a52c38a0a55e4aebb972d65124f618d570a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/eeb3835c8afc6ab35427bc9771ffc7851ce4ed8f",
-                "reference": "eeb3835c8afc6ab35427bc9771ffc7851ce4ed8f",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/01c72a52c38a0a55e4aebb972d65124f618d570a",
+                "reference": "01c72a52c38a0a55e4aebb972d65124f618d570a",
                 "shasum": ""
             },
             "require": {
@@ -371,7 +325,7 @@
                 "phonenumber",
                 "validation"
             ],
-            "time": "2017-04-11 20:52:21"
+            "time": "2017-04-25 12:16:41"
         },
         {
             "name": "giggsey/locale",
@@ -688,6 +642,54 @@
             "time": "2015-04-20 18:58:01"
         },
         {
+            "name": "jano-may-ball/settings",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jano-may-ball/settings.git",
+                "reference": "08a76158a5cabda89f065280542715021d531f1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jano-may-ball/settings/zipball/08a76158a5cabda89f065280542715021d531f1a",
+                "reference": "08a76158a5cabda89f065280542715021d531f1a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4.1 <6.0",
+                "laktak/hjson": "^2.0",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "illuminate/database": ">=4.1 <6.0",
+                "illuminate/filesystem": ">=4.1 <6.0",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "^5.7"
+            },
+            "suggest": {
+                "illuminate/database": "Save settings to a database table.",
+                "illuminate/filesystem": "Save settings to a JSON file."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jano\\Settings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Ying",
+                    "email": "andrew@janoticketing.com"
+                }
+            ],
+            "description": "Persistent settings in Laravel; fork of anlutro/l4-settings",
+            "time": "2017-04-28 11:07:13"
+        },
+        {
             "name": "jeremeamia/SuperClosure",
             "version": "2.3.0",
             "source": {
@@ -779,17 +781,67 @@
             "time": "2015-12-15 15:40:03"
         },
         {
-            "name": "laravel/framework",
-            "version": "v5.4.19",
+            "name": "laktak/hjson",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad"
+                "url": "https://github.com/hjson/hjson-php.git",
+                "reference": "25903eceb1726301b5bab8a94abf8867aa2fadf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/02444b7450350db17a7607c8a52f7268ebdb0dad",
-                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad",
+                "url": "https://api.github.com/repos/hjson/hjson-php/zipball/25903eceb1726301b5bab8a94abf8867aa2fadf8",
+                "reference": "25903eceb1726301b5bab8a94abf8867aa2fadf8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HJSON\\": "src/HJSON"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Issam Zoli",
+                    "email": "jawbfl@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JSON for Humans. A configuration file format with relaxed syntax, fewer mistakes and more comments.",
+            "homepage": "https://github.com/hjson/hjson-php",
+            "keywords": [
+                "comments",
+                "config",
+                "hjson",
+                "human",
+                "json",
+                "parser",
+                "serializer"
+            ],
+            "time": "2016-08-18 21:44:03"
+        },
+        {
+            "name": "laravel/framework",
+            "version": "v5.4.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "851aad458bcc904178ded02954d55d36c2c35f8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/851aad458bcc904178ded02954d55d36c2c35f8b",
+                "reference": "851aad458bcc904178ded02954d55d36c2c35f8b",
                 "shasum": ""
             },
             "require": {
@@ -905,7 +957,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-04-16 13:33:34"
+            "time": "2017-04-27 13:04:35"
         },
         {
             "name": "laravel/socialite",
@@ -1078,16 +1130,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.38",
+            "version": "1.0.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "4ba6e13f5116204b21c3afdf400ecf2b9eb1c482"
+                "reference": "3828f0b24e2c1918bb362d57a53205d6dc8fde61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/4ba6e13f5116204b21c3afdf400ecf2b9eb1c482",
-                "reference": "4ba6e13f5116204b21c3afdf400ecf2b9eb1c482",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3828f0b24e2c1918bb362d57a53205d6dc8fde61",
+                "reference": "3828f0b24e2c1918bb362d57a53205d6dc8fde61",
                 "shasum": ""
             },
             "require": {
@@ -1157,7 +1209,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-04-22 18:59:19"
+            "time": "2017-04-28 10:15:08"
         },
         {
             "name": "league/oauth1-client",
