@@ -41,7 +41,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->integer('oauth_id')->unsigned()->nullable();
             $table->integer('group_id')->unsigned();
-            $table->string('college');
+            $table->integer('college_id')->nullable();
             $table->string('phone')->nullable();
             $table->integer('right_to_buy')->unsigned()->nullable();
             $table->integer('guranteed_addon')->unsigned()->nullable();

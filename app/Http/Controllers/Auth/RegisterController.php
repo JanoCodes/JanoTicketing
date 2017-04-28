@@ -102,8 +102,8 @@ class RegisterController extends Controller
             $data['group_id'] = Setting::get('register.default_group');
         }
         if (!isset($data['college'])) {
-            $colleges = trans('system.colleges');
-            $data['college'] = $colleges[0];
+            $colleges = array_first(Setting::get('colleges'));
+            $data['college'] = $colleges[App::getLocale()];
         }
 
         $this->validator($data)->validate();
