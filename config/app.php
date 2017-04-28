@@ -168,7 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        anlutro\LaravelSettings\ServiceProvider::class,
+        Jano\Settings\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\Translatable\TranslatableServiceProvider::class,
@@ -236,7 +236,7 @@ return [
          */
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Setting' => anlutro\LaravelSettings\Facade::class,
+        'Setting' => Jano\Settings\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 

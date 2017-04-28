@@ -1,8 +1,13 @@
 <?php
 return array(
-	'store' => 'json',
+    /**
+     * The type of storage used.
+     * [hjson|json]
+     */
+	'store' => 'hjson',
 
-	// if the json store is used, give the full path to the .json file
-	// that the store writes to.
-	'path' => storage_path().'/settings.json'
+    /**
+     * The full path of the configuration file.
+     */
+	'path' => storage_path().'/settings.hjson',
 );
