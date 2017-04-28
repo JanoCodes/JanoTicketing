@@ -36,6 +36,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $oauth_id
  * @property int $group_id
  * @property string $college
+ * @property int $college_id
  * @property string $phone
  * @property int $right_to_buy
  * @property int $guaranteed_addon
@@ -52,6 +53,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'oauth_id',
     ];
+
+    /**
+     * The attributes that should be added
+     *
+     * @var array
+     */
+    protected $appends = ['college'];
 
     /**
      * Create a new user.
@@ -107,6 +115,17 @@ class User extends Authenticatable
     public function attendees()
     {
         return $this->hasMany('Jano\Models\Attendee');
+    }
+
+    /**
+     * Return the college attribute of the user.
+     *
+     * @return string
+     */
+    public function getCollegeAttribute()
+    {
+        $colleges = Setting::get('college');
+        return $colleges[$this->college_id][App::getLocale()];
     }
 
     /**
