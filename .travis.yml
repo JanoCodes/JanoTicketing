@@ -1,0 +1,26 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0
+
+branches:
+    only: master
+
+sudo: false
+
+install:
+    - travis_retry composer self-update && composer --version
+    - travis_retry composer install --no-interaction --prefer-source
+
+before_script: git reset --hard HEAD
+
+script: vendor/bin/phpunit
+
+git:
+  depth: 3
+
+cache:
+  directories:
+      - vendor
+      - $HOME/.composer/cache
