@@ -42,6 +42,13 @@ install:
 
 script: vendor/bin/phpunit
 
+after_success:
+  - vendor/bin/test-reporter
+
+addons:
+  code_climate:
+    repo_token: 1c22d320eac6bb9e839b58675b185ee26ddd4261e9dd827a99d826905628756d
+
 cache:
   directories:
       - $HOME/.composer/cache
