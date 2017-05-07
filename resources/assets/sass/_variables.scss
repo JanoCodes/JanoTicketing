@@ -39,7 +39,7 @@ $global-lineheight: 1.5 !default;
 /// @type Map
 $foundation-palette: (
   primary: #91547d,
-  secondary: #7b476a,
+  secondary: #472249,
   success: #3adb76,
   warning: #ffae00,
   alert: #cc4b37,
@@ -47,23 +47,23 @@ $foundation-palette: (
 
 /// Color used for light gray UI items.
 /// @type Color
-$light-gray: #f6f1f4 !default;
+$light-gray: #efefef !default;
 
 /// Color used for medium gray UI items.
 /// @type Color
-$medium-gray: #e2d2dd !default;
+$medium-gray: #ccb0af !default;
 
 /// Color used for dark gray UI items.
 /// @type Color
-$dark-gray: #c8a6bd !default;
+$dark-gray: #a293ad !default;
 
 /// Color used for black ui items.
 /// @type Color
-$black: #0a0a0a !default;
+$black: #0e060e !default;
 
 /// Color used for white ui items.
 /// @type Color
-$white: #fefefe !default;
+$white: #fdfdfd !default;
 
 /// Background color of the body.
 /// @type Color
@@ -89,6 +89,23 @@ $global-padding: 1rem !default;
 /// @type Number
 $global-radius: 5px !default;
 
+/// Padding inside buttons.
+/// @type List
+$button-padding: .8em .95em;
+
+/// Sizes for buttons.
+/// @type Map
+$button-sizes: (
+  tiny: .6rem,
+  small: .75rem,
+  default: 1rem,
+  large: 1.25rem
+);
+
 /// Margin between buttons in a button group.
 /// @type Number
-$buttongroup-spacing: 2.5px;
+$buttongroup-spacing: 3px;
+
+/// Path for the Font Awesome fonts
+/// @type Path
+$fa-font-path: '../fonts';
