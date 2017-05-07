@@ -12,7 +12,8 @@
                     </div>
                 @endif
 
-                <form role="form" method="POST" action="{{ route('password.request') }}" data-abide>
+                <form role="form" method="POST" action="{{ route('password.request') }}" data-abide novalidate>
+                    @include('partials.error')
                     {{ csrf_field() }}
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="row columns">
@@ -24,6 +25,11 @@
                             @if ($errors->has('email'))
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.email', ['attribute' => strtolower(__('system.email'))])
+                                    }}</strong>
                                 </span>
                             @endif
                         </label>
@@ -40,6 +46,11 @@
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.new_password'))])
+                                    }}</strong>
+                                </span>
                             @endif
                         </label>
                     </div>
@@ -54,6 +65,11 @@
                             @if ($errors->has('password_confirmation'))
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.confirmedd', ['attribute' => strtolower(__('system.new_password'))])
+                                    }}</strong>
                                 </span>
                             @endif
                         </label>

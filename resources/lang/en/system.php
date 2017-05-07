@@ -23,6 +23,7 @@ return [
     /**
      * System Languages
      */
+    'back' => 'Back',
     'confirm_password' => 'Confirm Password',
     'email' => 'Email Address',
     'first_name' => 'First Name',
