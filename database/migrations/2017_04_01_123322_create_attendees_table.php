@@ -41,7 +41,6 @@ class CreateAttendeesTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->string('college');
             $table->boolean('primary_ticket_holder');
             $table->integer('ticket_id')->unsigned();
             $table->boolean('checked_in');

@@ -19,33 +19,28 @@
 
 {
   "system": {
-    "title": {
-      "en": "Jano Ticketing System"
-    }
+    "title": "Jano Ticketing System"
   },
   "register": {
     "default_group": 1,
     "methods": {
       "generic": {
         "active": true,
-        "name": {
-          "en": "Alumni Login/Registration"
-        }
+        "name": "Alumni Login/Registration"
       },
       "oauth": {
         "active": true,
-        "name": {
-          "en": "Login via Raven"
-        }
+        "name": "Login via Raven"
       }
     }
   },
-  "colleges": {
-    1: {
-      "en": "Default College"
-    }
-  },
   "payment": {
-    "deadline": 3
+    "deadline": 3,
+    "method": "bacs",
+    "account": {
+      "name": "The May Ball Co. Ltd.",
+      "sort_code": "40-01-10",
+      "number": "12345678"
+    }
   }
 }

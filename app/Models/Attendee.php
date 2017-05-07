@@ -36,7 +36,6 @@ use Ramsey\Uuid\Uuid;
  * @property string $first_name
  * @property string $last_name
  * @property string $email
- * @property string $college
  * @property boolean $primary_ticket_holder
  * @property int $ticket_id
  * @property boolean $checked_in
@@ -93,7 +92,6 @@ class Attendee extends Model
             $attendee->first_name = $data_entry['first_name'];
             $attendee->last_name = $data_entry['last_name'];
             $attendee->email = $data_entry['email'];
-            $attendee->college = $data_entry['college'];
             $attendee->primary_ticket_holder = $data_entry['primary_ticket_holder'];
             $attendee->ticket_id = $data_entry['ticket_id'];
             $attendee->checked_in = false;

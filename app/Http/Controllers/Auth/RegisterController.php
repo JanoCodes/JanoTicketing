@@ -73,7 +73,6 @@ class RegisterController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'group_id' => 'required|exists:groups,id',
-            'college' => 'required|max:255',
         ]);
     }
 
@@ -100,10 +99,6 @@ class RegisterController extends Controller
         $data['method'] = 'database';
         if (!isset($data['group_id'])) {
             $data['group_id'] = Setting::get('register.default_group');
-        }
-        if (!isset($data['college'])) {
-            $colleges = array_first(Setting::get('colleges'));
-            $data['college'] = $colleges[App::getLocale()];
         }
 
         $this->validator($data)->validate();
@@ -136,7 +131,6 @@ class RegisterController extends Controller
             'method' => 'oauth',
             'oauth_id' => $user->getId(),
             'group_id' => $raw['group'],
-            'college' => $raw['college'],
             'right_to_buy' => $raw['right_to_buy'] ?? null,
             'guaranteed_addon' => $raw['guaranteed_addon'] ?? null,
         ]);

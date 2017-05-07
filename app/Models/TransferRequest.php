@@ -33,7 +33,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $first_name
  * @property string $last_name
  * @property string $email
- * @property string $college
  * @property boolean $primary_ticket_holder
  * @property int $new_user_id
  * @property int $price_difference
@@ -86,7 +85,6 @@ class TransferRequest extends Model
         $request->first_name = $data['first_name'];
         $request->last_name = $data['last_name'];
         $request->email = $data['email'];
-        $request->college = $data['college'];
         $request->primary_ticket_holder = $attendee->primary_ticket_holder;
         $request->processed = false;
         $request->save();
