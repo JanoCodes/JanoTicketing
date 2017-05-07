@@ -1,0 +1,280 @@
+// Jano Ticketing System
+// Copyright (C) 2016-2017 Andrew Ying
+//
+// This file is part of Jano Ticketing System.
+//
+// Jano Ticketing System is free software: you can redistribute it and/or
+// modify it under the terms of the GNU General Public License v3.0 as
+// published by the Free Software Foundation.
+//
+// Jano Ticketing System is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+// Import global variables
+@import 'variables';
+
+body,
+body *:not(html):not(style):not(br):not(tr):not(code) {
+  box-sizing: border-box;
+  font-family: Avenir, Helvetica, sans-serif;
+}
+
+body {
+  background-color: $light-gray;
+  color: $black;
+  height: 100%;
+  line-height: 1.4;
+  margin: 0;
+  -webkit-text-size-adjust: none;
+  width: 100% !important;
+}
+
+p,
+ul,
+ol,
+blockquote {
+  line-height: 1.4;
+  text-align: left;
+}
+
+a {
+  color: map-get($foundation-palette, primary);
+
+  img {
+    border: 0;
+  }
+}
+
+h1 {
+  color: map-get($foundation-palette, secondary);
+  font-size: 19px;
+  font-weight: bold;
+  margin-top: 0;
+  text-align: left;
+}
+
+h2 {
+  color: map-get($foundation-palette, secondary);
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 0;
+  text-align: left;
+}
+
+h3 {
+  color: map-get($foundation-palette, secondary);
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 0;
+  text-align: left;
+}
+
+p {
+  color: $black;
+  font-size: 16px;
+  line-height: 1.5em;
+  margin-top: 0;
+  text-align: left;
+
+  .sub {
+    font-size: 12px;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+.wrapper {
+  background-color: $light-gray;
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  margin: 0;
+  padding: 0;
+  -premailer-width: 100%;
+  width: 100%;
+}
+
+.content {
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  margin: 0;
+  padding: 0;
+  -premailer-width: 100%;
+  width: 100%;
+}
+
+.header {
+  padding: 25px 0;
+  text-align: center;
+
+  a {
+    color: $dark-gray;
+    font-size: 19px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 1px 0 $white;
+  }
+}
+
+.body {
+  background-color: $light-gray;
+  border-bottom: 1px solid $light-gray;
+  border-top: 1px solid $light-gray;
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  margin: 0;
+  padding: 0;
+  -premailer-width: 100%;
+  width: 100%;
+}
+
+.inner-body {
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  background-color: $white;
+  margin: 0 auto;
+  padding: 0;
+  -premailer-width: 570px;
+  width: 570px;
+}
+
+.subcopy {
+  border-top: 1px solid $light-gray;
+  margin-top: 25px;
+  padding-top: 25px;
+
+  p {
+    font-size: 12px;
+  }
+}
+
+.footer {
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  -premailer-width: 570px;
+  width: 570px;
+
+  p {
+    color: $medium-gray;
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+.table {
+  table {
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+    margin: 30px auto;
+    -premailer-width: 100%;
+    width: 100%;
+  }
+
+  th {
+    border-bottom: 1px solid $light-gray;
+    padding-bottom: 8px;
+  }
+
+  td {
+    color: $black;
+    font-size: 15px;
+    line-height: 18px;
+    padding: 10px 0;
+  }
+}
+
+.content-cell {
+  padding: 35px;
+}
+
+.action {
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  margin: 30px auto;
+  padding: 0;
+  text-align: center;
+  -premailer-width: 100%;
+  width: 100%;
+}
+
+.button {
+  border-radius: 3px;
+  box-shadow: 0 2px 3px $light-gray;
+  color: $white;
+  display: inline-block;
+  text-decoration: none;
+  -webkit-text-size-adjust: none;
+}
+
+.button-primary {
+  background-color: map-get($foundation-palette, primary);
+  border-bottom: 10px solid map-get($foundation-palette, primary);
+  border-left: 18px solid map-get($foundation-palette, primary);
+  border-right: 18px solid map-get($foundation-palette, primary);
+  border-top: 10px solid map-get($foundation-palette, primary);
+}
+
+.button-secondary {
+  background-color: map-get($foundation-palette, secondary);
+  border-bottom: 10px solid map-get($foundation-palette, secondary);
+  border-left: 18px solid map-get($foundation-palette, secondary);
+  border-right: 18px solid map-get($foundation-palette, secondary);
+  border-top: 10px solid map-get($foundation-palette, secondary);
+}
+
+.button-success {
+  background-color: map-get($foundation-palette, success);
+  border-bottom: 10px solid map-get($foundation-palette, success);
+  border-left: 18px solid map-get($foundation-palette, success);
+  border-right: 18px solid map-get($foundation-palette, success);
+  border-top: 10px solid map-get($foundation-palette, success);
+}
+
+.panel {
+  margin: 0 0 21px;
+}
+
+.panel-content {
+  background-color: $light-gray;
+  padding: 16px;
+}
+
+.panel-item {
+  padding: 0;
+
+  p:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.promotion {
+  background-color: $white;
+  border: 2px dashed $medium-gray;
+  margin: 0;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  padding: 24px;
+  width: 100%;
+  -premailer-cellpadding: 0;
+  -premailer-cellspacing: 0;
+  -premailer-width: 100%;
+
+  h1 {
+    text-align: center;
+  }
+
+  p {
+    font-size: 15px;
+    text-align: center;
+  }
+}
