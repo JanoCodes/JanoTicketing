@@ -5,7 +5,7 @@
         <div class="small-10 small-centered large-6 columns">
             <div class="callout">
                 <h3>{{ __('system.register') }}</h3>
-                <form role="form" method="POST" action="{{ route('register') }}" data-abide>
+                <form role="form" method="POST" action="{{ route('register') }}" data-abide novalidate>
                     @include('partials.error')
                     {{ csrf_field() }}
                     <div class="row columns">
@@ -17,6 +17,11 @@
                             @if ($errors->has('first_name'))
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('first_name') }}</strong>
+                                </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.first_name'))])
+                                    }}</strong>
                                 </span>
                             @endif
                         </label>
@@ -32,6 +37,11 @@
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('last_name') }}</strong>
                                 </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.last_name'))])
+                                    }}</strong>
+                                </span>
                             @endif
                         </label>
                     </div>
@@ -45,6 +55,11 @@
                             @if ($errors->has('email'))
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.email', ['attribute' => strtolower(__('system.email'))
+                                    ]) }}</strong>
                                 </span>
                             @endif
                         </label>
@@ -60,6 +75,11 @@
                                 <span class="form-error">
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.password'))])
+                                    }}</strong>
+                                </span>
                             @endif
                         </label>
                     </div>
@@ -73,14 +93,25 @@
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
                                 </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.confirmed', [
+                                        'attribute' => strtolower(__('system.password'))
+                                    ])}}</strong>
+                                </span>
                             @endif
                         </label>
                     </div>
 
                     <div class="row columns">
-                        <button type="submit" class="button">
-                            {{ __('system.register') }}
-                        </button>
+                        <div class="button-group stacked-for-small">
+                            <button type="submit" class="button">
+                                {{ __('system.register') }}
+                            </button>
+                            <a class="button hollow" href="{{ route('login') }}">
+                                {{ __('system.back') }}
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>

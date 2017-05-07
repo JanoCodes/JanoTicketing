@@ -5,7 +5,7 @@
         <div class="small-10 small-centered large-6 column">
             <div class="callout">
                 <h3>{{ __('system.login') }}</h3>
-                <form role="form" method="POST" action="{{ route('login') }}" data-abide>
+                <form role="form" method="POST" action="{{ route('login') }}" data-abide novalidate>
                     @include('partials.error')
                     {{ csrf_field() }}
                     <div class="row columns">
@@ -17,6 +17,11 @@
                             @if ($errors->has('email'))
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.email', ['attribute' => strtolower(__('system.email'))])
+                                    }}</strong>
                                 </span>
                             @endif
                         </label>
@@ -32,6 +37,11 @@
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.password'))])
+                                    }}</strong>
+                                </span>
                             @endif
                         </label>
                     </div>
@@ -43,12 +53,13 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="small-6 columns">
+                    <div class="row columns">
+                        <div class="button-group stacked-for-small">
                             <button type="submit" class="button">{{ __('system.login') }}</button>
-                        </div>
-                        <div class="small-6 columns">
-                            <a class="button" href="{{ route('password.request') }}">
+                            <a class="button hollow" href="{{ route('register') }}">
+                                {{ __('system.register') }}
+                            </a>
+                            <a class="button hollow" href="{{ route('password.request') }}">
                                 {{ __('system.forgot_your_password') }}
                             </a>
                         </div>
