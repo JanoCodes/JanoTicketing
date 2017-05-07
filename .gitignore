@@ -3,10 +3,12 @@
 /docs/_build
 /public/css
 /public/fonts
+/public/images
 /public/js
 /public/storage
 /public/hot
 /public/mix-manifest.json
+/resources/views/vendor/mail/html/themes/mail.css
 /storage/*.key
 /vendor
 /.idea
