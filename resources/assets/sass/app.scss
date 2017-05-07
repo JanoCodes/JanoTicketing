@@ -36,13 +36,14 @@
 
   .logo {
     max-width: 170px;
+    padding: 0;
     width: 80%;
   }
 }
 
 .sidebar-footer {
   @include grid-column-gutter(auto, $grid-column-gutter);
-  bottom: 0;
+  bottom: 15px;
   font-size: 90%;
   position: fixed;
   width: inherit;
@@ -58,6 +59,7 @@
 
   .logo {
     max-width: 170px;
+    padding: 0;
     width: 80%;
   }
 
@@ -67,11 +69,27 @@
        medium: map-get($grid-column-gutter, medium) * 2
     ));
     color: get-color(secondary);
+    margin-top: 15px;
   }
 }
 
 .content {
-  @include grid-column-gutter(auto, $grid-column-gutter);
+  @include grid-column-gutter(auto, (
+     small: map-get($grid-column-gutter, small) * 2,
+     medium: map-get($grid-column-gutter, medium) * 2
+  ));
+  margin-bottom: 15px;
+  margin-top: 15px;
+
+  .button-group {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+}
+
+.callout {
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 @media print, screen and (min-width: 64em) {
