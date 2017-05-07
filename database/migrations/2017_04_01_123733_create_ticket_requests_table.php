@@ -39,7 +39,6 @@ class CreateTicketRequestsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->string('college');
             $table->string('ticket_preference');
             $table->boolean('right_to_buy');
             $table->boolean('guaranteed_addon');

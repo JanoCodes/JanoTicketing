@@ -32,7 +32,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $first_name
  * @property string $last_name
  * @property string $email
- * @property string $college
  * @property array $ticket_preference
  * @property boolean $right_to_buy
  * @property boolean $guaranteed_addon
