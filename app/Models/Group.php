@@ -21,13 +21,14 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
+use Jano\Cacheable\Eloquent\CanCache;
 
 /**
  * Class Group
  *
  * @property int $id
  * @property string $slug
+ * @property string $name
  * @property \Carbon\Carbon $can_order_at
  * @property int $ticket_limit
  * @property int $surcharge
@@ -36,14 +37,14 @@ use Spatie\Translatable\HasTranslations;
  */
 class Group extends Model
 {
-    use HasTranslations;
+    use CanCache;
 
     /**
-     * The attributes which can be translated.
+     * The number of minutes that the cache should persist for.
      *
-     * @var array
+     * @var int
      */
-    public $translatable = ['name'];
+    protected $expire = -1;
 
     /**
      * Create a new group
