@@ -18,19 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+namespace Jano\Socialite;
 
-Route::get('/', 'HomeController@index');
+use Laravel\Socialite\Two\User as SocialiteUser;
 
-Auth::routes();
-Route::get('/login/oauth', 'Auth\LoginController@redirectToProvider')->name('oauth.login');
-Route::get('/login/oauth/callback', 'Auth\LoginControll@handleProviderCallback')->name('oauth.callback');
+class User extends SocialiteUser
+{
+    /**
+     * The user's group.
+     *
+     * @var string
+     */
+    public $group;
+}
