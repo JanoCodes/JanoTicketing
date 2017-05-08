@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $socialite = $this->app->make(SocialiteContract::class);
         $socialite->extend(
             'oauth',
-            function ($app) use ($socialite) {
+            function($app) use ($socialite) {
                 $config = $app['config']['services.oauth'];
                 return $socialite->buildProvider(OauthProvider::class, $config);
             }
