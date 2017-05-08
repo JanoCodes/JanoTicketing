@@ -31,7 +31,7 @@ class OauthProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase(config('services.oauth.url') . '/authorize', $state);
+        return $this->buildAuthUrlFromBase(config('services.oauth.url').'/authorize', $state);
     }
 
     /**
@@ -39,7 +39,7 @@ class OauthProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenUrl()
     {
-        return config('services.oauth.url') . '/access_token';
+        return config('services.oauth.url').'/access_token';
     }
 
     /**
@@ -47,7 +47,7 @@ class OauthProvider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $userUrl = config('services.oauth.url') . '/user?access_token=' . $token;
+        $userUrl = config('services.oauth.url').'/user?access_token='.$token;
 
         $response = $this->getHttpClient()->get($userUrl);
         return json_decode($response->getBody(), true);
