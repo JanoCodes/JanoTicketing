@@ -23,6 +23,8 @@ namespace Jano\Providers;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Socialite\Contracts\Factory as SocialiteContract;
+use Jano\Socialite\OauthProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +36,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        $socialite = $this->app->make(SocialiteContract::class);
+        $socialite->extend(
+            'oauth',
+            function ($app) use ($socialite) {
+                $config = $app['config']['services.oauth'];
+                return $socialite->buildProvider(OauthProvider::class, $config);
+            }
+        );
     }
 
     /**

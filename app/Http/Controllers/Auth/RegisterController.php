@@ -130,9 +130,9 @@ class RegisterController extends Controller
             'email' => $user->getEmail(),
             'method' => 'oauth',
             'oauth_id' => $user->getId(),
-            'group_id' => $raw['group'],
-            'right_to_buy' => $raw['right_to_buy'] ?? null,
-            'guaranteed_addon' => $raw['guaranteed_addon'] ?? null,
+            'group_id' => $raw['group']->id,
+            'right_to_buy' => $raw['group']->right_to_buy,
+            'guaranteed_addon' => $raw['group']->guaranteed_addon,
         ]);
     }
 }
