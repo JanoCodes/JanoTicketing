@@ -18,7 +18,7 @@ return [
         'url' => env('OAUTH_URL'),
         'client_id' => env('OAUTH_CLIENT_ID'),
         'client_secret' => env('OAUTH_CLIENT_SECRET'),
-        'redirect' => route('oauth.callback'),
+        'redirect' => '/login/oauth/callback',
     ],
 
 ];
