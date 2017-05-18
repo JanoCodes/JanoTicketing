@@ -21,6 +21,7 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Jano\Cacheable\Eloquent\CanCache;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -32,14 +33,14 @@ use Spatie\Translatable\HasTranslations;
  */
 class Ticket extends Model
 {
-    use HasTranslations;
+    use CanCache;
 
     /**
-     * The attributes which can be translated.
+     * The number of minutes which the cache should persist for.
      *
-     * @var array
+     * @var int
      */
-    public $translatable = ['name'];
+    protected $expire = -1;
 
     /**
      * Create new ticket.
