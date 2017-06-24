@@ -20,10 +20,12 @@
 
 namespace Jano\Providers;
 
+use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
+use Menu;
 use Jano\Socialite\OauthProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +37,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Menu::macro('frontend', function() {
+            return Menu::new()
+                ->action('HomeController@index', 'Home')
+                ->htmlIf(!Auth::check(), '<a href="#" data-open="login-modal">'
+                    . __('system.login') . __('system.slash') . __('system.register') . '</a>')
+                ->setActiveFromRequest();
+        });
+
         Schema::defaultStringLength(191);
 
         $socialite = $this->app->make(SocialiteContract::class);

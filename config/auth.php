@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Jntch\Models\User::class,
+            'model' => Jano\Models\User::class,
         ],
 
         // 'users' => [

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ Setting::get('system.title') }}</title>
+    <title>@yield('title') - {{ Setting::get('system.title') }}</title>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -21,20 +21,11 @@
     </script>
 </head>
 <body>
-<div class="expanded row off-canvas-wrapper">
-    <div class="small-12 large-3 columns sidebar-wrapper">
-        @include('partials.sidebar')
-    </div>
-    <div class="small-12 large-9 columns off-canvas-content" data-off-canvas-content>
-        <div class="row mobile-header hide-for-large">
-            <div class="small-2 columns">
-                <button class="header-icon" type="button" data-open="sidebarCanvas"><i class="fa fa-bars fa-3x"></i></button>
-            </div>
-            <div class="small-8 columns">
-                <img class="logo" src="{{ asset('images/logo.png') }}" />
-            </div>
-        </div>
-        <div class="content">
+<div class="grid-x page-container">
+    <div class="small-12 large-12 cell off-canvas-wrapper">
+        @include('partials.header')
+
+        <div class="content off-canvas-content" data-off-canvas-content>
             @yield('content')
         </div>
     </div>
@@ -43,5 +34,6 @@
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

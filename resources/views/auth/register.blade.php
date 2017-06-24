@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
+@section('header', __('system.register'))
+
 @section('content')
-    <div class="row">
-        <div class="small-10 small-centered large-6 columns">
+    <div class="grid-x padding-gutters">
+        <div class="small-10 small-offset-1 large-6 large-offset-3 cell">
             <div class="callout">
                 <h3>{{ __('system.register') }}</h3>
                 <form role="form" method="POST" action="{{ route('register') }}" data-abide novalidate>
                     @include('partials.error')
                     {{ csrf_field() }}
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label{{ $errors->has('first_name') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.first_name') }}
                             <input id="first_name" type="text"
@@ -27,7 +29,7 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label{{ $errors->has('last_name') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.last_name') }}
                             <input id="last_name" type="text"
@@ -46,7 +48,7 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label{{ $errors->has('email') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.email') }}
                             <input id="email" type="email" pattern="email"
@@ -65,7 +67,26 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
+                    <div class="grid-x cell">
+                        <label{{ $errors->has('phone') ? ' class="is-invalid-label"' : '' }}>
+                            {{ __('system.phone') }}
+                            <input id="phone" type="text" pattern="phone"
+                                   {{ $errors->has('phone') ? 'class="is-invalid-input" aria-invalid ' : '' }}
+                                   name="phone" value="{{ old('phone') }}" required>
+                            @if ($errors->has('phone'))
+                                <span class="form-error is-visible">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @else
+                                <span class="form-error">
+                                    <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.phone'))
+                                    ]) }}</strong>
+                                </span>
+                            @endif
+                        </label>
+                    </div>
+
+                    <div class="grid-x cell">
                         <label{{ $errors->has('password') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.password') }}
                             <input id="password" type="password"
@@ -84,7 +105,7 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label{{ $errors->has('password_confirmation') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.confirm_password') }}
                             <input id="password_confirmation" type="password" name="password_confirmation"
@@ -103,15 +124,13 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
-                        <div class="button-group stacked-for-small">
-                            <button type="submit" class="button">
-                                {{ __('system.register') }}
-                            </button>
-                            <a class="button hollow" href="{{ route('login') }}">
-                                {{ __('system.back') }}
-                            </a>
-                        </div>
+                    <div class="grid-x cell">
+                        <button type="submit" class="button">
+                            {{ __('system.register') }}
+                        </button>
+                        <a class="button hollow" href="{{ route('login') }}">
+                            {{ __('system.back') }}
+                        </a>
                     </div>
                 </form>
             </div>

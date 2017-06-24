@@ -172,6 +172,7 @@ return [
         Jano\Cacheable\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Spatie\Menu\Laravel\MenuServiceProvider::class,
         Spatie\Translatable\TranslatableServiceProvider::class,
 
         /*
@@ -236,6 +237,7 @@ return [
          * Package aliases
          */
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Setting' => Jano\Settings\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
