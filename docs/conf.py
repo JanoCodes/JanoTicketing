@@ -37,7 +37,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Jano Ticketing System'
-copyright = u'2017, Andrew Ying'
+copyright = u'Andrew Ying 2017'
 author = u'Andrew Ying'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -91,6 +91,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_show_sphinx = False
 
 # -- Options for HTMLHelp output ------------------------------------------
 
