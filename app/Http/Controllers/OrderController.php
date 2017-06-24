@@ -20,21 +20,11 @@
 
 namespace Jano\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class OrderController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function create()
     {
-        if (!Auth::check()) {
-            return view('welcome');
-        }
-
-        return view('home');
+        return view('orders.create');
     }
 }

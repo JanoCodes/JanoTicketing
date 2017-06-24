@@ -1,17 +1,14 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+@section('title', __('system.home'))
 
-                <div class="panel-body">
-                    You are logged in!
-                </div>
+@section('content')
+    <div class="grid-x">
+        <div class="cell">
+            <div class="callout">
+                <h3>Downing May Ball</h3>
+                20 June 2017
             </div>
         </div>
     </div>
-</div>
 @endsection

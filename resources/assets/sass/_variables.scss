@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+@import '../../../node_modules/foundation-sites/scss/util/util';
+
 // Foundation for Sites by ZURB
 // foundation.zurb.com
 // Licensed under MIT Open Source
@@ -77,6 +79,10 @@ $body-font-color: $black !default;
 /// @type List
 $body-font-family: 'Noto Sans', Helvetica, Roboto, Arial, sans-serif !default;
 
+/// Set to `true` to enable antialiased type, using the `-webkit-font-smoothing` and `-moz-osx-font-smoothing` CSS properties.
+/// @type Boolean
+$body-antialiased: true !default;
+
 /// Global value used for margin on components.
 /// @type Number
 $global-margin: 1rem !default;
@@ -85,9 +91,40 @@ $global-margin: 1rem !default;
 /// @type Number
 $global-padding: 1rem !default;
 
+/// Global value used for positioning on components.
+/// @type Number
+$global-position: 1rem !default;
+
+/// Global font weight used for normal type.
+/// @type Keyword | Number
+$global-weight-normal: normal !default;
+
+/// Global font weight used for bold type.
+/// @type Keyword | Number
+$global-weight-bold: bold !default;
+
 /// Global value used for all elements that have a border radius.
 /// @type Number
 $global-radius: 5px !default;
+
+/// Global value used for all menu styles. Can be overwritten at individual menu component level.
+/// @type Number
+$global-menu-padding: 0.7rem 1rem !default;
+
+/// Global value used for all menu styles. Nested margin for submenu.
+$global-menu-nested-margin: 1rem !default;
+
+/// Sets the text direction of the CSS. Can be either `ltr` or `rtl`.
+/// @type Keyword
+$global-text-direction: ltr !default;
+
+/// Enables flexbox for components that support it.
+/// @type Boolean
+$global-flexbox: false !default;
+
+/// Enabled responsive breakpoints for prototypes if applicable
+// @type Boolean
+$global-prototype-breakpoints: false !default;
 
 /// Padding inside buttons.
 /// @type List
@@ -105,6 +142,18 @@ $button-sizes: (
 /// Margin between buttons in a button group.
 /// @type Number
 $buttongroup-spacing: 3px;
+
+/// Default width of a modal, with no class applied.
+/// @type Number
+$reveal-width: 65vw;
+
+/// Default maximum width of a modal.
+/// @type Number
+$reveal-max-width: 1000px;
+
+/// Font size of tab items.
+/// @Type Number
+$tab-item-font-size: rem-clac(14);
 
 /// Path for the Font Awesome fonts
 /// @type Path

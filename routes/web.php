@@ -30,6 +30,8 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/event', 'EventController@show');
+Route::resource('orders', 'OrderController');
 
 Auth::routes();
 Route::get('/login/oauth', 'Auth\LoginController@redirectToProvider')->name('oauth.login');

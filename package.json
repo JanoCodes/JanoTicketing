@@ -11,11 +11,12 @@
     "axios": "^0.15.3",
     "cross-env": "^3.2.3",
     "font-awesome": "^4.7.0",
-    "foundation-sites": "^6.3.1",
+    "foundation-sites": "^6.4.0-rc5",
     "jquery": "^3.1.1",
-    "laravel-mix": "^0.8.1",
+    "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
-    "node-sass": "^4.5.2",
-    "vue": "^2.1.10"
+    "node-sass": "^4.5.3",
+    "vue": "^2.3.4",
+    "vuex": "^2.3.1"
   }
 }

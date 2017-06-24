@@ -22,64 +22,44 @@
 @import 'variables';
 
 // Foundation
-@import 'node_modules/foundation-sites/scss/foundation';
+@import '~foundation-sites/scss/foundation';
 @include foundation-everything;
 
 // Font Awesome
-@import 'node_modules/font-awesome/scss/font-awesome';
+@import '~font-awesome/scss/font-awesome';
 
-.sidebar {
+.page-container {
+  min-height: 100%;
+}
+
+.logo {
+  max-width: 170px;
+  width: 80%;
+}
+
+label {
+  width: 80%;
+}
+
+.spacer {
+  height: 15px;
+}
+
+.text-disabled {
+  font-size: 1rem;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.top-bar {
+  @include xy-gutters($grid-margin-gutters, padding, left right, false);
+
   background-color: $light-gray;
-  min-height: 100vh;
-  padding-left: 0;
-  padding-right: 0;
-
-  .logo {
-    max-width: 170px;
-    padding: 0;
-    width: 80%;
-  }
-}
-
-.sidebar-footer {
-  @include grid-column-gutter(auto, $grid-column-gutter);
-  bottom: 15px;
-  font-size: 90%;
-  position: fixed;
-  width: inherit;
-}
-
-.off-canvas-content {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.mobile-header {
-  background-color: $light-gray;
-
-  .logo {
-    max-width: 170px;
-    padding: 0;
-    width: 80%;
-  }
-
-  .header-icon {
-    @include grid-column-gutter(auto, (
-       small: map-get($grid-column-gutter, small) * 2,
-       medium: map-get($grid-column-gutter, medium) * 2
-    ));
-    color: get-color(secondary);
-    margin-top: 15px;
-  }
+  border-bottom: darken($light-gray, 20%) 1px solid;
 }
 
 .content {
-  @include grid-column-gutter(auto, (
-     small: map-get($grid-column-gutter, small) * 2,
-     medium: map-get($grid-column-gutter, medium) * 2
-  ));
-  margin-bottom: 15px;
-  margin-top: 15px;
+  @include xy-gutters($grid-margin-gutters, margin, top left right, false);
 
   .button-group {
     margin-bottom: 15px;
@@ -87,13 +67,42 @@
   }
 }
 
-.callout {
-  margin-bottom: 15px;
-  margin-top: 15px;
+.tickets {
+  margin: 10px auto;
+
+  th,
+  td {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .input-group {
+    margin: 5px 0;
+  }
+
+  input[type=number] {
+    margin: 0;
+    text-align: center;
+    width: 10vw;
+  }
+
+  .icon {
+    color: $black;
+    text-decoration: none;
+  }
 }
 
-@media print, screen and (min-width: 64em) {
-  .sidebar {
-    width: inherit;
+.sidebar {
+  @include xy-gutters($grid-margin-gutters, padding, top left right, false);
+
+  .close-button {
+    color: $dark-gray;
+    position: absolute;
+    right: 15px;
+    top: 5px;
   }
+}
+
+.sidebar-toggle {
+  height: 100%;
 }

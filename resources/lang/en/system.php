@@ -23,20 +23,41 @@ return [
     /**
      * System Languages
      */
+    'attendee' => 'Attendee',
     'back' => 'Back',
     'confirm_password' => 'Confirm Password',
+    'donation' => 'Optional Charity Donation',
     'email' => 'Email Address',
     'first_name' => 'First Name',
+    'form_error' => 'There was an error in the order form. Please try again.',
     'forgot_your_password' => 'Forgot Your Password?',
+    'home' => 'Home',
     'last_name' => 'Last Name',
     'login' => 'Login',
     'new_password' => 'New Password',
+    'next' => 'Next',
     'password' => 'Password',
+    'phone' => 'Phone Number',
+    'price' => 'Price',
+    'quantity' => 'Quantity',
     'register' => 'Register',
     'remember_me' => 'Remember Me',
     'reset_password' => 'Reset Password',
     'send_password_reset_link' => 'Send Password Reset Link',
-    'welcome' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, 
-        either register or login below.',
+    'slash' => '/',
+    'submit' => 'Submit',
+    'title' => 'Title',
+    'titles' => [
+        0 => 'Mr',
+        1 => 'Ms',
+        2 => 'Miss',
+        3 => 'Mrs',
+        4 => 'Dr',
+        5 => 'Prof'
+    ],
+    'type' => 'Ticket Type',
+    'welcome' => 'Welcome',
+    'welcome_message' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, 
+        please either register or login.',
 
 ];

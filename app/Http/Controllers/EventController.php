@@ -20,21 +20,20 @@
 
 namespace Jano\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-
-class HomeController extends Controller
+class EventController extends Controller
 {
+    public function index()
+    {
+        return view('home');
+    }
+
     /**
-     * Show the application dashboard.
+     * Show event page.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
-        if (!Auth::check()) {
-            return view('welcome');
-        }
-
-        return view('home');
+        return view('event');
     }
 }

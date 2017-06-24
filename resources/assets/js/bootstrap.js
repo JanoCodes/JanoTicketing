@@ -21,9 +21,10 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 
-require('foundation-sites');
-
 window.Vue = require('vue');
+window.Vuex = require('vuex');
+
+window.Foundation = require('foundation-sites');
 
 window.axios = require('axios');
 window.axios.defaults.headers.common = {
