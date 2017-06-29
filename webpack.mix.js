@@ -6,6 +6,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 mix.copy('logo.png', 'public/images/logo.png');
 
-if (mix.config.inProduction) {
+if (mix.inProduction()) {
     mix.version();
 }
