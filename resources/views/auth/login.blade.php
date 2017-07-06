@@ -3,7 +3,7 @@
 @section('title', __('system.login'))
 
 @section('content')
-    <div class="margin-x padding-gutters">
+    <div class="grid-x padding-gutters">
         <div class="small-10 small-offset-1 large-6 large-offset-3 cell">
             <div class="callout">
                 <h3>{{ __('system.login') }}</h3>

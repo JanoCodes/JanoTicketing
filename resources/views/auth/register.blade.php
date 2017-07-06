@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('header', __('system.register'))
+@section('title', __('system.register'))
 
 @section('content')
     <div class="grid-x padding-gutters">

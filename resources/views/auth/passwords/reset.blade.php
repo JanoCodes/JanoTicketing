@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+@section('title', __('system.reset_password'))
+
 @section('content')
-    <div class="row">
-        <div class="small-10 small-centered large-6 columns">
+    <div class="grid-x padding-gutters">
+        <div class="small-10 small-offset-1 large-6 large-offset-3 cell">
             <div class="callout">
                 <h3>{{ __('system.reset_password') }}</h3>
 
@@ -16,7 +18,7 @@
                     @include('partials.error')
                     {{ csrf_field() }}
                     <input type="hidden" name="token" value="{{ $token }}">
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label{{ $errors->has('email') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.email') }}
                             <input id="email" type="email" pattern="email"
@@ -35,7 +37,7 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label{{ $errors->has('password') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.new_password') }}
                             <input id="password" type="password"
@@ -55,7 +57,7 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label{{ $errors->has('password_confirmation') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.confirm_password') }}
                             <input id="password_confirmation" type="password"
@@ -75,7 +77,7 @@
                         </label>
                     </div>
 
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <button type="submit" class="button">
                             {{ __('system.reset_password') }}
                         </button>

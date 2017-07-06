@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+@section('title', __('system.reset_password'))
+
 @section('content')
-    <div class="row">
-        <div class="small-10 small-centered large-6 columns">
+    <div class="grid-x padding-gutters">
+        <div class="small-10 small-offset-1 large-6 large-offset-3 cell">
             <div class="callout">
                 <h3>{{ __('system.reset_password') }}</h3>
                 @if (session('status'))
@@ -14,7 +16,7 @@
                 <form role="form" method="POST" action="{{ route('password.email') }}" data-abide novalidate>
                     @include('partials.error')
                     {{ csrf_field() }}
-                    <div class="row columns">
+                    <div class="grid-x cell">
                         <label>
                             {{ __('system.email') }}
                             <input id="email" type="email" pattern="email"
@@ -33,15 +35,13 @@
                         </label>
                     </div>
 
-                    <div class="row column">
-                        <div class="button-group stacked-for-small">
-                            <button type="submit" class="button">
-                                {{ __('system.send_password_reset_link') }}
-                            </button>
-                            <a class="button hollow" href="{{ route('login') }}">
-                                {{ __('system.back') }}
-                            </a>
-                        </div>
+                    <div class="grid-x cell">
+                        <button type="submit" class="button">
+                            {{ __('system.send_password_reset_link') }}
+                        </button>
+                        <a class="button hollow" href="{{ route('login') }}">
+                            {{ __('system.back') }}
+                        </a>
                     </div>
                 </form>
             </div>
