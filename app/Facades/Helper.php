@@ -18,32 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Facades;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Facade;
 
-class EventServiceProvider extends ServiceProvider
+class Helper extends Facade
 {
     /**
-     * The event listener mappings for the application.
+     * Get the registered name of the component.
      *
-     * @var array
+     * @return string
      */
-    protected $listen = [
-        'Jano\Events\TicketOrderCreated' => [
-        ],
-    ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
+    protected static function getFacadeAccessor()
     {
-        parent::boot();
-
-        //
+        return 'helper';
     }
 }

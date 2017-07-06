@@ -33,18 +33,20 @@ use Jano\Cacheable\Eloquent\CanCache;
  * @property int $ticket_limit
  * @property int $surcharge
  * @property int $right_to_buy
- * @property int $guaranteed_addon
  */
 class Group extends Model
 {
     use CanCache;
 
     /**
-     * The number of minutes that the cache should persist for.
-     *
-     * @var int
+     * Group constructor; defines the number of minutes cache should persists for.
      */
-    protected $expire = -1;
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->expire = -1;
+    }
 
     /**
      * Create a new group
@@ -61,7 +63,6 @@ class Group extends Model
         $group->ticket_limit = $data['ticket_limit'];
         $group->surcharge = $data['surcharge'];
         $group->right_to_buy = $data['right_to_buy'] ?? 0;
-        $group->guaranteed_addon = $data['guranteed_addon'] ?? 0;
         $group->save();
 
         return $group;

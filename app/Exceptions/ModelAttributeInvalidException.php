@@ -18,32 +18,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Exceptions;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use UnexpectedValueException;
 
-class EventServiceProvider extends ServiceProvider
+class ModelAttributeInvalidException extends UnexpectedValueException
 {
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        'Jano\Events\TicketOrderCreated' => [
-        ],
-    ];
 
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-
-        //
-    }
 }

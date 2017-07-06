@@ -71,39 +71,6 @@ class Attendee extends Model
     ];
 
     /**
-     * Create new attendees.
-     *
-     * @param \Jano\Models\Order $order
-     * @param array $data
-     * @return array
-     */
-    public static function createMany(Order $order, $data)
-    {
-        $user_id = $order->user->id;
-        $order_id = $order->id;
-        $attendees = array();
-
-        foreach ($data as $data_entry) {
-            $attendee = new self();
-            $attendee->uuid = Uuid::uuid4();
-            $attendee->user_id = $user_id;
-            $attendee->order_id = $order_id;
-            $attendee->title = $data_entry['title'];
-            $attendee->first_name = $data_entry['first_name'];
-            $attendee->last_name = $data_entry['last_name'];
-            $attendee->email = $data_entry['email'];
-            $attendee->primary_ticket_holder = $data_entry['primary_ticket_holder'];
-            $attendee->ticket_id = $data_entry['ticket_id'];
-            $attendee->checked_in = false;
-            $attendee->save();
-
-            $attendees[] = $attendee;
-        }
-
-        return $attendees;
-    }
-
-    /**
      * The user associated with the attendee
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -151,5 +118,22 @@ class Attendee extends Model
     public function transferRequest()
     {
         return $this->hasOne('Jano\Models\TransferRequest');
+    }
+
+    /**
+     * Get list of attributes.
+     *
+     * @return array
+     */
+    public static function getAttributeListing()
+    {
+        return [
+            'title',
+            'first_name',
+            'last_name',
+            'email',
+            'primary_ticket_holder',
+            'ticket_id'
+        ];
     }
 }

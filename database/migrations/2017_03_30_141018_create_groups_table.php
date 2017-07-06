@@ -39,7 +39,6 @@ class CreateGroupsTable extends Migration
             $table->integer('ticket_limit')->unsigned();
             $table->integer('surcharge')->unsigned();
             $table->integer('right_to_buy')->unsigned();
-            $table->integer('guaranteed_addon')->unsigned();
             $table->timestamps();
         });
         Schema::table('users', function (Blueprint $table) {

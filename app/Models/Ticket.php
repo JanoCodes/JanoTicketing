@@ -36,11 +36,16 @@ class Ticket extends Model
     use CanCache;
 
     /**
-     * The number of minutes which the cache should persist for.
+     * Ticket constructor; defines the number of minutes cache should persists for.
      *
-     * @var int
+     * @param array $attributes
      */
-    protected $expire = -1;
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->expire = -1;
+    }
 
     /**
      * Create new ticket.

@@ -36,12 +36,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $oauth_id
  * @property int $group_id
  * @property string $phone
+ * @property \Carbon\Carbon $can_order_at
+ * @property int $ticket_limit
+ * @property int $surcharge
  * @property int $right_to_buy
- * @property int $guaranteed_addon
  */
 class User extends Authenticatable
 {
     use Notifiable;
+
+    const DATABASE_METHOD = 'database';
+    const OAUTH_METHOD = 'oauth';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -70,8 +75,10 @@ class User extends Authenticatable
         $user->oauth_id = $data['oauth_id'] ?? null;
         $user->group_id = $data['group_id'];
         $user->phone = $data['phone'] ?? null;
+        $user->can_order_at = $data['can_order_at'] ?? null;
+        $user->ticket_limit = $data['ticket_limit'] ?? null;
+        $user->surcharge = $data['surcharge'] ?? null;
         $user->right_to_buy = $data['right_to_buy'] ?? null;
-        $user->guaranteed_addon = $data['guranteed_addon'] ?? null;
         $user->save();
 
         return $user;
@@ -155,5 +162,49 @@ class User extends Authenticatable
     public function collection()
     {
         return $this->hasOne('Jano\Models\Collection');
+    }
+
+    /**
+     * Get the date at which the user can place a ticket order.
+     *
+     * @param $value
+     * @return \Carbon\Carbon
+     */
+    public function getCanOrderAtAttribute($value)
+    {
+        return empty($value) ? $this->group->can_order_by : $value;
+    }
+
+    /**
+     * Get the limit on number of tickets of the user.
+     *
+     * @param $value
+     * @return int
+     */
+    public function getTicketLimitAttribute($value)
+    {
+        return empty($value) ? $this->group->ticket_limit : $value;
+    }
+
+    /**
+     * Get the surcharge which applies for the user.
+     *
+     * @param $value
+     * @return int
+     */
+    public function getSurchargeAttribute($value)
+    {
+        return empty($value) ? $this->group->surcharge : $value;
+    }
+
+    /**
+     * Get the number of tickets the user is entitled to buy.
+     *
+     * @param $value
+     * @return int
+     */
+    public function getRightToBuyAttribute($value)
+    {
+        return empty($value) ? $this->group->right_to_buy : $value;
     }
 }

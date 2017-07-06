@@ -18,32 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Repositories;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
-class EventServiceProvider extends ServiceProvider
+class HelperRepositories
 {
     /**
-     * The event listener mappings for the application.
+     * Convert array index to snake case.
      *
-     * @var array
+     * @param array $array
+     * @return array
      */
-    protected $listen = [
-        'Jano\Events\TicketOrderCreated' => [
-        ],
-    ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
+    public static function arrayToSnakeCase(array $array)
     {
-        parent::boot();
+        $return = array();
 
-        //
+        foreach ($array as $index => $value)
+        {
+            $return[snake_case($index)] = is_array($value) ? self::arrayToSnakeCase($value) : $value;
+        }
+
+        return $return;
     }
 }

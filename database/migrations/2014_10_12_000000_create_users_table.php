@@ -42,8 +42,10 @@ class CreateUsersTable extends Migration
             $table->integer('oauth_id')->unsigned()->nullable();
             $table->integer('group_id')->unsigned();
             $table->string('phone')->nullable();
+            $table->dateTime('can_order_at')->nullable();
+            $table->integer('ticket_limit')->unsigned()->nullable();
+            $table->integer('surcharge')->unsigned()->nullable();
             $table->integer('right_to_buy')->unsigned()->nullable();
-            $table->integer('guranteed_addon')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

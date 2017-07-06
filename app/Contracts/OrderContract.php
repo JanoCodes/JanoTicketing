@@ -18,32 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Contracts;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Collection;
+use Jano\Models\User;
 
-class EventServiceProvider extends ServiceProvider
+interface OrderContract
 {
     /**
-     * The event listener mappings for the application.
+     * Create a new order instance.
      *
-     * @var array
+     * @param \Jano\Contracts\TicketContract $contract
+     * @param \Jano\Models\User $user
+     * @param \Illuminate\Support\Collection $tickets
+     * @return \Jano\Models\Order
      */
-    protected $listen = [
-        'Jano\Events\TicketOrderCreated' => [
-        ],
-    ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-
-        //
-    }
+    public function createTicketOrder(TicketContract $contract, User $user, Collection $tickets);
 }

@@ -31,15 +31,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $type
  * @property int $amount_due
- * @property int $donation_due
  * @property int $amount_paid
- * @property int $donation_paid
  * @property boolean $paid
  * @property \Carbon\Carbon $payment_due_at
  */
 class Order extends Model
 {
     use SoftDeletes;
+
+    const TYPE_TICKET = 'ticket';
+    const TYPE_TRANSFER = 'transfer';
 
     /**
      * The attributes that should be mutated to dates.
@@ -56,29 +57,6 @@ class Order extends Model
     protected $casts = [
         'paid' => 'boolean',
     ];
-
-    /**
-     * Create a new order.
-     *
-     * @param \Jano\Models\User $user
-     * @param array $data
-     * @return \Jano\Models\Order
-     */
-    public static function create(User $user, $data)
-    {
-        $order = new self();
-        $order->user_id = $user->id;
-        $order->type = $data['type'];
-        $order->amount_due = $data['amount_due'];
-        $order->donation_due = $data['donation_due'] ?? 0;
-        $order->amount_paid = 0;
-        $order->donation_paid = 0;
-        $order->paid = false;
-        $order->payment_due_at = Carbon::now()->addDays(Setting::get('payment.deadline'));
-        $order->save();
-
-        return $order;
-    }
 
     /**
      * The user associated with the order.

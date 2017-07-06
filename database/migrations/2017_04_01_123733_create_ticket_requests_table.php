@@ -43,7 +43,6 @@ class CreateTicketRequestsTable extends Migration
             $table->boolean('right_to_buy');
             $table->boolean('guaranteed_addon');
             $table->integer('priority')->nullable();
-            $table->integer('addon_priority')->nullable();
             $table->integer('status')->unsigned();
             $table->integer('attendee_id')->unsigned()->nullable();
             $table->foreign('attendee_id')->references('id')->on('attendees');

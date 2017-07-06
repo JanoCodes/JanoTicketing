@@ -49,7 +49,7 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
-        Scheme::table('attendees', function (Blueprint $table) {
+        Schema::table('attendees', function (Blueprint $table) {
             $table->dropForeign(['ticket_id']);
         });
         Schema::dropIfExists('tickets');

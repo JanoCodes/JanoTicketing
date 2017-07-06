@@ -37,9 +37,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('type', ['tickets','transfer']);
             $table->integer('amount_due')->unsigned();
-            $table->integer('donation_due')->unsigned()->nullable();
             $table->integer('amount_paid')->unsigned();
-            $table->integer('donation_paid')->unsigned()->nullable();
             $table->boolean('paid');
             $table->dateTime('payment_due_at');
             $table->dateTime('deleted_at')->nullable();

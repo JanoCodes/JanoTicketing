@@ -23,7 +23,9 @@ namespace Jano\Providers;
 use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Jano\Repositories\HelperRepositories;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Menu;
 use Jano\Socialite\OauthProvider;
@@ -55,6 +57,14 @@ class AppServiceProvider extends ServiceProvider
                 return $socialite->buildProvider(OauthProvider::class, $config);
             }
         );
+
+        Validator::extend('max_sum', function ($attribute, $value, $parameters, $validator) {
+            return array_sum($value) <= $parameters[0];
+        });
+
+        $this->app->bind('helper', function($app) {
+            return new HelperRepositories();
+        });
     }
 
     /**
