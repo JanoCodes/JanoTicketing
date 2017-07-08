@@ -35,7 +35,7 @@ class CreateTicketStoreTable extends Migration
             $table->increments('id');
             $table->integer('ticket_id')->unsigned();
             $table->foreign('ticket_id')->references('id')->on('tickets');
-            $table->timestamp('reserved_time');
+            $table->integer('reserved_time')->unsigned();
             $table->index(['ticket_id', 'reserved_time']);
         });
     }
