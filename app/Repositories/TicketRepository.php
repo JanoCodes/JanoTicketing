@@ -45,7 +45,10 @@ class TicketRepository implements TicketContract
         $state->attendees = array();
 
         foreach ($tickets as $ticket) {
-            $status = $this->holdByType($ticket->id, $request['tickets'][$ticket->id]);
+            $status = $this->holdByType(
+                $ticket->id,
+                $request['tickets'][$ticket->id]
+            );
             $reserved[$ticket->id] = count($status);
 
             if ($status) {
@@ -63,8 +66,7 @@ class TicketRepository implements TicketContract
 
                     $state->attendees[] = $attendee;
                 }
-            }
-            else {
+            } else {
                 $ticket_unavailable = true;
             }
         }

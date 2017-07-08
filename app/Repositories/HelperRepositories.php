@@ -35,9 +35,11 @@ class HelperRepositories
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $result = array_merge($result, self::flattenArrayKey($value, $prefix . $key . '.'));
-            }
-            else {
+                $result = array_merge(
+                    $result,
+                    self::flattenArrayKey($value, $prefix . $key . '.')
+                );
+            } else {
                 $result[$prefix . $key] = $value;
             }
         }

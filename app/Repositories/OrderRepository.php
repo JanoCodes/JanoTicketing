@@ -35,8 +35,11 @@ class OrderRepository implements OrderContract
     /**
      * @inheritdoc
      */
-    public function createTicketOrder(TicketContract $contract, User $user, Collection $attendees)
-    {
+    public function createTicketOrder(
+        TicketContract $contract,
+        User $user,
+        Collection $attendees
+    ) {
         $tickets = Ticket::all();
 
         $amount = 0;
@@ -52,7 +55,8 @@ class OrderRepository implements OrderContract
         $order->amount_due = $amount;
         $order->amount_paid = 0;
         $order->paid = false;
-        $order->payment_due_at = Carbon::now()->addDays(Setting::get('payment.deadline'));
+        $order->payment_due_at = Carbon::now()
+            ->addDays(Setting::get('payment.deadline'));
         $order->save();
 
         foreach ($attendees as $attendee) {

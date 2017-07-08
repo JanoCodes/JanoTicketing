@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Menu::macro('frontend', function() {
+        Menu::macro('frontend', function () {
             return Menu::new()
                 ->action('HomeController@index', 'Home')
                 ->htmlIf(!Auth::check(), '<a href="#" data-open="login-modal">'
@@ -55,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
         $socialite = $this->app->make(SocialiteContract::class);
         $socialite->extend(
             'oauth',
-            function($app) use ($socialite) {
+            function ($app) use ($socialite) {
                 $config = $app['config']['services.oauth'];
                 return $socialite->buildProvider(OauthProvider::class, $config);
             }
@@ -71,16 +71,17 @@ class AppServiceProvider extends ServiceProvider
                 $array = Helper::flattenArrayKey($validator->getData());
 
                 $value = collect($array)->filter(function ($value, $index) use ($parameters) {
-                    $regex = '/' . str_replace('*', '[^\.\n\r]+?',
-                            str_replace('.', '\.', $parameters[2])) . '/';
+                    $regex = '/' . str_replace(
+                        '*',
+                        '[^\.\n\r]+?',
+                        str_replace('.', '\.', $parameters[2])
+                    ) . '/';
 
                     return preg_match($regex, $index);
                 });
-            }
-            elseif (is_array($value)) {
+            } elseif (is_array($value)) {
                 $value = collect($value);
-            }
-            else {
+            } else {
                 throw new InvalidArgumentException('The sum_between rule must take an array.');
             }
 
@@ -93,7 +94,7 @@ class AppServiceProvider extends ServiceProvider
             return str_replace($needle, $value, $message);
         });
 
-        $this->app->bind('helper', function($app) {
+        $this->app->bind('helper', function ($app) {
             return new HelperRepositories();
         });
     }

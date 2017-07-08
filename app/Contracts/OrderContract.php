@@ -33,5 +33,9 @@ interface OrderContract
      * @param \Illuminate\Support\Collection $tickets
      * @return \Jano\Models\Order
      */
-    public function createTicketOrder(TicketContract $contract, User $user, Collection $tickets);
+    public function createTicketOrder(
+        TicketContract $contract,
+        User $user,
+        Collection $tickets
+    );
 }
