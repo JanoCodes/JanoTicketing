@@ -26,17 +26,22 @@ class HelperRepositories
      * Convert array index to snake case.
      *
      * @param array $array
+     * @param string $prefix
      * @return array
      */
-    public static function arrayToSnakeCase(array $array)
+    public static function flattenArrayKey(array $array, $prefix = '')
     {
-        $return = array();
+        $result = array();
 
-        foreach ($array as $index => $value)
-        {
-            $return[snake_case($index)] = is_array($value) ? self::arrayToSnakeCase($value) : $value;
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result = array_merge($result, self::flattenArrayKey($value, $prefix . $key . '.'));
+            }
+            else {
+                $result[$prefix . $key] = $value;
+            }
         }
 
-        return $return;
+        return $result;
     }
 }

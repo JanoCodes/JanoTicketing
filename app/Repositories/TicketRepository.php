@@ -20,13 +20,12 @@
 
 namespace Jano\Repositories;
 
-use function array_push;
+use DB;
 use Jano\Contracts\TicketContract;
 use Jano\Models\Attendee;
 use Jano\Models\Order;
 use Jano\Models\Ticket;
 use Jano\Models\User;
-use Redis;
 
 class TicketRepository implements TicketContract
 {
@@ -41,7 +40,7 @@ class TicketRepository implements TicketContract
         $ticket_unavailable = false;
 
         foreach ($user->toArray() as $attribute => $value) {
-            $state->{camel_case($attribute)} = $value;
+            $state->{$attribute} = $value;
         }
         $state->attendees = array();
 
@@ -57,7 +56,7 @@ class TicketRepository implements TicketContract
                 foreach ($status as $id) {
                     $attendee = new \stdClass();
                     foreach (Attendee::getAttributeListing() as $attribute) {
-                        $attendee->{camel_case($attribute)} = '';
+                        $attendee->{$attribute} = '';
                     }
                     $attendee->ticket = $ticket->id;
                     $attendee->ticketId = $id;
@@ -82,6 +81,8 @@ class TicketRepository implements TicketContract
      */
     public function reserve(Ticket $ticket, User $user, Order $order, $data)
     {
+        DB::beginTransaction();
+
         $attendee = new Attendee();
         $attendee->title = $data['title'];
         $attendee->first_name = $data['first_name'];
@@ -92,6 +93,9 @@ class TicketRepository implements TicketContract
         $attendee->ticket()->associate($ticket);
         $attendee->checked_in = false;
         $order->attendees()->save($attendee);
+
+        DB::table('ticket_store')->where('id', $data['ticket_id'])->delete();
+        DB::commit();
 
         return $attendee;
     }
@@ -113,26 +117,24 @@ class TicketRepository implements TicketContract
      */
     private function holdByType($ticket_id, $number)
     {
-        $options = [
-            'cas' => true,
-            'watch' => 'ticket:' . $ticket_id,
-            'retry' => 3,
-        ];
-        $count = 0;
-        $tickets = [];
-        $time = time() + 15 * 60;
+        DB::beginTransaction();
 
-        Redis::transaction($options, function ($tx) use (&$ticket_id, &$number, &$count, &$tickets, &$time) {
-            $tickets = $tx->zrangebyscore('ticket:' . $ticket_id, 0, time() - 1, 'LIMIT', 0, $number);
-            $tx->multi();
+        $tickets = DB::table('ticket_store')
+            ->select('id')
+            ->where('ticket_id', $ticket_id)
+            ->where('reserved_time', '<', time() - 1)
+            ->take($number)
+            ->lockForUpdate()
+            ->get();
 
-            foreach ($tickets as $ticket) {
-                $tx->zadd('ticket:' . $ticket_id, $time, $ticket);
-            }
+        foreach ($tickets as $ticket) {
+            DB::table('ticket_store')
+                ->where('id', $ticket->id)
+                ->update(['reserved_time' => time() + 60 * 15]);
+        }
 
-            $count++;
-        });
+        DB::commit();
 
-        return $count > 0 ? $tickets : false;
+        return count($tickets) > 0 ? $tickets : false;
     }
 }

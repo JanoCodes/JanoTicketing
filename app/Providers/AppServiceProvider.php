@@ -25,6 +25,8 @@ use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use InvalidArgumentException;
+use Jano\Facades\Helper;
 use Jano\Repositories\HelperRepositories;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Menu;
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
+     * @throws \InvalidArgumentException;
      */
     public function boot()
     {
@@ -58,8 +61,36 @@ class AppServiceProvider extends ServiceProvider
             }
         );
 
-        Validator::extend('max_sum', function ($attribute, $value, $parameters, $validator) {
-            return array_sum($value) <= $parameters[0];
+        Validator::extend('sum_between', function ($attribute, $value, $parameters, $validator) {
+            if (isset($parameters[2])) {
+                $segments = explode('.*', $parameters[2], -1);
+                if (empty($segments) && $parameters[2] !== '*') {
+                    throw new InvalidArgumentException('The sum_between rule must take an array.');
+                }
+
+                $array = Helper::flattenArrayKey($validator->getData());
+
+                $value = collect($array)->filter(function ($value, $index) use ($parameters) {
+                    $regex = '/' . str_replace('*', '[^\.\n\r]+?',
+                            str_replace('.', '\.', $parameters[2])) . '/';
+
+                    return preg_match($regex, $index);
+                });
+            }
+            elseif (is_array($value)) {
+                $value = collect($value);
+            }
+            else {
+                throw new InvalidArgumentException('The sum_between rule must take an array.');
+            }
+
+            $sum = $value->sum();
+            return $sum <= $parameters[1] && $sum >= $parameters[0];
+        });
+        Validator::replacer('sum_between', function ($message, $attribute, $rule, $parameters) {
+            $needle = array(':min', ':max');
+            $value = array($parameters[0], $parameters[1]);
+            return str_replace($needle, $value, $message);
         });
 
         $this->app->bind('helper', function($app) {
