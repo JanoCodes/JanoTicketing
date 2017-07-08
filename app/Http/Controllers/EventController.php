@@ -20,8 +20,23 @@
 
 namespace Jano\Http\Controllers;
 
+use Jano\Models\Ticket;
+
 class EventController extends Controller
 {
+    /**
+     * EventController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
+    /**
+     * Show event listing page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('home');
@@ -34,6 +49,8 @@ class EventController extends Controller
      */
     public function show()
     {
-        return view('event');
+        return view('event', [
+            'tickets' => Ticket::all()
+        ]);
     }
 }

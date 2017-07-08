@@ -20,11 +20,107 @@
 
 namespace Jano\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Jano\Contracts\OrderContract;
+use Jano\Contracts\TicketContract;
+use Jano\Facades\Helper;
+use Jano\Models\Ticket;
+use Jano\Repositories\TicketRepository;
 
 class OrderController extends Controller
 {
-    public function create()
+
+    /**
+     * The TicketContract instance.
+     *
+     * @var \Jano\Contracts\TicketContract
+     */
+    protected $ticket;
+
+    /**
+     * The OrderContract instance.
+     *
+     * @var \Jano\Contracts\OrderContract
+     */
+    protected $order;
+
+    /**
+     * OrderController constructor.
+     *
+     * @param \Jano\Contracts\TicketContract $ticket
+     * @param \Jano\Contracts\OrderContract $order
+     */
+    public function __construct(TicketContract $ticket, OrderContract $order)
     {
-        return view('orders.create');
+        $this->middleware(['auth']);
+        $this->ticket = $ticket;
+        $this->order = $order;
+    }
+
+    /**
+     * Render the create order page.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
+     */
+    public function create(Request $request)
+    {
+        $user = $request->user();
+
+        $this->validate($request, [
+            'tickets.*' => 'required|numeric|min:0',
+            'tickets' => 'sum_between:1,' . $user->ticket_limit
+        ]);
+
+        $result = $this->ticket->hold($user, $request->all());
+
+        if (array_sum($result['reserved']) === 0) {
+            return redirect(route('event.list'))->with('alert', '<strong>'
+                . __('system.tickets_unavailable_title') . '</strong><br />'
+                . __('system.tickets_unavailable_message'));
+        }
+        if ($result['ticket_unavailable']) {
+            $request->session()->flash('alert', '<strong>'
+                . __('system.tickets_partly_unavailable_title') . '</strong><br />'
+                . __('system.tickets_partly_unavailable_message'));
+        }
+
+        return view('orders.create', [
+            'tickets' => Ticket::all(),
+            'reserved' => $result['reserved'],
+            'time' => $result['time'],
+            'state' => $result['state']
+        ]);
+    }
+
+    /**
+     * Store the ticket order.
+     *
+     * @param Request $request
+     * @return \Jano\Models\Order
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|phone:GB',
+            'attendees.*.title' => 'required',
+            'attendees.*.first_name' => 'required',
+            'attendees.*.last_name' => 'required',
+            'attendees.*.email' => 'required|email',
+            'attendees.*.ticket' => 'required|exists:tickets,id',
+            'attendees.*.primary_ticket_holder' => 'sum_between:1,1'
+        ]);
+
+        $order = $this->order->createTicketOrder(
+            $this->ticket,
+            $request->user(),
+            collect($request->input('attendees'))
+        );
+
+        return $order::with('attendees');
     }
 }
