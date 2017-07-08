@@ -22,6 +22,7 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Jano\Cacheable\Eloquent\CanCache;
+use Jano\Events\GroupChanged;
 
 /**
  * Class Group
@@ -37,6 +38,11 @@ use Jano\Cacheable\Eloquent\CanCache;
 class Group extends Model
 {
     use CanCache;
+
+    protected $dispatchesEvent = [
+        'saved' => GroupChanged::class,
+        'deleted' => GroupChanged::class,
+    ];
 
     /**
      * Group constructor; defines the number of minutes cache should persists for.

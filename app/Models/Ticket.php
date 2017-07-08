@@ -22,6 +22,7 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Jano\Cacheable\Eloquent\CanCache;
+use Jano\Events\TicketChanged;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -34,6 +35,11 @@ use Spatie\Translatable\HasTranslations;
 class Ticket extends Model
 {
     use CanCache;
+
+    protected $dispatchesEvent = [
+        'saved' => TicketChanged::class,
+        'deleted' => TicketChanged::class,
+    ];
 
     /**
      * Ticket constructor; defines the number of minutes cache should persists for.

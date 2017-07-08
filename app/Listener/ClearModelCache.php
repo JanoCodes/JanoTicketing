@@ -18,36 +18,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Listener;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Jano\Events\CachedModelChanged;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EventServiceProvider extends ServiceProvider
+class ClearModelCache
 {
     /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        'Jano\Events\TicketOrderCreated' => [
-            //
-        ],
-        'Jano\Events\CachedModelChanged' => [
-            'Jano\Listener\ClearModelCache'
-        ]
-    ];
-
-    /**
-     * Register any events for your application.
+     * Create the event listener.
      *
      * @return void
      */
-    public function boot()
+    public function __construct()
     {
-        parent::boot();
-
         //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  CachedModelChanged  $event
+     * @return void
+     */
+    public function handle(CachedModelChanged $event)
+    {
+        $event->model::flushCache();
     }
 }

@@ -18,36 +18,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Events;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class EventServiceProvider extends ServiceProvider
+class CachedModelChanged
 {
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        'Jano\Events\TicketOrderCreated' => [
-            //
-        ],
-        'Jano\Events\CachedModelChanged' => [
-            'Jano\Listener\ClearModelCache'
-        ]
-    ];
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Register any events for your application.
+     * The name of class of model which has changed.
      *
+     * @var string
+     */
+    public $model;
+
+    /**
+     * Create a new event instance.
+     *
+     * @param string $model
      * @return void
      */
-    public function boot()
+    public function __construct($model)
     {
-        parent::boot();
-
         //
     }
 }
