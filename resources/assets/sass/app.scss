@@ -32,6 +32,18 @@
   min-height: 100%;
 }
 
+.text-success {
+  color: map-get($foundation-palette, 'success');
+}
+
+.text-warning {
+  color: map-get($foundation-palette, 'warning');
+}
+
+.text-alert {
+  color: map-get($foundation-palette, 'alert');
+}
+
 .logo {
   max-width: 170px;
   width: 80%;
@@ -56,6 +68,12 @@ label {
 
   background-color: $light-gray;
   border-bottom: darken($light-gray, 20%) 1px solid;
+
+  .menu {
+    a {
+      border-radius: 5px;
+    }
+  }
 }
 
 .content {
@@ -72,8 +90,12 @@ label {
 
   th,
   td {
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+
+  tfoot {
+    background: $white;
   }
 
   .input-group {
@@ -89,6 +111,25 @@ label {
   .icon {
     color: $black;
     text-decoration: none;
+  }
+
+  button {
+    margin: 0;
+  }
+}
+
+.order-form-container {
+  .total-price {
+    border-top: thick double $dark-gray;
+  }
+}
+
+.order-processing {
+  text-align: center;
+
+  .fa-spin {
+    margin-bottom: 15px;
+    margin-top: 15px;
   }
 }
 

@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
-@section('title', __('system.home'))
+@section('title', __('system.create_order'))
 
 @section('content')
-    <div class="grid-x grid-padding-x">
+    <div class="grid-x grid-padding-x order-form-container">
         <div class="small-12 medium-8 cell callout">
-            <form method="POST" target="{{ route('orders.store') }}" id="form" data-abide novalidate>
+            <form id="form" data-abide novalidate>
                 @include('partials.error')
-                {{ csrf_field() }}
-                <component v-bind:is="formView">
-                </component>
+                <keep-alive>
+                    <component v-bind:is="formView">
+                    </component>
+                </keep-alive>
                 <div class="grid-x grid-padding-x">
                     <div class="small-12 cell">
                         <div class="float-right">
@@ -20,213 +21,257 @@
                                 {{ __('system.next') }}
                             </button>
                             <button id="submit" type="button" class="button"
-                                    style="display: none;" v-on:click="submit">{{ __('system.submit') }}</button>
+                                    style="display: none;" :disabled="agreement ? false : true"
+                                    v-on:click="submit">{{ __('system.submit') }}</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="small-12 medium-4 cell">
+        <div class="small-12 medium-4 cell sidebar">
             <div class="callout">
-
+                <h4>{{ __('system.order_summary') }}</h4>
+                <table>
+                    <tr v-for="attendee in attendees">
+                        <td>
+                            <strong>@{{ attendee.ticket.name }}</strong>
+                            <template v-if="attendee.fullName"><br />@{{ attendee.full_name }}</template>
+                        </td>
+                        <td>
+                            @{{ attendee.ticket.price }}
+                        </td>
+                    </tr>
+                    <tfoot>
+                        <tr class="total-price">
+                            <td></td>
+                            <td>@{{ getTotalPrice }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
+    </div>
+    <div class="reveal order-processing" id="processingModal" data-reveal data-close-on-click="false"
+         data-close-on-esc="false">
+        <h2>{{ __('system.processing_order_title') }}</h2>
+        <p>{{ __('system.processing_order_message') }}</p>
+        <i class="fa fa-3x fa-spinner fa-spin"></i>
     </div>
 @endsection
 
 @push('scripts')
-<script type="text/html" id="users">
-    <div class="grid-x grid-padding-x">
-        <div class="small-12 medium-4 cell">
-            <label class="text-right middle">{{ __('system.title') }}</label>
-        </div>
-        <div class="small-12 medium-8 cell">
-            <select name="title" id="title" v-model="title" required>
-                @foreach (__('system.titles') as $title)
-                    <option value="{{ $title }}">{{ $title }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="small-12 medium-4 cell">
-            <label class="text-right middle">{{ __('system.first_name') }}</label>
-        </div>
-        <div class="small-12 medium-8 cell">
-            <input type="text" name="first_name" id="first_name" v-model="firstName" pattern="text"
-                   required>
-            <span class="form-error">
-                <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.first_name'))]) }}</strong>
-            </span>
-        </div>
-        <div class="small-12 medium-4 cell">
-            <label class="text-right middle">{{ __('system.last_name') }}</label>
-        </div>
-        <div class="small-12 medium-8 cell">
-            <input type="text" name="last_name" id="last_name" v-model="lastName" pattern="text"
-                   required>
-            <span class="form-error">
-                <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.last_name'))]) }}</strong>
-            </span>
-        </div>
-        <div class="small-12 medium-4 cell">
-            <label class="text-right middle">{{ __('system.email') }}</label>
-        </div>
-        <div class="small-12 medium-8 cell">
-            <input type="email" name="email" id="email" v-model="email" pattern="email" required>
-            <span class="form-error">
-                <strong>{{ __('validation.email', ['attribute' => strtolower(__('system.email'))]) }}</strong>
-            </span>
-        </div>
-        <div class="small-12 medium-4 cell">
-            <label class="text-right middle">{{ __('system.phone') }}</label>
-        </div>
-        <div class="small-12 medium-8 cell">
-            <input type="text" name="phone" id="phone" v-model="phone" pattern="tel" required>
-            <span class="form-error">
-                <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.phone'))]) }}</strong>
-            </span>
-        </div>
-    </div>
+@foreach (['user', 'guests', 'confirmation', 'exception'] as $view)
+<script type="text/html" id="{!! $view !!}">
+    @include('orders.partials.' . $view)
 </script>
-<script type="text/html" id="guests">
-    <div>
-        <ul class="tabs" data-tabs id="attendees-tabs">
-            <div v-for="(attendee, index) in attendees">
-                <li class="tabs-title">
-                    <a :href="'#panel' + attendee.id" aria-selected="true">
-                        {{ __('system.attendee') }} #@{{ index + 1 }}
-                    </a>
-                </li>
-            </div>
-        </ul>
-        <div class="tabs-content" data-tabs-content="attendees-tabs">
-            <div v-for="(attendee, index) in attendees">
-                <div class="tabs-panel" :class="{ 'is-active': index == 0 }"
-                     :id="'panel' + attendee.id">
-                    <div class="grid-x grid-padding-x">
-                        <div class="small-12 medium-4 cell">
-                            <label class="text-right middle">{{ __('system.title') }}</label>
-                        </div>
-                        <div class="small-12 medium-8 cell">
-                            <select name="title" id="title" v-model="attendee.title" required>
-                                @foreach (__('system.titles') as $title)
-                                    <option value="{{ $title }}">{{ $title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="small-12 medium-4 cell">
-                            <label class="text-right middle">{{ __('system.first_name') }}</label>
-                        </div>
-                        <div class="small-12 medium-8 cell">
-                            <input type="text" name="first_name" id="first_name" v-model="attendee.firstName"
-                                   pattern="text" required>
-                            <span class="form-error">
-                                <strong>
-                                    {{ __('validation.required', ['attribute' => strtolower(__('system.first_name'))]) }}
-                                </strong>
-                            </span>
-                        </div>
-                        <div class="small-12 medium-4 cell">
-                            <label class="text-right middle">{{ __('system.last_name') }}</label>
-                        </div>
-                        <div class="small-12 medium-8 cell">
-                            <input type="text" name="last_name" id="last_name" v-model="attendee.lastName"
-                                   pattern="text" required>
-                            <span class="form-error">
-                                <strong>
-                                    {{ __('validation.required', ['attribute' => strtolower(__('system.last_name'))]) }}
-                                </strong>
-                            </span>
-                        </div>
-                        <div class="small-12 medium-4 cell">
-                            <label class="text-right middle">{{ __('system.email') }}</label>
-                        </div>
-                        <div class="small-12 medium-8 cell">
-                            <input type="email" name="email" id="email" v-model="attendee.email"
-                                   pattern="email" required>
-                            <span class="form-error">
-                                <strong>
-                                    {{ __('validation.email', ['attribute' => strtolower(__('system.email'))]) }}
-                                </strong>
-                            </span>
-                        </div>
-                        <div class="small-12 medium-4 cell">
-                            <label class="text-right middle">{{ __('system.type') }}</label>
-                        </div>
-                        <div class="small-12 medium-8 cell">
-                            <label class="text-disabled">@{{ attendee.type }}</label>
-                        </div>
-                        <div class="small-12 medium-offset-4 medium-8 cell">
-                            <input name="donation" id="donation" type="checkbox"
-                                   v-model="attendee.donation">
-                            <label>{{ __('system.donation') }}</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="spacer"></div>
-    </div>
-</script>
+@endforeach
 <script type="text/javascript">
     $(document).ready(function() {
-        var abide;
+        var form = $('#form');
+        var tickets = {!! json_encode($tickets) !!};
+
         var formData = new Vuex.Store({
             state: {!! json_encode($state) !!},
             mutations: {
-                update: function (state, payload) {
-                    $.each(payload, function (index, value) {
+                update: function(state, payload) {
+                    $.each(payload, function(index, value) {
                         state[index] = value;
                     });
                 }
             }
         });
 
-        Vue.component('users', {
-            template: '#users',
-            data: function () {
+        function processErrorBag(errorBag) {
+            _.forEach(errorBag, function(messages, key) {
+                var input = $(':input[name=' + key + ']');
+
+                var formatted = '<ul>';
+                _.forEach(messages, function(message) {
+                    formatted += '<li>' + message + '</li>';
+                });
+                formatted += '</ul>';
+
+                form.foundation('findFormError', input).first().html(formatted);
+                form.foundation('addErrorClasses', input);
+            });
+        }
+
+        Vue.component('user', {
+            template: '#user',
+            prop: ['errors'],
+            data: function() {
                 return {
                     title: formData.state.title,
-                    firstName: formData.state.firstName,
-                    lastName: formData.state.lastName,
+                    first_name: formData.state.first_name,
+                    last_name: formData.state.last_name,
                     email: formData.state.email,
                     phone: formData.state.phone
                 };
             },
             methods: {
-                update: function (event) {
+                update: function(event) {
                     formData.commit('update', this.$data);
+                }
+            },
+            mounted: function(event) {
+                if (this.errors.user.length > 0) {
+                    processErrorBag(this.errors.user);
                 }
             }
         });
 
         Vue.component('guests', {
             template: '#guests',
-            data: function () {
+            prop: ['errors'],
+            data: function() {
                 return {
-                    title: formData.state.title,
-                    firstName: formData.state.firstName,
-                    lastName: formData.state.lastName,
-                    email: formData.state.email,
-                    phone: formData.state.phone,
                     attendees: formData.state.attendees
                 };
+            },
+            methods: {
+                update: function (event) {
+                    formData.commit('update', this.$data);
+                },
+                primaryTicketHolderOnChange: function (event) {
+                    var input = $(event.currentTarget).closest('input[id=primary_ticket_holder]');
+                    var id = $(input).attr('name').match(/attendees\.([0-9]+)\.primary_ticket_holder/)[1];
+
+                    if (this.attendees[id].primary_ticket_holder) {
+                        var newAttendees = this.attendees;
+
+                        newAttendees[id]['title'] = formData.state.title;
+                        newAttendees[id]['first_name'] = formData.state.first_name;
+                        newAttendees[id]['last_name'] = formData.state.last_name;
+                        newAttendees[id]['email'] = formData.state.email;
+                        this.attendees = newAttendees;
+
+                        $('select[name=\'attendees.'+id+'.title\']').prop('disabled', true);
+                        $('input[name=\'attendees.'+id+'.first_name\']').prop('readonly', true);
+                        $('input[name=\'attendees.'+id+'.last_name\']').prop('readonly', true);
+                        $('input[name=\'attendees.'+id+'.email\']').prop('readonly', true);
+
+                        this.$nextTick();
+
+                        $('input[id=primary_ticket_holder]').not(input).each(function(index, element) {
+                            $(element).prop('readonly', true);
+                        });
+                    } else if (!this.attendees[id].primary_ticket_holder) {
+                        var newAttendees = this.attendees;
+
+                        newAttendees[id]['title'] = '';
+                        newAttendees[id]['first_name'] = '';
+                        newAttendees[id]['last_name'] = '';
+                        newAttendees[id]['email'] = '';
+                        this.attendees = newAttendees;
+
+                        $('select[name=\'attendees.'+id+'.title\']').prop('disabled', false);
+                        $('input[name=\'attendees.'+id+'.first_name\']').prop('readonly', false);
+                        $('input[name=\'attendees.'+id+'.last_name\']').prop('readonly', false);
+                        $('input[name=\'attendees.'+id+'.email\']').prop('readonly', false);
+
+                        this.$nextTick();
+
+                        $('input[id=primary_ticket_holder]').not(input).each(function(index, element) {
+                            $(element).prop('readonly', false);
+                        });
+                    } else {
+                        throw new Error('Value of the field `primary ticket holder` is invalid.');
+                    }
+                }
+            },
+            mounted: function (event) {
+                if (this.errors.guests.length > 0) {
+                    processErrorBag(this.errors.guests);
+                }
+
+                $('#attendees-tabs').on('change.zf.tabs', _.debounce(function () {
+                    var count = this.attendees.length;
+                    var oldAttendees = formData.attendees;
+
+                    for (var i = 1; i < count; i++) {
+                        if (this.attendees[i].title && this.attendees[i].first_name && this.attendees[i].last_name
+                            && !$('#panellink' + i).hasClass('is-active')) {
+                            oldAttendees[i].full_name = this.attendees[i].title + ' ' + this.attendees[i].first_name
+                                + ' ' + this.attendees[i].last_name;
+                            oldAttendees[i].title = this.attendees[i].title;
+                            oldAttendees[i].first_name = this.attendees[i].first_name;
+                            oldAttendees[i].last_name = this.attendees[i].last_name;
+                            oldAttendees[i].email = this.attendees[i].email;
+                            oldAttendees[i].charityDonation = this.attendees[i].charityDonation;
+                        }
+                    }
+                    formData.commit('update', {'attendees': oldAttendees});
+                }, 1000));
             }
         });
 
+        Vue.component('confirmation', {
+            template: '#confirmation',
+            data: function() {
+                return {
+                    title: formData.state.title,
+                    first_name: formData.state.first_name,
+                    last_name: formData.state.last_name,
+                    email: formData.state.email,
+                    phone: formData.state.phone,
+                    attendees: formData.state.attendees,
+                    agreement: formData.state.agreement
+                };
+            },
+            methods: {
+                agreementUpdate: function() {
+                    formData.commit('update', {'agreement': this.agreement});
+                },
+                update: function(event) {
+                    formData.commit('update', this.$data);
+                }
+            }
+        });
+
+        Vue.component('success', {
+            template: '#success',
+            prop: ['commited']
+        });
+
+        Vue.component('exception', {
+            template: '#exception'
+        });
+
         var vm = new Vue({
-            el: "#form",
+            el: '.order-form-container',
             data: {
-                formView: "users",
+                formView: 'user',
                 views: [
-                    "users",
-                    "guests"
+                    'user',
+                    'guests',
+                    'confirmation'
                 ],
                 title: formData.state.title,
-                firstName: formData.state.firstName,
-                lastName: formData.state.lastName,
+                first_name: formData.state.first_name,
+                last_name: formData.state.last_name,
                 email: formData.state.email,
                 phone: formData.state.phone,
-                attendees: formData.state.attendees
+                attendees: formData.state.attendees,
+                agreement: formData.state.agreement,
+                commited: null,
+                errors: {
+                    'user': [],
+                    'guests': []
+                }
+            },
+            computed: {
+                getTotalTicketPrice: _.debounce(
+                    function () {
+                        var totalPrice = 0;
+
+                        this.attendees.forEach(function (attendee) {
+                            totalPrice += attendee.ticket.price;
+                        });
+
+                        return "{{ Setting::get('payment.currency') }}" + totalPrice;
+                    },
+                    1000
+                )
             },
             methods: {
                 next: function (event) {
@@ -256,7 +301,7 @@
                     }
                     this.formView = this.views[i];
                 },
-                back: function (event) {
+                back: function(event) {
                     var i = $.inArray(this.formView, this.views);
                     i--;
 
@@ -269,14 +314,60 @@
                     }
                     this.formView = this.views[i];
                 },
-                submit: function (event) {
+                submit: function(event) {
+                    event.preventDefault();
 
+                    if (formData.agreement !== '1') {
+                        $('div[data-abide-error]').show();
+                        $('input#agreement').closest('form-error').addClass('is-visible');
+                        return;
+                    }
+
+                    axios.post('{{ route('orders.store') }}', formData)
+                        .then(function(response) {
+                            $('#back').hide();
+                            $('#next').hide();
+                            $('#submit').hide();
+                            this.commited = response.data;
+                            this.formView = 'success';
+                        })
+                        .catch(function(error) {
+                            if (error.response && error.response.status === '422') {
+                                var partition = _.partition(error.response.data.errors, function(o){
+                                    return Object.keys(o)[0].includes('attendees')
+                                });
+
+                                this.errors.user = partition[1];
+                                this.errors.guests = partition[0];
+
+                                $('#processingModal').foundation('close');
+
+                                if (partition[1].length > 0) {
+                                    this.formView = 'user';
+                                    $('#back').prop('disabled', true);
+                                    $('#next').show();
+                                    $('#submit').hide();
+                                }
+                                else {
+                                    this.formView = 'guests';
+                                    $('#back').prop('disabled', false);
+                                    $('#next').show();
+                                    $('#submit').hide();
+                                }
+                            }
+                            else {
+                                $('#back').hide();
+                                $('#next').hide();
+                                $('#submit').hide();
+                                this.formView('exception');
+                            }
+                        });
                 }
             },
-            mounted: function (event) {
+            mounted: function(event) {
                 $('#form').foundation();
             },
-            updated: function (event) {
+            updated: function(event) {
                 Foundation.reInit($('#form'));
             }
         });

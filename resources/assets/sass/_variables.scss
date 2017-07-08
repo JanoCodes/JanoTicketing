@@ -109,7 +109,7 @@ $global-radius: 5px !default;
 
 /// Global value used for all menu styles. Can be overwritten at individual menu component level.
 /// @type Number
-$global-menu-padding: 0.7rem 1rem !default;
+$global-menu-padding: .7rem 1rem !default;
 
 /// Global value used for all menu styles. Nested margin for submenu.
 $global-menu-nested-margin: 1rem !default;
@@ -129,6 +129,10 @@ $global-prototype-breakpoints: false !default;
 /// Padding inside buttons.
 /// @type List
 $button-padding: .8em .95em;
+
+/// Margin around buttons.
+/// @type List
+$button-margin: 0 3px $global-margin 0;
 
 /// Sizes for buttons.
 /// @type Map

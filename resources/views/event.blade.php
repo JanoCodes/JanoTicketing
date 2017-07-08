@@ -3,45 +3,36 @@
 @section('title', __('system.home'))
 
 @section('content')
+    @include('partials.error')
     <div class="table-scroll">
-        <table class="hover tickets">
-            <tr>
-                <th>{{ __('system.type') }}</th>
-                <th>{{ __('system.price') }}</th>
-                <th>{{ __('system.quantity') }}</th>
-            </tr>
-            <tr>
-                <td>Standard</td>
-                <td>$200</td>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-label">
-                            <a class="icon" href="#" data-quantity="plus">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </a>
-                        </span>
-                        <input type="number" name="tickets[]" value="0">
-                        <span class="input-group-label">
-                            <a class="icon" href="#" data-quantity="minus">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </a>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Standard</td>
-                <td>$200</td>
-                <td>
-                </td>
-            </tr>
-        </table>
+        <form method="GET" action="{{ route('orders.create') }}" id="form" data-abide novalidate>
+            {{ csrf_field() }}
+            <table class="hover tickets">
+                <thead>
+                    <tr>
+                        <th>{{ __('system.type') }}</th>
+                        <th>{{ __('system.price') }}</th>
+                        <th>{{ __('system.quantity') }}</th>
+                    </tr>
+                </thead>
+                @each('ticket', $tickets, 'ticket', 'ticket-empty')
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-right">
+                            <button class="button button-primary" name="submit" type="submit">
+                                {{ __('system.next') }}
+                            </button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
     </div>
 @endsection
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function(){8
             $('[data-quantity="plus"]').click(function(e){
                 e.preventDefault();
                 var currentVal = parseInt($(this).closest('.input-group').find('input').val());

@@ -8,9 +8,9 @@
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass --output-style compressed -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;"
   },
   "devDependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.16.2",
     "font-awesome": "^4.7.0",
-    "foundation-sites": "^6.4.0",
+    "foundation-sites": "^6.4.1",
     "jquery": "^3.1.1",
     "laravel-mix": "^1.0.7",
     "lodash": "^4.17.4",
