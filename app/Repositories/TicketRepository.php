@@ -26,6 +26,7 @@ use Jano\Models\Attendee;
 use Jano\Models\Order;
 use Jano\Models\Ticket;
 use Jano\Models\User;
+use stdClass;
 
 class TicketRepository implements TicketContract
 {
@@ -36,8 +37,9 @@ class TicketRepository implements TicketContract
     {
         $tickets = Ticket::all();
         $reserved = array();
-        $state = array();
+        $state = new stdClass();
         $ticket_unavailable = false;
+        $time = time();
 
         foreach ($user->toArray() as $attribute => $value) {
             $state->{$attribute} = $value;
@@ -47,7 +49,8 @@ class TicketRepository implements TicketContract
         foreach ($tickets as $ticket) {
             $status = $this->holdByType(
                 $ticket->id,
-                $request['tickets'][$ticket->id]
+                $request['tickets'][$ticket->id],
+                $time
             );
             $reserved[$ticket->id] = count($status);
 
@@ -61,8 +64,8 @@ class TicketRepository implements TicketContract
                     foreach (Attendee::getAttributeListing() as $attribute) {
                         $attendee->{$attribute} = '';
                     }
-                    $attendee->ticket = $ticket->id;
-                    $attendee->ticketId = $id;
+                    $attendee->ticket = $ticket;
+                    $attendee->ticket_id = $id;
 
                     $state->attendees[] = $attendee;
                 }
@@ -73,6 +76,7 @@ class TicketRepository implements TicketContract
 
         return [
             'reserved' => $reserved,
+            'time' => $time,
             'state' => $state,
             'ticket_unavailable' => $ticket_unavailable
         ];
@@ -115,16 +119,17 @@ class TicketRepository implements TicketContract
      *
      * @param int $ticket_id
      * @param int $number
+     * @param int $time
      * @return array|bool
      */
-    private function holdByType($ticket_id, $number)
+    private function holdByType($ticket_id, $number, $time)
     {
         DB::beginTransaction();
 
         $tickets = DB::table('ticket_store')
             ->select('id')
             ->where('ticket_id', $ticket_id)
-            ->where('reserved_time', '<', time() - 1)
+            ->where('reserved_time', '<', $time - 1)
             ->take($number)
             ->lockForUpdate()
             ->get();
@@ -132,7 +137,7 @@ class TicketRepository implements TicketContract
         foreach ($tickets as $ticket) {
             DB::table('ticket_store')
                 ->where('id', $ticket->id)
-                ->update(['reserved_time' => time() + 60 * 15]);
+                ->update(['reserved_time' => $time + 60 * 15]);
         }
 
         DB::commit();
