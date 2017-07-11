@@ -1,11 +1,11 @@
-<div>
+<form id="form" data-abide novalidate>
     <h3>{{ __('system.your_details') }}</h3>
     <div class="grid-x grid-padding-x">
         <div class="small-12 medium-4 cell">
             {{ __('system.full_name') }}
         </div>
         <div class="small-12 medium-8 cell">
-            @{{ full_name }}
+            @{{ title }} @{{ first_name }} @{{ last_name }}
         </div>
         <div class="small-12 medium-4 cell">
             {{ __('system.email') }}
@@ -23,27 +23,34 @@
     <div class="spacer"></div>
     <h3>{{ __('system.attendees') }}</h3>
     <table class="hover">
-        <tr v-for="attendee in attendees">
-            <td>
-                <strong>@{{ attendee.full_name }}</strong><br />
-                <i>@{{ getTicketType(attendee.ticket) }}</i><br />
-                @{{ attendee.email }}
-            </td>
-            <td>
-                <strong>@{{ getTicketPrice(attendee.ticket, attendee.charity_donation) }}</strong>
-            </td>
-        </tr>
+        <tbody>
+            <tr v-for="attendee in attendees">
+                <td>
+                    <strong>@{{ attendee.title }} @{{ attendee.first_name }} @{{ attendee.last_name }}</strong><br />
+                    <i>@{{ attendee.ticket.name }}</i><br />
+                    @{{ attendee.email }}
+                </td>
+                <td>
+                    <strong>@{{ attendee.ticket.full_price }}</strong>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot class="total-price">
+            <tr>
+                <td></td>
+                <td>@{{ getTotalPrice }}</td>
+            </tr>
+        </tfoot>
     </table>
     <div class="spacer"></div>
-    <label for="agreement">
-        <input name="agreement" id="agreement" value="1" type="checkbox" v-model="agreement" v-on="agreementUpdate"
-               required>&nbsp;
-        {!! Setting::get('system.agreement') !!}
+    <label class="agreement">
+        <input name="agreement" id="agreement" value="1" type="checkbox" v-model="agreement"
+            v-on:click="agreementUpdate" required>&nbsp;&nbsp;&nbsp;{{ Setting::get('agreement') }}
     </label>
     <span class="form-error">
-            <strong>
-                {{ __('validation.agreement', ['attribute' => strtolower(__('system.agreement'))]) }}
-            </strong>
-        </span>
+        <strong>
+            {{ __('validation.agreement', ['attribute' => strtolower(__('system.agreement'))]) }}
+        </strong>
+    </span>
     <div class="spacer"></div>
-</div>
+</form>

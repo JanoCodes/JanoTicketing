@@ -62,6 +62,7 @@ return [
     'slash' => '/',
     'soldout' => 'Sold Out',
     'submit' => 'Submit',
+    'ticket_limit_reached' => 'You have reached the number of tickets you are allowed to purchase.',
     'tickets_unavailable_title' => 'Unable to reserve tickets',
     'tickets_unavailable_message' => 'All tickets are currently reserved. Tickets may be released if other patrons fail 
         to complete their transactions within 15 minutes. Please try again later.',

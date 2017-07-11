@@ -1,17 +1,18 @@
-<div>
-    <ul class="tabs" data-tabs id="attendees-tabs">
-        <div v-for="(attendee, index) in attendees">
-            <li class="tabs-title" :id="'#panellink' + attendee.id">
-                <a :href="'#panel' + attendee.id" aria-selected="true">
+<form id="form" data-abide novalidate>
+    <ul class="tabs" data-deep-link="true" data-deep-link-smudg="true" data-update-history="true" data-tabs
+        id="attendees-tabs">
+        <template v-for="(attendee, index) in attendees">
+            <li class="tabs-title" :class="{ 'is-active': (index === 0) }" :id="'panellink' + index">
+                <a :href="'#panel' + index" :aria-selected="{ 'true': (index === 0), 'false': (index !== 0) }">
                     {{ __('system.attendee') }} #@{{ index + 1 }}
                 </a>
             </li>
-        </div>
+        </template>
     </ul>
     <div class="tabs-content" data-tabs-content="attendees-tabs">
-        <div v-for="(attendee, index) in attendees">
-            <div class="tabs-panel" :class="{ 'is-active': index == 0 }"
-                 :id="'panel' + attendee.id">
+        <template v-for="(attendee, index) in attendees">
+            <div class="tabs-panel" :class="{ 'is-active': (index === 0) }"
+                 :id="'panel' + index">
                 <div class="grid-x grid-padding-x">
                     <div class="small-12 medium-8 medium-offset-4 cell">
                         <input :name="'attendees.' + index + '.primary_ticket_holder'" id="primary_ticket_holder"
@@ -73,7 +74,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
     <div class="spacer"></div>
-</div>
+</form>

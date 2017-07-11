@@ -120,16 +120,25 @@ label {
 
 .order-form-container {
   .total-price {
-    border-top: thick double $dark-gray;
+    border-top: medium double $dark-gray;
   }
-}
 
-.order-processing {
-  text-align: center;
+  .agreement {
+    font-size: .95rem;
+    width: 100%;
 
-  .fa-spin {
-    margin-bottom: 15px;
-    margin-top: 15px;
+    input {
+      margin: 0;
+    }
+  }
+
+  .order-processing {
+    text-align: center;
+
+    .fa-spin {
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
   }
 }
 

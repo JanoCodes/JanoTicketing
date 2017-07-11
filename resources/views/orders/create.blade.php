@@ -3,12 +3,11 @@
 @section('title', __('system.create_order'))
 
 @section('content')
-    <div class="grid-x grid-padding-x order-form-container">
+    <div class="grid-x grid-padding-x order-form-container" id="order-form">
         <div class="small-12 medium-8 cell callout">
-            <form id="form" data-abide novalidate>
                 @include('partials.error')
                 <keep-alive>
-                    <component v-bind:is="formView">
+                    <component v-bind:is="formView" :errors="errors">
                     </component>
                 </keep-alive>
                 <div class="grid-x grid-padding-x">
@@ -26,23 +25,27 @@
                         </div>
                     </div>
                 </div>
-            </form>
         </div>
         <div class="small-12 medium-4 cell sidebar">
             <div class="callout">
                 <h4>{{ __('system.order_summary') }}</h4>
                 <table>
-                    <tr v-for="attendee in attendees">
-                        <td>
-                            <strong>@{{ attendee.ticket.name }}</strong>
-                            <template v-if="attendee.fullName"><br />@{{ attendee.full_name }}</template>
-                        </td>
-                        <td>
-                            @{{ attendee.ticket.price }}
-                        </td>
-                    </tr>
-                    <tfoot>
-                        <tr class="total-price">
+                    <tbody>
+                        <tr v-for="attendee in attendees">
+                            <td>
+                                <strong>@{{ attendee.ticket.name }}</strong>
+                                <template v-if="attendee.title !== '' && attendee.first_name !== ''
+                                    && attendee.last_name !== ''">
+                                    <br />@{{ attendee.title }} @{{ attendee.first_name }} @{{ attendee.last_name }}
+                                </template>
+                            </td>
+                            <td>
+                                @{{ attendee.ticket.full_price }}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="total-price">
+                        <tr>
                             <td></td>
                             <td>@{{ getTotalPrice }}</td>
                         </tr>
@@ -67,7 +70,6 @@
 @endforeach
 <script type="text/javascript">
     $(document).ready(function() {
-        var form = $('#form');
         var tickets = {!! json_encode($tickets) !!};
 
         var formData = new Vuex.Store({
@@ -98,7 +100,7 @@
 
         Vue.component('user', {
             template: '#user',
-            prop: ['errors'],
+            props: ['errors'],
             data: function() {
                 return {
                     title: formData.state.title,
@@ -111,18 +113,23 @@
             methods: {
                 update: function(event) {
                     formData.commit('update', this.$data);
-                }
+                },
+                load: _.once(function() {
+                    $('#form').foundation();
+
+                    if ($(this.errors.user).length > 0) {
+                        processErrorBag(this.errors.user);
+                    }
+                })
             },
-            mounted: function(event) {
-                if (this.errors.user.length > 0) {
-                    processErrorBag(this.errors.user);
-                }
+            activated: function(event) {
+                this.load();
             }
         });
 
         Vue.component('guests', {
             template: '#guests',
-            prop: ['errors'],
+            props: ['errors'],
             data: function() {
                 return {
                     attendees: formData.state.attendees
@@ -145,15 +152,15 @@
                         newAttendees[id]['email'] = formData.state.email;
                         this.attendees = newAttendees;
 
-                        $('select[name=\'attendees.'+id+'.title\']').prop('disabled', true);
-                        $('input[name=\'attendees.'+id+'.first_name\']').prop('readonly', true);
-                        $('input[name=\'attendees.'+id+'.last_name\']').prop('readonly', true);
-                        $('input[name=\'attendees.'+id+'.email\']').prop('readonly', true);
+                        $(':input[name=\'attendees.'+id+'.title\']').prop('disabled', true);
+                        $(':input[name=\'attendees.'+id+'.first_name\']').prop('disabled', true);
+                        $(':input[name=\'attendees.'+id+'.last_name\']').prop('disabled', true);
+                        $(':input[name=\'attendees.'+id+'.email\']').prop('disabled', true);
 
                         this.$nextTick();
 
-                        $('input[id=primary_ticket_holder]').not(input).each(function(index, element) {
-                            $(element).prop('readonly', true);
+                        $(':input[id=primary_ticket_holder]').not(input).each(function(index, element) {
+                            $(element).prop('disabled', true);
                         });
                     } else if (!this.attendees[id].primary_ticket_holder) {
                         var newAttendees = this.attendees;
@@ -164,10 +171,10 @@
                         newAttendees[id]['email'] = '';
                         this.attendees = newAttendees;
 
-                        $('select[name=\'attendees.'+id+'.title\']').prop('disabled', false);
-                        $('input[name=\'attendees.'+id+'.first_name\']').prop('readonly', false);
-                        $('input[name=\'attendees.'+id+'.last_name\']').prop('readonly', false);
-                        $('input[name=\'attendees.'+id+'.email\']').prop('readonly', false);
+                        $(':input[name=\'attendees.'+id+'.title\']').prop('disabled', false);
+                        $(':input[name=\'attendees.'+id+'.first_name\']').prop('disabled', false);
+                        $(':input[name=\'attendees.'+id+'.last_name\']').prop('disabled', false);
+                        $(':input[name=\'attendees.'+id+'.email\']').prop('disabled', false);
 
                         this.$nextTick();
 
@@ -177,31 +184,33 @@
                     } else {
                         throw new Error('Value of the field `primary ticket holder` is invalid.');
                     }
-                }
-            },
-            mounted: function (event) {
-                if (this.errors.guests.length > 0) {
-                    processErrorBag(this.errors.guests);
-                }
+                },
+                load: _.once(function() {
+                    $('#form').foundation();
 
-                $('#attendees-tabs').on('change.zf.tabs', _.debounce(function () {
-                    var count = this.attendees.length;
-                    var oldAttendees = formData.attendees;
+                    $('#attendees-tabs').on('change.zf.tabs', _.debounce(function () {
+                        var count = $(this.attendees).length;
+                        var oldAttendees = formData.state.attendees;
 
-                    for (var i = 1; i < count; i++) {
-                        if (this.attendees[i].title && this.attendees[i].first_name && this.attendees[i].last_name
-                            && !$('#panellink' + i).hasClass('is-active')) {
-                            oldAttendees[i].full_name = this.attendees[i].title + ' ' + this.attendees[i].first_name
-                                + ' ' + this.attendees[i].last_name;
-                            oldAttendees[i].title = this.attendees[i].title;
-                            oldAttendees[i].first_name = this.attendees[i].first_name;
-                            oldAttendees[i].last_name = this.attendees[i].last_name;
-                            oldAttendees[i].email = this.attendees[i].email;
-                            oldAttendees[i].charityDonation = this.attendees[i].charityDonation;
+                        for (var i = 0; i < count; i++) {
+                            if (this.attendees[i].title && component.attendees[i].first_name && this.attendees[i].last_name
+                                && !$('#panellink' + i).hasClass('is-active')) {
+                                oldAttendees[i].title = this.attendees[i].title;
+                                oldAttendees[i].first_name = this.attendees[i].first_name;
+                                oldAttendees[i].last_name = this.attendees[i].last_name;
+                                oldAttendees[i].email = this.attendees[i].email;
+                            }
                         }
-                    }
-                    formData.commit('update', {'attendees': oldAttendees});
-                }, 1000));
+
+                        vm.attendees = oldAttendees;
+                        vm.$nextTick(function() {
+                            formData.commit('update', {'attendees': oldAttendees});
+                        });
+                    }, 1000));
+                })
+            },
+            activated: function (event) {
+                this.load();
             }
         });
 
@@ -218,13 +227,26 @@
                     agreement: formData.state.agreement
                 };
             },
+            computed: {
+                getTotalPrice: function() {
+                    return vm.calculatePrice();
+                }
+            },
             methods: {
                 agreementUpdate: function() {
                     formData.commit('update', {'agreement': this.agreement});
+                    vm.agreement = this.agreement;
+                    vm.$nextTick();
                 },
                 update: function(event) {
                     formData.commit('update', this.$data);
-                }
+                },
+                load: _.once(function() {
+                    $('#form').foundation();
+                })
+            },
+            activated: function(){
+                this.load();
             }
         });
 
@@ -238,7 +260,7 @@
         });
 
         var vm = new Vue({
-            el: '.order-form-container',
+            el: '#order-form',
             data: {
                 formView: 'user',
                 views: [
@@ -260,26 +282,19 @@
                 }
             },
             computed: {
-                getTotalTicketPrice: _.debounce(
-                    function () {
-                        var totalPrice = 0;
-
-                        this.attendees.forEach(function (attendee) {
-                            totalPrice += attendee.ticket.price;
-                        });
-
-                        return "{{ Setting::get('payment.currency') }}" + totalPrice;
-                    },
-                    1000
-                )
+                getTotalPrice: function() {
+                    return this.calculatePrice();
+                }
             },
             methods: {
                 next: function (event) {
                     var error = false;
+
                     $('#form').on('forminvalid.zf.abide', function(event, form) {
                             error = true;
                         })
                         .foundation('validateForm');
+
                     if (error === true) {
                         return;
                     }
@@ -290,6 +305,7 @@
                         return;
                     }
                     this['$children'][i].update();
+                    this.$nextTick();
 
                     i++;
                     if (i + 1 === this.views.length) {
@@ -299,6 +315,7 @@
                     if (i === 1) {
                         $('#back').prop('disabled', false);
                     }
+
                     this.formView = this.views[i];
                 },
                 back: function(event) {
@@ -312,8 +329,21 @@
                     if (i <= 0) {
                         $('#back').prop('disabled', true);
                     }
+
                     this.formView = this.views[i];
                 },
+                calculatePrice: _.throttle(
+                    function () {
+                        var totalPrice = 0;
+
+                        formData.state.attendees.forEach(function (attendee) {
+                            totalPrice += attendee.ticket.price;
+                        });
+
+                        return "{{ Setting::get('payment.currency') }}" + totalPrice;
+                    },
+                    5000
+                ),
                 submit: function(event) {
                     event.preventDefault();
 
@@ -363,12 +393,6 @@
                             }
                         });
                 }
-            },
-            mounted: function(event) {
-                $('#form').foundation();
-            },
-            updated: function(event) {
-                Foundation.reInit($('#form'));
             }
         });
     });

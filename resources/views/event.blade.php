@@ -19,7 +19,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-right">
-                            <button class="button button-primary" name="submit" type="submit">
+                            <button class="button button-primary" name="submit" value="true" type="submit">
                                 {{ __('system.next') }}
                             </button>
                         </td>
@@ -32,7 +32,27 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){8
+        $(document).ready(function(){
+            function onUpdateQuantity() {
+                var sum = 0;
+
+                $('input#tickets').each(function (index, element) {
+                    sum += element.val();
+                });
+
+                if (sum >= {{ Auth::user()->ticket_limit }}) {
+                    $('[data-quantity="plus"]').each(function (index, element) {
+                        $(element).prop('disabled', true);
+                    });
+                    $('[data-abide-error]').html("{{ __('system.ticket_limit_reached') }}").show();
+                } else {
+                    $('[data-quantity="plus"]').each(function (index, element) {
+                        $(element).prop('disabled', false);
+                    });
+                    $('[data-abide-error]').html("{{ __('system.ticket_limit_reached') }}").hide();
+                }
+            }
+
             $('[data-quantity="plus"]').click(function(e){
                 e.preventDefault();
                 var currentVal = parseInt($(this).closest('.input-group').find('input').val());

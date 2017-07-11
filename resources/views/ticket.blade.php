@@ -9,7 +9,7 @@
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </span>
-                <input type="number" name="tickets[{{ $ticket->id }}]" value="0">
+                <input type="number" name="tickets[{{ $ticket->id }}]" id="tickets" value="0">
                 <span class="input-group-label">
                     <a class="icon" href="#" data-quantity="minus">
                         <i class="fa fa-minus" aria-hidden="true"></i>
