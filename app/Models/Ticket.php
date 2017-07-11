@@ -22,8 +22,6 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Jano\Cacheable\Eloquent\CanCache;
-use Jano\Events\TicketChanged;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Ticket
@@ -37,8 +35,8 @@ class Ticket extends Model
     use CanCache;
 
     protected $dispatchesEvent = [
-        'saved' => TicketChanged::class,
-        'deleted' => TicketChanged::class,
+        'saved' => \Jano\Events\TicketChanged::class,
+        'deleted' => \Jano\Events\TicketChanged::class,
     ];
 
     /**
