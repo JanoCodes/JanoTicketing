@@ -1,10 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;",
+    "dev": "npm run development",
+    "development": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;",
     "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass -w -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;",
-    "watch-poll": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass --output-style compressed -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;"
   },
   "devDependencies": {
@@ -12,10 +14,10 @@
     "font-awesome": "^4.7.0",
     "foundation-sites": "^6.4.1",
     "jquery": "^3.1.1",
-    "laravel-mix": "^1.1.1",
+    "laravel-mix": "^1.2.1",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
-    "vue": "^2.3.4",
+    "vue": "^2.4.1",
     "vuex": "^2.3.1"
   },
   "dependencies": {}
