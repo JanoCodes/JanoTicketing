@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('system.home'))
+@section('title', __('system.create_order'))
 
 @section('content')
     @include('partials.error')
@@ -15,7 +15,7 @@
                         <th>{{ __('system.quantity') }}</th>
                     </tr>
                 </thead>
-                @each('ticket', $tickets, 'ticket', 'ticket-empty')
+                @each('partials.ticket', $tickets, 'ticket', 'partials.ticket-empty')
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-right">
@@ -36,8 +36,8 @@
             function onUpdateQuantity() {
                 var sum = 0;
 
-                $('input#tickets').each(function (index, element) {
-                    sum += element.val();
+                $('input#tickets').each(function() {
+                    sum += $(this).val();
                 });
 
                 if (sum >= {{ Auth::user()->ticket_limit }}) {
@@ -45,13 +45,19 @@
                         $(element).prop('disabled', true);
                     });
                     $('[data-abide-error]').html("{{ __('system.ticket_limit_reached') }}").show();
+                    $('[name=submit]').prop('disabled', true);
                 } else {
                     $('[data-quantity="plus"]').each(function (index, element) {
                         $(element).prop('disabled', false);
                     });
                     $('[data-abide-error]').html("{{ __('system.ticket_limit_reached') }}").hide();
+                    $('[name=submit]').prop('disabled', false);
                 }
             }
+
+            $('input#tickets').change(function() {
+                onUpdateQuantity();
+            });
 
             $('[data-quantity="plus"]').click(function(e){
                 e.preventDefault();
@@ -59,17 +65,20 @@
                 console.log(currentVal);
                 if (!isNaN(currentVal)) {
                     $(this).closest('.input-group').find('input').val(currentVal + 1);
+                    onUpdateQuantity();
                 } else {
                     $(this).closest('.input-group').find('input').val(0);
                 }
             });
             $('[data-quantity="minus"]').click(function(e) {
                 e.preventDefault();
-                var currentVal = parseInt($(this).closest('input').val());
+                var currentVal = parseInt($(this).closest('.input-group').find('input').val());
                 if (!isNaN(currentVal) && currentVal > 0) {
                     $(this).closest('.input-group').find('input').val(currentVal - 1);
+                    onUpdateQuantity();
                 } else {
                     $(this).closest('.input-group').find('input').val(0);
+                    onUpdateQuantity();
                 }
             });
         });
