@@ -110,6 +110,7 @@ label {
 
   .icon {
     color: $black;
+    padding: 0;
     text-decoration: none;
   }
 
@@ -139,6 +140,12 @@ label {
       margin-bottom: 15px;
       margin-top: 15px;
     }
+  }
+}
+
+#login-modal {
+  .alert {
+    margin-right: 1rem;
   }
 }
 

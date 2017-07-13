@@ -101,7 +101,13 @@ class RegisterController extends Controller
             $data['group_id'] = Setting::get('register.default_group');
         }
 
-        $this->validator($data)->validate();
+        $validation = $this->validator($data);
+
+        if ($validation->failed()) {
+            return redirect('register')
+                ->withInput($request->except(['password', 'password_confirmation']))
+                ->withErrors($validation->getMessageBag());
+        }
 
         $user = $this->create($data);
         $this->guard()->login($user);
