@@ -29,7 +29,7 @@
 @import '~font-awesome/scss/font-awesome';
 
 .page-container {
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 .text-success {
@@ -45,26 +45,13 @@
 }
 
 .logo {
-  max-width: 170px;
-  width: 80%;
-}
-
-label {
-  width: 80%;
-}
-
-.spacer {
-  height: 15px;
-}
-
-.text-disabled {
-  font-size: 1rem;
-  padding-bottom: 8px;
-  padding-top: 8px;
+  max-width: 150px;
+  width: 60%;
 }
 
 .top-bar {
   @include xy-gutters($grid-margin-gutters, padding, left right, false);
+  @include top-bar-unstack;
 
   background-color: $light-gray;
   border-bottom: darken($light-gray, 20%) 1px solid;
@@ -72,6 +59,7 @@ label {
   .menu {
     a {
       border-radius: 5px;
+      margin-top: 6px;
     }
 
     button {
@@ -81,89 +69,27 @@ label {
 }
 
 .content {
-  @include xy-gutters($grid-margin-gutters, margin, top left right, false);
-
-  .button-group {
-    margin-bottom: 15px;
-    margin-top: 15px;
-  }
-}
-
-.tickets {
-  margin: 10px auto;
-
-  th,
-  td {
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
-
-  tfoot {
-    background: $white;
-  }
-
-  .input-group {
-    margin: 5px 0;
-  }
-
-  input[type=number] {
-    margin: 0;
-    text-align: center;
-    width: 10vw;
-  }
-
-  .icon {
-    color: $black;
-    padding: 0;
-    text-decoration: none;
-  }
-
-  button {
-    margin: 0;
-  }
-}
-
-.order-form-container {
-  .total-price {
-    border-top: medium double $dark-gray;
-  }
-
-  .agreement {
-    font-size: .95rem;
-    width: 100%;
-
-    input {
-      margin: 0;
-    }
-  }
-
-  .order-processing {
-    text-align: center;
-
-    .fa-spin {
-      margin-bottom: 15px;
-      margin-top: 15px;
-    }
-  }
-}
-
-#login-modal {
-  .alert {
-    margin-right: 1rem;
-  }
-}
-
-.sidebar {
-  @include xy-gutters($grid-margin-gutters, padding, top left right, false);
-
-  .close-button {
-    color: $dark-gray;
-    position: absolute;
-    right: 15px;
-    top: 5px;
-  }
-}
-
-.sidebar-toggle {
   height: 100%;
+
+  .sidebar {
+    @include xy-gutters($grid-margin-gutters, padding, top bottom, false);
+
+    background-color: adjust-hue(darken($light-gray, 2%), -15%);
+    border-right: darken($light-gray, 20%) 1px solid;
+
+    a {
+      @include xy-gutters($grid-margin-gutters, padding, left right, false);
+    }
+  }
+
+  .footer {
+    @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
+
+    background-color: $light-gray;
+    border-top: darken($light-gray, 20%) 1px solid;
+    bottom: 0;
+    font-size: 90%;
+    position: absolute;
+    width: 100%;
+  }
 }

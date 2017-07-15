@@ -30,9 +30,12 @@
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('/event', 'EventController@show');
+Route::get('event', 'EventController@show');
 Route::resource('orders', 'OrderController');
+Route::resource('transfers', 'TransferRequestController');
+
+Route::get('admin', 'Backend\HomeController@index');
 
 Auth::routes();
-Route::get('/login/oauth', 'Auth\LoginController@redirectToProvider')->name('oauth.login');
-Route::get('/login/oauth/callback', 'Auth\LoginController@handleProviderCallback')->name('oauth.callback');
+Route::get('login/oauth', 'Auth\LoginController@redirectToProvider')->name('oauth.login');
+Route::get('login/oauth/callback', 'Auth\LoginController@handleProviderCallback')->name('oauth.callback');

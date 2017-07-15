@@ -22,6 +22,7 @@ namespace Jano\Providers;
 
 use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use function csrf_field;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -47,11 +48,21 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Menu::macro('frontend', function () {
+            $authenticated = Auth::check();
+
             return Menu::new()
-                ->action('HomeController@index', 'Home')
-                ->htmlIf(!Auth::check(), '<a href="#" data-open="login-modal">'
+                ->action('HomeController@index', __('system.home'))
+                ->htmlIf(!$authenticated, '<a href="#" data-open="login-modal">'
                     . __('system.login') . __('system.slash') . __('system.register') . '</a>')
+                ->htmlIf($authenticated, '<form method="post" action="logout">' . csrf_field()
+                    . '<button type="submit" class="clear button">' . __('system.logout') . '</button></form>')
                 ->setActiveFromRequest();
+        });
+
+        Menu::macro('backend', function () {
+            return Menu::new()
+               ->action('Backend\HomeController@index', __('system.home'))
+               ->setActiveFromRequest();
         });
 
         Schema::defaultStringLength(191);
