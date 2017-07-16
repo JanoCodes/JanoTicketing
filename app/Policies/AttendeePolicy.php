@@ -18,31 +18,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Policies;
 
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Jano\Models\User;
+use Jano\Models\Attendee;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AuthServiceProvider extends ServiceProvider
+class AttendeePolicy
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        'Jano\Models\Attendee' => 'Jano\Policies\AttendeePolicy',
-        'Jano\Models\Otrder' => 'Jano\Policies\OrderPolicy',
-        'Jano\Models\TicketRequest' => 'Jano\Policies\TicketRequestPolicy',
-    ];
+    use HandlesAuthorization;
 
     /**
-     * Register any authentication / authorization services.
+     * Determine whether the user can view the attendee.
      *
-     * @return void
+     * @param  \Jano\Models\User  $user
+     * @param  \Jano\Models\Attendee  $attendee
+     * @return mixed
      */
-    public function boot()
+    public function view(User $user, Attendee $attendee)
     {
-        $this->registerPolicies();
+        return $attendee->user_id = $user->id;
+    }
+
+    /**
+     * Determine whether the user can update the attendee.
+     *
+     * @param  \Jano\Models\User  $user
+     * @param  \Jano\Models\Attendee  $attendee
+     * @return mixed
+     */
+    public function update(User $user, Attendee $attendee)
+    {
+        return $attendee->user_id = $user->id;
     }
 }

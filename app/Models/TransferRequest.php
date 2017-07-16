@@ -29,6 +29,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $user_id
  * @property int $attendee_id
+ * @property string $old_title
+ * @property string $old_first_name
+ * @property string $old_last_name
+ * @property string $old_email
  * @property string $title
  * @property string $first_name
  * @property string $last_name
@@ -69,30 +73,6 @@ class TransferRequest extends Model
     ];
 
     /**
-     * Create a new ticket transfer request.
-     *
-     * @param \Jano\Models\User $user
-     * @param \Jano\Models\Attendee $attendee
-     * @param array $data
-     * @return \Jano\Models\TransferRequest
-     */
-    public static function create(User $user, Attendee $attendee, $data)
-    {
-        $request = new self();
-        $request->user_id = $user->id;
-        $request->attendee_id = $attendee->id;
-        $request->title = $data['title'];
-        $request->first_name = $data['first_name'];
-        $request->last_name = $data['last_name'];
-        $request->email = $data['email'];
-        $request->primary_ticket_holder = $attendee->primary_ticket_holder;
-        $request->processed = false;
-        $request->save();
-
-        return $request;
-    }
-
-    /**
      * The user associated with the ticket transfer request.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -115,20 +95,20 @@ class TransferRequest extends Model
     /**
      * The attendee associated with the ticket transfer request.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function attendee()
     {
-        return $this->hasOne('Jano\Models\Attendee');
+        return $this->belongsTo('Jano\Models\Attendee');
     }
 
     /**
      * The new attendee associated with the ticket transfer request.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function newAttendee()
     {
-        return $this->hasOne('Jano\Models\Attendee', 'id', 'new_attendee_id');
+        return $this->belongsTo('Jano\Models\Attendee', 'id', 'new_attendee_id');
     }
 }

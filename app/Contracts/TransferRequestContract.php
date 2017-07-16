@@ -18,31 +18,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Contracts;
 
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Jano\Models\Attendee;
+use Jano\Models\TransferRequest;
 
-class AuthServiceProvider extends ServiceProvider
+interface TransferRequestContract
 {
     /**
-     * The policy mappings for the application.
-     *
-     * @var array
+     * @param \Jano\Models\Attendee $attendee
+     * @param array $data
+     * @return \Jano\Models\TransferRequest
      */
-    protected $policies = [
-        'Jano\Models\Attendee' => 'Jano\Policies\AttendeePolicy',
-        'Jano\Models\Otrder' => 'Jano\Policies\OrderPolicy',
-        'Jano\Models\TicketRequest' => 'Jano\Policies\TicketRequestPolicy',
-    ];
+    public function store(Attendee $attendee, $data);
 
     /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
+     * @param \Jano\Models\TransferRequest $request
+     * @param array $data
+     * @return \Jano\Models\TransferRequest
      */
-    public function boot()
-    {
-        $this->registerPolicies();
-    }
+    public function update(TransferRequest $request, $data);
 }

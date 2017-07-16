@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Jano\Contracts\OrderContract;
 use Jano\Contracts\TicketContract;
 use Jano\Facades\Helper;
+use Jano\Models\Order;
 use Jano\Models\Ticket;
 use Jano\Repositories\TicketRepository;
 
@@ -62,11 +63,13 @@ class OrderController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create(Request $request)
     {
-        $user = $request->user();
+        $this->authorize('create', \Jano\Models\Order::class);
 
+        $user = $request->user();
         $this->validate($request, [
             'tickets.*' => 'required|numeric|min:0',
             'tickets' => 'sum_between:1,' . $user->ticket_limit
@@ -98,9 +101,12 @@ class OrderController extends Controller
      *
      * @param Request $request
      * @return \Jano\Models\Order
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)
     {
+        $this->authorize('create', \Jano\Models\Order::class);
+
         $this->validate($request, [
             'title' => 'required',
             'first_name' => 'required',

@@ -33,6 +33,8 @@ use Jano\Facades\Helper;
 use Jano\Repositories\HelperRepositories;
 use Jano\Repositories\OrderRepository;
 use Jano\Repositories\TicketRepository;
+use Jano\Repositories\TicketRequestRepository;
+use Jano\Repositories\TransferRequestRepository;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Menu;
 use Jano\Socialite\OauthProvider;
@@ -109,13 +111,20 @@ class AppServiceProvider extends ServiceProvider
             return str_replace($needle, $value, $message);
         });
 
+        // Registers the repositories used for the application.
         $this->app->bind('helper', function ($app) {
             return new HelperRepositories();
         });
-        $this->app->bind(TicketContract::class, function ($app) {
+        $this->app->bind(\Jano\Contracts\TicketContract::class, function ($app) {
             return new TicketRepository();
         });
-        $this->app->bind(OrderContract::class, function ($app) {
+        $this->app->bind(\Jano\Contracts\TicketRequestContract::class, function ($app) {
+            return new TicketRequestRepository();
+        });
+        $this->app->bind(\Jano\Contracts\TransferRequestContract::class, function ($app) {
+            return new TransferRequestRepository();
+        });
+        $this->app->bind(\Jano\Contracts\OrderContract::class, function ($app) {
             return new OrderRepository();
         });
     }

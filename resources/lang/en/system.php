@@ -29,6 +29,9 @@ return [
     'back' => 'Back',
     'create_order' => 'Create Order',
     'confirm_password' => 'Confirm Password',
+    'copyright' => 'Copyright &copy; Andrew Ying 2016-17. Licensed under the '
+        . '<a href="https://github.com/jano-may-ball/ticketing/blob/master/LICENSE.md" target="_blank">'
+        . 'GNU General Public License v3.0</a>.',
     'donation' => 'Optional Charity Donation',
     'email' => 'Email Address',
     'first_name' => 'First Name',
@@ -36,8 +39,10 @@ return [
     'forgot_your_password' => 'Forgot Your Password?',
     'full_name' => 'Full Name',
     'home' => 'Home',
+    'jano_ticketing_system' => 'Jano Ticketing System',
     'last_name' => 'Last Name',
     'login' => 'Login',
+    'logout' => 'Logout',
     'new_password' => 'New Password',
     'next' => 'Next',
     'no_ticket_type_exists' => 'No ticket type exists for this event.',
@@ -57,6 +62,8 @@ return [
         require any assistance.',
     'register' => 'Register',
     'remember_me' => 'Remember Me',
+    'request_create' => 'Create Ticket Request',
+    'request_edit' => 'Edit Ticket Request',
     'reset_password' => 'Reset Password',
     'send_password_reset_link' => 'Send Password Reset Link',
     'slash' => '/',
@@ -78,6 +85,7 @@ return [
         4 => 'Dr',
         5 => 'Prof'
     ],
+    'transfer_create' => 'Create Transfer Request',
     'type' => 'Ticket Type',
     'welcome' => 'Welcome',
     'welcome_message' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, 
