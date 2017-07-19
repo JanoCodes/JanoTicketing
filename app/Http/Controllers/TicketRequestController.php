@@ -22,6 +22,7 @@ namespace Jano\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Jano\Contracts\TicketRequestContract;
+use Jano\Models\Ticket;
 use Jano\Models\TicketRequest;
 use Validator;
 
@@ -62,11 +63,12 @@ class TicketRequestController extends Controller
     protected function storeValidator($data)
     {
         return Validator::make($data, [
-            'title' => 'required',
+            'title' => 'required|in:' . implode(',', __('system.titles')),
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
-            'ticket' => 'required|exists:tickets,id'
+            'ticket' => 'required|sum_between:1,' . (Ticket::all()->count() + 1) / 2 . '|preferences',
+            'ticket.*' => 'numeric',
         ]);
     }
 
@@ -90,20 +92,6 @@ class TicketRequestController extends Controller
     }
 
     /**
-     * Get a validator for updating a ticket request instance.
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function updateValidator($data)
-    {
-        return Validator::make($data, [
-            'email' => 'email',
-            'ticket' => 'exists:tickets,id'
-        ]);
-    }
-
-    /**
      * Renders the edit ticket request page.
      *
      * @param \Jano\Models\TicketRequest $request
@@ -120,6 +108,26 @@ class TicketRequestController extends Controller
     }
 
     /**
+     * Get a validator for updating a ticket request instance.
+     *
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function updateValidator($data)
+    {
+        return Validator::make($data, [
+            'title' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'ticket' => 'required|sum_between:1,' . (Ticket::all()->count() + 1) / 2 . '|preferences',
+            'ticket.*' => 'numeric',
+        ]);
+    }
+
+    /**
+     * Commit the updated ticket request instance.
+     *
      * @param \Illuminate\Http\Request $request
      * @param \Jano\Models\TicketRequest $ticket_request
      * @return \Illuminate\Http\Response

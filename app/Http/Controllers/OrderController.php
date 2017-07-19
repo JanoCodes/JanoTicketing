@@ -108,7 +108,7 @@ class OrderController extends Controller
         $this->authorize('create', \Jano\Models\Order::class);
 
         $this->validate($request, [
-            'title' => 'required',
+            'title' => 'required|in:' . implode(',', __('system.titles')),
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',

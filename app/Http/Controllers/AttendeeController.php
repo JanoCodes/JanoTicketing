@@ -22,6 +22,7 @@ namespace Jano\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use function implode;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Models\Attendee;
 use Validator;
@@ -69,7 +70,7 @@ class AttendeeController extends Controller
     protected function validator($data)
     {
         return Validator::make($data, [
-            'title' => 'required',
+            'title' => 'required|in:' . implode(',', __('system.titles')),
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',

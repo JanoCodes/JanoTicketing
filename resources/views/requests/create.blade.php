@@ -71,11 +71,15 @@
                     </label>
                 </div>
                 <div class="small-12 medium-8 cell">
-                    <select name="ticket" id="ticket" required>
-                        @foreach (\Jano\Models\Ticket::all() as $ticket)
-                            <option value="{{ $ticket->id }}">{{ $ticket->name }} ({{ $ticket->full_name }})</option>
-                        @endforeach
+                    @foreach (\Jano\Models\Ticket::all() as $ticket)
+                    <select name="ticket[{{ $ticket->id }}]" id="ticket" required>
+                        <option value="" selected>-</option>
+                        @for ($i = 1; $i <= \Jano\Models\Ticket::all()->count(); $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
                     </select>
+                    &nbsp;{{ $ticket->name }} ({{ $ticket->full_price }})
+                    @endforeach
                 </div>
                 <div class="small-12 cell">
                     <button type="submit" class="button">{{ __('system.submit') }}</button>
@@ -90,7 +94,13 @@
 
 @push('script')
     <script type="text/javascript">
+        @if (old('title'))
         $('select[name="title"]>option[value="{{ old('title') }}"]').prop('selected', true);
-        $('select[name="ticket"]>option[value="{{ old('ticket') }}"]').prop('selected', true);
+        @endif
+        @foreach (\Jano\Models\Ticket::all() as $ticket)
+        @if (old('ticket.' . $ticket->id))
+        $('select[name="ticket"]>option[value="{{ old('ticket.' . $ticket->id) }}"]').prop('selected', true);
+        @endif
+        @endforeach
     </script>
 @endpush

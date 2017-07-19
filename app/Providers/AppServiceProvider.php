@@ -22,13 +22,10 @@ namespace Jano\Providers;
 
 use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use function csrf_field;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use InvalidArgumentException;
-use Jano\Contracts\OrderContract;
-use Jano\Contracts\TicketContract;
 use Jano\Facades\Helper;
 use Jano\Repositories\HelperRepositories;
 use Jano\Repositories\OrderRepository;
@@ -105,6 +102,31 @@ class AppServiceProvider extends ServiceProvider
             $sum = $value->sum();
             return $sum <= $parameters[1] && $sum >= $parameters[0];
         });
+        Validator::extend('preferences', function ($attribute, $value, $parameters, $validator) {
+            if (empty($value) || !is_array($value)) {
+                $validation = false;
+            } else {
+                $array = array_map('intval', $value);
+                asort($array, SORT_NUMERIC);
+
+                $i = 1;
+                $validation = true;
+
+                foreach ($array as $id => $number) {
+                    if ($number !== 0) {
+                        if ($number !== $i) {
+                            $validation = false;
+                            break;
+                        }
+
+                        ++$i;
+                    }
+                }
+            }
+
+            return $validation;
+        });
+
         Validator::replacer('sum_between', function ($message, $attribute, $rule, $parameters) {
             $needle = array(':min', ':max');
             $value = array($parameters[0], $parameters[1]);
