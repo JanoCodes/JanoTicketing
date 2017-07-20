@@ -58,33 +58,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Create a new user.
-     *
-     * @param array $data
-     * @return \Jano\Models\User
-     */
-    public static function create($data)
-    {
-        $user = new self();
-        $user->title = $data['title'] ?? null;
-        $user->first_name = $data['first_name'];
-        $user->last_name = $data['last_name'];
-        $user->email = $data['email'];
-        $user->method = $data['method'];
-        $user->password = isset($data['password']) ? bcrypt($data['password']) : null;
-        $user->oauth_id = $data['oauth_id'] ?? null;
-        $user->group_id = $data['group_id'];
-        $user->phone = $data['phone'] ?? null;
-        $user->can_order_at = $data['can_order_at'] ?? null;
-        $user->ticket_limit = $data['ticket_limit'] ?? null;
-        $user->surcharge = $data['surcharge'] ?? null;
-        $user->right_to_buy = $data['right_to_buy'] ?? null;
-        $user->save();
-
-        return $user;
-    }
-
-    /**
      * The group associated with the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

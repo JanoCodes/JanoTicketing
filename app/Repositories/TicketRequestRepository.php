@@ -37,6 +37,9 @@ class TicketRequestRepository implements TicketRequestContract
         $request->first_name = $data['first_name'];
         $request->last_name = $data['last_name'];
         $request->email = $data['email'];
+        $request->ticket_preference = $data['ticket'];
+        $request->right_to_buy = $user->right_to_buy > 0;
+        $request->status = 0;
         $request->save();
 
         return $request;
@@ -51,8 +54,17 @@ class TicketRequestRepository implements TicketRequestContract
         $request->first_name = $data['first_name'];
         $request->last_name = $data['last_name'];
         $request->email = $data['email'];
+        $request->ticket_preference = $data['ticket'];
         $request->save();
 
         return $request;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete(TicketRequest $request)
+    {
+        $request->delete();
     }
 }

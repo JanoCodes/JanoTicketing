@@ -20,28 +20,27 @@
 
 namespace Jano\Contracts;
 
-use Jano\Models\TicketRequest;
-use Jano\Models\User;
+use Jano\Models\Order;
+use Jano\Models\Payment;
 
-interface TicketRequestContract
+interface PaymentContract
 {
     /**
-     * @param \Jano\Models\User $user
-     * @param $data
-     * @return \Jano\Models\TicketRequest
-     */
-    public function store(User $user, $data);
-
-    /**
-     * @param \Jano\Models\TicketRequest $request
      * @param array $data
-     * @return \Jano\Models\TicketRequest
+     * @param \Jano\Models\Order|null $order
+     * @return \Jano\Models\Payment
      */
-    public function update(TicketRequest $request, $data);
+    public function store($data, Order $order = null);
 
     /**
-     * @param TicketRequest $request
-     * @return void
+     * @param \Jano\Models\Payment $payment
+     * @param \Jano\Models\Order $order
+     * @return \Jano\Models\Payment
      */
-    public function delete(TicketRequest $request);
+    public function associate(Payment $payment, Order $order);
+
+    /**
+     * @param \Jano\Models\Payment $payment
+     */
+    public function destroy(Payment $payment);
 }

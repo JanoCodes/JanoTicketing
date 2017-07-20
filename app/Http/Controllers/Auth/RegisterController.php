@@ -20,6 +20,7 @@
 
 namespace Jano\Http\Controllers\Auth;
 
+use Jano\Contracts\UserContract;
 use Setting;
 use Illuminate\Http\Request;
 use Jano\Models\User;
@@ -44,6 +45,11 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
+     * @var \Jano\Contracts\UserContract
+     */
+    protected $contract;
+
+    /**
      * Where to redirect users after registration.
      *
      * @var string
@@ -52,10 +58,13 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
+     *
+     * @param \Jano\Contracts\UserContract $contract
      */
-    public function __construct()
+    public function __construct(UserContract $contract)
     {
         $this->middleware('guest');
+        $this->contract = $contract;
     }
 
     /**
@@ -84,7 +93,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create($data);
+        return $this->contract->store($data);
     }
 
     /**

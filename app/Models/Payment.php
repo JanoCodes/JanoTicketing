@@ -43,26 +43,6 @@ class Payment extends Model
     protected $dates = ['made_at'];
 
     /**
-     * Create a new payment
-     *
-     * @param array $data
-     * @return \Jano\Models\Payment
-     */
-    public static function create($data)
-    {
-        $payment = new self();
-        $payment->order_id = $data['order_id'] ?? null;
-        $payment->type = $data['type'];
-        $payment->amount = $data['amount'];
-        $payment->reference = $data['reference'];
-        $payment->internal_reference = $data['internal_reference'] ?? null;
-        $payment->made_at = $data['made_at'];
-        $payment->save();
-        
-        return $payment;
-    }
-
-    /**
      * The order associated with the payment.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
