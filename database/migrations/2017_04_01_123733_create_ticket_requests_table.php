@@ -41,7 +41,6 @@ class CreateTicketRequestsTable extends Migration
             $table->string('email');
             $table->string('ticket_preference');
             $table->boolean('right_to_buy');
-            $table->boolean('guaranteed_addon');
             $table->integer('priority')->nullable();
             $table->integer('status')->unsigned();
             $table->integer('attendee_id')->unsigned()->nullable();
