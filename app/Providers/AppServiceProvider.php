@@ -23,10 +23,7 @@ namespace Jano\Providers;
 use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use InvalidArgumentException;
-use Jano\Facades\Helper;
 use Jano\Repositories\HelperRepositories;
 use Jano\Repositories\OrderRepository;
 use Jano\Repositories\TicketRepository;
@@ -42,7 +39,6 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
-     * @throws \InvalidArgumentException;
      */
     public function boot()
     {
@@ -74,64 +70,6 @@ class AppServiceProvider extends ServiceProvider
                 return $socialite->buildProvider(OauthProvider::class, $config);
             }
         );
-
-        Validator::extend('sum_between', function ($attribute, $value, $parameters, $validator) {
-            if (isset($parameters[2])) {
-                $segments = explode('.*', $parameters[2], -1);
-                if (empty($segments) && $parameters[2] !== '*') {
-                    throw new InvalidArgumentException('The sum_between rule must take an array.');
-                }
-
-                $array = Helper::flattenArrayKey($validator->getData());
-
-                $value = collect($array)->filter(function ($value, $index) use ($parameters) {
-                    $regex = '/' . str_replace(
-                        '*',
-                        '[^\.\n\r]+?',
-                        str_replace('.', '\.', $parameters[2])
-                    ) . '/';
-
-                    return preg_match($regex, $index);
-                });
-            } elseif (is_array($value)) {
-                $value = collect($value);
-            } else {
-                throw new InvalidArgumentException('The sum_between rule must take an array.');
-            }
-
-            $sum = $value->sum();
-            return $sum <= $parameters[1] && $sum >= $parameters[0];
-        });
-        Validator::extend('preferences', function ($attribute, $value, $parameters, $validator) {
-            if (empty($value) || !is_array($value)) {
-                $validation = false;
-            } else {
-                $array = array_map('intval', $value);
-                asort($array, SORT_NUMERIC);
-
-                $i = 1;
-                $validation = true;
-
-                foreach ($array as $id => $number) {
-                    if ($number !== 0) {
-                        if ($number !== $i) {
-                            $validation = false;
-                            break;
-                        }
-
-                        ++$i;
-                    }
-                }
-            }
-
-            return $validation;
-        });
-
-        Validator::replacer('sum_between', function ($message, $attribute, $rule, $parameters) {
-            $needle = array(':min', ':max');
-            $value = array($parameters[0], $parameters[1]);
-            return str_replace($needle, $value, $message);
-        });
 
         // Registers the repositories used for the application.
         $this->app->bind('helper', function ($app) {

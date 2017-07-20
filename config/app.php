@@ -180,9 +180,9 @@ return [
          */
         Jano\Providers\AppServiceProvider::class,
         Jano\Providers\AuthServiceProvider::class,
-        // Jano\Providers\BroadcastServiceProvider::class,
         Jano\Providers\EventServiceProvider::class,
         Jano\Providers\RouteServiceProvider::class,
+        Jano\Providers\ValidatorServiceProvider::class,
 
     ],
 
