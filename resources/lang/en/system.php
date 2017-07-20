@@ -62,8 +62,8 @@ return [
         require any assistance.',
     'register' => 'Register',
     'remember_me' => 'Remember Me',
-    'request_create' => 'Create Ticket Request',
-    'request_edit' => 'Edit Ticket Request',
+    'request_create' => 'Create Ticket Waiting List Entry',
+    'request_edit' => 'Edit Ticket Waiting List Entry',
     'reset_password' => 'Reset Password',
     'send_password_reset_link' => 'Send Password Reset Link',
     'slash' => '/',
@@ -86,6 +86,7 @@ return [
         5 => 'Prof'
     ],
     'transfer_create' => 'Create Transfer Request',
+    'transfer_edit' => 'Edit Transfer Request',
     'type' => 'Ticket Type',
     'welcome' => 'Welcome',
     'welcome_message' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, 
