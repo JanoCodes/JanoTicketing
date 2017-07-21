@@ -3,7 +3,7 @@
 @section('title', __('system.request_edit'))
 
 @section('content')
-<div class="grid-x padding-gutters">
+<div class="grid-x grid-padding-x">
     <div class="small-12 medium-10 large-9 cell">
         <h3>{{ __('system.request_edit') }}</h3>
         <form role="form" method="POST" action="{{ url('requests') }}" data-abide novalidate>

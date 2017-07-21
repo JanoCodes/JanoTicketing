@@ -2,7 +2,7 @@
     <button class="close-button" aria-label="Close" type="button" data-close>
         <span aria-hidden="true">&times;</span>
     </button>
-    <div class="grid-x padding-gutters">
+    <div class="grid-x grid-padding-x">
         <div class="small-12 medium-6 cell">
             <h3>{{ __('system.login') }}</h3>
             <form role="form" method="POST" action="{{ route('login') }}" data-abide novalidate>

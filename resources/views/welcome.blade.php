@@ -3,7 +3,7 @@
 @section('title', __('system.welcome'))
 
 @section('content')
-    <div class="grid-x padding-gutters">
+    <div class="grid-x grid-padding-x">
         <div class="cell">
             <h2>{{ Setting::get('system.title') }}</h2>
             {{ __('system.welcome_message', ['title' => Setting::get('system.title')]) }}

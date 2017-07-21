@@ -3,7 +3,7 @@
 @section('title', __('system.transfer_edit'))
 
 @section('content')
-<div class="grid-x padding-gutters">
+<div class="grid-x grid-padding-x">
     <div class="small-12 cell">
         <h3>{{ __('system.transfer_edit') }}</h3>
         <form role="form" method="POST" action="{{ url('transfer') }}" data-abide novalidate>
