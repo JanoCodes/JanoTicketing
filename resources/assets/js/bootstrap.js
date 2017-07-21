@@ -23,6 +23,7 @@ window.$ = window.jQuery = require('jquery');
 
 window.Vue = require('vue');
 window.Vuex = require('vuex');
+window.Vuetable = require('vuetable-2');
 
 window.Foundation = require('foundation-sites');
 

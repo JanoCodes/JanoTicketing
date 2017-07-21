@@ -18,6 +18,7 @@
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "vue": "^2.4.1",
+    "vuetable-2": "^1.6.5",
     "vuex": "^2.3.1"
   },
   "dependencies": {}
