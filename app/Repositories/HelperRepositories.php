@@ -20,6 +20,8 @@
 
 namespace Jano\Repositories;
 
+use Setting;
+
 class HelperRepositories
 {
     /**
@@ -45,5 +47,16 @@ class HelperRepositories
         }
 
         return $result;
+    }
+
+    /**
+     * Generate human-readable version of the price.
+     *
+     * @param int|float $price
+     * @return string
+     */
+    public static function getFullPrice($price)
+    {
+        return Setting::get('payment.currency') . $price;
     }
 }

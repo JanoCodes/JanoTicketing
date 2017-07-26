@@ -31,7 +31,7 @@
                     @{{ attendee.email }}
                 </td>
                 <td>
-                    <strong>@{{ attendee.ticket.full_price }}</strong>
+                    <strong>@{{ getFullPrice(attendee.ticket.price) }}</strong>
                 </td>
             </tr>
         </tbody>

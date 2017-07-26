@@ -23,6 +23,7 @@ namespace Jano\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Setting;
 
 /**
  * Class Order
@@ -31,7 +32,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $type
  * @property int $amount_due
+ * @property string $full_amount_due
  * @property int $amount_paid
+ * @property string $full_amount_paid
  * @property boolean $paid
  * @property \Carbon\Carbon $payment_due_at
  */

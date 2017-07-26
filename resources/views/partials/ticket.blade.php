@@ -1,6 +1,6 @@
 <tr>
     <td>{{ $ticket->name }}</td>
-    <td>{{ $ticket->full_price }}</td>
+    <td>{{ Helper::getFullPrice($ticket->price) }}</td>
     <td>
         @if (!$ticket->soldout)
             <div class="input-group">

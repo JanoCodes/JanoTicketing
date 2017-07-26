@@ -35,8 +35,6 @@ class Ticket extends Model
 {
     use CanCache;
 
-    protected $appends = ['full_price'];
-
     protected $dispatchesEvent = [
         'saved' => \Jano\Events\TicketChanged::class,
         'deleted' => \Jano\Events\TicketChanged::class,
@@ -78,15 +76,5 @@ class Ticket extends Model
     public function attendees()
     {
         return $this->hasMany('Jano\Models\Attendee');
-    }
-
-    /**
-     * The human readable price of the ticket.
-     *
-     * @return string
-     */
-    public function getFullPriceAttribute()
-    {
-        return Setting::get('payment.currency') . $this->price;
     }
 }

@@ -10,14 +10,14 @@
                     @{{ attendee.email }}
                 </td>
                 <td>
-                    <strong>@{{ attendee.ticket.full_price }}</strong>
+                    <strong>@{{ getFullPrice(attendee.ticket.price) }}</strong>
                 </td>
             </tbody>
         </tr>
         <tfoot>
             <tr>
                 <td>&nbsp;</td>
-                <td>@{{ committed.amount_due }}</td>
+                <td>@{{ getFullPrice(committed.amount_due) }}</td>
             </tr>
         </tfoot>
     </table>

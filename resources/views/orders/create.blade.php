@@ -40,7 +40,7 @@
                                 </template>
                             </td>
                             <td>
-                                @{{ attendee.ticket.full_price }}
+                                @{{ getFullPrice(attendee.ticket.price) }}
                             </td>
                         </tr>
                     </tbody>
@@ -82,6 +82,10 @@
                 }
             }
         });
+
+        function getFullPrice(price) {
+            return "{{ Setting::get('payment.currency') }}" + price;
+        }
 
         function processErrorBag(errorBag) {
             _.forEach(errorBag, function(messages, key) {
