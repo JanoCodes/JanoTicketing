@@ -64,6 +64,7 @@ class OrderController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \RuntimeException
      */
     public function create(Request $request)
     {
@@ -99,7 +100,7 @@ class OrderController extends Controller
     /**
      * Store the ticket order.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Jano\Models\Order
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -128,5 +129,34 @@ class OrderController extends Controller
         );
 
         return $order::with('attendees');
+    }
+
+    /**
+     * Renders the list of ticket orders.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Request $request)
+    {
+        return view('orders.list', [
+            'orders' => $request->user()->orders()->where('type', Order::TYPE_TICKET)->get(),
+        ]);
+    }
+
+    /**
+     * Renders the ticket order details page.
+     *
+     * @param \Jano\Models\Order $order
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function view(Order $order)
+    {
+        $this->authorize('view', $order);
+
+        return view('orders.view', [
+            'order' => $order,
+        ]);
     }
 }

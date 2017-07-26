@@ -21,24 +21,23 @@
 namespace Jano\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Jano\Contracts\TicketRequestContract;
-use Jano\Models\Ticket;
-use Jano\Models\TicketRequest;
+use Jano\Contracts\TransferRequestContract;
+use Jano\Models\TransferRequest;
 use Validator;
 
-class TicketRequestController extends Controller
+class TransferRequestController extends Controller
 {
     /**
-     * @var \Jano\Contracts\TicketRequestContract
+     * @var \Jano\Contracts\TransferRequestContract
      */
     protected $contract;
 
     /**
      * TicketRequestController constructor.
      *
-     * @param \Jano\Contracts\TicketRequestContract
+     * @param \Jano\Contracts\TransferRequestContract
      */
-    public function __construct(TicketRequestContract $contract)
+    public function __construct(TransferRequestContract $contract)
     {
         $this->middleware(['auth']);
         $this->contract = $contract;
@@ -51,7 +50,7 @@ class TicketRequestController extends Controller
      */
     public function create()
     {
-        return view('requests.create');
+        return view('transfers.create');
     }
 
     /**
@@ -67,8 +66,6 @@ class TicketRequestController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
-            'ticket' => 'required|sum_between:1,' . (Ticket::all()->count() + 1) / 2 . '|preferences',
-            'ticket.*' => 'numeric',
         ]);
     }
 
@@ -84,26 +81,26 @@ class TicketRequestController extends Controller
         $this->authorize('create', \Jano\Models\TicketRequest::class);
 
         $this->storeValidator($request->all());
-        $ticket_request = $this->contract->store($request->user(), $request->all());
+        $transfer_request = $this->contract->store($request->user(), $request->all());
 
-        return view('requests.store', [
-            'ticket_request' => $ticket_request,
+        return view('transfer.store', [
+            'transfer_store' => $transfer_request,
         ]);
     }
 
     /**
      * Renders the edit ticket request page.
      *
-     * @param \Jano\Models\TicketRequest $request
+     * @param \Jano\Models\TransferRequest $request
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(TicketRequest $request)
+    public function edit(TransferRequest $request)
     {
         $this->authorize('update', $request);
 
         return view('requests.edit', [
-            'ticket_request' => $request,
+            'transfer_request' => $request,
         ]);
     }
 
@@ -120,8 +117,6 @@ class TicketRequestController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
-            'ticket' => 'required|sum_between:1,' . (Ticket::all()->count() + 1) / 2 . '|preferences',
-            'ticket.*' => 'numeric',
         ]);
     }
 
@@ -129,19 +124,19 @@ class TicketRequestController extends Controller
      * Commit the updated ticket request instance.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Jano\Models\TicketRequest $ticket_request
+     * @param \Jano\Models\TransferRequest $transfer_request
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, TicketRequest $ticket_request)
+    public function update(Request $request, TransferRequest $transfer_request)
     {
-        $this->authorize('update', $ticket_request);
+        $this->authorize('update', $transfer_request);
 
         $this->updateValidator($request->all());
-        $ticket_request = $this->contract->update($request->user(), $request->all());
+        $transfer_request = $this->contract->update($transfer_request, $request->all());
 
-        return view('requests.store', [
-            'ticket_request' => $ticket_request,
+        return view('requests.update', [
+            'transfer_request' => $transfer_request,
         ]);
     }
 }
