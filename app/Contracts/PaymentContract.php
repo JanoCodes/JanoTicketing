@@ -20,24 +20,24 @@
 
 namespace Jano\Contracts;
 
-use Jano\Models\Order;
+use Jano\Models\Account;
 use Jano\Models\Payment;
 
 interface PaymentContract
 {
     /**
      * @param array $data
-     * @param \Jano\Models\Order|null $order
+     * @param \Jano\Models\Account|null $account
      * @return \Jano\Models\Payment
      */
-    public function store($data, Order $order = null);
+    public function store($data, Account $account = null);
 
     /**
      * @param \Jano\Models\Payment $payment
-     * @param \Jano\Models\Order $order
+     * @param \Jano\Models\Account $account
      * @return \Jano\Models\Payment
      */
-    public function associate(Payment $payment, Order $order);
+    public function associate(Payment $payment, Account $account);
 
     /**
      * @param \Jano\Models\Payment $payment

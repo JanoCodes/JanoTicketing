@@ -21,21 +21,30 @@
 namespace Jano\Contracts;
 
 use Illuminate\Support\Collection;
+use Jano\Models\Attendee;
 use Jano\Models\User;
 
-interface OrderContract
+interface AttendeeContract
 {
     /**
-     * Create a new order instance.
+     * Store new attendees instances.
      *
      * @param \Jano\Contracts\TicketContract $contract
      * @param \Jano\Models\User $user
      * @param \Illuminate\Support\Collection $tickets
-     * @return \Jano\Models\Order
+     * @return \Illuminate\Support\Collection
      */
-    public function createTicketOrder(
+    public function store(
         TicketContract $contract,
         User $user,
         Collection $tickets
     );
+
+    /**
+     * Destroy an attendee instance.
+     *
+     * @param \Jano\Models\Attendee|\Illuminate\Support\Collection $attendee
+     * @return void
+     */
+    public function destroy($attendee);
 }

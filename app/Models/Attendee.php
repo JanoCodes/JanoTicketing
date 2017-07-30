@@ -31,7 +31,6 @@ use Ramsey\Uuid\Uuid;
  * @property int $id
  * @property string $uuid
  * @property int $user_id
- * @property int $order_id
  * @property string $title
  * @property string $first_name
  * @property string $last_name
@@ -88,16 +87,6 @@ class Attendee extends Model
     public function ticket()
     {
         return $this->belongsTo('Jano\Models\Ticket');
-    }
-
-    /*
-     * The order associated with the attendee
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function order()
-    {
-        return $this->belongsTo('Jano\Models\Order');
     }
 
     /*

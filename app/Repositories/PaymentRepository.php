@@ -21,7 +21,7 @@
 namespace Jano\Repositories;
 
 use Jano\Contracts\PaymentContract;
-use Jano\Models\Order;
+use Jano\Models\Account;
 use Jano\Models\Payment;
 
 class PaymentRepository implements PaymentContract
@@ -29,12 +29,12 @@ class PaymentRepository implements PaymentContract
     /**
      * @inheritdoc
      */
-    public function store($data, Order $order = null)
+    public function store($data, Account $account = null)
     {
         $payment = new Payment();
 
-        if ($order) {
-            $payment->order()->associate($order);
+        if ($account) {
+            $payment->account()->associate($account);
         }
 
         $payment->amount = $data['amount'];
@@ -50,9 +50,9 @@ class PaymentRepository implements PaymentContract
     /**
      * @inheritdoc
      */
-    public function associate(Payment $payment, Order $order)
+    public function associate(Payment $payment, Account $account)
     {
-        $payment->order()->associate($order);
+        $payment->account()->associate($account);
         $payment->save();
 
         return $payment;

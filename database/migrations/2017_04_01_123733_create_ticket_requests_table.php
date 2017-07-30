@@ -42,7 +42,7 @@ class CreateTicketRequestsTable extends Migration
             $table->string('ticket_preference');
             $table->boolean('right_to_buy');
             $table->integer('priority')->nullable();
-            $table->integer('status')->unsigned();
+            $table->boolean('honoured');
             $table->integer('attendee_id')->unsigned()->nullable();
             $table->foreign('attendee_id')->references('id')->on('attendees');
             $table->dateTime('deleted_at')->nullable();

@@ -20,6 +20,7 @@
 
 namespace Jano\Policies;
 
+use Carbon\Carbon;
 use Jano\Models\User;
 use Jano\Models\Attendee;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -41,6 +42,17 @@ class AttendeePolicy
     }
 
     /**
+     * Determine whether the user can create attendees.
+     *
+     * @param  \Jano\Models\User  $user
+     * @return mixed
+     */
+    public function create(User $user)
+    {
+        return $user->can_order_at->gt(Carbon::now());
+    }
+
+    /**
      * Determine whether the user can update the attendee.
      *
      * @param  \Jano\Models\User  $user
@@ -50,5 +62,17 @@ class AttendeePolicy
     public function update(User $user, Attendee $attendee)
     {
         return $attendee->user_id = $user->id;
+    }
+
+    /**
+     * Determine whether the user can delete the order.
+     *
+     * @param  \Jano\Models\User  $user
+     * @param  \Jano\Models\Attendee  $attendee
+     * @return mixed
+     */
+    public function delete(User $user, Attendee $attendee)
+    {
+        return ($attendee->user_id === $user->id) && (!$attendee->paid);
     }
 }

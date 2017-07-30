@@ -1,20 +1,14 @@
 @extends('layouts.app')
 
-@section('title', __('system.order') . ' #' . $order->id)
+@section('title', __('system.account'))
 
 @section('content')
     <div class="grid-x grid-padding-x cell">
-        <h3>{{ __('system.order') . ' #' . $order->id }}</h3>
+        <h3>{{ __('system.acount') }}</h3>
         <div class="grid-x">
-            <div class="small-8 cell">{{ Helper::getFullPrice($order->amount_due) }}</div>
+            <div class="small-8 cell">{{ Helper::getFullPrice($account->amount_due) }}</div>
             <div class="small-4 cell align-right">
-                {{ $order->formatted_status }}
-                @if ($order->amount_paid === 0)
-                <a class="button tiny danger cancel-order" data-cancel data-cancel-object="orders"
-                   data-cancel-object-id="{{ $order->id }}" href="#">
-                    {{ __('system.cancel_order') }}
-                </a>
-                @endif
+                {{ $account->formatted_status }}
             </div>
         </div>
 
@@ -26,7 +20,7 @@
                 <th></th>
             </tr>
             </thead>
-            @foreach ($order->attendees() as $attendee)
+            @foreach ($user->attendees() as $attendee)
             <tr>
                 <td>
                     <h4>{{ $attendee->title }} {{ $attendee->first_name }} {{ $attendee->last_name }}</h4>
@@ -37,12 +31,18 @@
                 </td>
                 <td>
                     <a href="{{ url('attendee/' . $attendee->id . '/edit') }}">{{ __('system.transfer_create') }}</a>
+                    @if (!$attendee->paid)
+                    <a class="button tiny danger cancel-ticket" data-cancel data-cancel-object="attendees"
+                        data-cancel-object-id="{{ $attendee->id }}" href="#">
+                        {{ __('system.attendee_cancel') }}
+                    </a>
+                    @endif
                 </td>
             </tr>
             @endforeach
         </table>
 
-        @if ($order->payments()->count() !== 0)
+        @if ($account->payments()->count() !== 0)
             <h3>{{ __('system.payments') }}</h3>
             <table>
                 <thead>
@@ -53,7 +53,7 @@
                     <th>{{ __('system.reference') }}</th>
                 </tr>
                 </thead>
-                @foreach ($order->payments() as $payment)
+                @foreach ($account->payments() as $payment)
                 <tr>
                     <td>{{ $payment->made_at->toDateString() }}</td>
                     <td>{{ Helper::getFullPrice($payment->amount) }}</td>
@@ -64,7 +64,7 @@
             </table>
         @endif
 
-        @if ($order->transfer_requests()->count() !== 0)
+        @if ($user->transfer_requests()->count() !== 0)
             <h3>{{ __('system.ticket_transfer_request') }}</h3>
             <table>
                 <thead>
@@ -75,7 +75,7 @@
                     <th></th>
                 </tr>
                 </thead>
-                @foreach ($order->transfer_requests() as $ticket_transfer)
+                @foreach ($user->transfer_requests() as $ticket_transfer)
                     <tr>
                         <td>{{ $ticket_transfer->original_full_name }}</td>
                         <td>{{ $ticket_transfer->full_name }}</td>
@@ -97,10 +97,10 @@
             </table>
         @endif
     </div>
-    <div class="small reveal" id="cancel-orders-container" data-reveal>
+    <div class="small reveal" id="cancel-attendees-container" data-reveal>
         <p class="lead text-alert">
             <strong>
-                {{ __('system.cancel_alert', ['attribute' => strtolower('system.order')]) }}
+                {{ __('system.cancel_alert', ['attribute' => strtolower('system.attendee')]) }}
             </strong><br />
             <small>{{ __('system.cancel_small') }}</small>
         </p>

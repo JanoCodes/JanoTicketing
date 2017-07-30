@@ -20,6 +20,7 @@
 
 namespace Jano\Repositories;
 
+use InvalidArgumentException;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Models\Attendee;
 use Jano\Models\TransferRequest;
@@ -51,9 +52,14 @@ class TransferRequestRepository implements TransferRequestContract
 
     /**
      * @inheritdoc
+     * @throws \InvalidArgumentException
      */
     public function update(TransferRequest $request, $data)
     {
+        if ($request->processed) {
+            throw new InvalidArgumentException('A processed transfer request cannot be updated.');
+        }
+
         $request->title = $data['title'];
         $request->first_name = $data['first_name'];
         $request->last_name = $data['last_name'];
@@ -61,5 +67,12 @@ class TransferRequestRepository implements TransferRequestContract
         $request->save();
 
         return $request;
+    }
+
+    public function process(TransferRequest $request)
+    {
+        if ($request->processed) {
+            throw new InvalidArgumentException('The transfer request has already been processed.');
+        }
     }
 }

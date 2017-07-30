@@ -20,7 +20,6 @@
 
 namespace Jano\Contracts;
 
-use Jano\Models\Order;
 use Jano\Models\Ticket;
 use Jano\Models\User;
 
@@ -40,10 +39,10 @@ interface TicketContract
      *
      * @param \Jano\Models\Ticket $ticket
      * @param \Jano\Models\User $user
-     * @param \Jano\Models\Order $order
-     * @param \Jano\Models\Attendee
+     * @param array $data
+     * @return \Jano\Models\Attendee
      */
-    public function reserve(Ticket $ticket, User $user, Order $order, $data);
+    public function reserve(Ticket $ticket, User $user, $data);
 
     /**
      * Get ticket price.

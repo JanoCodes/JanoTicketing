@@ -23,10 +23,12 @@ return [
     /**
      * System Languages
      */
+    'account' => 'Your Account',
     'agreement' => 'Agreement',
     'amount_paid' => 'Amount Paid',
     'attendee' => 'Attendee',
     'attendees' => 'Attendees',
+    'attendee_cancel' => 'Cancel Ticket',
     'back' => 'Back',
     'cancel_alert' => 'Are you sure that you would like to cancel this :attribute?',
     'cancel_order' => 'Cancel Order',
@@ -43,6 +45,7 @@ return [
     'first_name' => 'First Name',
     'form_error' => 'There was an error in the order form. Please try again.',
     'forgot_your_password' => 'Forgot Your Password?',
+    'first_choice_ticket' => 'First Choice Ticket Type',
     'full_name' => 'Full Name',
     'home' => 'Home',
     'jano_ticketing_system' => 'Jano Ticketing System',
@@ -76,6 +79,9 @@ return [
     'remember_me' => 'Remember Me',
     'request_create' => 'Create Waiting List Entry',
     'request_created' => 'Waiting List Entry Created',
+    'request_created_message' => 'You have successfully submitted an entry to the waiting list. The details of the '
+        . 'entry are supplied below for your reference. You would be notified via email should a ticket becomes '
+        . 'available.',
     'request_edit' => 'Edit Waiting List Entry',
     'reset_password' => 'Reset Password',
     'send_password_reset_link' => 'Send Password Reset Link',

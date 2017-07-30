@@ -18,37 +18,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Models;
+namespace Jano\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
+use Jano\Models\Account;
 
-/**
- * Class Payment
- *
- * @property int $id
- * @property int $account_id
- * @property string $type
- * @property int $amount
- * @property string $reference
- * @property string $internal_reference
- * @property \Carbon\Carbon $made_at
- */
-class Payment extends Model
+class AccountController extends Controller
 {
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
+     * AccountController constructor.
      */
-    protected $dates = ['made_at'];
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
 
     /**
-     * The account associated with the payment.
+     * Renders the view account page.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @param \Jano\Models\Account $account
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function account()
+    public function view(Account $account)
     {
-        return $this->belongsTo('Jano\Models\Account');
+        $this->authorize('view', $account);
+
+        return view('accounts.view', [
+            'account' => $account,
+            'user' => $account->user()
+        ]);
     }
 }

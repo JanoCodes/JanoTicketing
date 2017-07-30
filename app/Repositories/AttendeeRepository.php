@@ -20,22 +20,21 @@
 
 namespace Jano\Repositories;
 
-use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Jano\Contracts\OrderContract;
+use Jano\Contracts\AttendeeContract;
 use Jano\Contracts\TicketContract;
-use Jano\Events\TicketOrderCreated;
-use Jano\Models\Order;
+use Jano\Events\AttendeeDestroyed;
+use Jano\Events\AttendeesCreated;
+use Jano\Models\Attendee;
 use Jano\Models\Ticket;
 use Jano\Models\User;
-use Setting;
 
-class OrderRepository implements OrderContract
+class AttendeeRepository implements AttendeeContract
 {
     /**
      * @inheritdoc
      */
-    public function createTicketOrder(
+    public function store(
         TicketContract $contract,
         User $user,
         Collection $attendees
@@ -49,23 +48,35 @@ class OrderRepository implements OrderContract
                 $attendees->where('ticket_id', $ticket['id'])->count();
         }
 
-        $order = new Order();
-        $order->user()->associate($user);
-        $order->type = Order::TYPE_TICKET;
-        $order->amount_due = $amount;
-        $order->amount_paid = 0;
-        $order->paid = false;
-        $order->payment_due_at = Carbon::now()
-            ->addDays(Setting::get('payment.deadline'));
-        $order->save();
+        $account = $user->account();
+        $account->amount_due += $amount;
+        $account->save();
+
+        $return = collect();
 
         foreach ($attendees as $attendee) {
             $ticket = $tickets->where('id', $attendee['ticket_id'])->first();
-            $contract->reserve($ticket, $user, $order, $attendee);
+            $return->push($contract->reserve($ticket, $user, $attendee));
         }
 
-        event(new TicketOrderCreated($user, $order));
+        event(new AttendeesCreated($user, $return));
 
-        return $order;
+        return $return;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function destroy($attendee)
+    {
+        if (is_a($attendee, Collection::class)) {
+            $attendee->each(function ($item) {
+                $item->delete();
+            });
+        } else {
+            $attendee->delete();
+        }
+
+        event(new AttendeeDestroyed($attendee));
     }
 }

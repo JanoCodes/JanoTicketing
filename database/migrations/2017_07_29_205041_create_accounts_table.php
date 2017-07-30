@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,20 +31,13 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->unique();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->enum('type', ['tickets','transfer']);
             $table->integer('amount_due')->unsigned();
             $table->integer('amount_paid')->unsigned();
-            $table->boolean('paid');
-            $table->dateTime('payment_due_at');
-            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
-        });
-        Schema::table('attendees', function (Blueprint $table) {
-            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 
@@ -55,9 +48,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::table('attendees', function (Blueprint $table) {
-            $table->dropForeign(['order_id']);
-        });
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('accounts');
     }
 }

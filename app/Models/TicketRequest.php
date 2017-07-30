@@ -33,9 +33,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $last_name
  * @property string $email
  * @property array $ticket_preference
+ * @property \Jano\Models\Ticket $preferred_ticket
  * @property boolean $right_to_buy
  * @property int $priority
- * @property int $status
+ * @property boolean $honoured
  * @property int $attendee_id
  */
 class TicketRequest extends Model
@@ -48,6 +49,13 @@ class TicketRequest extends Model
      * @var array
      */
     protected $touches = ['user'];
+
+    /**
+     * The attributes that should be appended to the model.
+     *
+     * @var array
+     */
+    protected $appends = ['preferred_ticket'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -75,5 +83,18 @@ class TicketRequest extends Model
     public function user()
     {
         return $this->belongsTo('Jano\Models\User');
+    }
+
+    /**
+     * Return the preferred ticket type.
+     *
+     * @return \Jano\Models\Ticket
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function getPreferredTicket()
+    {
+        $id = array_search(1, $this->ticket_preference, false);
+
+        return Ticket::where('id', $id)->firstOrFail();
     }
 }

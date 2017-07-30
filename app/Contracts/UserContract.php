@@ -25,12 +25,16 @@ use Jano\Models\User;
 interface UserContract
 {
     /**
+     * Store the user instance.
+     *
      * @param array $data
      * @return \Jano\Models\User
      */
     public function store($data);
 
     /**
+     * Update the user instance.
+     *
      * @param \Jano\Models\User $user
      * @param array $data
      * @return \Jano\Models\User

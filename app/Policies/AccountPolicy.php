@@ -20,12 +20,11 @@
 
 namespace Jano\Policies;
 
-use Carbon\Carbon;
+use Jano\Models\Account;
 use Jano\Models\User;
-use Jano\Models\Order;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class OrderPolicy
+class AccountPolicy
 {
     use HandlesAuthorization;
 
@@ -33,34 +32,11 @@ class OrderPolicy
      * Determine whether the user can view the order.
      *
      * @param  \Jano\Models\User  $user
-     * @param  \Jano\Models\Order  $order
+     * @param  \Jano\Models\Account  $account
      * @return mixed
      */
-    public function view(User $user, Order $order)
+    public function view(User $user, Account $account)
     {
-        return $order->user_id === $user->id;
-    }
-
-    /**
-     * Determine whether the user can create orders.
-     *
-     * @param  \Jano\Models\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        return $user->can_order_at->gt(Carbon::now());
-    }
-
-    /**
-     * Determine whether the user can delete the order.
-     *
-     * @param  \Jano\Models\User  $user
-     * @param  \Jano\Models\Order  $order
-     * @return mixed
-     */
-    public function delete(User $user, Order $order)
-    {
-        return ($order->user_id === $user->id) && ($order->amount_paid === 0);
+        return $account->user_id === $user->id;
     }
 }

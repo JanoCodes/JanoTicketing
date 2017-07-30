@@ -23,32 +23,22 @@ namespace Jano\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Payment
+ * Class Account
  *
  * @property int $id
- * @property int $account_id
- * @property string $type
- * @property int $amount
- * @property string $reference
- * @property string $internal_reference
- * @property \Carbon\Carbon $made_at
+ * @property int $user_id
+ * @property int $amount_due
+ * @property int $amount_paid
  */
-class Payment extends Model
+class Account extends Model
 {
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['made_at'];
-
-    /**
-     * The account associated with the payment.
+     * The user which the account belongs to.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function account()
+    public function user()
     {
-        return $this->belongsTo('Jano\Models\Account');
+        return $this->belongsTo('Jano\Models\User');
     }
 }

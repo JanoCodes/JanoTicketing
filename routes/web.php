@@ -31,9 +31,9 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('event', 'EventController@show');
-Route::resource('orders', 'OrderController');
+Route::resource('accounts', 'AccountController', ['only' => ['view']]);
+Route::resource('attendees', 'AttendeeController', ['except' => ['list', 'view']]);
 Route::resource('requests', 'TicketRequestController');
-Route::resource('attendees', 'AttendeeController', ['only' => ['put', 'patch']]);
 
 Route::get('admin', 'Backend\HomeController@index');
 

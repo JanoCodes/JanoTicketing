@@ -68,6 +68,16 @@ class User extends Authenticatable
     }
 
     /**
+     * The account associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function account()
+    {
+        return $this->hasOne('Jano\Models\Account');
+    }
+
+    /**
      * The administrator associated with the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -85,16 +95,6 @@ class User extends Authenticatable
     public function attendees()
     {
         return $this->hasMany('Jano\Models\Attendee');
-    }
-
-    /**
-     * The orders associated with the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function orders()
-    {
-        return $this->hasMany('Jano\Models\Order');
     }
 
     /**

@@ -85,7 +85,7 @@ class TicketRepository implements TicketContract
     /**
      * @inheritdoc
      */
-    public function reserve(Ticket $ticket, User $user, Order $order, $data)
+    public function reserve(Ticket $ticket, User $user, $data)
     {
         DB::beginTransaction();
 

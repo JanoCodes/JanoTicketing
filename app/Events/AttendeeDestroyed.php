@@ -27,36 +27,24 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Jano\Models\Order;
-use Jano\Models\User;
 
-class TicketOrderCreated
+class AttendeeDestroyed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * User who placed the order.
-     *
-     * @var \Jano\Models\User
+     * @var \Illuminate\Support\Collection|\Jano\Models\Attendee
      */
-    public $user;
-
-    /**
-     * The order instance, which allow for access of list of attendees.
-     *
-     * @var \Jano\Models\Order
-     */
-    public $order;
+    public $attendee;
 
     /**
      * Create a new event instance.
      *
-     * @param \Jano\Models\User $user
-     * @param \Jano\Models\Order $order
+     * @param \Jano\Models\Attendee|\Illuminate\Support\Collection $attendee
+     * @return void
      */
-    public function __construct(User $user, Order $order)
+    public function __construct($attendee)
     {
-        $this->user = $user;
-        $this->order = $order;
+        $this->attendee = $attendee;
     }
 }

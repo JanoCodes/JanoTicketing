@@ -65,7 +65,7 @@
 @push('scripts')
 @foreach (['user', 'guests', 'confirmation', 'exception'] as $view)
 <script type="text/html" id="{!! $view !!}">
-    @include('orders.partials.' . $view)
+    @include('attendees.partials.' . $view)
 </script>
 @endforeach
 <script type="text/javascript">
@@ -357,7 +357,7 @@
                         return;
                     }
 
-                    axios.post('{{ route('orders.store') }}', formData)
+                    axios.post('{{ route('attendees.store') }}', formData)
                         .then(function(response) {
                             $('#back').hide();
                             $('#next').hide();

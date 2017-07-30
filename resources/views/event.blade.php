@@ -5,7 +5,7 @@
 @section('content')
     @include('partials.error')
     <div class="table-scroll">
-        <form method="GET" action="{{ route('orders.create') }}" id="form" data-abide novalidate>
+        <form method="GET" action="{{ route('attendees.create') }}" id="form" data-abide novalidate>
             {{ csrf_field() }}
             <table class="hover tickets">
                 <thead>
