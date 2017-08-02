@@ -37,7 +37,6 @@ class CreateAttendeesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('charge_id')->unsigned();
-            $table->foreign('charge_id')->references('id')->on('charges');
             $table->string('title');
             $table->string('first_name');
             $table->string('last_name');

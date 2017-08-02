@@ -39,6 +39,9 @@ class CreateAccountsTable extends Migration
             $table->integer('amount_paid')->unsigned();
             $table->timestamps();
         });
+        Schema::table('payments', function (Blueprint $table) {
+            $table->foreign('account_id')->references('id')->on('accounts');
+        });
     }
 
     /**
@@ -48,6 +51,9 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
+        Schema::table('payments', function (Blueprint $table) {
+            $table->dropForeign(['account_id']);
+        });
         Schema::dropIfExists('accounts');
     }
 }

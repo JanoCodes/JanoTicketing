@@ -34,7 +34,6 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id')->unsigned()->nullable();
-            $table->foreign('account_id')->references('id')->on('accounts');
             $table->enum('type', ['bank_transfer','manual','discount']);
             $table->integer('amount')->unsigned();
             $table->string('reference');
