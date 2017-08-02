@@ -31,6 +31,7 @@ use Ramsey\Uuid\Uuid;
  * @property int $id
  * @property string $uuid
  * @property int $user_id
+ * @property int $charge_id
  * @property string $title
  * @property string $first_name
  * @property string $last_name
@@ -50,7 +51,7 @@ class Attendee extends Model
      *
      * @var array
      */
-    protected $touches = ['user', 'order'];
+    protected $touches = ['user', 'charge'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -70,7 +71,7 @@ class Attendee extends Model
     ];
 
     /**
-     * The user associated with the attendee
+     * The user associated with the attendee.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -79,8 +80,18 @@ class Attendee extends Model
         return $this->belongsTo('Jano\Models\User');
     }
 
+    /**
+     * The charge associated with the attendee.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function charge()
+    {
+        return $this->belongsTo('Jano\Models\Charge');
+    }
+
     /*
-     * The ticket type associated with the attendee
+     * The ticket type associated with the attendee.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -90,7 +101,7 @@ class Attendee extends Model
     }
 
     /*
-     * The ticket request associated with the attendee
+     * The ticket request associated with the attendee.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -100,7 +111,7 @@ class Attendee extends Model
     }
 
     /*
-     * The transfer request associated with the attendee
+     * The transfer request associated with the attendee.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

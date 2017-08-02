@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttendeesTable extends Migration
+class CreateChargesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,22 +31,14 @@ class CreateAttendeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendees', function (Blueprint $table) {
+        Schema::create('charges', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('uuid')->unique();
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('charge_id')->unsigned();
-            $table->foreign('charge_id')->references('id')->on('charges');
-            $table->string('title');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->boolean('primary_ticket_holder');
-            $table->integer('ticket_id')->unsigned();
-            $table->boolean('checked_in');
-            $table->dateTime('checked_in_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->integer('account_id')->unsigned()->unique();
+            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->string('description');
+            $table->integer('amount');
+            $table->dateTime('due_at')->nullable();
+            $table->boolean('paid');
             $table->timestamps();
         });
     }
@@ -58,6 +50,6 @@ class CreateAttendeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendees');
+        Schema::dropIfExists('charges');
     }
 }

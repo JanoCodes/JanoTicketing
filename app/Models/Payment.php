@@ -36,6 +36,13 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['account'];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array

@@ -31,8 +31,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        'Jano\Models\Account' => 'Jano\Policies\AccountPolicy',
         'Jano\Models\Attendee' => 'Jano\Policies\AttendeePolicy',
-        'Jano\Models\Otrder' => 'Jano\Policies\OrderPolicy',
         'Jano\Models\TicketRequest' => 'Jano\Policies\TicketRequestPolicy',
     ];
 

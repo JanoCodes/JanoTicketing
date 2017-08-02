@@ -22,12 +22,14 @@ namespace Jano\Repositories;
 
 use Illuminate\Support\Collection;
 use Jano\Contracts\AttendeeContract;
+use Jano\Contracts\ChargeContract;
 use Jano\Contracts\TicketContract;
 use Jano\Events\AttendeeDestroyed;
 use Jano\Events\AttendeesCreated;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
 use Jano\Models\User;
+use function trans_choice;
 
 class AttendeeRepository implements AttendeeContract
 {
@@ -35,7 +37,8 @@ class AttendeeRepository implements AttendeeContract
      * @inheritdoc
      */
     public function store(
-        TicketContract $contract,
+        TicketContract $ticket,
+        ChargeContract $charge,
         User $user,
         Collection $attendees
     ) {
@@ -43,10 +46,19 @@ class AttendeeRepository implements AttendeeContract
 
         $amount = 0;
 
-        foreach ($tickets as $ticket) {
-            $amount += $contract->getPrice($ticket, $user) *
-                $attendees->where('ticket_id', $ticket['id'])->count();
+        foreach ($tickets as $ticket_type) {
+            $amount += $ticket->getPrice($ticket_type, $user) *
+                $attendees->where('ticket_id', $ticket_type['id'])->count();
         }
+
+        $charge_created = $charge->store($user->account(), [
+            'amount' => $amount,
+            'description' => trans_choice(
+                'system.ticket_order_for_attendee',
+                $attendees->count(),
+                ['count' => $attendees->count()]
+            )
+        ]);
 
         $account = $user->account();
         $account->amount_due += $amount;
@@ -56,7 +68,7 @@ class AttendeeRepository implements AttendeeContract
 
         foreach ($attendees as $attendee) {
             $ticket = $tickets->where('id', $attendee['ticket_id'])->first();
-            $return->push($contract->reserve($ticket, $user, $attendee));
+            $return->push($ticket->reserve($ticket, $user, $charge_created, $attendee));
         }
 
         event(new AttendeesCreated($user, $return));

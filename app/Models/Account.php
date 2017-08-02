@@ -33,6 +33,13 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
     /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['user'];
+
+    /**
      * The user which the account belongs to.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -18,43 +18,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Contracts;
+namespace Jano\Events;
 
-use Jano\Models\Attendee;
-use Jano\Models\Charge;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Jano\Models\TransferRequest;
+use Jano\Models\User;
 
-interface TransferRequestContract
+class TransferRequestProcessed
 {
-    /**
-     * @param \Jano\Models\Attendee $attendee
-     * @param \Jano\Models\Charge $charge
-     * @param array $data
-     * @return \Jano\Models\TransferRequest
-     */
-    public function store(Attendee $attendee, Charge $charge, $data);
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
+     * @var \Jano\Models\User
+     */
+    protected $user;
+
+    /**
+     * @var \Jano\Models\TransferRequest
+     */
+    protected $request;
+
+    /**
+     * Create a new event instance.
+     *
+     * @param \Jano\Models\User $user
      * @param \Jano\Models\TransferRequest $request
-     * @param array $data
-     * @return \Jano\Models\TransferRequest
      */
-    public function update(TransferRequest $request, $data);
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function getPending();
-
-    /**
-     * @param \Jano\Models\TransferRequest $request
-     * @return \Jano\Models\TransferRequest
-     */
-    public function process(TransferRequest $request);
-
-    /**
-     * @param \Jano\Models\TransferRequest $request
-     * @return void
-     */
-    public function destroy(TransferRequest $request);
+    public function __construct(User $user, TransferRequest $request)
+    {
+        $this->user = $user;
+        $this->request = $request;
+    }
 }

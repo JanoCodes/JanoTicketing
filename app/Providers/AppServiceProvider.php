@@ -24,11 +24,14 @@ use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Jano\Repositories\ChargeRepository;
 use Jano\Repositories\HelperRepositories;
-use Jano\Repositories\OrderRepository;
+use Jano\Repositories\AttendeeRepository;
+use Jano\Repositories\PaymentRepository;
 use Jano\Repositories\TicketRepository;
 use Jano\Repositories\TicketRequestRepository;
 use Jano\Repositories\TransferRequestRepository;
+use Jano\Repositories\UserRepository;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Menu;
 use Jano\Socialite\OauthProvider;
@@ -71,21 +74,37 @@ class AppServiceProvider extends ServiceProvider
             }
         );
 
-        // Registers the repositories used for the application.
+        $this->binding();
+    }
+
+    /*
+     * Registers the repositories used for the application.
+     */
+    protected function binding()
+    {
         $this->app->bind('helper', function ($app) {
             return new HelperRepositories();
         });
+        $this->app->bind(\Jano\Contracts\UserContract::class, function ($app) {
+            return new UserRepository();
+        });
+        $this->app->bind(\Jano\Contracts\ChargeContract::class, function ($app) {
+            return new ChargeRepository();
+        });
+        $this->app->bind(\Jano\Contracts\PaymentContract::class, function ($app) {
+            return new PaymentRepository();
+        });
         $this->app->bind(\Jano\Contracts\TicketContract::class, function ($app) {
             return new TicketRepository();
+        });
+        $this->app->bind(\Jano\Contracts\AttendeeContract::class, function ($app) {
+            return new AttendeeRepository();
         });
         $this->app->bind(\Jano\Contracts\TicketRequestContract::class, function ($app) {
             return new TicketRequestRepository();
         });
         $this->app->bind(\Jano\Contracts\TransferRequestContract::class, function ($app) {
             return new TransferRequestRepository();
-        });
-        $this->app->bind(\Jano\Contracts\OrderContract::class, function ($app) {
-            return new OrderRepository();
         });
     }
 

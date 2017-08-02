@@ -20,41 +20,34 @@
 
 namespace Jano\Contracts;
 
-use Jano\Models\Attendee;
+use Jano\Models\Account;
 use Jano\Models\Charge;
-use Jano\Models\TransferRequest;
 
-interface TransferRequestContract
+interface ChargeContract
 {
     /**
-     * @param \Jano\Models\Attendee $attendee
+     * @param \Jano\Models\Account $account
+     * @param array $data
+     * @return \Jano\Models\Charge
+     */
+    public function store(Account $account, $data);
+
+    /**
      * @param \Jano\Models\Charge $charge
      * @param array $data
-     * @return \Jano\Models\TransferRequest
+     * @return \Jano\Models\Charge
      */
-    public function store(Attendee $attendee, Charge $charge, $data);
+    public function update(Charge $charge, $data);
 
     /**
-     * @param \Jano\Models\TransferRequest $request
-     * @param array $data
-     * @return \Jano\Models\TransferRequest
+     * @param \Jano\Models\Charge $charge
+     * @return \Jano\Models\Charge
      */
-    public function update(TransferRequest $request, $data);
+    public function markPaid(Charge $charge);
 
     /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function getPending();
-
-    /**
-     * @param \Jano\Models\TransferRequest $request
-     * @return \Jano\Models\TransferRequest
-     */
-    public function process(TransferRequest $request);
-
-    /**
-     * @param \Jano\Models\TransferRequest $request
+     * @param \Jano\Models\Charge $charge
      * @return void
      */
-    public function destroy(TransferRequest $request);
+    public function destroy(Charge $charge);
 }

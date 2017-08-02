@@ -21,29 +21,33 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Collection
+ * Class Charge
  *
- * @property int $id
- * @property int $user_id
- * @property string $first_name
- * @property string $last_name
- * @property string $email
- * @property boolean $collected
- * @property \Carbon\Carbon $collected_at
+ * @property int $amount
+ * @property string $description
+ * @property \Carbon\Carbon $due_by
+ * @property boolean $paid
  */
-class Collection extends Model
+class Charge extends Model
 {
-    use Notifiable;
+    use SoftDeletes;
+
+    /**
+     * All of the relationships to be touched.
+     *
+     * @var array
+     */
+    protected $touches = ['account'];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['collected_at'];
+    protected $dates = ['due_by'];
 
     /**
      * The attributes that should be cast to native types.
@@ -51,26 +55,36 @@ class Collection extends Model
      * @var array
      */
     protected $casts = [
-        'collected' => 'boolean',
+        'paid' => 'boolean',
     ];
 
     /**
-     * The user associated with the collection
+     * The account the charge belongs to.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function account()
     {
-        return $this->belongsTo('Jano\Models\User');
+        return $this->belongsTo('\Jano\Models\Acount');
     }
 
     /**
-     * The attendees associated with the collection
+     * The attendees associated with the charge.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function attendees()
     {
-        return $this->hasManyThrough('Jano\Models\Attendee', 'Jano\Models\User');
+        return $this->hasMany('Jano\Models\Attendee');
+    }
+
+    /**
+     * The transfer request associated with the charge.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function transferRequest()
+    {
+        return $this->hasOne('Jano\Models\TransferRequest');
     }
 }

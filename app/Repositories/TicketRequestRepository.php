@@ -63,7 +63,7 @@ class TicketRequestRepository implements TicketRequestContract
     /**
      * @inheritdoc
      */
-    public function delete(TicketRequest $request)
+    public function destroy(TicketRequest $request)
     {
         $request->delete();
     }

@@ -23,6 +23,7 @@ namespace Jano\Repositories;
 use DB;
 use Jano\Contracts\TicketContract;
 use Jano\Models\Attendee;
+use Jano\Models\Charge;
 use Jano\Models\Order;
 use Jano\Models\Ticket;
 use Jano\Models\User;
@@ -85,7 +86,7 @@ class TicketRepository implements TicketContract
     /**
      * @inheritdoc
      */
-    public function reserve(Ticket $ticket, User $user, $data)
+    public function reserve(Ticket $ticket, User $user, Charge $charge, $data)
     {
         DB::beginTransaction();
 
@@ -95,10 +96,10 @@ class TicketRepository implements TicketContract
         $attendee->last_name = $data['last_name'];
         $attendee->email = $data['email'];
         $attendee->user()->associate($user);
+        $attendee->charge()->associate($charge);
         $attendee->primary_ticket_holder = $data['primary_ticket_holder'];
         $attendee->ticket()->associate($ticket);
         $attendee->checked_in = false;
-        $order->attendees()->save($attendee);
 
         DB::table('ticket_store')->where('id', $data['ticket_id'])->delete();
         DB::commit();

@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $user_id
  * @property int $attendee_id
+ * @property int $charge_id
  * @property string $old_title
  * @property string $old_first_name
  * @property string $old_last_name
@@ -53,7 +54,7 @@ class TransferRequest extends Model
      *
      * @var array
      */
-    protected $touches = ['user', 'order', 'attendee'];
+    protected $touches = ['user', 'attendee', 'charge'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -83,16 +84,6 @@ class TransferRequest extends Model
     }
 
     /**
-     * The order associated with the ticket transfer request.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function order()
-    {
-        return $this->belongsTo('Jano\Models\Order');
-    }
-
-    /**
      * The attendee associated with the ticket transfer request.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -100,6 +91,16 @@ class TransferRequest extends Model
     public function attendee()
     {
         return $this->belongsTo('Jano\Models\Attendee');
+    }
+
+    /**
+     * The charge associated with the ticket transfer request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function charge()
+    {
+        return $this->belongsTo('Jano\Models\Charge');
     }
 
     /**

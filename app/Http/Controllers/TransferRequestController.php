@@ -21,8 +21,10 @@
 namespace Jano\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Jano\Contracts\ChargeContract;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Models\TransferRequest;
+use function ucfirst;
 use Validator;
 
 class TransferRequestController extends Controller
@@ -30,17 +32,24 @@ class TransferRequestController extends Controller
     /**
      * @var \Jano\Contracts\TransferRequestContract
      */
-    protected $contract;
+    protected $request;
+
+    /**
+     * @var \Jano\Contracts\ChargeContract
+     */
+    protected $charge;
 
     /**
      * TicketRequestController constructor.
      *
      * @param \Jano\Contracts\TransferRequestContract
+     * @param \Jano\Contracts\ChargeContract
      */
-    public function __construct(TransferRequestContract $contract)
+    public function __construct(TransferRequestContract $request, ChargeContract $charge)
     {
         $this->middleware(['auth']);
-        $this->contract = $contract;
+        $this->request = $request;
+        $this->charge = $charge;
     }
 
     /**
@@ -81,7 +90,14 @@ class TransferRequestController extends Controller
         $this->authorize('create', \Jano\Models\TicketRequest::class);
 
         $this->storeValidator($request->all());
-        $transfer_request = $this->contract->store($request->user(), $request->all());
+
+        $user = $request->user();
+
+        $charge = $this->charge->store($user->account(), [
+            'amount' => Setting::get('transfer.fee'),
+            'description' => ucfirst(strtolower(__('system.ticket_transfer_request')))
+        ]);
+        $transfer_request = $this->request->store($user, $charge, $request->all());
 
         return view('transfer.store', [
             'transfer_store' => $transfer_request,
@@ -133,7 +149,7 @@ class TransferRequestController extends Controller
         $this->authorize('update', $transfer_request);
 
         $this->updateValidator($request->all());
-        $transfer_request = $this->contract->update($transfer_request, $request->all());
+        $transfer_request = $this->request->update($transfer_request, $request->all());
 
         return view('requests.update', [
             'transfer_request' => $transfer_request,

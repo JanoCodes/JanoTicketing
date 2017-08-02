@@ -22,6 +22,7 @@ namespace Jano\Repositories;
 
 use InvalidArgumentException;
 use Jano\Contracts\UserContract;
+use Jano\Models\Account;
 use Jano\Models\User;
 
 class UserRepository implements UserContract
@@ -46,6 +47,12 @@ class UserRepository implements UserContract
         $user->surcharge = $data['surcharge'] ?? null;
         $user->right_to_buy = $data['right_to_buy'] ?? null;
         $user->save();
+
+        $account = new Account();
+        $account->user()->associate($user);
+        $account->amount_due = 0;
+        $account->amount_paid = 0;
+        $account->save();
 
         return $user;
     }

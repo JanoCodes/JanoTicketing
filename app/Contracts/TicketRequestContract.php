@@ -43,5 +43,5 @@ interface TicketRequestContract
      * @param TicketRequest $request
      * @return void
      */
-    public function delete(TicketRequest $request);
+    public function destroy(TicketRequest $request);
 }

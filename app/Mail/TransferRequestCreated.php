@@ -18,34 +18,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Contracts;
+namespace Jano\Mail;
 
-use Illuminate\Support\Collection;
-use Jano\Models\User;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-interface AttendeeContract
+class TransferRequestCreated extends Mailable
 {
-    /**
-     * Store new attendees instances.
-     *
-     * @param \Jano\Contracts\TicketContract $ticket
-     * @param \Jano\Contracts\ChargeContract $charge
-     * @param \Jano\Models\User $user
-     * @param \Illuminate\Support\Collection $tickets
-     * @return \Illuminate\Support\Collection
-     */
-    public function store(
-        TicketContract $ticket,
-        ChargeContract $charge,
-        User $user,
-        Collection $tickets
-    );
+    use Queueable, SerializesModels;
 
     /**
-     * Destroy an attendee instance.
+     * Create a new message instance.
      *
-     * @param \Jano\Models\Attendee|\Illuminate\Support\Collection $attendee
      * @return void
      */
-    public function destroy($attendee);
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('view.name');
+    }
 }

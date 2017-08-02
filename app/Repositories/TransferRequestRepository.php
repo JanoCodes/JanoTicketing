@@ -20,9 +20,12 @@
 
 namespace Jano\Repositories;
 
+use Carbon\Carbon;
 use InvalidArgumentException;
 use Jano\Contracts\TransferRequestContract;
+use Jano\Events\TransferRequestProcessed;
 use Jano\Models\Attendee;
+use Jano\Models\Charge;
 use Jano\Models\TransferRequest;
 
 class TransferRequestRepository implements TransferRequestContract
@@ -30,11 +33,12 @@ class TransferRequestRepository implements TransferRequestContract
     /**
      * @inheritdoc
      */
-    public function store(Attendee $attendee, $data)
+    public function store(Attendee $attendee, Charge $charge, $data)
     {
         $request = new TransferRequest();
         $request->user()->associate($attendee->user());
         $request->attendee()->associate($attendee);
+        $request->charge()->associate($charge);
         $request->old_title = $attendee->title;
         $request->old_first_name = $attendee->first_name;
         $request->old_last_name = $attendee->last_name;
@@ -69,10 +73,59 @@ class TransferRequestRepository implements TransferRequestContract
         return $request;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getPending()
+    {
+        return TransferRequest::where('processed', false)
+            ->whereHas('charge', function ($query) {
+                $query->where('paid', true);
+            })->all();
+    }
+
+    public function associateNew(TransferRequest $request, Attendee $attendee)
+    {
+        if ($request->processed) {
+            throw new InvalidArgumentException('A new attendee cannot be associated with a processed transfer '
+                . 'request.');
+        }
+
+        $request->newAttendee()->associate($attendee);
+        $request->save();
+
+        return $request;
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \InvalidArgumentException
+     */
     public function process(TransferRequest $request)
     {
         if ($request->processed) {
             throw new InvalidArgumentException('The transfer request has already been processed.');
         }
+
+        $request->processed = true;
+        $request->processed_at = Carbon::now();
+        $request->save();
+
+        event(new TransferRequestProcessed($request->user(), $request));
+
+        return $request;
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \InvalidArgumentException
+     */
+    public function destroy(TransferRequest $request)
+    {
+        if ($request->processed) {
+            throw new InvalidArgumentException('The transfer request has already been processed.');
+        }
+
+        $request->delete();
     }
 }
