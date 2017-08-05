@@ -24,19 +24,33 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Jano\Models\TransferRequest;
+use Jano\Models\User;
 
-class TransferRequestProcessed extends Mailable
+class TransferRequestProcessed extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     /**
+     * @var \Jano\Models\User
+     */
+    public $user;
+
+    /**
+     * @var \Jano\Models\TransferRequest
+     */
+    public $request;
+
+    /**
      * Create a new message instance.
      *
-     * @return void
+     * @param \Jano\Models\User $user
+     * @param \Jano\Models\TransferRequest $request
      */
-    public function __construct()
+    public function __construct(User $user, TransferRequest $request)
     {
-        //
+        $this->user = $user;
+        $this->request = $request;
     }
 
     /**
@@ -46,6 +60,7 @@ class TransferRequestProcessed extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->to($this->user)
+            ->markdown('emails.transfers.processed');
     }
 }

@@ -25,10 +25,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Jano\Models\Account;
-use Jano\Models\TransferRequest;
+use Jano\Models\TicketRequest;
 use Jano\Models\User;
 
-class TransferRequestCreated extends Mailable implements ShouldQueue
+class TicketRequestToHonour extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -38,27 +38,20 @@ class TransferRequestCreated extends Mailable implements ShouldQueue
     public $user;
 
     /**
-     * @var \Jano\Models\TransferRequest
+     * @var \Jano\Models\TicketRequest
      */
     public $request;
-
-    /**
-     * @var \Jano\Models\Account
-     */
-    public $account;
 
     /**
      * Create a new message instance.
      *
      * @param \Jano\Models\User $user
-     * @param \Jano\Models\TransferRequest $request
-     * @param \Jano\Models\Account $account
+     * @param \Jano\Models\TicketRequest $request
      */
-    public function __construct(User $user, TransferRequest $request, Account $account)
+    public function __construct(User $user, TicketRequest $request)
     {
         $this->user = $user;
         $this->request = $request;
-        $this->account = $account;
     }
 
     /**
@@ -69,6 +62,6 @@ class TransferRequestCreated extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->to($this->user)
-            ->markdown('emails.transfers.created');
+            ->markdown('emails.requests.tohonour');
     }
 }

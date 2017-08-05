@@ -24,26 +24,41 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Jano\Models\Account;
 use Jano\Models\Order;
+use Jano\Models\User;
 
-class TicketOrderCreated extends Mailable
+class AttendeesCreated extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     /**
-     * @var \Jano\Models\Order
+     * @var \Jano\Models\User
      */
-    public $order;
+    public $user;
+
+    /**
+     * @var \Jano\Models\Attendee|\Illuminate\Support\Collection
+     */
+    public $attendees;
+
+    /**
+     * @var \Jano\Models\Account
+     */
+    public $account;
 
     /**
      * Create a new message instance.
      *
-     * @param \Jano\Models\Order $order
-     * @return void
+     * @param \Jano\Models\User $user
+     * @param \Jano\Models\Attendee|\Illuminate\Support\Collection $attendees
+     * @param \Jano\Models\Account $account
      */
-    public function __construct(Order $order)
+    public function __construct(User $user, $attendees, Account $account)
     {
-        $this->order = $order;
+        $this->user = $user;
+        $this->attendees = $attendees;
+        $this->account = $account;
     }
 
     /**
@@ -53,6 +68,7 @@ class TicketOrderCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.orders.created');
+        return $this->to($this->user)
+            ->markdown('emails.attendees.created');
     }
 }
