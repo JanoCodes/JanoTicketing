@@ -173,7 +173,6 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
-        Spatie\Translatable\TranslatableServiceProvider::class,
 
         /*
          * Application Service Providers
