@@ -20,36 +20,27 @@
 
 namespace Jano\Contracts;
 
-use Jano\Models\Attendee;
-use Jano\Models\TicketRequest;
+use Jano\Models\Collection;
 use Jano\Models\User;
 
-interface TicketRequestContract
+interface CollectionContract
 {
     /**
      * @param \Jano\Models\User $user
-     * @param $data
-     * @return \Jano\Models\TicketRequest
+     * @return \Jano\Models\Collection
      */
-    public function store(User $user, $data);
+    public function store(User $user);
 
     /**
-     * @param \Jano\Models\TicketRequest $request
+     * @param \Jano\Models\Collection $collection
      * @param array $data
-     * @return \Jano\Models\TicketRequest
+     * @return \Jano\Models\Collection
      */
-    public function update(TicketRequest $request, $data);
+    public function update(Collection $collection, $data);
 
     /**
-     * @param \Jano\Models\TicketRequest $request
-     * @param \Jano\Models\Attendee $attendee
-     * @return \Jano\Models\TicketRequest
+     * @param \Jano\Models\Collection $collection
+     * @return \Jano\Models\Collection
      */
-    public function honour(TicketRequest $request, Attendee $attendee);
-
-    /**
-     * @param TicketRequest $request
-     * @return void
-     */
-    public function destroy(TicketRequest $request);
+    public function collect(Collection $collection);
 }

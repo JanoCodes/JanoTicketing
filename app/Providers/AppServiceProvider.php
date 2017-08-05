@@ -24,20 +24,29 @@ use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Jano\Repositories\ChargeRepository;
-use Jano\Repositories\HelperRepositories;
-use Jano\Repositories\AttendeeRepository;
-use Jano\Repositories\PaymentRepository;
-use Jano\Repositories\TicketRepository;
-use Jano\Repositories\TicketRequestRepository;
-use Jano\Repositories\TransferRequestRepository;
-use Jano\Repositories\UserRepository;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Menu;
 use Jano\Socialite\OauthProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * Binding of implementations to abstracts.
+     *
+     * @var array
+     */
+    protected $binding = [
+        'helper' => \Jano\Repositories\HelperRepositories::class,
+        \Jano\Contracts\UserContract::class => \Jano\Repositories\UserRepository::class,
+        \Jano\Contracts\ChargeContract::class => \Jano\Repositories\ChargeRepository::class,
+        \Jano\Contracts\PaymentContract::class => \Jano\Repositories\PaymentRepository::class,
+        \Jano\Contracts\TicketContract::class => \Jano\Repositories\TicketRepository::class,
+        \Jano\Contracts\AttendeeContract::class => \Jano\Repositories\AttendeeRepository::class,
+        \Jano\Contracts\TicketRequestContract::class => \Jano\Repositories\TicketRequestRepository::class,
+        \Jano\Contracts\TransferRequestContract::class => \Jano\Repositories\TransferRequestRepository::class,
+        \Jano\Contracts\CollectionContract::class => \Jano\Repositories\CollectionRepository::class,
+    ];
+
     /**
      * Bootstrap any application services.
      *
@@ -82,30 +91,11 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function binding()
     {
-        $this->app->bind('helper', function ($app) {
-            return new HelperRepositories();
-        });
-        $this->app->bind(\Jano\Contracts\UserContract::class, function ($app) {
-            return new UserRepository();
-        });
-        $this->app->bind(\Jano\Contracts\ChargeContract::class, function ($app) {
-            return new ChargeRepository();
-        });
-        $this->app->bind(\Jano\Contracts\PaymentContract::class, function ($app) {
-            return new PaymentRepository();
-        });
-        $this->app->bind(\Jano\Contracts\TicketContract::class, function ($app) {
-            return new TicketRepository();
-        });
-        $this->app->bind(\Jano\Contracts\AttendeeContract::class, function ($app) {
-            return new AttendeeRepository();
-        });
-        $this->app->bind(\Jano\Contracts\TicketRequestContract::class, function ($app) {
-            return new TicketRequestRepository();
-        });
-        $this->app->bind(\Jano\Contracts\TransferRequestContract::class, function ($app) {
-            return new TransferRequestRepository();
-        });
+        foreach ($this->binding as $abstract => $implementation) {
+            $this->app->bind($abstract, function ($app) use (&$implementation) {
+                return new $implementation();
+            });
+        }
     }
 
     /**

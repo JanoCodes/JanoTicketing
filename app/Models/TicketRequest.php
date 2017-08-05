@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property boolean $right_to_buy
  * @property int $priority
  * @property boolean $honoured
+ * @property \Carbon\Carbon $honoured_at
  * @property int $attendee_id
  */
 class TicketRequest extends Model
@@ -62,7 +63,7 @@ class TicketRequest extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['honoured_at', 'deleted_at'];
 
     /**
      * The attributes that should be cast to native types.
@@ -83,6 +84,16 @@ class TicketRequest extends Model
     public function user()
     {
         return $this->belongsTo('Jano\Models\User');
+    }
+
+    /**
+     * The attendee associated with the honoured ticket request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function attendee()
+    {
+        return $this->belongsTo('Jano\Models\Attendee');
     }
 
     /**

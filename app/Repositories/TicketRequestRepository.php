@@ -20,7 +20,9 @@
 
 namespace Jano\Repositories;
 
+use Carbon\Carbon;
 use Jano\Contracts\TicketRequestContract;
+use Jano\Models\Attendee;
 use Jano\Models\TicketRequest;
 use Jano\Models\User;
 
@@ -39,7 +41,7 @@ class TicketRequestRepository implements TicketRequestContract
         $request->email = $data['email'];
         $request->ticket_preference = $data['ticket'];
         $request->right_to_buy = $user->right_to_buy > 0;
-        $request->status = 0;
+        $request->honoured = false;
         $request->save();
 
         return $request;
@@ -55,6 +57,19 @@ class TicketRequestRepository implements TicketRequestContract
         $request->last_name = $data['last_name'];
         $request->email = $data['email'];
         $request->ticket_preference = $data['ticket'];
+        $request->save();
+
+        return $request;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function honour(TicketRequest $request, Attendee $attendee)
+    {
+        $request->attendee()->associate($attendee);
+        $request->honoured = true;
+        $request->honoured_at = Carbon::now();
         $request->save();
 
         return $request;
