@@ -43,6 +43,7 @@ class CreateTicketRequestsTable extends Migration
             $table->boolean('right_to_buy');
             $table->integer('priority')->nullable();
             $table->boolean('honoured');
+            $table->dateTime('honoured_at')->nullable();
             $table->integer('attendee_id')->unsigned()->nullable();
             $table->foreign('attendee_id')->references('id')->on('attendees');
             $table->dateTime('deleted_at')->nullable();

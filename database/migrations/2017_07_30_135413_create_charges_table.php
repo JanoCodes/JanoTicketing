@@ -39,6 +39,7 @@ class CreateChargesTable extends Migration
             $table->integer('amount');
             $table->dateTime('due_at')->nullable();
             $table->boolean('paid');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
         Schema::table('attendees', function (Blueprint $table) {

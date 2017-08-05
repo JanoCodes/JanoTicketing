@@ -50,6 +50,7 @@ class CreateTransferRequestsTable extends Migration
             $table->dateTime('processed_at')->nullable();
             $table->integer('new_attendee_id')->unsigned()->nullable();
             $table->foreign('new_attendee_id')->references('id')->on('attendees');
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }
