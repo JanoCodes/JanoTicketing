@@ -26,12 +26,16 @@ use Jano\Models\User;
 interface CollectionContract
 {
     /**
+     * Store a new collection instance.
+     *
      * @param \Jano\Models\User $user
      * @return \Jano\Models\Collection
      */
     public function store(User $user);
 
     /**
+     * Update the parameters of the collection instance.
+     *
      * @param \Jano\Models\Collection $collection
      * @param array $data
      * @return \Jano\Models\Collection
@@ -39,6 +43,8 @@ interface CollectionContract
     public function update(Collection $collection, $data);
 
     /**
+     * Mark the collection instance as collected.
+     *
      * @param \Jano\Models\Collection $collection
      * @return \Jano\Models\Collection
      */

@@ -27,6 +27,8 @@ use Jano\Models\User;
 interface TicketRequestContract
 {
     /**
+     * Store a new ticket request instance.
+     *
      * @param \Jano\Models\User $user
      * @param $data
      * @return \Jano\Models\TicketRequest
@@ -34,6 +36,8 @@ interface TicketRequestContract
     public function store(User $user, $data);
 
     /**
+     * Update the parameters of the ticket request instance.
+     *
      * @param \Jano\Models\TicketRequest $request
      * @param array $data
      * @return \Jano\Models\TicketRequest
@@ -41,6 +45,8 @@ interface TicketRequestContract
     public function update(TicketRequest $request, $data);
 
     /**
+     * Mark the ticket request instance as honoured.
+     *
      * @param \Jano\Models\TicketRequest $request
      * @param \Jano\Models\Attendee $attendee
      * @return \Jano\Models\TicketRequest
@@ -48,8 +54,9 @@ interface TicketRequestContract
     public function honour(TicketRequest $request, Attendee $attendee);
 
     /**
+     * Destroy the ticket request instance.
+     *
      * @param TicketRequest $request
-     * @return void
      */
     public function destroy(TicketRequest $request);
 }

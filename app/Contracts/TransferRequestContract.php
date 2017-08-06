@@ -27,6 +27,8 @@ use Jano\Models\TransferRequest;
 interface TransferRequestContract
 {
     /**
+     * Store a new transfer request instance.
+     *
      * @param \Jano\Models\Attendee $attendee
      * @param \Jano\Models\Charge $charge
      * @param array $data
@@ -35,6 +37,8 @@ interface TransferRequestContract
     public function store(Attendee $attendee, Charge $charge, $data);
 
     /**
+     * Update the parameters of the transfer request instance.
+     *
      * @param \Jano\Models\TransferRequest $request
      * @param array $data
      * @return \Jano\Models\TransferRequest
@@ -42,17 +46,23 @@ interface TransferRequestContract
     public function update(TransferRequest $request, $data);
 
     /**
+     * Return a collection of pending transfer request instances.
+     *
      * @return \Illuminate\Support\Collection
      */
     public function getPending();
 
     /**
+     * Mark the transfer request instance as processed.
+     *
      * @param \Jano\Models\TransferRequest $request
      * @return \Jano\Models\TransferRequest
      */
     public function process(TransferRequest $request);
 
     /**
+     * Destroy the transfer request instance.
+     *
      * @param \Jano\Models\TransferRequest $request
      * @return void
      */

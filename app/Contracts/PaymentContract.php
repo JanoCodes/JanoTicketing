@@ -26,6 +26,8 @@ use Jano\Models\Payment;
 interface PaymentContract
 {
     /**
+     * Store a new payment instance.
+     *
      * @param array $data
      * @param \Jano\Models\Account|null $account
      * @return \Jano\Models\Payment
@@ -33,6 +35,8 @@ interface PaymentContract
     public function store($data, Account $account = null);
 
     /**
+     * Associate the payment instance with a specific account.
+     *
      * @param \Jano\Models\Payment $payment
      * @param \Jano\Models\Account $account
      * @return \Jano\Models\Payment
@@ -40,6 +44,8 @@ interface PaymentContract
     public function associate(Payment $payment, Account $account);
 
     /**
+     * Destroy the payment instance.
+     *
      * @param \Jano\Models\Payment $payment
      */
     public function destroy(Payment $payment);
