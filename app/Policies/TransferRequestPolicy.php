@@ -21,58 +21,58 @@
 namespace Jano\Policies;
 
 use Jano\Models\User;
-use Jano\Models\TicketRequest;
+use Jano\Models\TransferRequest;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Setting;
 
-class TicketRequestPolicy
+class TransferRequestPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the ticket request.
+     * Determine whether the user can view the transfer request.
      *
      * @param  \Jano\Models\User  $user
-     * @param  \Jano\Models\TicketRequest  $ticket_request
+     * @param  \Jano\Models\TransferRequest  $transferRequest
      * @return mixed
      */
-    public function view(User $user, TicketRequest $ticket_request)
+    public function view(User $user, TransferRequest $transferRequest)
     {
-        return $ticket_request->user_id === $user->id;
+        return $user->id === $transferRequest->user_id;
     }
 
     /**
-     * Determine whether the user can create ticket requests.
+     * Determine whether the user can create transfer requests.
      *
      * @param  \Jano\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
     {
-        return ($user->attendees()->count() < $user->ticket_limit) && Setting::get('ticket_request.open');
+        return ($user->attendees()->count() > 0) && Setting::get('system.transfer.open');
     }
 
     /**
-     * Determine whether the user can update the ticket request.
+     * Determine whether the user can update the transferRequest.
      *
      * @param  \Jano\Models\User  $user
-     * @param  \Jano\Models\TicketRequest  $ticket_request
+     * @param  \Jano\Models\TransferRequest  $transferRequest
      * @return mixed
      */
-    public function update(User $user, TicketRequest $ticket_request)
+    public function update(User $user, TransferRequest $transferRequest)
     {
-        return $ticket_request->user_id === $user->id;
+        return ($user->id === $transferRequest->user_id) && Setting::get('system.transfer.open');
     }
 
     /**
-     * Determine whether the user can delete the ticke request.
+     * Determine whether the user can delete the transferRequest.
      *
      * @param  \Jano\Models\User  $user
-     * @param  \Jano\Models\TicketRequest  $ticket_request
+     * @param  \Jano\Models\TransferRequest  $transferRequest
      * @return mixed
      */
-    public function delete(User $user, TicketRequest $ticket_request)
+    public function delete(User $user, TransferRequest $transferRequest)
     {
-        return ($ticket_request->user_id === $user->id) && !$ticket_request->status;
+        return $user->id === $transferRequest->user_id;
     }
 }
