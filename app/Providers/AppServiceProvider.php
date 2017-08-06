@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $binding = [
+    protected $implementations = [
         'helper' => \Jano\Repositories\HelperRepositories::class,
         \Jano\Contracts\UserContract::class => \Jano\Repositories\UserRepository::class,
         \Jano\Contracts\ChargeContract::class => \Jano\Repositories\ChargeRepository::class,
@@ -91,8 +91,8 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function binding()
     {
-        foreach ($this->binding as $abstract => $implementation) {
-            $this->app->bind($abstract, function ($app) use (&$implementation) {
+        foreach ($this->implementations as $abstract => $implementation) {
+            $this->app->bind($abstract, function ($app) use ($implementation) {
                 return new $implementation();
             });
         }
