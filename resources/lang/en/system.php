@@ -33,6 +33,7 @@ return [
     'cancel_alert' => 'Are you sure that you would like to cancel this :attribute?',
     'cancel_order' => 'Cancel Order',
     'cancel_small' => 'This action is irreversible and so cannot be undone.',
+    'collection_edit' => 'Edit Proxy Information',
     'confirm_password' => 'Confirm Password',
     'continue' => 'Continue',
     'copyright' => 'Copyright &copy; Andrew Ying 2016-17. Licensed under the '
