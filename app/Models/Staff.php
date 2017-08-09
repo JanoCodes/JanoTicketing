@@ -22,14 +22,7 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Administrator
- *
- * @property int $id
- * @property int $user_id
- * @property int $access_level
- */
-class Administrator extends Model
+class Staff extends Model
 {
     /**
      * All of the relationships to be touched.
@@ -39,24 +32,7 @@ class Administrator extends Model
     protected $touches = ['user'];
 
     /**
-     * Create a new administrator.
-     *
-     * @param \Jano\Models\User $user
-     * @param int $level
-     * @return \Jano\Models\Administrator
-     */
-    public static function create(User $user, $level)
-    {
-        $admin = new self();
-        $admin->user_id = $user->id;
-        $admin->access_level = $level;
-        $admin->save();
-
-        return $admin;
-    }
-
-    /**
-     * The user associated with the administrator.
+     * The user associated with the staff.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
