@@ -15,6 +15,7 @@
         "laravel/tinker": "~1.0",
         "league/csv": "^8.0",
         "maatwebsite/excel": "^2.1",
+        "owen-it/laravel-auditing": "^4.1",
         "predis/predis": "^1.1.0",
         "propaganistas/laravel-phone": "^2.8",
         "ramsey/uuid": "^3.6",

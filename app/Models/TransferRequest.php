@@ -22,6 +22,8 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * Class TransferRequest
@@ -45,9 +47,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $processed_at
  * @property int $new_attendee_id
  */
-class TransferRequest extends Model
+class TransferRequest extends Model implements AuditableContract
 {
-    use SoftDeletes;
+    use Auditable, SoftDeletes;
 
     /**
      * All of the relationships to be touched.

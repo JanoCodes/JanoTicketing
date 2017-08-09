@@ -23,6 +23,8 @@ namespace Jano\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -42,9 +44,9 @@ use Ramsey\Uuid\Uuid;
  * @property \Carbon\Carbon $checked_in_at
  *
  */
-class Attendee extends Model
+class Attendee extends Model implements AuditableContract
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, Auditable;
 
     /**
      * All of the relationships to be touched.

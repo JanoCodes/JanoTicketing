@@ -22,6 +22,8 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * Class Collection
@@ -34,9 +36,9 @@ use Illuminate\Notifications\Notifiable;
  * @property boolean $collected
  * @property \Carbon\Carbon $collected_at
  */
-class Collection extends Model
+class Collection extends Model implements AuditableContract
 {
-    use Notifiable;
+    use Auditable, Notifiable;
 
     /**
      * The attributes that should be mutated to dates.

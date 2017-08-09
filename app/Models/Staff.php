@@ -21,9 +21,13 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Staff extends Model
+class Staff extends Model implements AuditableContract
 {
+    use Auditable;
+
     /**
      * All of the relationships to be touched.
      *

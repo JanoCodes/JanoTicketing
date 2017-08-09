@@ -22,6 +22,8 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * Class Charge
@@ -31,9 +33,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $due_by
  * @property boolean $paid
  */
-class Charge extends Model
+class Charge extends Model implements AuditableContract
 {
-    use SoftDeletes;
+    use Auditable, SoftDeletes;
 
     /**
      * All of the relationships to be touched.

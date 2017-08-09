@@ -21,6 +21,8 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * Class Payment
@@ -33,8 +35,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $internal_reference
  * @property \Carbon\Carbon $made_at
  */
-class Payment extends Model
+class Payment extends Model implements AuditableContract
 {
+    use Auditable;
+
     /**
      * All of the relationships to be touched.
      *

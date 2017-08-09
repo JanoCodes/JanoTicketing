@@ -22,6 +22,8 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * Class TicketRequest
@@ -40,9 +42,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $honoured_at
  * @property int $attendee_id
  */
-class TicketRequest extends Model
+class TicketRequest extends Model implements AuditableContract
 {
-    use SoftDeletes;
+    use Auditable, SoftDeletes;
 
     /**
      * All of the relationships to be touched.
