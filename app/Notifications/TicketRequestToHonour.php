@@ -18,23 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Mail;
+namespace Jano\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 use Jano\Models\TicketRequest;
-use Jano\Models\User;
 
-class TicketRequestCreated extends Mailable implements ShouldQueue
+class TicketRequestToHonour extends Notification
 {
-    use Queueable, SerializesModels;
-
-    /**
-     * @var \Jano\Models\User
-     */
-    public $user;
+    use Queueable;
 
     /**
      * @var \Jano\Models\TicketRequest
@@ -42,25 +36,38 @@ class TicketRequestCreated extends Mailable implements ShouldQueue
     public $request;
 
     /**
-     * Create a new message instance.
+     * Create a new notification instance.
      *
-     * @param \Jano\Models\User $user
      * @param \Jano\Models\TicketRequest $request
      */
-    public function __construct(User $user, TicketRequest $request)
+    public function __construct(TicketRequest $request)
     {
-        $this->user = $user;
         $this->request = $request;
     }
 
     /**
-     * Build the message.
+     * Get the notification's delivery channels.
      *
-     * @return $this
+     * @param  mixed  $notifiable
+     * @return array
      */
-    public function build()
+    public function via($notifiable)
     {
-        return $this->to($this->user)
-            ->markdown('emails.requests.created');
+        return ['mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+            ->markdown('emails.requests.tohonour', [
+                'notifiable' => $notifiable,
+                'request' => $this->request
+            ]);
     }
 }

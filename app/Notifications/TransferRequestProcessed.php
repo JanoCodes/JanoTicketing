@@ -18,57 +18,56 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Mail;
+namespace Jano\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Jano\Models\Account;
+use Illuminate\Notifications\Messages\MailMessage;
 use Jano\Models\TransferRequest;
-use Jano\Models\User;
 
-class TransferRequestCreated extends Mailable implements ShouldQueue
+class TransferRequestProcessed extends Notification
 {
-    use Queueable, SerializesModels;
-
-    /**
-     * @var \Jano\Models\User
-     */
-    public $user;
+    use Queueable;
 
     /**
      * @var \Jano\Models\TransferRequest
      */
-    public $request;
+    public $transfer;
 
     /**
-     * @var \Jano\Models\Account
-     */
-    public $account;
-
-    /**
-     * Create a new message instance.
+     * Create a new notification instance.
      *
-     * @param \Jano\Models\User $user
-     * @param \Jano\Models\TransferRequest $request
-     * @param \Jano\Models\Account $account
+     * @param \Jano\Models\TransferRequest $transfer
      */
-    public function __construct(User $user, TransferRequest $request, Account $account)
+    public function __construct(TransferRequest $transfer)
     {
-        $this->user = $user;
-        $this->request = $request;
-        $this->account = $account;
+        $this->transfer = $transfer;
     }
 
     /**
-     * Build the message.
+     * Get the notification's delivery channels.
      *
-     * @return $this
+     * @param  mixed  $notifiable
+     * @return array
      */
-    public function build()
+    public function via($notifiable)
     {
-        return $this->to($this->user)
-            ->markdown('emails.transfers.created');
+        return ['mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+            ->markdown('emails.transfers.processed', [
+                'notifiable' => $notifiable,
+                'transfer' => $this->transfer
+            ]);
     }
 }
