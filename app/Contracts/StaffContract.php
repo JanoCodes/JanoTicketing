@@ -18,28 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Http\Controllers\Backend;
+namespace Jano\Contracts;
 
-use Jano\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Jano\Models\Staff;
+use Jano\Models\User;
 
-class HomeController extends Controller
+interface StaffContract
 {
     /**
-     * HomeController constructor.
+     * @param \Jano\Models\User $user
+     * @param int $access
+     * @return \Jano\Models\Staff
      */
-    public function __construct()
-    {
-        $this->middleware(['auth', 'staff']);
-    }
+    public function store(User $user, $access);
 
     /**
-     * Show the backend dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param \Jano\Models\Staff $staff
+     * @param int $access
+     * @return \Jano\Models\Staff
      */
-    public function index()
-    {
-        return view('backend.home');
-    }
+    public function update(Staff $staff, $access);
+
+    /**
+     * @param \Jano\Models\Staff $staff
+     */
+    public function destroy(Staff $staff);
 }

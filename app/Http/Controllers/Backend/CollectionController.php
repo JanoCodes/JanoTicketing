@@ -20,26 +20,37 @@
 
 namespace Jano\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
+use Jano\Contracts\CollectionContract;
 use Jano\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Jano\Http\Traits\RendersAjaxView;
+use Jano\Models\Collection;
 
-class HomeController extends Controller
+class CollectionController extends Controller
 {
+    use RendersAjaxView;
+
     /**
-     * HomeController constructor.
+     * @var \Jano\Contracts\CollectionContract
      */
-    public function __construct()
+    protected $contract;
+
+    public function __construct(CollectionContract $contract)
     {
         $this->middleware(['auth', 'staff']);
+        $this->contract = $contract;
     }
 
     /**
-     * Show the backend dashboard.
+     * Render the index page for collections.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('backend.home');
+        return $this->ajaxView($request, 'backend.collections.index', [
+           'collections' => Collection::all()
+        ]);
     }
 }

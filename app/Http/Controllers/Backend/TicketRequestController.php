@@ -20,26 +20,42 @@
 
 namespace Jano\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
+use Jano\Contracts\TicketRequestContract;
 use Jano\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Jano\Http\Traits\RendersAjaxView;
+use Jano\Models\TicketRequest;
 
-class HomeController extends Controller
+class TicketRequestController extends Controller
 {
+    use RendersAjaxView;
+
     /**
-     * HomeController constructor.
+     * @var \Jano\Contracts\TicketRequestContract
      */
-    public function __construct()
+    protected $contract;
+
+    /**
+     * TicketRequestController constructor.
+     *
+     * @param \Jano\Contracts\TicketRequestContract $contract
+     */
+    public function __construct(TicketRequestContract $contract)
     {
-        $this->middleware(['auth', 'staff']);
+        $this->middleware(['auth']);
+        $this->contract = $contract;
     }
 
     /**
-     * Show the backend dashboard.
+     * Render the index page of ticket requests.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('backend.home');
+        return $this->ajaxView($request, 'backend.requests.index', [
+            'requests' => TicketRequest::withTrashed()->get()
+        ]);
     }
 }

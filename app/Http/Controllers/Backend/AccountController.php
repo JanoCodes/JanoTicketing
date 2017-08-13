@@ -20,13 +20,17 @@
 
 namespace Jano\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use Jano\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Jano\Http\Traits\RendersAjaxView;
+use Jano\Models\Account;
 
-class HomeController extends Controller
+class AccountController extends Controller
 {
+    use RendersAjaxView;
+
     /**
-     * HomeController constructor.
+     * AccountController constructor.
      */
     public function __construct()
     {
@@ -34,12 +38,15 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the backend dashboard.
+     * Renders the index page for accounts.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('backend.home');
+        return $this->ajaxView($request, 'backend.accounts.index', [
+            'accounts' => Account::all()
+        ]);
     }
 }

@@ -20,26 +20,52 @@
 
 namespace Jano\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
+use Jano\Contracts\PaymentContract;
 use Jano\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Jano\Http\Traits\RendersAjaxView;
+use Jano\Models\Payment;
 
-class HomeController extends Controller
+class PaymentController extends Controller
 {
+    use RendersAjaxView;
+
     /**
-     * HomeController constructor.
+     * @var \Jano\Contracts\PaymentContract
      */
-    public function __construct()
+    protected $payment;
+
+    /**
+     * PaymentController constructor.
+     *
+     * @param \Jano\Contracts\PaymentContract $payment
+     */
+    public function __construct(PaymentContract $payment)
     {
         $this->middleware(['auth', 'staff']);
+        $this->payment = $payment;
     }
 
     /**
-     * Show the backend dashboard.
+     * Render the index page of payments.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return $this->ajaxView($request, 'backend.payments.index', [
+            'payments' => Payment::all()
+        ]);
+    }
+
+    /**
+     * Renders the payment creation page.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function create()
     {
-        return view('backend.home');
+        return view('backend.payments.create');
     }
 }

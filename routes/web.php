@@ -35,7 +35,20 @@ Route::resource('accounts', 'AccountController', ['only' => ['view']]);
 Route::resource('attendees', 'AttendeeController', ['except' => ['list', 'view']]);
 Route::resource('requests', 'TicketRequestController');
 
-Route::get('admin', 'Backend\HomeController@index');
+Route::group([
+    'namespace' => 'Backend',
+    'prefix' => 'admin',
+    'as' => 'backend.'
+], function () {
+    Route::get('/', 'HomeController@index');
+    Route::resource('accounts', 'AccountController');
+    Route::resource('attendees', 'AttendeeController');
+    Route::resource('collections', 'CollectionController');
+    Route::resource('payments', 'PaymentController');
+    Route::resource('requests', 'TicketRequestController');
+    Route::resource('staff', 'StaffController');
+    Route::resource('transfers', 'TransferRequestController');
+});
 
 Auth::routes();
 Route::get('login/oauth', 'Auth\LoginController@redirectToProvider')->name('oauth.login');

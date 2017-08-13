@@ -24,6 +24,11 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
+/**
+ * Class Staff
+ *
+ * @property int $access_level
+ */
 class Staff extends Model implements AuditableContract
 {
     use Auditable;

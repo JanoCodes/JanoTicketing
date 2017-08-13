@@ -20,26 +20,42 @@
 
 namespace Jano\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
+use Jano\Contracts\TransferRequestContract;
 use Jano\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Jano\Http\Traits\RendersAjaxView;
+use Jano\Models\TransferRequest;
 
-class HomeController extends Controller
+class TransferRequestController extends Controller
 {
+    use RendersAjaxView;
+
     /**
-     * HomeController constructor.
+     * @var \Jano\Contracts\TransferRequestContract
      */
-    public function __construct()
+    protected $transfer;
+
+    /**
+     * TransferRequestController constructor.
+     *
+     * @param \Jano\Contracts\TransferRequestContract $transfer
+     */
+    public function __construct(TransferRequestContract $transfer)
     {
-        $this->middleware(['auth', 'staff']);
+        $this->middleware(['auth']);
+        $this->transfer = $transfer;
     }
 
     /**
-     * Show the backend dashboard.
+     * Renders the index page for transfer requests.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('backend.home');
+        return $this->ajaxView($request, 'backed.transfers.index', [
+            'transfers' => TransferRequest::withTrashed()->get()
+        ]);
     }
 }

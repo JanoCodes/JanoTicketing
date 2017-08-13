@@ -36,13 +36,9 @@ class StaffAuthorization
      */
     public function handle($request, Closure $next, $access_level = 0)
     {
-        $user = $request->user();
+        $staff = $request->user()->staff();
 
-        if (!$user) {
-            return redirect('login');
-        }
-
-        if (!$user->staff() || $user->staff()->access_level < $access_level) {
+        if (!$staff || $staff()->access_level < $access_level) {
             throw new AuthorizationException('You do not have the required permission to access this page.');
         }
 

@@ -18,35 +18,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+namespace Jano\Http\Traits;
 
-class CreateAdministratorsTable extends Migration
+use Illuminate\Http\Request;
+
+trait RendersAjaxView
 {
     /**
-     * Run the migrations.
+     * Renders a AJAX-based view.
      *
-     * @return void
+     * @param \Illuminate\Http\Request $request
+     * @param string $view
+     * @param array $data
+     * @return \Illuminate\Http\Response
      */
-    public function up()
+    protected function ajaxView(Request $request, $view, $data)
     {
-        Schema::create('administrators', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('access_level')->unsigned();
-            $table->timestamps();
-        });
-    }
+        if ($request->ajax()) {
+            return response()->json($data);
+        }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('administrators');
+        return view($view);
     }
 }

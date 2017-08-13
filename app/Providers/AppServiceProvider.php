@@ -24,6 +24,8 @@ use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Jano\Contracts\StaffContract;
+use Jano\Repositories\StaffRepository;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Menu;
 use Jano\Socialite\OauthProvider;
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         \Jano\Contracts\PaymentContract::class => \Jano\Repositories\PaymentRepository::class,
         \Jano\Contracts\TicketContract::class => \Jano\Repositories\TicketRepository::class,
         \Jano\Contracts\AttendeeContract::class => \Jano\Repositories\AttendeeRepository::class,
+        \Jano\Contracts\StaffContract::class => \Jano\Repositories\StaffRepository::class,
         \Jano\Contracts\TicketRequestContract::class => \Jano\Repositories\TicketRequestRepository::class,
         \Jano\Contracts\TransferRequestContract::class => \Jano\Repositories\TransferRequestRepository::class,
         \Jano\Contracts\CollectionContract::class => \Jano\Repositories\CollectionRepository::class,
