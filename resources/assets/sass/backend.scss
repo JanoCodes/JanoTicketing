@@ -44,52 +44,72 @@
   color: map-get($foundation-palette, 'alert');
 }
 
-.logo {
-  max-width: 150px;
-  width: 60%;
-}
-
-.top-bar {
-  @include xy-gutters($grid-margin-gutters, padding, left right, false);
-  @include top-bar-unstack;
-
-  background-color: $light-gray;
-  border-bottom: darken($light-gray, 20%) 1px solid;
-
-  .menu {
-    a {
-      border-radius: 5px;
-      margin-top: 6px;
-    }
-
-    button {
-      border: 0;
-    }
-  }
-}
-
 .content {
   height: 100%;
 
   .sidebar {
-    @include xy-gutters($grid-margin-gutters, padding, top bottom, false);
-
     background-color: adjust-hue(darken($light-gray, 2%), -15%);
     border-right: darken($light-gray, 20%) 1px solid;
+    padding-left: 7px;
+    padding-right: 7px;
 
-    a {
-      @include xy-gutters($grid-margin-gutters, padding, left right, false);
+    li {
+      a {
+        @include xy-gutters($grid-margin-gutters, padding, left right, false);
+
+        border-radius: 5px;
+      }
+    }
+
+    .logo {
+      @include xy-gutters($grid-margin-gutters, margin, top, false);
+
+      display: inline-block;
+      width: 100%;
+      border-bottom: darken($light-gray, 35%) 1px solid;
+      text-align: center;
+      margin-bottom: 10px;
+
+      img {
+        max-width: 200px;
+        width: 85%;
+      }
     }
   }
 
-  .footer {
-    @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
+  .main-content {
+    .top-bar {
+      @include xy-gutters($grid-margin-gutters, padding, left right, false);
 
-    background-color: $light-gray;
-    border-top: darken($light-gray, 20%) 1px solid;
-    bottom: 0;
-    font-size: 90%;
-    position: absolute;
-    width: 100%;
+      background: none;
+      border-bottom: darken($light-gray, 15%) 1px solid;
+
+      h3 {
+        color: lighten($black, 10%);
+      }
+
+      .menu {
+        background: none;
+
+        a {
+          border-radius: 5px;
+          margin-top: 6px;
+        }
+
+        button {
+          border: 0;
+        }
+      }
+    }
+
+    .footer {
+      @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
+
+      border-top: darken($light-gray, 15%) 1px solid;
+      bottom: 0;
+      font-size: 90%;
+      position: absolute;
+      width: 100%;
+    }
   }
 }

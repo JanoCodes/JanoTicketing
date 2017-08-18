@@ -23,41 +23,43 @@
 <body>
 <div class="grid-x page-container">
     <div class="small-12 large-12 cell off-canvas-wrapper">
-        <div class="top-bar">
-            <div class="top-bar-left header-left">
-                <button class="clear button secondary show-for-small-only sidebar-toggle" type="button"
-                    data-toggle="responsive-menu">
-                    <i class="fa fa-bars fa-2x"></i>
-                </button>
-                <a href="{{ url('/') }}">
-                    <img class="logo" src="{{ asset('images/logo.png') }}" />
-                </a>
-            </div>
-            <div class="top-bar-right">
-                <ul class="menu horizontal">
-                    <li>
-                        <a class="clear button" href="#">
-                            {{ Auth::user()->first_name }}
-                            <span class="hide-for-small-only">{{ Auth::user()->last_name }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <form method="post" action="{{ url('logout') }}">
-                            {{ csrf_field() }}
-                            <button class="button clear" type="submit" aria-label="{{ __('system.logout') }}">
-                                <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
         <div class="content grid-x off-canvas-content" data-off-canvas-content>
             <div class="medium-3 large-2 cell sidebar">
+                <a class="logo" href="{{ url('/') }}">
+                    <img src="{{ asset('images/logo.png') }}" />
+                </a>
                 {!! Menu::backend()->addClass('menu vertical') !!}
             </div>
-            <div class="medium-9 large-10 cell">
+            <div class="medium-9 large-10 cell main-content">
+                <div class="top-bar">
+                    <div class="top-bar-left">
+                        <h3>@yield('title')</h3>
+                    </div>
+                    <div class="top-bar-right">
+                        <ul class="menu horizontal">
+                            <li>
+                                <button class="clear button secondary show-for-small-only sidebar-toggle" type="button"
+                                        data-toggle="responsive-menu">
+                                    <i class="fa fa-bars fa-2x"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <a class="clear button" href="#">
+                                    {{ Auth::user()->first_name }}
+                                    <span class="hide-for-small-only">{{ Auth::user()->last_name }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <form method="post" action="{{ url('logout') }}">
+                                    {{ csrf_field() }}
+                                    <button class="button clear" type="submit" aria-label="{{ __('system.logout') }}">
+                                        <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 @yield('content')
                 <div class="footer">
                     {!! __('system.copyright') !!}
