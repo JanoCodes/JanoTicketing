@@ -36,9 +36,9 @@ class StaffAuthorization
      */
     public function handle($request, Closure $next, $access_level = 0)
     {
-        $staff = $request->user()->staff();
+        $staff = $request->user()->staff()->first();
 
-        if (!$staff || $staff()->access_level < $access_level) {
+        if (!$staff || $staff->access_level < $access_level) {
             throw new AuthorizationException('You do not have the required permission to access this page.');
         }
 

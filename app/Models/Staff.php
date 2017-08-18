@@ -27,6 +27,8 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 /**
  * Class Staff
  *
+ * @property int $id
+ * @property int $user_id
  * @property int $access_level
  */
 class Staff extends Model implements AuditableContract

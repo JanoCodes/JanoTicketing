@@ -14,22 +14,25 @@ class UserDatabaseSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        $group = Group::create([
-            'slug' => 'test-group',
-            'name' => 'Test Group',
-            'can_order_at' => $faker->dateTimeThisYear(),
-            'ticket_limit' => $faker->randomDigitNotNull,
-            'surcharge' => 0
-        ]);
+        $group = new Group();
+        $group->slug = 'test-group';
+        $group->name = 'Test Group';
+        $group->can_order_at = $faker->dateTimeThisYear();
+        $group->ticket_limit = $faker->randomDigitNotNull;
+        $group->surcharge = 0;
+        $group->right_to_buy = 0;
+        $group->save();
 
-        User::create([
-            'title' => $faker->title,
-            'first_name' => $faker->firstName,
-            'last_name' => $faker->lastName,
-            'email' => 'user@example.com',
-            'password' => 'password',
-            'method' => User::DATABASE_METHOD,
-            'group_id' => $group->id
-        ]);
+        $user = new User();
+        $user->title = $faker->title;
+        $user->first_name = $faker->firstName;
+        $user->last_name = $faker->lastName;
+        $user->email = 'user@example.com';
+        $user->password = bcrypt('password');
+        $user->method = User::DATABASE_METHOD;
+        $user->group()->associate($group);
+        $user->save();
+
+        $user->staff()->create(['access_level' => 999]);
     }
 }
