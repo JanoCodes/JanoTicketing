@@ -5,26 +5,46 @@
 @section('content')
     <div class="grid-x grid-padding-x order-form-container" id="order-form">
         <div class="small-12 medium-8 cell callout">
-                @include('partials.error')
-                <keep-alive>
-                    <component v-bind:is="formView" :errors="errors">
-                    </component>
-                </keep-alive>
-                <div class="grid-x grid-padding-x">
-                    <div class="small-12 cell">
-                        <div class="float-right">
-                            <button id="back" type="button" class="button" v-on:click="back" disabled>
-                                {{ __('system.back') }}
-                            </button>
-                            <button id="next" type="button" class="button" v-on:click="next">
-                                {{ __('system.next') }}
-                            </button>
-                            <button id="submit" type="button" class="button"
-                                    style="display: none;" :disabled="agreement ? false : true"
-                                    v-on:click="submit">{{ __('system.submit') }}</button>
-                        </div>
+            <div class="grid-x grid-padding-x">
+                <div class="small-12 cell form-progress">
+                    <div class="progress" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0"
+                         aria-valuemax="100">
+                        <div class="progress-meter"></div>
+                    </div>
+                    <div class="step" :class="{ 'is-active': (step == 1), 'was-active': (step > 1) }">
+                        <h1>1</h1>
+                        <span>{{ __('system.your_details') }}</span>
+                    </div>
+                    <div class="step" :class="{ 'is-active': (step == 2), 'was-active': (step > 2) }">
+                        <h1>2</h1>
+                        <span>{{ __('system.attendees') }}</span>
+                    </div>
+                    <div class="step" :class="{ 'is-active': (step == 3), 'was-active': (step > 3) }">
+                        <h1>3</h1>
+                        <span>{{ __('system.order_summary') }}</span>
                     </div>
                 </div>
+            </div>
+            @include('partials.error')
+            <keep-alive>
+                <component v-bind:is="formView" :errors="errors">
+                </component>
+            </keep-alive>
+            <div class="grid-x grid-padding-x">
+                <div class="small-12 cell">
+                    <div class="float-right">
+                        <button id="back" type="button" class="button" v-on:click="back" disabled>
+                            {{ __('system.back') }}
+                        </button>
+                        <button id="next" type="button" class="button" v-on:click="next">
+                            {{ __('system.next') }}
+                        </button>
+                        <button id="submit" type="button" class="button"
+                                style="display: none;" :disabled="agreement ? false : true"
+                                v-on:click="submit">{{ __('system.submit') }}</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="small-12 medium-4 cell sidebar">
             <div class="callout">
@@ -40,7 +60,7 @@
                                 </template>
                             </td>
                             <td>
-                                @{{ getFullPrice(attendee.ticket.price) }}
+                                @{{ attendee.ticket.full_price }}
                             </td>
                         </tr>
                     </tbody>
@@ -82,10 +102,6 @@
                 }
             }
         });
-
-        function getFullPrice(price) {
-            return "{{ Setting::get('payment.currency') }}" + price;
-        }
 
         function processErrorBag(errorBag) {
             _.forEach(errorBag, function(messages, key) {
@@ -231,11 +247,6 @@
                     agreement: formData.state.agreement
                 };
             },
-            computed: {
-                getTotalPrice: function() {
-                    return vm.calculatePrice();
-                }
-            },
             methods: {
                 agreementUpdate: function() {
                     formData.commit('update', {'agreement': this.agreement});
@@ -267,6 +278,7 @@
             el: '#order-form',
             data: {
                 formView: 'user',
+                step: 1,
                 views: [
                     'user',
                     'guests',
@@ -321,6 +333,7 @@
                     }
 
                     this.formView = this.views[i];
+                    this.step++;
                 },
                 back: function(event) {
                     var i = $.inArray(this.formView, this.views);
@@ -335,6 +348,7 @@
                     }
 
                     this.formView = this.views[i];
+                    this.step--;
                 },
                 calculatePrice: _.throttle(
                     function () {

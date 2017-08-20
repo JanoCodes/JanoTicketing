@@ -129,6 +129,67 @@ label {
 }
 
 .order-form-container {
+  .form-progress {
+    @include xy-gutters($grid-margin-gutters, margin, top left right, false);
+
+    display: inline-block;
+    height: 100px;
+    margin-bottom: 30px;
+
+    .step {
+      background-color: $white;
+      border-radius: 50px;
+      border: $dark-gray 1px solid;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      padding: 13px 5px;
+      position: relative;
+      float: left;
+      z-index: 10;
+      line-height: 1;
+
+      h1 {
+        font-size: 40px;
+        margin-bottom: 0;
+        line-height: 1;
+      }
+
+      span {
+        font-size: 12px;
+      }
+    }
+
+    .is-active {
+      background-color: $dark-gray;
+      color: $white;
+    }
+
+    .was-active {
+      background-color: lighten($dark-gray, 20%);
+      border: lighten($dark-gray, 20%) 1px solid;
+      color: darken($white, 10%);
+    }
+
+    .step:not(:last-of-type) {
+      margin-right: calc(50% - 165px);
+    }
+
+    .progress {
+      background: $white;
+      border: $medium-gray 1px solid;
+      position: absolute;
+      top: 75px;
+      width: calc(100% - 60px);
+      height: 10px;
+      z-index: 5;
+    }
+
+    .progress-meter {
+      background-color: $dark-gray;
+    }
+  }
+
   .total-price {
     border-top: medium double $dark-gray;
   }
