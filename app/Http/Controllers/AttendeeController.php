@@ -22,12 +22,12 @@ namespace Jano\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use function implode;
 use Jano\Contracts\AttendeeContract;
 use Jano\Contracts\TicketContract;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Contracts\UserContract;
 use Jano\Models\Attendee;
+use Jano\Models\Ticket;
 use Validator;
 
 class AttendeeController extends Controller

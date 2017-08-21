@@ -239,6 +239,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Helper' => Jano\Facades\Helper::class,
         'Setting' => Jano\Settings\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],

@@ -30,10 +30,18 @@ use Setting;
  * @property int $id
  * @property string $name
  * @property int $price
+ * @property string $full_price
  */
 class Ticket extends Model
 {
     use CanCache;
+
+    /**
+     * The array of attributes to be appended to the model.
+     *
+     * @var array
+     */
+    protected $appends = ['full_price'];
 
     protected $dispatchesEvent = [
         'saved' => \Jano\Events\TicketChanged::class,
@@ -53,22 +61,6 @@ class Ticket extends Model
     }
 
     /**
-     * Create new ticket.
-     *
-     * @param array $data
-     * @return \Jano\Models\Ticket
-     */
-    public static function create($data)
-    {
-        $ticket = new self();
-        $ticket->name = $data['name'];
-        $ticket->price = $data['price'];
-        $ticket->save();
-
-        return $ticket;
-    }
-
-    /**
      * The attendees associated with the ticket.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -76,5 +68,15 @@ class Ticket extends Model
     public function attendees()
     {
         return $this->hasMany('Jano\Models\Attendee');
+    }
+
+    /**
+     * Return the human-readable version of the ticket price.
+     *
+     * @return string
+     */
+    public function getFullPriceAttribute()
+    {
+        return Setting::get('payment.currency') . $this->price;
     }
 }

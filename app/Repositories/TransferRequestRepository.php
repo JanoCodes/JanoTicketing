@@ -27,7 +27,6 @@ use Jano\Events\TransferRequestProcessed;
 use Jano\Models\Attendee;
 use Jano\Models\Charge;
 use Jano\Models\TransferRequest;
-use function str_random;
 
 class TransferRequestRepository implements TransferRequestContract
 {

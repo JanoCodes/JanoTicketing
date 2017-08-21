@@ -31,6 +31,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @property int $account_id
  * @property string $type
  * @property int $amount
+ * @property string $full_amount
  * @property string $reference
  * @property string $internal_reference
  * @property \Carbon\Carbon $made_at
@@ -38,6 +39,13 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 class Payment extends Model implements AuditableContract
 {
     use Auditable;
+
+    /**
+     * The array of attributes which should be appended to the model.
+     *
+     * @var array
+     */
+    protected $appends = ['full_amount'];
 
     /**
      * All of the relationships to be touched.
@@ -61,5 +69,15 @@ class Payment extends Model implements AuditableContract
     public function account()
     {
         return $this->belongsTo('Jano\Models\Account');
+    }
+
+    /**
+     * Return the human-readable version of the amount paid.
+     *
+     * @return string
+     */
+    public function getFullAmountAttribute()
+    {
+        return Setting::get('payment.currency') . $this->amount;
     }
 }

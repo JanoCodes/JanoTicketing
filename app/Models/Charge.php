@@ -24,11 +24,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+use Setting;
 
 /**
  * Class Charge
  *
  * @property int $amount
+ * @property string $full_amount
  * @property string $description
  * @property \Carbon\Carbon $due_by
  * @property boolean $paid
@@ -36,6 +38,13 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 class Charge extends Model implements AuditableContract
 {
     use Auditable, SoftDeletes;
+
+    /**
+     * List of attributes to be appended to the model.
+     *
+     * @var array
+     */
+    protected $appends = ['full_amount'];
 
     /**
      * All of the relationships to be touched.
@@ -88,5 +97,15 @@ class Charge extends Model implements AuditableContract
     public function transferRequest()
     {
         return $this->hasOne('Jano\Models\TransferRequest');
+    }
+
+    /**
+     * Return the human-readable version of the amount due.
+     *
+     * @return string
+     */
+    public function getFullAmountAttribute()
+    {
+        return Setting::get('payment.currency') . $this->amount;
     }
 }
