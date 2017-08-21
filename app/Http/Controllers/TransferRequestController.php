@@ -53,7 +53,7 @@ class TransferRequestController extends Controller
     }
 
     /**
-     * Render the create ticket request page.
+     * Render the create transfer request page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -63,7 +63,7 @@ class TransferRequestController extends Controller
     }
 
     /**
-     * Get a validator for a newly created ticket request instance.
+     * Get a validator for a newly created transfer request instance.
      *
      * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -79,7 +79,7 @@ class TransferRequestController extends Controller
     }
 
     /**
-     * Store the newly created ticket request instance.
+     * Store the newly created transfer request instance.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -87,7 +87,7 @@ class TransferRequestController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', \Jano\Models\TicketRequest::class);
+        $this->authorize('create', \Jano\Models\TransferRequest::class);
 
         $this->storeValidator($request->all());
 
@@ -105,7 +105,7 @@ class TransferRequestController extends Controller
     }
 
     /**
-     * Renders the edit ticket request page.
+     * Renders the edit transfer request page.
      *
      * @param \Jano\Models\TransferRequest $request
      * @return \Illuminate\Http\Response
@@ -121,7 +121,7 @@ class TransferRequestController extends Controller
     }
 
     /**
-     * Get a validator for updating a ticket request instance.
+     * Get a validator for updating a transfer request instance.
      *
      * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -137,7 +137,7 @@ class TransferRequestController extends Controller
     }
 
     /**
-     * Commit the updated ticket request instance.
+     * Commit the updated transfer request instance.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Jano\Models\TransferRequest $transfer_request

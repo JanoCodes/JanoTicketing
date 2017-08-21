@@ -27,6 +27,7 @@ use Jano\Events\TransferRequestProcessed;
 use Jano\Models\Attendee;
 use Jano\Models\Charge;
 use Jano\Models\TransferRequest;
+use function str_random;
 
 class TransferRequestRepository implements TransferRequestContract
 {
@@ -48,6 +49,8 @@ class TransferRequestRepository implements TransferRequestContract
         $request->last_name = $data['last_name'];
         $request->email = $data['email'];
         $request->primary_ticket_holder = $attendee->primary_ticket_holder;
+        $request->confirmed = false;
+        $request->confirmation_code = str_random();
         $request->processed = false;
         $request->save();
 
@@ -71,6 +74,21 @@ class TransferRequestRepository implements TransferRequestContract
         $request->save();
 
         return $request;
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \InvalidArgumentException
+     */
+    public function confirm(TransferRequest $request)
+    {
+        if ($request->processed) {
+            throw new InvalidArgumentException('A processed transfer request cannot be updated.');
+        }
+
+        $request->confirmed = true;
+        $request->confirmation_code = null;
+        $request->save();
     }
 
     /**

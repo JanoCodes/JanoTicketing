@@ -46,6 +46,14 @@ interface TransferRequestContract
     public function update(TransferRequest $request, $data);
 
     /**
+     * Mark the transfer request as confirmed.
+     *
+     * @param \Jano\Models\TransferRequest $request
+     * @return \Jano\Models\TransferRequest
+     */
+    public function confirm(TransferRequest $request);
+
+    /**
      * Return a collection of pending transfer request instances.
      *
      * @return \Illuminate\Support\Collection

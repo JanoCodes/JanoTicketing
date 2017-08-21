@@ -43,6 +43,8 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @property boolean $primary_ticket_holder
  * @property int $new_user_id
  * @property int $price_difference
+ * @property boolean $confirmed
+ * @property string $confirmation_code
  * @property boolean $processed
  * @property \Carbon\Carbon $processed_at
  * @property int $new_attendee_id
@@ -72,6 +74,7 @@ class TransferRequest extends Model implements AuditableContract
      */
     protected $casts = [
         'primary_ticket_holder' => 'boolean',
+        'confirmed' => 'boolean',
         'processed' => 'boolean',
     ];
 

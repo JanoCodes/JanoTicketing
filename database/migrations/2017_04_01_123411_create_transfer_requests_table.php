@@ -46,6 +46,8 @@ class CreateTransferRequestsTable extends Migration
             $table->integer('new_user_id')->unsigned();
             $table->foreign('new_user_id')->references('id')->on('users');
             $table->integer('price_difference')->unsigned();
+            $table->boolean('confirmed');
+            $table->string('confirmation_code')->nullable();
             $table->boolean('processed');
             $table->dateTime('processed_at')->nullable();
             $table->integer('new_attendee_id')->unsigned()->nullable();

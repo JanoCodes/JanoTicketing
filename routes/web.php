@@ -34,6 +34,9 @@ Route::get('event', 'EventController@show');
 Route::resource('accounts', 'AccountController', ['only' => ['view']]);
 Route::resource('attendees', 'AttendeeController', ['except' => ['list', 'view']]);
 Route::resource('requests', 'TicketRequestController');
+Route::resource('transfers', 'TransferRequestController');
+Route::get('transfers/{transfer}/confirm/{token}', 'ConfirmedTransferRequestController@store')
+    ->name('transfers.confirm');
 
 Route::group([
     'namespace' => 'Backend',

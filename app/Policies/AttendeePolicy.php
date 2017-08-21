@@ -49,7 +49,7 @@ class AttendeePolicy
      */
     public function create(User $user)
     {
-        return $user->can_order_at->gt(Carbon::now());
+        return (!$user->can_order_at || $user->can_order_at->gt(Carbon::now()));
     }
 
     /**
