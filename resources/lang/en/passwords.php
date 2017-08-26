@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$LANG = array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -37,4 +37,4 @@ $LANG = array(
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that e-mail address.",
 
-);
+];

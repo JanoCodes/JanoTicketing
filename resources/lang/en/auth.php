@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$LANG = array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +34,4 @@ $LANG = array(
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
-);
-
-return $LANG;
+];

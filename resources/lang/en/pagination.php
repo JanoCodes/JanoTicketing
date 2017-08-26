@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$LANG = array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +34,4 @@ $LANG = array(
     'previous' => '&laquo; Previous',
     'next' => 'Next &raquo;',
 
-);
-
-return $LANG;
+];
