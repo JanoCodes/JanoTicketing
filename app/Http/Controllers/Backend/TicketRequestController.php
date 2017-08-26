@@ -55,7 +55,7 @@ class TicketRequestController extends Controller
     public function index(Request $request)
     {
         return $this->ajaxView($request, 'backend.requests.index', [
-            'requests' => TicketRequest::withTrashed()->get()
+            'requests' => TicketRequest::withTrashed()->paginate()
         ]);
     }
 }

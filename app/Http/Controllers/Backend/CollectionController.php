@@ -50,7 +50,7 @@ class CollectionController extends Controller
     public function index(Request $request)
     {
         return $this->ajaxView($request, 'backend.collections.index', [
-           'collections' => Collection::all()
+           'collections' => Collection::paginate()
         ]);
     }
 }

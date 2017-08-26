@@ -55,7 +55,7 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
         return $this->ajaxView($request, 'backend.payments.index', [
-            'payments' => Payment::all()
+            'payments' => Payment::paginate()
         ]);
     }
 

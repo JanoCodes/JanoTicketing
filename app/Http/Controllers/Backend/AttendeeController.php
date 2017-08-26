@@ -55,7 +55,7 @@ class AttendeeController extends Controller
     public function index(Request $request)
     {
         return $this->ajaxView($request, 'backend.attendees.index', [
-            'attendees' => Attendee::withTrashed()->get()
+            'attendees' => Attendee::withTrashed()->paginate()
         ]);
     }
 
