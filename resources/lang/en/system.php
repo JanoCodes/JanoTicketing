@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-return [
+$LANG = array(
 
     /**
      * System Languages
@@ -36,13 +36,16 @@ return [
     'collection_edit' => 'Edit Proxy Information',
     'confirm_password' => 'Confirm Password',
     'continue' => 'Continue',
-    'copyright' => 'Copyright &copy; Andrew Ying 2016-17. Licensed under the '
-        . '<a href="https://github.com/jano-may-ball/ticketing/blob/master/LICENSE.md" target="_blank">'
-        . 'GNU General Public License v3.0</a>.',
+    'copyright' => 'Copyright &copy; Andrew Ying 2016-17. Licensed under the 
+        <a href="https://github.com/jano-may-ball/ticketing/blob/master/LICENSE.md" target="_blank">GNU General 
+        Public License v3.0</a>.',
     'create_order' => 'Create Order',
     'date_credited' => 'Date Credited',
     'donation' => 'Optional Charity Donation',
     'email' => 'Email Address',
+    'exception_title' => 'Something went wrong...',
+    'exception_message' => 'It looks like someone messed with the wires and now the system stopped working. We\'ve 
+        alerted an administrator and they should fix the issue very soon!',
     'first_name' => 'First Name',
     'for' => 'for',
     'form_error' => 'There was an error in the order form. Please try again.',
@@ -69,7 +72,7 @@ return [
     'price' => 'Price',
     'primary_ticket_holder' => 'Primary ticket holder',
     'processing_order_title' => 'Processing Order',
-    'processing_order_message' => 'We are currently processing your order. Please do not refresh this window. You will
+    'processing_order_message' => 'We are currently processing your order. Please do not refresh this window. You will 
         be redirected automatically when your order is confirmed.',
     'quantity' => 'Quantity',
     'unable_to_process_order_title' => 'Unable to Process Order',
@@ -81,9 +84,9 @@ return [
     'remember_me' => 'Remember Me',
     'request_create' => 'Create Waiting List Entry',
     'request_created' => 'Waiting List Entry Created',
-    'request_created_message' => 'You have successfully submitted an entry to the waiting list. The details of the '
-        . 'entry are supplied below for your reference. You would be notified via email should a ticket becomes '
-        . 'available.',
+    'request_created_message' => 'You have successfully submitted an entry to the waiting list. The details of the 
+        entry are supplied below for your reference. You would be notified via email should a ticket becomes 
+        available.',
     'request_edit' => 'Edit Waiting List Entry',
     'reset_password' => 'Reset Password',
     'send_password_reset_link' => 'Send Password Reset Link',
@@ -99,29 +102,32 @@ return [
     'tickets_unavailable_message' => 'All tickets are currently reserved. Tickets may be released if other patrons fail 
         to complete their transactions within 15 minutes. Please try again later.',
     'tickets_partly_unavailable_title' => 'Unable to reserve all tickets requested',
-    'tickets_partly_unavailable_message' => 'Please check the order summary to the right for the number of tickets the 
-        system was able to reserve for you, and either continue with or cancel your order as appropriate.',
+    'tickets_partly_unavailable_message' => 'Please check the order summary to the right for the number of tickets 
+        the system was able to reserve for you, and either continue with or cancel your order as appropriate.',
     'title' => 'Title',
-    'titles' => [
-        0 => 'Mr',
-        1 => 'Ms',
-        2 => 'Miss',
-        3 => 'Mrs',
-        4 => 'Dr',
-        5 => 'Prof'
-    ],
+    'titles' => array(
+        'mr' => 'Mr',
+        'ms' => 'Ms',
+        'miss' => 'Miss',
+        'mrs' => 'Mrs',
+        'dr' => 'Dr',
+        'prof' => 'Prof'
+    ),
     'transfer_cancel' => 'Cancel Transfer Request',
     'transfer_create' => 'Create Transfer Request',
     'transfer_created' => 'Transfer Request Created',
-    'transfer_created_details' => 'Your ticket transfer request have now been created. You should receive an email '
-        . 'with information about the next step soon. Please ensure that the instructions are being followed as '
-        . 'we cannot otherwise process your request.',
+    'transfer_created_details' => 'Your ticket transfer request have now been created. You should receive an email with 
+        information about the next step soon. Please ensure that the instructions are being followed as we cannot 
+        otherwise process your request.',
     'transfer_edit' => 'Edit Transfer Request',
     'type' => 'Ticket Type',
+    'update' => 'Update',
     'view_details' => 'View Details',
     'waiting_list' => 'Waiting List Entry',
     'welcome' => 'Welcome',
-    'welcome_message' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, 
-        please either register or login.',
+    'welcome_message' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, please 
+        either register or login.',
     'your_details' => 'Your Details',
-];
+);
+
+return $LANG;

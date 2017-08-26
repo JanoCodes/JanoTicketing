@@ -5,8 +5,8 @@
  *
  * This file is part of Jano Ticketing System.
  *
- * Jano Ticketing System is free software: you can redistribute it and/or 
- * modify it under the terms of the GNU General Public License v3.0 as 
+ * Jano Ticketing System is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License v3.0 as
  * published by the Free Software Foundation.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-return [
+$LANG = array(
 
     /*
     |--------------------------------------------------------------------------
@@ -37,4 +37,4 @@ return [
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that e-mail address.",
 
-];
+);
