@@ -12,12 +12,12 @@
   "devDependencies": {
     "axios": "^0.16.2",
     "font-awesome": "^4.7.0",
-    "foundation-sites": "^6.4.2",
+    "foundation-sites": "^6.4.3",
     "jquery": "^3.1.1",
-    "laravel-mix": "^1.2.1",
+    "laravel-mix": "^1.4.2",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
-    "vue": "^2.4.1",
+    "vue": "^2.4.2",
     "vuetable-2": "^1.6.5",
     "vuex": "^2.3.1"
   },
