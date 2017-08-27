@@ -45,8 +45,10 @@ class AccountController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ajaxView($request, 'backend.accounts.index', [
-            'accounts' => Account::all()
-        ]);
+        return $this->ajaxView(
+            $request,
+            'backend.accounts.index',
+            Account::with('user')->paginate()
+        );
     }
 }

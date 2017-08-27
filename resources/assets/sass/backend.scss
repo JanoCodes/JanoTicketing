@@ -77,39 +77,64 @@
     }
   }
 
-  .main-content {
-    .top-bar {
-      @include xy-gutters($grid-margin-gutters, padding, left right, false);
+  .top-bar {
+    @include xy-gutters($grid-margin-gutters, padding, left right, false);
 
+    background: none;
+    border-bottom: darken($light-gray, 15%) 1px solid;
+
+    h3 {
+      color: lighten($black, 10%);
+    }
+
+    .menu {
       background: none;
-      border-bottom: darken($light-gray, 15%) 1px solid;
 
-      h3 {
-        color: lighten($black, 10%);
+      a {
+        border-radius: 5px;
+        margin-top: 6px;
       }
 
-      .menu {
-        background: none;
-
-        a {
-          border-radius: 5px;
-          margin-top: 6px;
-        }
-
-        button {
-          border: 0;
-        }
+      button {
+        border: 0;
       }
     }
+  }
 
-    .footer {
-      @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
-
-      border-top: darken($light-gray, 15%) 1px solid;
-      bottom: 0;
-      font-size: 90%;
-      position: absolute;
-      width: 100%;
+  .vuetable {
+    thead {
+      border-bottom: darken($light-gray, 20%) 2px solid;
     }
+
+    th {
+      padding: 7px 5px;
+    }
+
+    td {
+      padding: 3px 5px;
+    }
+
+    input,
+    button {
+      margin: 0;
+    }
+
+    button {
+      padding: .65rem;
+    }
+  }
+
+  .vuetable-pagination {
+    @include xy-gutters($grid-margin-gutters, padding, left);
+  }
+
+  .footer {
+    @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
+
+    border-top: darken($light-gray, 15%) 1px solid;
+    bottom: 0;
+    font-size: 90%;
+    position: absolute;
+    width: 100%;
   }
 }

@@ -58,9 +58,11 @@ class StaffController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ajaxView($request, 'backend.staff.index', [
-            'staff' => Staff::paginate()
-        ]);
+        return $this->ajaxView(
+            $request,
+            'backend.staff.index',
+            Staff::with('user')->paginate()
+        );
     }
 
     /**

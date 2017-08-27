@@ -19,4 +19,12 @@
 
 require('./bootstrap');
 
+import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue';
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue';
+
+Vue.component("vuetable", Vuetable);
+Vue.component("vuetable-pagination", VuetablePagination);
+Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
+
 $(document).foundation();

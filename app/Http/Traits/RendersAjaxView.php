@@ -29,12 +29,12 @@ trait RendersAjaxView
      *
      * @param \Illuminate\Http\Request $request
      * @param string $view
-     * @param array $data
+     * @param $data
      * @return \Illuminate\Http\Response
      */
     protected function ajaxView(Request $request, $view, $data)
     {
-        if ($request->ajax()) {
+        if ($request->wantsJson()) {
             return response()->json($data);
         }
 

@@ -21,6 +21,7 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Factory as Validator;
 use Jano\Contracts\AttendeeContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
@@ -54,9 +55,11 @@ class AttendeeController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->ajaxView($request, 'backend.attendees.index', [
-            'attendees' => Attendee::withTrashed()->paginate()
-        ]);
+        return $this->ajaxView(
+            $request,
+            'backend.attendees.index',
+            Attendee::withTrashed()->with('ticket')->paginate()
+        );
     }
 
     /**
@@ -69,17 +72,48 @@ class AttendeeController extends Controller
         return view('backend.attendees.create');
     }
 
+    protected function updateValidator($data)
+    {
+        return Validator::make($data, [
+            'email' => 'email',
+            'ticket.id' => 'exists:tickets,id'
+        ]);
+    }
+
     /**
      *
      * Renders the attendee edit page.
      *
+     * @param \Illuminate\Http\Request $request
      * @param \Jano\Models\Attendee $attendee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Attendee $attendee)
+    public function update(Request $request, Attendee $attendee)
     {
-        return view('backend.attendees.edit', [
-            'attendee' => $attendee
+        $data = $request->all();
+
+        $this->updateValidator($data);
+
+        $return = $this->contract->update($attendee, $data);
+
+        return response()->json([
+            'success' => true,
+            'attendee' => $return
+        ]);
+    }
+
+    /**
+     * Destroy the attendee instance.
+     *
+     * @param \Jano\Models\Attendee $attendee
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Attendee $attendee)
+    {
+        $this->contract->destroy($attendee);
+
+        return response()->json([
+            'success' => true
         ]);
     }
 }
