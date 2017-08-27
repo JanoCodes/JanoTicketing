@@ -22,7 +22,6 @@ namespace Jano\Providers;
 
 use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Hashids\Hashids;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
@@ -37,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     protected $implementations = [
-        'helper' => \Jano\Repositories\HelperRepositories::class,
+        'helper' => \Jano\Repositories\HelperRepository::class,
         \Jano\Contracts\UserContract::class => \Jano\Repositories\UserRepository::class,
         \Jano\Contracts\ChargeContract::class => \Jano\Repositories\ChargeRepository::class,
         \Jano\Contracts\PaymentContract::class => \Jano\Repositories\PaymentRepository::class,
