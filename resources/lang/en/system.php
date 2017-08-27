@@ -42,10 +42,11 @@ return [
     'create_order' => 'Create Order',
     'date_credited' => 'Date Credited',
     'donation' => 'Optional Charity Donation',
+    'edit' => 'Edit Entry',
     'email' => 'Email Address',
     'exception_title' => 'Something went wrong...',
-    'exception_message' => 'It looks like someone messed with the wires and now the system stopped working. We\'ve 
-        alerted an administrator and they should fix the issue very soon!',
+    'exception_message' => 'It looks like someone messed with the wires and now the system stopped working. We\'ve '
+        . 'alerted an administrator and they should fix the issue very soon!',
     'first_name' => 'First Name',
     'for' => 'for',
     'form_error' => 'There was an error in the order form. Please try again.',
@@ -72,13 +73,14 @@ return [
     'price' => 'Price',
     'primary_ticket_holder' => 'Primary ticket holder',
     'processing_order_title' => 'Processing Order',
-    'processing_order_message' => 'We are currently processing your order. Please do not refresh this window. You will
-        be redirected automatically when your order is confirmed.',
+    'processing_order_message' => 'We are currently processing your order. Please do not refresh this window. You will '
+        . 'be redirected automatically when your order is confirmed.',
     'quantity' => 'Quantity',
     'unable_to_process_order_title' => 'Unable to Process Order',
-    'unable_to_process_order_message' => 'An unexcepted system issue prevents us from processing your order at this 
-        moment. Please try again later. We apologise for the inconvenience and please feel free to contact us if you 
-        require any assistance.',
+    'unable_to_process_order_message' => 'An unexcepted system issue prevents us from processing your order at this '
+        . 'moment. Please try again later. We apologise for the inconvenience and please feel free to contact us if you'
+        . ' require any assistance.',
+    'users' => 'Users',
     'reference' => 'Reference',
     'register' => 'Register',
     'remember_me' => 'Remember Me',
@@ -93,17 +95,18 @@ return [
     'slash' => '/',
     'soldout' => 'Sold Out',
     'submit' => 'Submit',
+    'staff' => 'Staff',
     'status' => 'Status',
     'ticket_limit_reached' => 'You have reached the number of tickets you are allowed to purchase.',
     'ticket_order_for_attendee' => 'Ticket order for :count attendee|Ticket order for :count attendees',
     'ticket_orders' => 'Ticket Orders',
     'ticket_transfer_request' => 'Ticket Transfer Request',
     'tickets_unavailable_title' => 'Unable to reserve tickets',
-    'tickets_unavailable_message' => 'All tickets are currently reserved. Tickets may be released if other patrons fail 
-        to complete their transactions within 15 minutes. Please try again later.',
+    'tickets_unavailable_message' => 'All tickets are currently reserved. Tickets may be released if other patrons fail'
+        . ' to complete their transactions within 15 minutes. Please try again later.',
     'tickets_partly_unavailable_title' => 'Unable to reserve all tickets requested',
-    'tickets_partly_unavailable_message' => 'Please check the order summary to the right for the number of tickets the 
-        system was able to reserve for you, and either continue with or cancel your order as appropriate.',
+    'tickets_partly_unavailable_message' => 'Please check the order summary to the right for the number of tickets the '
+        . 'system was able to reserve for you, and either continue with or cancel your order as appropriate.',
     'title' => 'Title',
     'titles' => [
         0 => 'Mr',
@@ -121,10 +124,12 @@ return [
         . 'we cannot otherwise process your request.',
     'transfer_edit' => 'Edit Transfer Request',
     'type' => 'Ticket Type',
+    'update' => 'Update Entry',
+    'update_success' => 'Entry updated successfully',
     'view_details' => 'View Details',
     'waiting_list' => 'Waiting List Entry',
     'welcome' => 'Welcome',
-    'welcome_message' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, 
-        please either register or login.',
+    'welcome_message' => 'Welcome to :title! To purchase your event tickets and view the status of your orders, '
+        . 'please either register or login.',
     'your_details' => 'Your Details',
 ];
