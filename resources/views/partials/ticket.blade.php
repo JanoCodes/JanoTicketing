@@ -1,6 +1,6 @@
 <tr>
     <td>{{ $ticket->name }}</td>
-    <td>{{ Helper::getFullPrice($ticket->price) }}</td>
+    <td>{{ \Jano\Repositories\HelperRepository::getUserPrice($ticket->price, Auth::user()) }}</td>
     <td>
         @if (!$ticket->soldout)
             <div class="input-group">

@@ -31,19 +31,21 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('event', 'EventController@show');
-Route::resource('accounts', 'AccountController', ['only' => ['view']]);
+Route::get('account', 'AccountController@view')->name('accounts.view');
 Route::resource('attendees', 'AttendeeController', ['except' => ['list', 'view']]);
 Route::resource('requests', 'TicketRequestController');
 Route::resource('transfers', 'TransferRequestController');
 Route::get('transfers/{transfer}/confirm/{token}', 'ConfirmedTransferRequestController@store')
     ->name('transfers.confirm');
+Route::get('transfers/{transfer}/associate', 'ConfirmedTransferRequestController@update')
+    ->name('transfers.associate');
 
 Route::group([
     'namespace' => 'Backend',
     'prefix' => 'admin',
     'as' => 'backend.'
 ], function () {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('home');
     Route::resource('accounts', 'AccountController');
     Route::resource('attendees', 'AttendeeController');
     Route::resource('collections', 'CollectionController');

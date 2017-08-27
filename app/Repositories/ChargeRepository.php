@@ -39,7 +39,7 @@ class ChargeRepository implements ChargeContract
         $charge->account()->associate($account);
         $charge->amount = $data['amount'];
         $charge->description = $data['description'];
-        $charge->due_by = Carbon::now()->addDays(Setting::get('payment.deadline'));
+        $charge->due_at = Carbon::now()->addDays(Setting::get('payment.deadline'));
         $charge->paid = false;
         $charge->save();
 

@@ -20,6 +20,7 @@
 
 namespace Jano\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Jano\Models\Account;
 
 class AccountController extends Controller
@@ -35,17 +36,16 @@ class AccountController extends Controller
     /**
      * Renders the view account page.
      *
-     * @param \Jano\Models\Account $account
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function view(Account $account)
+    public function view(Request $request)
     {
-        $this->authorize('view', $account);
+        $user = $request->user();
 
         return view('accounts.view', [
-            'account' => $account,
-            'user' => $account->user()
+            'account' => $user->account()->first(),
+            'user' => $user
         ]);
     }
 }

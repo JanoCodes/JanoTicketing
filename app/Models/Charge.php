@@ -32,7 +32,7 @@ use Setting;
  * @property int $amount
  * @property string $full_amount
  * @property string $description
- * @property \Carbon\Carbon $due_by
+ * @property \Carbon\Carbon $due_at
  * @property boolean $paid
  */
 class Charge extends Model implements AuditableContract
@@ -76,7 +76,7 @@ class Charge extends Model implements AuditableContract
      */
     public function account()
     {
-        return $this->belongsTo('\Jano\Models\Acount');
+        return $this->belongsTo('\Jano\Models\Account');
     }
 
     /**

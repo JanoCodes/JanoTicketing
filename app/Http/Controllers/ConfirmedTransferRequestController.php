@@ -21,6 +21,7 @@
 namespace Jano\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Models\TransferRequest;
 
@@ -61,5 +62,25 @@ class ConfirmedTransferRequestController extends Controller
         $this->contract->confirm($transfer);
 
         return redirect('/');
+    }
+
+    /**
+     * Associate the transfer request with the new user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Jano\Models\TransferRequest $transfer
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, TransferRequest $transfer)
+    {
+        try {
+            $this->authorize('associate', $transfer);
+        } catch (AuthorizationException $e) {
+            return view('transfer.associate_unauthorised');
+        }
+
+        $this->contract->update($transfer, ['user_id' => $request->user()]);
+
+        return view('transfer.associate');
     }
 }

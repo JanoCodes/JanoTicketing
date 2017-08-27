@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-dompdf": "^0.8.0",
         "guzzlehttp/guzzle": "^6.2",
+        "hashids/hashids": "^2.0",
         "jano-may-ball/cacheable": "dev-master",
         "jano-may-ball/settings": "dev-master",
         "laravel/framework": "5.4.*",

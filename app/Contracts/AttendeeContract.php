@@ -21,6 +21,7 @@
 namespace Jano\Contracts;
 
 use Illuminate\Support\Collection;
+use Jano\Models\Attendee;
 use Jano\Models\User;
 
 interface AttendeeContract
@@ -40,6 +41,15 @@ interface AttendeeContract
         User $user,
         Collection $tickets
     );
+
+    /**
+     * Update the attributes of the attendee instance.
+     *
+     * @param \Jano\Models\Attendee $attendee
+     * @param array $data
+     * @return \Jano\Models\Attendee
+     */
+    public function update(Attendee $attendee, $data);
 
     /**
      * Destroy an attendee instance.

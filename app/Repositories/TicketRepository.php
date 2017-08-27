@@ -24,7 +24,6 @@ use DB;
 use Jano\Contracts\TicketContract;
 use Jano\Models\Attendee;
 use Jano\Models\Charge;
-use Jano\Models\Order;
 use Jano\Models\Ticket;
 use Jano\Models\User;
 use stdClass;
@@ -67,6 +66,8 @@ class TicketRepository implements TicketContract
                     }
                     $attendee->ticket = $ticket;
                     $attendee->ticket_id = $id;
+                    $attendee->user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user, false);
+                    $attendee->full_user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user);
 
                     $state->attendees[] = $attendee;
                 }

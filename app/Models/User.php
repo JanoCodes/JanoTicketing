@@ -112,7 +112,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function transferRequest()
+    public function transferRequests()
     {
         return $this->hasMany('Jano\Models\TransferRequest');
     }
@@ -122,7 +122,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ticketRequest()
+    public function ticketRequests()
     {
         return $this->hasMany('Jano\Models\TicketRequest');
     }

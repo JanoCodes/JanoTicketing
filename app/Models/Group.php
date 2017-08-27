@@ -54,26 +54,6 @@ class Group extends Model
     }
 
     /**
-     * Create a new group
-     *
-     * @param array $data
-     * @return \Jano\Models\Group
-     */
-    public static function create($data)
-    {
-        $group = new self();
-        $group->slug = $data['slug'];
-        $group->name = $data['name'];
-        $group->can_order_at = $data['can_order_at'];
-        $group->ticket_limit = $data['ticket_limit'];
-        $group->surcharge = $data['surcharge'];
-        $group->right_to_buy = $data['right_to_buy'] ?? 0;
-        $group->save();
-
-        return $group;
-    }
-
-    /**
      * The users associated with the group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

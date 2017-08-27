@@ -48,4 +48,14 @@ class Account extends Model
     {
         return $this->belongsTo('Jano\Models\User');
     }
+
+    /**
+     * The payments associated with the account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany('Jano\Models\Payment');
+    }
 }

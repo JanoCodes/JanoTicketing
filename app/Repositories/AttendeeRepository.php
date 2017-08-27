@@ -29,7 +29,7 @@ use Jano\Events\AttendeesCreated;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
 use Jano\Models\User;
-use function trans_choice;
+use Jano\Repositories\HelperRepository as Helper;
 
 class AttendeeRepository implements AttendeeContract
 {
@@ -47,11 +47,13 @@ class AttendeeRepository implements AttendeeContract
         $amount = 0;
 
         foreach ($tickets as $ticket_type) {
-            $amount += $ticket->getPrice($ticket_type, $user) *
+            $amount += Helper::getUserPrice($ticket_type->price, $user, false) *
                 $attendees->where('ticket_id', $ticket_type['id'])->count();
         }
 
-        $charge_created = $charge->store($user->account(), [
+        $account = $user->account()->first();
+
+        $charge_created = $charge->store($account, [
             'amount' => $amount,
             'description' => trans_choice(
                 'system.ticket_order_for_attendee',
@@ -60,7 +62,6 @@ class AttendeeRepository implements AttendeeContract
             )
         ]);
 
-        $account = $user->account();
         $account->amount_due += $amount;
         $account->save();
 
@@ -74,6 +75,19 @@ class AttendeeRepository implements AttendeeContract
         event(new AttendeesCreated($user, $return));
 
         return $return;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(Attendee $attendee, $data)
+    {
+        foreach ($data as $attribute => $value) {
+            $attendee->{$attribute} = $value;
+        }
+        $attendee->save();
+
+        return $attendee;
     }
 
     /**

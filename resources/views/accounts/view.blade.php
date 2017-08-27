@@ -6,7 +6,7 @@
     <div class="grid-x grid-padding-x cell">
         <h3>{{ __('system.acount') }}</h3>
         <div class="grid-x">
-            <div class="small-8 cell">{{ Helper::getFullPrice($account->amount_due) }}</div>
+            <div class="small-8 cell">{{ $account->full_amount_due }}</div>
             <div class="small-4 cell align-right">
                 {{ $account->formatted_status }}
             </div>
@@ -20,17 +20,21 @@
                 <th></th>
             </tr>
             </thead>
-            @foreach ($user->attendees() as $attendee)
+            @foreach ($user->attendees()->get() as $attendee)
             <tr>
                 <td>
-                    <h4>{{ $attendee->title }} {{ $attendee->first_name }} {{ $attendee->last_name }}</h4>
+                    <strong>{{ $attendee->title }} {{ $attendee->first_name }} {{ $attendee->last_name }}</strong>
                 </td>
                 <td>
-                    <h4>{{ $attendee->ticket->name }}</h4>
-                    <small>{{ $attendee->ticket->full_price }}</small>
+                    <strong>{{ $attendee->ticket->name }}</strong><br />
+                    <small>
+                        {{ \Jano\Repositories\HelperRepository::getUserPrice($attendee->ticket->price, $user) }}
+                    </small>
                 </td>
                 <td>
-                    <a href="{{ url('attendee/' . $attendee->id . '/edit') }}">{{ __('system.transfer_create') }}</a>
+                    <a class="button tiny warning" href="{{ route('attendees.edit', ['attendee' => $attendee]) }}">
+                        {{ __('system.transfer_create') }}
+                    </a>
                     @if (!$attendee->paid)
                     <a class="button tiny danger cancel-ticket" data-cancel data-cancel-object="attendees"
                         data-cancel-object-id="{{ $attendee->id }}" href="#">
@@ -53,10 +57,10 @@
                     <th>{{ __('system.reference') }}</th>
                 </tr>
                 </thead>
-                @foreach ($account->payments() as $payment)
+                @foreach ($account->payments()->get() as $payment)
                 <tr>
                     <td>{{ $payment->made_at->toDateString() }}</td>
-                    <td>{{ Helper::getFullPrice($payment->amount) }}</td>
+                    <td>{{ $payment->full_amount }}</td>
                     <td>{{ __('system.payment_methods.' . $payment->method) }}</td>
                     <td>{{ $payment->reference }}</td>
                 </tr>
@@ -64,7 +68,7 @@
             </table>
         @endif
 
-        @if ($user->transfer_requests()->count() !== 0)
+        @if ($user->transferRequests()->count() !== 0)
             <h3>{{ __('system.ticket_transfer_request') }}</h3>
             <table>
                 <thead>
@@ -75,7 +79,7 @@
                     <th></th>
                 </tr>
                 </thead>
-                @foreach ($user->transfer_requests() as $ticket_transfer)
+                @foreach ($user->transferRequests()->get() as $ticket_transfer)
                     <tr>
                         <td>{{ $ticket_transfer->original_full_name }}</td>
                         <td>{{ $ticket_transfer->full_name }}</td>

@@ -60,7 +60,7 @@
                                 </template>
                             </td>
                             <td>
-                                @{{ attendee.ticket.full_price }}
+                                @{{ attendee.full_user_price }}
                             </td>
                         </tr>
                     </tbody>
@@ -355,7 +355,7 @@
                         var totalPrice = 0;
 
                         formData.state.attendees.forEach(function (attendee) {
-                            totalPrice += attendee.ticket.price;
+                            totalPrice += attendee.user_ticket_price;
                         });
 
                         return "{{ Setting::get('payment.currency') }}" + totalPrice;
