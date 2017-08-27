@@ -22,10 +22,9 @@ namespace Jano\Providers;
 
 use Auth;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Hashids\Hashids;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Jano\Contracts\StaffContract;
-use Jano\Repositories\StaffRepository;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Menu;
 use Jano\Socialite\OauthProvider;
@@ -64,6 +63,7 @@ class AppServiceProvider extends ServiceProvider
                 ->action('HomeController@index', __('system.home'))
                 ->htmlIf(!$authenticated, '<a href="#" data-open="login-modal">'
                     . __('system.login') . __('system.slash') . __('system.register') . '</a>')
+                ->actionIf($authenticated, 'AccountController@view', __('system.account'))
                 ->htmlIf($authenticated, '<form method="post" action="logout">' . csrf_field()
                     . '<button type="submit" class="clear button">' . __('system.logout') . '</button></form>')
                 ->setActiveFromRequest();
@@ -72,7 +72,12 @@ class AppServiceProvider extends ServiceProvider
         Menu::macro('backend', function () {
             return Menu::new()
                ->action('Backend\HomeController@index', __('system.home'))
-               ->setActiveFromRequest();
+               ->action('Backend\AccountController@index', __('system.users'))
+               ->action('Backend\AttendeeController@index', __('system.attendees'))
+               ->action('Backend\TransferRequestController@index', __('system.ticket_transfer_request'))
+               ->action('Backend\TicketRequestController@index', __('system.waiting_list'))
+               ->action('Backend\StaffController@index', __('system.staff'))
+               ->setActiveFromRequest('/admin');
         });
 
         Schema::defaultStringLength(191);

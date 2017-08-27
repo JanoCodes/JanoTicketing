@@ -2,6 +2,7 @@
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Jano\Models\Account;
 use Jano\Models\Group;
 use Jano\Models\User;
 
@@ -32,6 +33,12 @@ class UserDatabaseSeeder extends Seeder
         $user->method = User::DATABASE_METHOD;
         $user->group()->associate($group);
         $user->save();
+
+        $account = new Account();
+        $account->user()->associate($user);
+        $account->amount_due = 0;
+        $account->amount_paid = 0;
+        $account->save();
 
         $user->staff()->create(['access_level' => 999]);
     }
