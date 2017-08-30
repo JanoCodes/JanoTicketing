@@ -42,7 +42,7 @@ class ProcessTransferRequests extends Command
      *
      * @var string
      */
-    protected $signature = 'transfer_requests:process';
+    protected $signature = 'transfer:process';
 
     /**
      * The console command description.
