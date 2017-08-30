@@ -56,7 +56,7 @@ class TransferRequestController extends Controller
     {
         return $this->ajaxView(
             $request,
-            'backed.transfers.index',
+            'backend.transfers.index',
             TransferRequest::withTrashed()->paginate()
         );
     }

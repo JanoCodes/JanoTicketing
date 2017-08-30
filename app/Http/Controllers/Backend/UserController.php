@@ -23,9 +23,9 @@ namespace Jano\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
-use Jano\Models\Account;
+use Jano\Models\User;
 
-class AccountController extends Controller
+class UserController extends Controller
 {
     use RendersAjaxView;
 
@@ -47,8 +47,22 @@ class AccountController extends Controller
     {
         return $this->ajaxView(
             $request,
-            'backend.accounts.index',
-            Account::with('user')->paginate()
+            'backend.users.index',
+            User::with(['account', 'group'])->paginate()
         );
+    }
+
+    /**
+     * Renders the user information page.
+     *
+     * @param \Jano\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        return view('backend.users.show', [
+            'user' => $user,
+            'account' => $user->account()->first()
+        ]);
     }
 }

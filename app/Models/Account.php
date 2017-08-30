@@ -21,6 +21,7 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Setting;
 
 /**
  * Class Account
@@ -28,10 +29,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $user_id
  * @property int $amount_due
+ * @property string $full_amount_due
  * @property int $amount_paid
+ * @property string $full_amount_paid
+ * @property int $amount_outstanding
+ * @property string $full_amount_outstanding
  */
 class Account extends Model
 {
+    /**
+     * The attributes which should be appended to the account instance.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_amount_due',
+        'full_amount_paid',
+        'amount_outstanding',
+        'full_amount_outstanding'
+    ];
+
     /**
      * All of the relationships to be touched.
      *
@@ -50,6 +67,16 @@ class Account extends Model
     }
 
     /**
+     * The charges associated with the account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function charges()
+    {
+        return $this->hasMany('Jano\Models\Charge');
+    }
+
+    /**
      * The payments associated with the account.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -57,5 +84,45 @@ class Account extends Model
     public function payments()
     {
         return $this->hasMany('Jano\Models\Payment');
+    }
+
+    /**
+     * Return the human-readable version of the amount due.
+     *
+     * @return string
+     */
+    public function getFullAmountDueAttribute()
+    {
+        return Setting::get('payment.currency') . $this->amount_due;
+    }
+
+    /**
+     * Return the human-readable version of the amount paid.
+     *
+     * @return string
+     */
+    public function getFullAmountPaidAttribute()
+    {
+        return Setting::get('payment.currency') . $this->amount_paid;
+    }
+
+    /**
+     * Return the amount which remains unpaid.
+     *
+     * @return int
+     */
+    public function getAmountOutstandingAttribute()
+    {
+        return $this->amount_due - $this->amount_paid;
+    }
+
+    /**
+     * Return the human-readable version of the amount paid.
+     *
+     * @return string
+     */
+    public function getFullAmountOutstandingAttribute()
+    {
+        return Setting::get('payment.currency') . $this->amount_outstanding;
     }
 }

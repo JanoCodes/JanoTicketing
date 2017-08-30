@@ -71,8 +71,9 @@ class AppServiceProvider extends ServiceProvider
         Menu::macro('backend', function () {
             return Menu::new()
                ->action('Backend\HomeController@index', __('system.home'))
-               ->action('Backend\AccountController@index', __('system.users'))
+               ->action('Backend\UserController@index', __('system.users'))
                ->action('Backend\AttendeeController@index', __('system.attendees'))
+               ->action('Backend\PaymentController@index', __('system.payments'))
                ->action('Backend\TransferRequestController@index', __('system.ticket_transfer_request'))
                ->action('Backend\TicketRequestController@index', __('system.waiting_list'))
                ->action('Backend\StaffController@index', __('system.staff'))

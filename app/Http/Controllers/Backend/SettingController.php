@@ -1,4 +1,5 @@
-/*
+<?php
+/**
  * Jano Ticketing System
  * Copyright (C) 2016-2017 Andrew Ying
  *
@@ -17,16 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require('./bootstrap');
+namespace Jano\Http\Controllers\Backend;
 
-import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue';
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue';
-import vSelect from 'vue-select';
+use Jano\Http\Controllers\Controller;
+use Setting;
 
-Vue.component("vuetable", Vuetable);
-Vue.component("vuetable-pagination", VuetablePagination);
-Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
-Vue.component("v-select", vSelect);
+class SettingController extends Controller
+{
+    /**
+     * SettingController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth', 'staff']);
+    }
 
-$(document).foundation();
+    public function index()
+    {
+        return view('backend.settings.index', [
+            'settings' => Setting::get()
+        ]);
+    }
+}

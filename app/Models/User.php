@@ -58,6 +58,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The relationships to eager-load automatically.
+     *
+     * @var array
+     */
+    protected $with = ['group'];
+
+    /**
      * The group associated with the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

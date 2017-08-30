@@ -58,7 +58,7 @@ class Charge extends Model implements AuditableContract
      *
      * @var array
      */
-    protected $dates = ['due_by'];
+    protected $dates = ['due_at'];
 
     /**
      * The attributes that should be cast to native types.

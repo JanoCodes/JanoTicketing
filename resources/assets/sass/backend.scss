@@ -77,6 +77,18 @@
     }
   }
 
+  .main-content {
+    padding-bottom: 5rem;
+  }
+
+  table {
+    a,
+    button {
+      margin: 0;
+      padding: .65rem;
+    }
+  }
+
   .top-bar {
     @include xy-gutters($grid-margin-gutters, padding, left right, false);
 
@@ -101,6 +113,14 @@
     }
   }
 
+  .text-wrap {
+    @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
+  }
+
+  .field-content {
+    padding: .5rem;
+  }
+
   .vuetable {
     thead {
       border-bottom: darken($light-gray, 20%) 2px solid;
@@ -115,10 +135,12 @@
     }
 
     input,
+    a,
     button {
       margin: 0;
     }
 
+    a,
     button {
       padding: .65rem;
     }

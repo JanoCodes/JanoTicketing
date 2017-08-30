@@ -63,6 +63,13 @@ class Attendee extends Model implements AuditableContract
     protected $dates = ['deleted_at'];
 
     /**
+     * The relationships to eager-load automatically.
+     *
+     * @var array
+     */
+    protected $with = ['ticket'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
