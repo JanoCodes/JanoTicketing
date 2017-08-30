@@ -41,10 +41,11 @@ class Application extends IlluminateApplication
         SymfonyApplication::__construct('Jano Ticketing System', $version);
 
         $this->laravel = $laravel;
+        $this->events = $events;
         $this->setAutoExit(false);
         $this->setCatchExceptions(false);
 
-        $events->dispatch(new ArtisanStarting($this));
+        $this->events->dispatch(new ArtisanStarting($this));
 
         $this->bootstrap();
     }
