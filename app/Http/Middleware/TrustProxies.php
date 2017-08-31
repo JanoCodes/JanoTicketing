@@ -18,17 +18,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Illuminate\Foundation\Inspiring;
+namespace Jano\Http\Middleware;
 
-/*
-|--------------------------------------------------------------------------
-| Console Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of your Closure based console
-| commands. Each Closure is bound to a command instance allowing a
-| simple approach to interacting with each command's IO methods.
-|
-*/
+use Illuminate\Http\Request;
+use Fideloper\Proxy\TrustProxies as Middleware;
 
+class TrustProxies extends Middleware
+{
+    /**
+     * The trusted proxies for this application.
+     *
+     * @var array
+     */
+    protected $proxies;
 
+    /**
+     * The current proxy header mappings.
+     *
+     * @var array
+     */
+    protected $headers = [
+        Request::HEADER_FORWARDED => 'FORWARDED',
+        Request::HEADER_X_FORWARDED_FOR => 'X_FORWARDED_FOR',
+        Request::HEADER_X_FORWARDED_HOST => 'X_FORWARDED_HOST',
+        Request::HEADER_X_FORWARDED_PORT => 'X_FORWARDED_PORT',
+        Request::HEADER_X_FORWARDED_PROTO => 'X_FORWARDED_PROTO',
+    ];
+}

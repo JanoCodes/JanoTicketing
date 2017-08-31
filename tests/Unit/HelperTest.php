@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Jano\Facades\Helper;
 use PHPUnit_Framework_Error;
 use PHPUnit_Framework_Error_Warning;
-use stdClass;
 use Tests\TestCase;
 
 class HelperTest extends TestCase

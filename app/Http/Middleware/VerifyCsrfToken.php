@@ -5,8 +5,8 @@
  *
  * This file is part of Jano Ticketing System.
  *
- * Jano Ticketing System is free software: you can redistribute it and/or 
- * modify it under the terms of the GNU General Public License v3.0 as 
+ * Jano Ticketing System is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License v3.0 as
  * published by the Free Software Foundation.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
@@ -20,9 +20,9 @@
 
 namespace Jano\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
-class VerifyCsrfToken extends BaseVerifier
+class VerifyCsrfToken extends Middleware
 {
     /**
      * The URIs that should be excluded from CSRF verification.

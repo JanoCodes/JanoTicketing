@@ -1,4 +1,4 @@
-const { mix } = require('laravel-mix');
+let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .extract(['lodash', 'jquery', 'vue', 'vuetable-2', 'vue-select', 'foundation-sites', 'axios'])
