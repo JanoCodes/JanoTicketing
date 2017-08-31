@@ -66,6 +66,7 @@ return [
     'login' => 'Login',
     'logout' => 'Logout',
     'method' => 'Method',
+    'new_entry' => 'New Entry',
     'new_password' => 'New Password',
     'next' => 'Next',
     'no_ticket_type_exists' => 'No ticket type exists for this event.',
@@ -97,7 +98,9 @@ return [
         . 'entry are supplied below for your reference. You would be notified via email should a ticket becomes '
         . 'available.',
     'request_edit' => 'Edit Waiting List Entry',
+    'reset' => 'Reset',
     'reset_password' => 'Reset Password',
+    'search' => 'Search',
     'send_password_reset_link' => 'Send Password Reset Link',
     'slash' => '/',
     'soldout' => 'Sold Out',

@@ -33,17 +33,17 @@ class PaymentController extends Controller
     /**
      * @var \Jano\Contracts\PaymentContract
      */
-    protected $payment;
+    protected $contract;
 
     /**
      * PaymentController constructor.
      *
-     * @param \Jano\Contracts\PaymentContract $payment
+     * @param \Jano\Contracts\PaymentContract $contract
      */
-    public function __construct(PaymentContract $payment)
+    public function __construct(PaymentContract $contract)
     {
         $this->middleware(['auth', 'staff']);
-        $this->payment = $payment;
+        $this->contract = $contract;
     }
 
     /**
@@ -57,7 +57,7 @@ class PaymentController extends Controller
         return $this->ajaxView(
             $request,
             'backend.payments.index',
-            Payment::paginate()
+            $this->contract->search($request->get('q'))
         );
     }
 

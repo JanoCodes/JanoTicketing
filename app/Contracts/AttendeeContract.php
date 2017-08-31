@@ -43,6 +43,14 @@ interface AttendeeContract
     );
 
     /**
+     * Retrieve collection of attendees.
+     *
+     * @param $query
+     * @return \Illuminate\Support\Collection
+     */
+    public function search($query);
+
+    /**
      * Update the attributes of the attendee instance.
      *
      * @param \Jano\Models\Attendee $attendee

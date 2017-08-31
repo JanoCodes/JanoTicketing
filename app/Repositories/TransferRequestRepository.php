@@ -58,6 +58,23 @@ class TransferRequestRepository implements TransferRequestContract
 
     /**
      * @inheritdoc
+     */
+    public function search($query)
+    {
+        $query = $query ? '%' . $query . '%' : '%';
+
+        return TransferRequest::where('old_first_name', 'like', $query)
+            ->orWhere('old_last_name', 'like', $query)
+            ->orWhere('old_email', 'like', $query)
+            ->orWhere('first_name', 'like', $query)
+            ->orWhere('last_name', 'like', $query)
+            ->orWhere('email', 'like', $query)
+            ->withTrashed()
+            ->paginate();
+    }
+
+    /**
+     * @inheritdoc
      * @throws \InvalidArgumentException
      */
     public function update(TransferRequest $request, $data)

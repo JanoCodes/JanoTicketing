@@ -33,17 +33,17 @@ class TransferRequestController extends Controller
     /**
      * @var \Jano\Contracts\TransferRequestContract
      */
-    protected $transfer;
+    protected $contract;
 
     /**
      * TransferRequestController constructor.
      *
-     * @param \Jano\Contracts\TransferRequestContract $transfer
+     * @param \Jano\Contracts\TransferRequestContract $contract
      */
-    public function __construct(TransferRequestContract $transfer)
+    public function __construct(TransferRequestContract $contract)
     {
         $this->middleware(['auth']);
-        $this->transfer = $transfer;
+        $this->contract = $contract;
     }
 
     /**
@@ -57,7 +57,7 @@ class TransferRequestController extends Controller
         return $this->ajaxView(
             $request,
             'backend.transfers.index',
-            TransferRequest::withTrashed()->paginate()
+            $this->contract->search($request->get('q'))
         );
     }
 }

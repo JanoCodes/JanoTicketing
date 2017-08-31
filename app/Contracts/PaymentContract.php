@@ -44,6 +44,14 @@ interface PaymentContract
     public function associate(Payment $payment, Account $account);
 
     /**
+     * Retrieve a collection of payments.
+     *
+     * @param $query
+     * @return \Illuminate\Support\Collection
+     */
+    public function search($query);
+
+    /**
      * Destroy the payment instance.
      *
      * @param \Jano\Models\Payment $payment

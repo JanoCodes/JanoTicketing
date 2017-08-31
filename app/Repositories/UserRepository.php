@@ -59,6 +59,20 @@ class UserRepository implements UserContract
 
     /**
      * @inheritdoc
+     */
+    public function search($query)
+    {
+        $query = $query ? '%' . $query . '%' : '%';
+
+        return User::where('first_name', 'like', $query)
+            ->orWhere('last_name', 'like', $query)
+            ->orWhere('email', 'like', $query)
+            ->with(['account', 'group'])
+            ->paginate();
+    }
+
+    /**
+     * @inheritdoc
      * @throws \InvalidArgumentException
      */
     public function update(User $user, $data)

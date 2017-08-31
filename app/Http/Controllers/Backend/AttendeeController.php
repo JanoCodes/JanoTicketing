@@ -58,7 +58,7 @@ class AttendeeController extends Controller
         return $this->ajaxView(
             $request,
             'backend.attendees.index',
-            Attendee::withTrashed()->with('ticket')->paginate()
+            $this->contract->search($request->get('q'))
         );
     }
 

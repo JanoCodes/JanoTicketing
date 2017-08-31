@@ -26,6 +26,8 @@ use Jano\Models\User;
 interface StaffContract
 {
     /**
+     * Store a newly created staff instance.
+     *
      * @param \Jano\Models\User $user
      * @param int $access
      * @return \Jano\Models\Staff
@@ -33,6 +35,16 @@ interface StaffContract
     public function store(User $user, $access);
 
     /**
+     * Retrieve a collection of staff.
+     *
+     * @param $query
+     * @return \Illuminate\Support\Collection
+     */
+    public function search($query);
+
+    /**
+     * Update the attributes of a staff instance.
+     *
      * @param \Jano\Models\Staff $staff
      * @param int $access
      * @return \Jano\Models\Staff
@@ -40,6 +52,8 @@ interface StaffContract
     public function update(Staff $staff, $access);
 
     /**
+     * Destroy a staff instance.
+     *
      * @param \Jano\Models\Staff $staff
      */
     public function destroy(Staff $staff);

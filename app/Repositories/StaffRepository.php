@@ -42,6 +42,22 @@ class StaffRepository implements StaffContract
     /**
      * @inheritdoc
      */
+    public function search($query)
+    {
+        $query = $query ? '%' . $query . '%' : '%';
+
+        return Staff::with('user')
+            ->whereHas('user', function ($builder) use ($query) {
+                $builder->where('first_name', 'like', $query)
+                    ->orWhere('last_name', 'like', $query)
+                    ->orWhere('email', 'like', $query);
+            })
+            ->paginate();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function update(Staff $staff, $access)
     {
         $staff->access_level = $access;

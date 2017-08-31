@@ -4,8 +4,24 @@
 
 @section('content')
 <div id="data">
-    <vuetable ref="vuetable" api-url="{{ route('backend.payments.index') }}" :fields="fields" pagination-path=""
-        @vuetable:pagination-data="onPaginationData">
+    <div class="actions grid-x">
+        <div class="small-12 medium-6 large-8 cell">
+            <a class="button hollow" href="{{ route('backend.payments.create') }}">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
+            </a>
+        </div>
+        <div class="small-12 medium-6 large-4 cell">
+            <div class="input-group">
+                <input type="text" v-model="filterText" class="input-group-field" @keydown="doFilter"
+                       placeholder="{{ __('system.search') }}">
+                <div class="input-group-button">
+                    <button class="button warning" @click="resetFilter">{{ __('system.reset') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <vuetable ref="vuetable" api-url="{{ route('backend.payments.index') }}" :fields="fields" :append-params="param"
+        pagination-path="" @vuetable:pagination-data="onPaginationData">
         <template slot="actions" scope="props">
             <div class="table-actions">
                 <button class="button small warning" @click="editItem(props.rowData)">
@@ -166,6 +182,7 @@
                             $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                 + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
                                 + ' type="button"><span aria-hidden="true">&times;</span></button>');
+                            parent.$nextTick(function() {parent.$refs.vuetable.reload();});
                         })
                         .catch(function(error) {
                             if (error.response && error.response.status === '422') {
@@ -208,6 +225,7 @@
             data: {
                 modalView: '',
                 rowData: '',
+                filterText: '',
                 fields: [
                     {
                         name: 'id',
@@ -239,7 +257,8 @@
                         name: '__slot:actions',
                         title: ''
                     }
-                ]
+                ],
+                param: {}
             },
             methods: {
                 onPaginationData: function(paginationData) {
@@ -248,6 +267,17 @@
                 },
                 onChangePage: function(page) {
                     this.$refs.vuetable.changePage(page);
+                },
+                doFilter: _.debounce(function() {
+                    this.$data.param = {
+                        q: this.$data.filterText
+                    };
+                    this.$nextTick(function() {this.$refs.vuetable.refresh();});
+                }, 250),
+                resetFilter: function() {
+                    this.$data.filterText = '';
+                    this.$data.param = {};
+                    this.$nextTick(function() {this.$refs.vuetable.refresh();});
                 },
                 editItem: function(data) {
                     this.$data.rowData = data;

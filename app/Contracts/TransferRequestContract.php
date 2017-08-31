@@ -37,6 +37,14 @@ interface TransferRequestContract
     public function store(Attendee $attendee, Charge $charge, $data);
 
     /**
+     * Retrieve a collection of transfer requests.
+     *
+     * @param $query
+     * @return \Illuminate\Support\Collection
+     */
+    public function search($query);
+
+    /**
      * Update the parameters of the transfer request instance.
      *
      * @param \Jano\Models\TransferRequest $request

@@ -57,7 +57,7 @@ class TicketRequestController extends Controller
         return $this->ajaxView(
             $request,
             'backend.requests.index',
-            TicketRequest::withTrashed()->paginate()
+            $this->contract->search($request->get('q'))
         );
     }
 }

@@ -50,6 +50,20 @@ class TicketRequestRepository implements TicketRequestContract
     /**
      * @inheritdoc
      */
+    public function search($query)
+    {
+        $query = $query ? '%' . $query . '%' : '%';
+
+        return TicketRequest::where('first_name', 'like', $query)
+            ->orWhere('last_name', 'like', $query)
+            ->orWhere('email', 'like', $query)
+            ->withTrashed()
+            ->paginate();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function update(TicketRequest $request, $data)
     {
         $request->title = $data['title'];

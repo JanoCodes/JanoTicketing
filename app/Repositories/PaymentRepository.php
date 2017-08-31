@@ -61,6 +61,18 @@ class PaymentRepository implements PaymentContract
     /**
      * @inheritdoc
      */
+    public function search($query)
+    {
+        $query = $query ? '%' . $query . '%' : '%';
+
+        return Payment::where('reference', 'like', $query)
+            ->orWhere('internal_reference', 'like', $query)
+            ->paginate();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function destroy(Payment $payment)
     {
         $payment->delete();

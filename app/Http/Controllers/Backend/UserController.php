@@ -21,6 +21,7 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Jano\Contracts\UserContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
 use Jano\Models\User;
@@ -30,11 +31,19 @@ class UserController extends Controller
     use RendersAjaxView;
 
     /**
-     * AccountController constructor.
+     * @var \Jano\Contracts\UserContract
      */
-    public function __construct()
+    protected $contract;
+
+    /**
+     * AccountController constructor.
+     *
+     * @param \Jano\Contracts\UserContract $contract
+     */
+    public function __construct(UserContract $contract)
     {
         $this->middleware(['auth', 'staff']);
+        $this->contract = $contract;
     }
 
     /**
@@ -48,7 +57,7 @@ class UserController extends Controller
         return $this->ajaxView(
             $request,
             'backend.users.index',
-            User::with(['account', 'group'])->paginate()
+            $this->contract->search($request->get('q'))
         );
     }
 

@@ -113,8 +113,12 @@
     }
   }
 
-  .text-wrap {
+  .actions, .text-wrap {
     @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
+
+    .button, .input-group {
+      margin-bottom: 0;
+    }
   }
 
   .field-content {

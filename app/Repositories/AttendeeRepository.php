@@ -80,6 +80,21 @@ class AttendeeRepository implements AttendeeContract
     /**
      * @inheritdoc
      */
+    public function search($query)
+    {
+        $query = $query ? '%' . $query . '%' : '%';
+
+        return Attendee::where('first_name', 'like', $query)
+            ->orWhere('last_name', 'like', $query)
+            ->orWhere('email', 'like', $query)
+            ->withTrashed()
+            ->with('ticket')
+            ->paginate();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function update(Attendee $attendee, $data)
     {
         foreach ($data as $attribute => $value) {

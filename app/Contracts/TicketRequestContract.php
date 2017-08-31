@@ -36,6 +36,14 @@ interface TicketRequestContract
     public function store(User $user, $data);
 
     /**
+     * Retrieve a collection of ticket requests.
+     *
+     * @param $query
+     * @return \Illuminate\Support\Collection
+     */
+    public function search($query);
+
+    /**
      * Update the parameters of the ticket request instance.
      *
      * @param \Jano\Models\TicketRequest $request

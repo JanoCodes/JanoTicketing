@@ -38,6 +38,10 @@ class CreateTransferRequestsTable extends Migration
             $table->integer('attendee_id')->unsigned();
             $table->foreign('attendee_id')->references('id')->on('attendees');
             $table->integer('charge_id')->unsigned();
+            $table->string('old_title');
+            $table->string('old_first_name');
+            $table->string('old_last_name');
+            $table->string('old_email');
             $table->string('title');
             $table->string('first_name');
             $table->string('last_name');

@@ -33,6 +33,14 @@ interface UserContract
     public function store($data);
 
     /**
+     * Retrieve a collection of user.
+     *
+     * @param $query
+     * @return \Illuminate\Support\Collection
+     */
+    public function search($query);
+
+    /**
      * Update the user instance.
      *
      * @param \Jano\Models\User $user

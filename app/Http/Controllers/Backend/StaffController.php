@@ -61,7 +61,7 @@ class StaffController extends Controller
         return $this->ajaxView(
             $request,
             'backend.staff.index',
-            Staff::with('user')->paginate()
+            $this->contract->search($request->get('q'))
         );
     }
 
