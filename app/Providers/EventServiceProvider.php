@@ -31,8 +31,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Jano\Events\CachedModelChanged' => [
-            'Jano\Listener\ClearModelCache'
+        \Jano\Events\CachedModelChanged::class => [
+            \Jano\Listener\ClearModelCache::class
         ]
     ];
 

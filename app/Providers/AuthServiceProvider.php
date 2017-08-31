@@ -31,10 +31,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Jano\Models\Account' => 'Jano\Policies\AccountPolicy',
-        'Jano\Models\Attendee' => 'Jano\Policies\AttendeePolicy',
-        'Jano\Models\Staff' => 'Jano\Policies\StaffPolicy',
-        'Jano\Models\TicketRequest' => 'Jano\Policies\TicketRequestPolicy',
+        \Jano\Models\Account::class => \Jano\Policies\AccountPolicy::class,
+        \Jano\Models\Attendee::class => \Jano\Policies\AttendeePolicy::class,
+        \Jano\Models\Staff::class => \Jano\Policies\StaffPolicy::class,
+        \Jano\Models\TicketRequest::class => \Jano\Policies\TicketRequestPolicy::class,
     ];
 
     /**
