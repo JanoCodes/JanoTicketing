@@ -15,7 +15,7 @@
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "league/csv": "^8.0",
+        "league/csv": "^9.0",
         "owen-it/laravel-auditing": "^4.1",
         "predis/predis": "^1.1.0",
         "propaganistas/laravel-phone": "^2.8",

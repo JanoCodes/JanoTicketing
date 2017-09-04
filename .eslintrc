@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jquery": true
+  },
+  "extends": ["vue"],
+  "plugins": ["vue"],
+  "rules": {
+    "quotes": ["off"]
+  }
+}
