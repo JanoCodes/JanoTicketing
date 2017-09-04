@@ -6,7 +6,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,13 +24,14 @@ window.Vue = require('vue');
 window.Vuex = require('vuex');
 
 import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue';
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue';
 import vSelect from 'vue-select';
 
 Vue.component("vuetable", Vuetable);
-Vue.component("vuetable-pagination", VuetablePagination);
+Vue.component("vuetable-pagination", require('./components/VuetablePagination.vue'));
 Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
 Vue.component("v-select", vSelect);
+
+window.Dropzone = require('dropzone');
 
 $(document).foundation();

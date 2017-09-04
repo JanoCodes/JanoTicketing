@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,6 +25,7 @@ return [
      * System Languages
      */
     'account' => 'Your Account',
+    'accepted_file_types' => 'Accepted file type(s): :extensions',
     'access_level' => 'Access Level',
     'agreement' => 'Agreement',
     'amount_due' => 'Amount Due',
@@ -43,8 +45,10 @@ return [
     'copyright' => 'Copyright &copy; Andrew Ying 2016-17. Licensed under the '
         . '<a href="https://github.com/jano-may-ball/ticketing/blob/master/LICENSE.md" target="_blank">'
         . 'GNU General Public License v3.0</a>.',
+    'currency' => 'Currency',
     'create_order' => 'Create Order',
     'date_credited' => 'Date Credited',
+    'days' => 'day(s)',
     'description' => 'Description',
     'donation' => 'Optional Charity Donation',
     'edit' => 'Edit Entry',
@@ -60,6 +64,7 @@ return [
     'full_name' => 'Full Name',
     'group' => 'Group',
     'home' => 'Home',
+    'import_entries' => 'Import Entries',
     'internal_reference' => 'Internal Reference',
     'jano_ticketing_system' => 'Jano Ticketing System',
     'last_name' => 'Last Name',
@@ -78,6 +83,7 @@ return [
     'password' => 'Password',
     'payments' => 'Payments',
     'payment_due' => 'Payment Due',
+    'payment_information' => 'Payment Information',
     'phone' => 'Phone Number',
     'price' => 'Price',
     'primary_ticket_holder' => 'Primary ticket holder',
@@ -89,6 +95,7 @@ return [
     'unable_to_process_order_message' => 'An unexcepted system issue prevents us from processing your order at this '
         . 'moment. Please try again later. We apologise for the inconvenience and please feel free to contact us if you'
         . ' require any assistance.',
+    'upload_files_prompt' => 'Drag files here to upload',
     'reference' => 'Reference',
     'register' => 'Register',
     'remember_me' => 'Remember Me',
@@ -102,21 +109,26 @@ return [
     'reset_password' => 'Reset Password',
     'search' => 'Search',
     'send_password_reset_link' => 'Send Password Reset Link',
+    'settings' => 'Settings',
     'slash' => '/',
     'soldout' => 'Sold Out',
     'submit' => 'Submit',
     'staff' => 'Staff',
     'status' => 'Status',
+    'system_title' => 'System Title',
+    'terms' => 'Terms',
     'ticket_limit_reached' => 'You have reached the number of tickets you are allowed to purchase.',
     'ticket_order_for_attendee' => 'Ticket order for :count attendee|Ticket order for :count attendees',
     'ticket_orders' => 'Ticket Orders',
     'ticket_transfer_request' => 'Ticket Transfer Request',
+    'ticket_transfer_order' => 'Order for ticket transfer',
     'tickets_unavailable_title' => 'Unable to reserve tickets',
     'tickets_unavailable_message' => 'All tickets are currently reserved. Tickets may be released if other patrons fail'
         . ' to complete their transactions within 15 minutes. Please try again later.',
     'tickets_partly_unavailable_title' => 'Unable to reserve all tickets requested',
     'tickets_partly_unavailable_message' => 'Please check the order summary to the right for the number of tickets the '
         . 'system was able to reserve for you, and either continue with or cancel your order as appropriate.',
+    'time_for_payment' => 'Time for Payment',
     'title' => 'Title',
     'titles' => [
         0 => 'Mr',
@@ -136,6 +148,13 @@ return [
     'type' => 'Ticket Type',
     'update' => 'Update Entry',
     'update_success' => 'Entry updated successfully',
+    'upload' => 'Upload',
+    'upload_column_match_message' => 'We were unable to automatically identify the column headings for {{ name }}...'
+        . ' Please do the matching manually below.',
+    'upload_error_message' => 'File upload failed',
+    'upload_info_required_message' => 'Information required',
+    'upload_success_message' => 'All files have been successfully uploaded and queued for processing! You would '
+        . 'be notified when the processing is completed.',
     'user' => 'User',
     'users' => 'Users',
     'view_details' => 'View Details',

@@ -9,6 +9,9 @@
             <a class="button hollow" href="{{ route('backend.payments.create') }}">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
             </a>
+            <a class="button hollow" href="{{ route('backend.paymentimports.create') }}">
+                <i class="fa fa-upload" aria-hidden="true"></i> {{ __('system.import_entries') }}
+            </a>
         </div>
         <div class="small-12 medium-6 large-4 cell">
             <div class="input-group">

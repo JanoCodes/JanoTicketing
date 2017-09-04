@@ -6,7 +6,7 @@
 <div id="data">
     <div class="actions grid-x">
         <div class="small-12 medium-6 large-8 cell">
-            <a class="button hollow" href="{{ route('backend.attendees.create') }}">
+            <a class="button hollow" href="{{ route('backend.staff.create') }}">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
             </a>
         </div>

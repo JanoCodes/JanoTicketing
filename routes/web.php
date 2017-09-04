@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -49,10 +50,15 @@ Route::group([
     Route::resource('users', 'UserController');
     Route::resource('attendees', 'AttendeeController');
     Route::resource('collections', 'CollectionController');
+    Route::get('payments/import', 'PaymentImportController@create')->name('paymentimports.create');
+    Route::post('payments/import', 'PaymentImportController@store')->name('paymentimports.store');
+    Route::put('payments/import', 'PaymentImportController@update')->name('paymentimports.update');
     Route::resource('payments', 'PaymentController');
     Route::resource('requests', 'TicketRequestController');
     Route::resource('staff', 'StaffController');
     Route::resource('transfers', 'TransferRequestController');
+    Route::get('settings', 'SettingController@index')->name('settings.index');
+    Route::put('settings', 'SettingController@update')->name('settings.update');
 });
 
 Auth::routes();
