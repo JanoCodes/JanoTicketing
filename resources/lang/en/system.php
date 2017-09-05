@@ -153,6 +153,7 @@ return [
         . ' Please do the matching manually below.',
     'upload_error_message' => 'File upload failed',
     'upload_info_required_message' => 'Information required',
+    'upload_manual_column_match_error' => 'The matching of column headings is invalid. Please try again.',
     'upload_success_message' => 'All files have been successfully uploaded and queued for processing! You would '
         . 'be notified when the processing is completed.',
     'user' => 'User',

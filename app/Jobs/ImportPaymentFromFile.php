@@ -21,12 +21,18 @@
 
 namespace Jano\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Collection;
+use Jano\Contracts\PaymentContract;
+use League\Csv\Reader;
+use Log;
 use SplFileObject;
+use Validator;
 
 class ImportPaymentFromFile implements ShouldQueue
 {
@@ -38,7 +44,7 @@ class ImportPaymentFromFile implements ShouldQueue
     protected $file;
 
     /**
-     * @var array
+     * @var \Illuminate\Support\Collection
      */
     protected $definition;
 
@@ -46,9 +52,9 @@ class ImportPaymentFromFile implements ShouldQueue
      * Create a new job instance.
      *
      * @param \SplFileObject $file
-     * @param array $definition
+     * @param \Illuminate\Support\Collection $definition
      */
-    public function __construct(SplFileObject $file, $definition)
+    public function __construct(SplFileObject $file, Collection $definition)
     {
         $this->file = $file;
         $this->definition = $definition;
@@ -57,10 +63,49 @@ class ImportPaymentFromFile implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @param \Jano\Contracts\PaymentContract
      * @return void
      */
-    public function handle()
+    public function handle(PaymentContract $contract)
     {
-        //
+        $reader = Reader::createFromFileObject($this->file);
+        $records = $reader->getRecords($this->definition->values());
+
+        $success = 0;
+        $fail = 0;
+
+        foreach ($records as $record) {
+            if ($this->recordValidator($record)->fails()) {
+                Log::error('Payment record failed validation. Skipping...', ['record' => $record]);
+                $fail++;
+            } else {
+                $contract->store([
+                    'amount' => $record->{$this->definition['amount']},
+                    'type' => 'bank_transfer',
+                    'reference' => $record->{$this->definition['reference']},
+                    'made_at' => Carbon::createFromTimestamp($record->{$this->definition['date']})
+                ]);
+
+                $success++;
+            }
+        }
+
+        Log::info('Completed importing payments. ' . $success . ' record(s) imported successfully and '
+            . $fail . ' requires further attention.');
+    }
+
+    /**
+     * Return the record validator instance
+     *
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function recordValidator($data)
+    {
+        return Validator::make($data, [
+            $this->definition['date'] => 'required|date',
+            $this->definition['amount'] => 'required|numeric',
+            $this->definition['reference'] => 'required'
+        ]);
     }
 }

@@ -179,4 +179,35 @@ class PaymentImportController extends Controller
                 'success' => true
             ]);
     }
+
+    /**
+     * Manually column matching for batch import of payments.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $definitions = collect($request->get('definitions'));
+        $fields = collect(['date', 'amount', 'reference']);
+
+        $checked = $definitions->reject(function ($value) {
+            return empty($value);
+        })->unique();
+
+        if ($definitions->diff($checked)->count() || $fields->diff($checked->keys())->count()) {
+            return response()
+                ->json([
+                    'success' => false,
+                    'error' => __('system.upload_manual_column_match_error')
+                ], 400);
+        }
+
+        $this->dispatchJob($request->get('file'), $definitions);
+
+        return response()
+            ->json([
+                'success' => true
+            ]);
+    }
 }
