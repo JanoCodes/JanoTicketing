@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,6 +27,7 @@ use Jano\Contracts\AttendeeContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
 use Jano\Models\Attendee;
+use Jano\Models\User;
 
 class AttendeeController extends Controller
 {
@@ -72,6 +74,51 @@ class AttendeeController extends Controller
         return view('backend.attendees.create');
     }
 
+    /**
+     * Return the validator instance.
+     *
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function storeValidator($data)
+    {
+        return Validator::make($data, [
+            'user' => 'required|exists:users,id',
+            'attendees.*.title' => 'required',
+            'attendees.*.first_name' => 'required',
+            'attendees.*.last_name' => 'required',
+            'attendees.*.email' => 'required|email',
+            'attendees.*.ticket' => 'required|exists:tickets,id',
+        ]);
+    }
+
+    /**
+     * Store the newly created attendee instances.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->storeValidator($request->all());
+
+        return response()
+            ->json([
+                'success' => true,
+                'attendees' => $this->contract->store(
+                    User::where('id', $request->get('user'))->firstOrFail(),
+                    collect($request->input('attendees')),
+                    false
+                )
+            ]);
+    }
+
+    /**
+     * Return the validator instance.
+     *
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
     protected function updateValidator($data)
     {
         return Validator::make($data, [
@@ -81,8 +128,7 @@ class AttendeeController extends Controller
     }
 
     /**
-     *
-     * Renders the attendee edit page.
+     * Update the attendee instance.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Jano\Models\Attendee $attendee

@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -34,13 +35,34 @@ use Jano\Repositories\HelperRepository as Helper;
 class AttendeeRepository implements AttendeeContract
 {
     /**
+     * @var \Jano\Contracts\TicketContract
+     */
+    protected $ticket;
+
+    /**
+     * @var \Jano\Contracts\ChargeContract
+     */
+    protected $charge;
+
+    /**
+     * AttendeeRepository constructor.
+     *
+     * @param \Jano\Contracts\TicketContract $ticket
+     * @param \Jano\Contracts\ChargeContract $charge
+     */
+    public function __construct(TicketContract $ticket, ChargeContract $charge)
+    {
+        $this->ticket = $ticket;
+        $this->charge = $charge;
+    }
+
+    /**
      * @inheritdoc
      */
     public function store(
-        TicketContract $ticket,
-        ChargeContract $charge,
         User $user,
-        Collection $attendees
+        Collection $attendees,
+        $frontend = true
     ) {
         $tickets = Ticket::all();
 
@@ -53,7 +75,7 @@ class AttendeeRepository implements AttendeeContract
 
         $account = $user->account()->first();
 
-        $charge_created = $charge->store($account, [
+        $charge_created = $this->charge->store($account, [
             'amount' => $amount,
             'description' => trans_choice(
                 'system.ticket_order_for_attendee',
@@ -69,7 +91,12 @@ class AttendeeRepository implements AttendeeContract
 
         foreach ($attendees as $attendee) {
             $ticket = $tickets->where('id', $attendee['ticket_id'])->first();
-            $return->push($ticket->reserve($ticket, $user, $charge_created, $attendee));
+            $return->push($this->ticket->reserve([
+                'ticket' => $ticket,
+                'user' => $user,
+                'charge' => $charge_created,
+                'data' => $attendee
+            ], $frontend));
         }
 
         event(new AttendeesCreated($user, $return));

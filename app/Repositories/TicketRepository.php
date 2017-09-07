@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -87,22 +88,24 @@ class TicketRepository implements TicketContract
     /**
      * @inheritdoc
      */
-    public function reserve(Ticket $ticket, User $user, Charge $charge, $data)
+    public function reserve($data, $frontend)
     {
         DB::beginTransaction();
 
         $attendee = new Attendee();
-        $attendee->title = $data['title'];
-        $attendee->first_name = $data['first_name'];
-        $attendee->last_name = $data['last_name'];
-        $attendee->email = $data['email'];
-        $attendee->user()->associate($user);
-        $attendee->charge()->associate($charge);
-        $attendee->primary_ticket_holder = $data['primary_ticket_holder'];
-        $attendee->ticket()->associate($ticket);
+        $attendee->title = $data['data']['title'];
+        $attendee->first_name = $data['data']['first_name'];
+        $attendee->last_name = $data['data']['last_name'];
+        $attendee->email = $data['data']['email'];
+        $attendee->user()->associate($data['user']);
+        $attendee->charge()->associate($data['charge']);
+        $attendee->primary_ticket_holder = $data['data']['primary_ticket_holder'];
+        $attendee->ticket()->associate($data['ticket']);
         $attendee->checked_in = false;
 
-        DB::table('ticket_store')->where('id', $data['ticket_id'])->delete();
+        if ($frontend) {
+            DB::table('ticket_store')->where('id', $data['data']['ticket_id'])->delete();
+        }
         DB::commit();
 
         return $attendee;

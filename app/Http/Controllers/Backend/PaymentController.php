@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,7 +25,9 @@ use Illuminate\Http\Request;
 use Jano\Contracts\PaymentContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
+use Jano\Models\Account;
 use Jano\Models\Payment;
+use Validator;
 
 class PaymentController extends Controller
 {
@@ -68,6 +71,79 @@ class PaymentController extends Controller
      */
     public function create()
     {
+        if ($redirect = request('redirect')) {
+            session('redirect_url', $redirect);
+        }
+
         return view('backend.payments.create');
+    }
+
+    /**
+     * Return the validator instance.
+     *
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function storeValidator($data)
+    {
+        return Validator::make($data, [
+            'account' => 'exists:accounts,id',
+            'amount' => 'required|integer|min:0',
+            'method' => 'required|in:' . implode(
+                ',',
+                collect(__('system.payment_methods'))->keys()
+            ),
+            'reference' => 'required'
+        ]);
+    }
+
+    /**
+     * Validate and store the new payment instance.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function store(Request $request)
+    {
+        $this->storeValidator($request->all());
+
+        $this->contract->store(
+            $request->all(),
+            $request->has('account') ?
+                Account::where('id', $request->get('account'))->firstOrFail() : null
+        );
+
+        return redirect($request->get('redirect_url') ?? route('backend.payments.index'));
+    }
+
+    /**
+     * Return the validator instance.
+     *
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function updateValidator($data)
+    {
+        return Validator::make($data, [
+            'account' => 'exists:accounts,id',
+            'amount' => 'integer|min:0',
+            'method' => 'in:' . implode(
+                ',',
+                collect(__('system.payment_methods'))->keys()
+            )
+        ]);
+    }
+
+    /**
+     * Validate and update the payment instance.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Jano\Models\Payment $payment
+     */
+    public function update(Request $request, Payment $payment)
+    {
+        $this->updateValidator($request->all());
+
     }
 }

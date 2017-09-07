@@ -5,12 +5,7 @@
 @section('content')
 <div id="data">
     <div class="actions grid-x">
-        <div class="small-12 medium-6 large-8 cell">
-            <a class="button hollow" href="{{ route('backend.transfers.create') }}">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
-            </a>
-        </div>
-        <div class="small-12 medium-6 large-4 cell">
+        <div class="small-12 medium-offset-6 medium-6 large-offset-8 large-4 cell">
             <div class="input-group">
                 <input type="text" v-model="filterText" class="input-group-field" @keydown="doFilter"
                        placeholder="{{ __('system.search') }}">

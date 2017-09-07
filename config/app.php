@@ -166,12 +166,8 @@ return [
         /*
          * Package Service Providers
          */
-        Laravel\Socialite\SocialiteServiceProvider::class,
         Jano\Settings\ServiceProvider::class,
         Jano\Cacheable\ServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
-        Spatie\Menu\Laravel\MenuServiceProvider::class,
-        OwenIt\Auditing\AuditingServiceProvider::class,
 
         /*
          * Application Service Providers

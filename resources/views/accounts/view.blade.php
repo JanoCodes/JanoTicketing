@@ -3,15 +3,18 @@
 @section('title', __('system.account'))
 
 @section('content')
-    <div class="grid-x grid-padding-x cell">
-        <h3>{{ __('system.acount') }}</h3>
+    <div class="grid-container fluid">
         <div class="grid-x">
-            <div class="small-8 cell">{{ $account->full_amount_due }}</div>
+            <div class="small-8 cell">
+                <h3>{{ __('system.account') }}</h3>
+                <strong>{{ __('system.amount_outstanding') }}: </strong>
+                {{ $account->full_amount_outstanding }}
+            </div>
             <div class="small-4 cell align-right">
                 {{ $account->formatted_status }}
             </div>
         </div>
-
+        <div class="clearfix">&nbsp;</div>
         <table>
             <thead>
             <tr>

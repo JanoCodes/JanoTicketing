@@ -89,6 +89,14 @@
                     <input type="text" name="reference" id="reference" v-model="editData.internal_reference"
                            required>
                 </div>
+                <div class="small-12 medium-3 cell">
+                    <label class="text-right">{{ __('system.account') }}</label>
+                </div>
+                <div class="small-12 medium-9 cell">
+                    <v-select :value.sync="editData.account.id" :debounce="500" :on-search="getOptions"
+                         :options="options" placeholder="{{ __('system.search') }}">
+                    </v-select>
+                </div>
                 <div class="small-12 cell">
                     <div class="float-right">
                         <button id="submit" type="submit" class="button warning" @click="submit">
@@ -153,13 +161,20 @@
                 getOptions: function(search, loading) {
                     loading(true);
 
-                    axios.get('{{ route('backend.users.index') }}', {
-                        params: {
-                            q: search
-                        }
-                    }).then(function (response) {
-                        loading(false);
-                    });
+                    let parent = this;
+
+                    axios.get('{{ route('backend.users.index') }}' + '?q=' + search)
+                        .then(function (response) {
+                            parent.$data.options = $.map(response.data.data, function(val) {
+                                return {
+                                    label: val.first_name + ' ' + val.last_name,
+                                    value: val.account.id
+                                };
+                            });
+                            parent.$nextTick(() => loading(false));
+
+                            loading(false);
+                        });
                 },
                 close: function() {
                     $('#details-modal').foundation('close');

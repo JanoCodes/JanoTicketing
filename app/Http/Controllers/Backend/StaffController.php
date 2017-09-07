@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -95,6 +96,7 @@ class StaffController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function store(Request $request)
     {
@@ -102,11 +104,11 @@ class StaffController extends Controller
         $this->storeValidator($request->all());
 
         $this->contract->store(
-            User::where('id', $request->get('user_id'))->first(),
+            User::where('id', $request->get('user_id'))->firstOrFail(),
             $request->get('access_level')
         );
 
-        return redirect()->route('backend.staff.index');
+        return redirect($request->get('redirect_url') ?? route('backend.staff.index'));
     }
 
     /**

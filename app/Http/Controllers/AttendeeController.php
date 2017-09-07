@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,6 +24,7 @@ namespace Jano\Http\Controllers;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Jano\Contracts\AttendeeContract;
+use Jano\Contracts\ChargeContract;
 use Jano\Contracts\TicketContract;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Contracts\UserContract;
@@ -48,6 +50,11 @@ class AttendeeController extends Controller
     protected $attendee;
 
     /**
+     * @var \Jano\Contracts\ChargeContract
+     */
+    protected $charge;
+
+    /**
      * @var \Jano\Contracts\TransferRequestContract
      */
     protected $transfer;
@@ -58,18 +65,21 @@ class AttendeeController extends Controller
      * @param \Jano\Contracts\UserContract $user
      * @param \Jano\Contracts\TicketContract $ticket
      * @param \Jano\Contracts\AttendeeContract $attendee
+     * @param \Jano\Contracts\ChargeContract $charge
      * @param \Jano\Contracts\TransferRequestContract $transfer
      */
     public function __construct(
         UserContract $user,
         TicketContract $ticket,
         AttendeeContract $attendee,
+        ChargeContract $charge,
         TransferRequestContract $transfer
     ) {
         $this->middleware(['auth']);
         $this->user = $user;
         $this->ticket = $ticket;
         $this->attendee = $attendee;
+        $this->charge = $charge;
         $this->transfer = $transfer;
     }
 
@@ -156,13 +166,11 @@ class AttendeeController extends Controller
             'email',
             'phone'
         ]));
-        $attendees = $this->attendee->store(
-            $this->ticket,
+
+        return $this->attendee->store(
             $user,
             collect($request->input('attendees'))
         );
-
-        return $attendees;
     }
 
     /**

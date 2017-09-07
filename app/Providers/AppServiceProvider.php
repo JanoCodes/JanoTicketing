@@ -22,7 +22,6 @@
 namespace Jano\Providers;
 
 use Auth;
-use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
@@ -42,7 +41,6 @@ class AppServiceProvider extends ServiceProvider
         \Jano\Contracts\ChargeContract::class => \Jano\Repositories\ChargeRepository::class,
         \Jano\Contracts\PaymentContract::class => \Jano\Repositories\PaymentRepository::class,
         \Jano\Contracts\TicketContract::class => \Jano\Repositories\TicketRepository::class,
-        \Jano\Contracts\AttendeeContract::class => \Jano\Repositories\AttendeeRepository::class,
         \Jano\Contracts\StaffContract::class => \Jano\Repositories\StaffRepository::class,
         \Jano\Contracts\TicketRequestContract::class => \Jano\Repositories\TicketRequestRepository::class,
         \Jano\Contracts\TransferRequestContract::class => \Jano\Repositories\TransferRequestRepository::class,
@@ -94,6 +92,7 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->binding();
+        $this->bindingSpecial();
     }
 
     /*
@@ -109,14 +108,25 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the repositories which in turn require service container resolving.
+     */
+    protected function bindingSpecial()
+    {
+        $this->app->bind(\Jano\Contracts\AttendeeContract::class, function ($app) {
+            return new \Jano\Repositories\AttendeeRepository(
+                $app->make(\Jano\Contracts\TicketContract::class),
+                $app->make(\Jano\Contracts\ChargeContract::class)
+            );
+        });
+    }
+
+    /**
      * Register any application services.
      *
      * @return void
      */
     public function register()
     {
-        if ($this->app->environment() !== 'production') {
-            $this->app->register(IdeHelperServiceProvider::class);
-        }
+        //
     }
 }

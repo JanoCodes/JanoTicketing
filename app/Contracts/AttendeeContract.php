@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,17 +30,15 @@ interface AttendeeContract
     /**
      * Store new attendees instances.
      *
-     * @param \Jano\Contracts\TicketContract $ticket
-     * @param \Jano\Contracts\ChargeContract $charge
      * @param \Jano\Models\User $user
      * @param \Illuminate\Support\Collection $tickets
+     * @param boolean $frontend
      * @return \Illuminate\Support\Collection
      */
     public function store(
-        TicketContract $ticket,
-        ChargeContract $charge,
         User $user,
-        Collection $tickets
+        Collection $tickets,
+        $frontend = true
     );
 
     /**
