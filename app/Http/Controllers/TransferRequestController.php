@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,8 +25,7 @@ use Illuminate\Http\Request;
 use Jano\Contracts\ChargeContract;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Models\TransferRequest;
-use function ucfirst;
-use Validator;
+use Illuminate\Validation\Factory as Validator;
 
 class TransferRequestController extends Controller
 {

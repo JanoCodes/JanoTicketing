@@ -22,14 +22,12 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
+use Illuminate\Validation\Factory as Validator;
 use Jano\Contracts\StaffContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
 use Jano\Models\Staff;
 use Jano\Models\User;
-use function redirect;
-use function route;
 
 class StaffController extends Controller
 {

@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,8 +21,8 @@
 
 namespace Jano\Http\Controllers;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Factory as Validator;
 use Jano\Contracts\CollectionContract;
 use Jano\Models\Collection;
 
@@ -63,7 +64,7 @@ class CollectionController extends Controller
      * Validate the input data.
      *
      * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Validation\Validator
      */
     protected function validate($data)
     {

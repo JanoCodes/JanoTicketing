@@ -22,12 +22,11 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use function is_string;
 use Jano\Http\Controllers\Controller;
 use Jano\Jobs\ImportPaymentFromFile;
 use League\Csv\Reader;
 use SplFileObject;
-use Validator;
+use Illuminate\Validation\Factory as Validator;
 
 class PaymentImportController extends Controller
 {

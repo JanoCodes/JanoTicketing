@@ -24,8 +24,8 @@ namespace Jano\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Jano\Http\Controllers\Controller;
 use Jano\Repositories\HelperRepository as Helper;
-use Setting;
-use Validator;
+use Jano\Settings\Facade as Setting;
+use Illuminate\Validation\Factory as Validator;
 
 class SettingController extends Controller
 {

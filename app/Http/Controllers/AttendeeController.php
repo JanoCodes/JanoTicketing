@@ -30,7 +30,7 @@ use Jano\Contracts\TransferRequestContract;
 use Jano\Contracts\UserContract;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
-use Validator;
+use Illuminate\Validation\Factory as Validator;
 
 class AttendeeController extends Controller
 {

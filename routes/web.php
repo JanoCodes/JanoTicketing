@@ -19,6 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Illuminate\Routing\Router as Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,6 +63,6 @@ Route::group([
     Route::put('settings', 'SettingController@update')->name('settings.update');
 });
 
-Auth::routes();
+Route::auth();
 Route::get('login/oauth', 'Auth\LoginController@redirectToProvider')->name('oauth.login');
 Route::get('login/oauth/callback', 'Auth\LoginController@handleProviderCallback')->name('oauth.callback');

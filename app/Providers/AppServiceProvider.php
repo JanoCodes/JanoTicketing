@@ -21,11 +21,11 @@
 
 namespace Jano\Providers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
-use Menu;
+use Spatie\Menu\Laravel\Facades\Menu;
 use Jano\Socialite\OauthProvider;
 
 class AppServiceProvider extends ServiceProvider

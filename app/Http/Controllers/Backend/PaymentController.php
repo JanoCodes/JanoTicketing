@@ -22,12 +22,12 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Factory as Validator;
 use Jano\Contracts\PaymentContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
 use Jano\Models\Account;
 use Jano\Models\Payment;
-use Validator;
 
 class PaymentController extends Controller
 {

@@ -30,9 +30,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Collection;
 use Jano\Contracts\PaymentContract;
 use League\Csv\Reader;
-use Log;
+use Illuminate\Log\Writer as Log;
 use SplFileObject;
-use Validator;
+use Illuminate\Validation\Factory as Validator;
 
 class ImportPaymentFromFile implements ShouldQueue
 {

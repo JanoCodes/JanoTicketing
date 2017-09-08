@@ -21,10 +21,9 @@
 
 namespace Jano\Repositories;
 
-use DB;
+use Illuminate\Database\DatabaseManager as DB;
 use Jano\Contracts\TicketContract;
 use Jano\Models\Attendee;
-use Jano\Models\Charge;
 use Jano\Models\Ticket;
 use Jano\Models\User;
 use stdClass;
