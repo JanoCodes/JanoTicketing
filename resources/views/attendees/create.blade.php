@@ -60,7 +60,7 @@
                                 </template>
                             </td>
                             <td>
-                                @{{ attendee.full_user_price }}
+                                @{{ attendee.full_user_ticket_price }}
                             </td>
                         </tr>
                     </tbody>

@@ -40,7 +40,7 @@
                     </a>
                     @if (!$attendee->paid)
                     <a class="button tiny danger cancel-ticket" data-cancel data-cancel-object="attendees"
-                        data-cancel-object-id="{{ $attendee->id }}" href="#">
+                        data-cancel-object-id="{{ $attendee->id }}">
                         {{ __('system.attendee_cancel') }}
                     </a>
                     @endif
@@ -93,8 +93,8 @@
                                href="{{ url('transfers/' . $ticket_transfer->id . '/edit') }}">
                                 {{ __('system.transfer_edit') }}
                             </a>&nbsp;
-                            <a class="button tiny danger cancel-transfer" data-cancel data-cancel-object="transfers"
-                               data-cancel-object-id="{{ $ticket_transfer->id }}" href="#">
+                            <a class="button tiny danger cancel-transfer" data-cancel
+                               data-cancel-object="transfers" data-cancel-object-id="{{ $ticket_transfer->id }}">
                                 {{ __('system.transfer_cancel') }}
                             </a>
                             @endif
@@ -107,29 +107,35 @@
     <div class="small reveal" id="cancel-attendees-container" data-reveal>
         <p class="lead text-alert">
             <strong>
-                {{ __('system.cancel_alert', ['attribute' => strtolower('system.attendee')]) }}
+                {{ __('system.cancel_alert', ['attribute' => strtolower(__('system.attendee'))]) }}
             </strong><br />
             <small>{{ __('system.cancel_small') }}</small>
         </p>
         <form role="form" method="POST" action="#">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
-            <button type="button" class="alert button">{{ __('system.continue') }}</button>
-            <button class="secondary button" href="#" data-close>{{ __('system.back') }}</button>
+            <button type="submit" class="alert button">{{ __('system.continue') }}</button>
+            <button type="button" class="secondary button" href="#" data-close>
+                {{ __('system.back') }}
+            </button>
         </form>
     </div>
     <div class="small reveal" id="cancel-transfers-container" data-reveal>
         <p class="lead text-alert">
             <strong>
-                {{ __('system.cancel_alert', ['attribute' => strtolower('system.ticket_transfer_request')]) }}
+                {{ __('system.cancel_alert', [
+                    'attribute' => strtolower(__('system.ticket_transfer_request'))
+                ]) }}
             </strong><br />
             <small>{{ __('system.cancel_small') }}</small>
         </p>
         <form role="form" method="POST" action="#">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
-            <button type="button" class="alert button">{{ __('system.continue') }}</button>
-            <button class="secondary button" href="#" data-close>{{ __('system.back') }}</button>
+            <button type="submit" class="alert button">{{ __('system.continue') }}</button>
+            <button type="button" class="secondary button" href="#" data-close>
+                {{ __('system.back') }}
+            </button>
         </form>
     </div>
 @endsection
@@ -137,14 +143,14 @@
 @push('scripts')
     <script type="text/javascript">
         $('[data-cancel]').each(function() {
-            this.on('click', function(e) {
+            $(this).on('click', function(e) {
                 e.preventDefault();
 
-                var object = this.data('cancel-object');
+                const object = $(this).data('cancel-object');
                 $('#cancel-' + object + '-container')
                     .foundation('open')
                     .children('form')
-                    .attr('action', object + '/' + this.data('cancel-object-id'));
+                    .attr('action', object + '/' + $(this).data('cancel-object-id'));
 
             })
         });

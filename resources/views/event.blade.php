@@ -3,30 +3,62 @@
 @section('title', __('system.create_order'))
 
 @section('content')
-    @include('partials.error')
-    <div class="table-scroll">
-        <form method="GET" action="{{ route('attendees.create') }}" id="form" data-abide novalidate>
-            {{ csrf_field() }}
-            <table class="hover tickets">
-                <thead>
-                    <tr>
-                        <th>{{ __('system.type') }}</th>
-                        <th>{{ __('system.price') }}</th>
-                        <th>{{ __('system.quantity') }}</th>
-                    </tr>
-                </thead>
-                @each('partials.ticket', $tickets, 'ticket', 'partials.ticket-empty')
-                <tfoot>
-                    <tr>
-                        <td colspan="3" class="text-right">
-                            <button class="button button-primary" name="submit" value="true" type="submit">
-                                {{ __('system.next') }}
-                            </button>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </form>
+    <div class="grid-x">
+        <div class="small-12 medium-7 large-8 cell">
+            <div class="card event-card">
+                <div class="event-cover" style="background-image:
+                        url({{ asset('images/' . Setting::get('event.cover_image')) }});" />&nbsp;</div>
+                <div class="event-info">
+                    <span>
+                        <h2>{{ Setting::get('event.name') }}</h2>
+                    </span>
+                </div>
+                <div class="card-section text-center">
+                    Location: Secret
+                    <div class="event-map" id="map">
+                        <iframe width="100%" height="100%" frameborder="0" style="border:0"
+                                src="https://www.google.com/maps/embed/v1/view?key=
+                            {{ Setting::get('system.google_maps_key') }}&center=52.2005954,0.1214614
+                            &zoom=12">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="small-12 medium-5 large-4 cell">
+            <div class="callout event-side">
+                <h3>{{ __('system.order_tickets') }}</h3>
+                @include('partials.error')
+                <div class="table-scroll">
+                    <form method="GET" action="{{ route('attendees.create') }}" id="form" data-abide
+                        novalidate>
+                        {{ csrf_field() }}
+                        <table class="hover tickets">
+                            <thead>
+                            <tr>
+                                <th>{{ __('system.type') }}</th>
+                                <th>{{ __('system.quantity') }}</th>
+                            </tr>
+                            </thead>
+                            @each('partials.ticket', $tickets, 'ticket', 'partials.ticket-empty')
+                            <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <a class="button warning" href="{{ url('/') }}">
+                                        {{ __('system.back') }}
+                                    </a>
+                                    <button class="button" name="submit" value="true"
+                                        type="submit">
+                                        {{ __('system.next') }}
+                                    </button>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -34,10 +66,10 @@
     <script type="text/javascript">
         $(document).ready(function(){
             function onUpdateQuantity() {
-                var sum = 0;
+                let sum = 0;
 
                 $('input#tickets').each(function() {
-                    sum += $(this).val();
+                    sum += parseInt($(this).val());
                 });
 
                 if (sum >= {{ Auth::user()->ticket_limit }}) {
@@ -55,14 +87,13 @@
                 }
             }
 
-            $('input#tickets').change(function() {
+            $('input#tickets').on('change', function() {
                 onUpdateQuantity();
             });
 
             $('[data-quantity="plus"]').click(function(e){
                 e.preventDefault();
                 var currentVal = parseInt($(this).closest('.input-group').find('input').val());
-                console.log(currentVal);
                 if (!isNaN(currentVal)) {
                     $(this).closest('.input-group').find('input').val(currentVal + 1);
                     onUpdateQuantity();

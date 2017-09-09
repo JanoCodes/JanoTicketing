@@ -21,7 +21,7 @@
 
 namespace Jano\Repositories;
 
-use Illuminate\Database\DatabaseManager as DB;
+use Illuminate\Support\Facades\DB;
 use Jano\Contracts\TicketContract;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;

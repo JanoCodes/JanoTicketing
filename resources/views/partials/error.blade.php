@@ -2,6 +2,10 @@
     <div data-abide-error role="alert" class="alert callout" style="display: block;">
         <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ __('validation.errors_in_form') }}</p>
     </div>
+@elseif (session('success'))
+    <div data-abide-error role="alert" class="success callout" style="display: block;">
+        {!! session('success') !!}
+    </div>
 @elseif (isset($alert))
     <div data-abide-error role="alert" class="alert callout" style="display: block;">
         <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {!! $alert !!}</p>
