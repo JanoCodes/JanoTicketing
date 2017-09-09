@@ -71,11 +71,16 @@ class PaymentController extends Controller
      */
     public function create()
     {
+        $data = [];
+
         if ($redirect = request('redirect')) {
-            session('redirect_url', $redirect);
+            session('redirect_url', urldecode($redirect));
+        }
+        if ($account_id = request('account')) {
+            $data['account'] = Account::where('id', $account_id)->firstOrFail();
         }
 
-        return view('backend.payments.create');
+        return view('backend.payments.create', $data);
     }
 
     /**
@@ -113,8 +118,8 @@ class PaymentController extends Controller
             $request->has('account') ?
                 Account::where('id', $request->get('account'))->firstOrFail() : null
         );
-
-        return redirect($request->get('redirect_url') ?? route('backend.payments.index'));
+        return redirect($request->session()->pull('redirect_url') ??
+            route('backend.payments.index'));
     }
 
     /**

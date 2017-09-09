@@ -73,7 +73,7 @@
                     });
             },
             setUser: function() {
-                $('input[name=user]').val(this.$data.user);
+                $('input[name=user]').val(this.$data.user.value);
             }
         }
     });

@@ -83,7 +83,8 @@
             @endif
         </div>
         <div class="small-offset-3 small-9 large-8 cell">
-            <a class="button warning" href="{{ route('backend.payments.index') }}">{{ __('system.back') }}</a>
+            <a class="button warning" href="{{ request('redirect') ? urldecode(request('redirect')) :
+                route('backend.payments.index') }}">{{ __('system.back') }}</a>
             <button type="submit" class="button">{{ __('system.submit') }}</button>
         </div>
     </div>
@@ -92,12 +93,37 @@
 
 @push('scripts')
 <script type="text/javascript">
+    (function($){
+        $.getQuery = function( query ) {
+            query = query.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var expr = "[\\?&]"+query+"=([^&#]*)";
+            var regex = new RegExp( expr );
+            var results = regex.exec( window.location.href );
+            if( results !== null ) {
+                return results[1];
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+            } else {
+                return false;
+            }
+        };
+    })(jQuery);
+
     const vm = new Vue({
         el: '#form',
+        @if (isset($account))
         data: {
-            acccount: '',
+            account: {
+                value: {{ $account->id }},
+                label: "{{ $account->user()->first()->first_name }} {{ $account->user()->first()->last_name }}"
+            },
             options: []
         },
+        @else
+        data: {
+            account: '',
+            options: []
+        },
+        @endif
         methods: {
             getOptions: function(search, loading) {
                 loading(true);
@@ -118,7 +144,7 @@
                     });
             },
             setAccount: function() {
-                $('input[name=account]').val(this.$data.account);
+                $('input[name=account]').val(this.$data.account.value);
             }
         }
     });

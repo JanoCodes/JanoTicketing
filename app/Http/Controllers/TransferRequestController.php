@@ -22,10 +22,10 @@
 namespace Jano\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Factory as Validator;
 use Jano\Contracts\ChargeContract;
 use Jano\Contracts\TransferRequestContract;
 use Jano\Models\TransferRequest;
-use Illuminate\Validation\Factory as Validator;
 
 class TransferRequestController extends Controller
 {
@@ -50,58 +50,6 @@ class TransferRequestController extends Controller
         $this->middleware(['auth']);
         $this->request = $request;
         $this->charge = $charge;
-    }
-
-    /**
-     * Render the create transfer request page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('transfers.create');
-    }
-
-    /**
-     * Get a validator for a newly created transfer request instance.
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function storeValidator($data)
-    {
-        return Validator::make($data, [
-            'title' => 'required|in:' . implode(',', __('system.titles')),
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-        ]);
-    }
-
-    /**
-     * Store the newly created transfer request instance.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function store(Request $request)
-    {
-        $this->authorize('create', \Jano\Models\TransferRequest::class);
-
-        $this->storeValidator($request->all());
-
-        $user = $request->user();
-
-        $charge = $this->charge->store($user->account(), [
-            'amount' => Setting::get('transfer.fee'),
-            'description' => ucfirst(strtolower(__('system.ticket_transfer_request')))
-        ]);
-        $transfer_request = $this->request->store($user, $charge, $request->all());
-
-        return view('transfer.store', [
-            'transfer_store' => $transfer_request,
-        ]);
     }
 
     /**

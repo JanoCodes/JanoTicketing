@@ -3,7 +3,7 @@
 @section('title', __('system.user'))
 
 @section('content')
-    <div class="grid-x grid-padding-x cell">
+    <div class="grid-x grid-padding-x cell" id="user-show-container">
         <div class="grid-x text-wrap">
             <div class="auto cell">
                 <h3>{{ $user->title }} {{ $user->first_name }} {{ $user->last_name }}</h3>
@@ -16,6 +16,7 @@
             </div>
         </div>
 
+        @if ($user->attendees()->count() !== 0)
         <table>
             <thead>
             <tr>
@@ -37,9 +38,10 @@
                         <strong>{{ $attendee->ticket->name }}</strong>
                     </td>
                     <td>
-                        <a class="button tiny warning" href="{{ route('attendees.edit', ['attendee' => $attendee]) }}">
-                            {{ __('system.transfer_create') }}
-                        </a>
+                        <button type="button" class="button tiny warning"
+                            @click="editItem('attendee', {{ $attendee->id }})">
+                            {{ __('system.edit') }}
+                        </button>
                         @if (!$attendee->paid)
                             <a class="button tiny danger cancel-ticket" data-cancel data-cancel-object="attendees"
                                data-cancel-object-id="{{ $attendee->id }}" href="#">
@@ -49,10 +51,55 @@
                     </td>
                 </tr>
             @endforeach
+            <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>
+                    <button type="button" class="button tiny hollow" data-open="primary-modal">
+                        {{ __('system.update_primary_ticket_holder') }}
+                    </button>
+                </td>
+            </tr>
+            </tfoot>
         </table>
+        <div class="reveal" id="primary-modal" data-reveal>
+            <h3>
+                <i class="fa fa-user" aria-hidden="true"></i> {{ __('system.update_primary_ticket_holder') }}
+            </h3>
+            <form method="POST" action="{{ route('backend.users.update', ['user' => $user]) }}" data-abide
+                novalidate>
+                @include('partials.error')
+                <div class="grid-x grid-padding-x">
+                    <div class="small-12 medium-3 cell">
+                        <label class="text-right">{{ __('system.primary_ticket_holder') }}</label>
+                    </div>
+                    <div class="small-12 medium-9 cell">
+                        <select name="primary_tickcet_holder" id="primary_ticket_holder" required>
+                            @foreach ($user->attendees()->get() as $attendee)
+                                <option value="{{ $attendee->id }}"{{ $attendee->primary_ticket_holder ?
+                                    ' selected' : '' }}>
+                                    {{ $attendee->first_name }} {{ $attendee->last_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="small-12 medium-offset-3 medium-9 cell">
+                        <button type="button" class="button warning" data-close>
+                            {{ __('system.back') }}
+                        </button>
+                        <button type="submit" class="button">{{ __('system.submit') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-        @if ($account->charges()->count() !== 0)
-            <strong class="text-wrap">{{ __('system.charges') }}</strong>
+        <div class="text-wrap">
+            <strong>{{ __('system.charges') }}</strong>&nbsp;&nbsp;
+            <a class="button hollow small" href="{{ route('backend.payments.create') . '?' .
+                http_build_query(['account' => $account->id, 'redirect' => url()->current()]) }}">
+                {{ __('system.create_payment') }}
+            </a>
+        </div>
             <table>
                 <thead>
                 <tr>
@@ -128,5 +175,209 @@
         <div class="text-wrap">
             <a class="button primary" href="{{ route('backend.users.index') }}">{{ __('system.back') }}</a>
         </div>
+        <keep-alive>
+            <div :is="modalView" :row-data="rowData" @modal-closed="clearModal"
+                 @exception-occured="showException"></div>
+        </keep-alive>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/html" id="attendee-details">
+        <div class="reveal" id="details-modal" data-reveal>
+            <h3><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
+            <form method="POST" data-abide novalidate>
+                @include('partials.error')
+                <div class="grid-x grid-padding-x vuetable-form">
+                    <div class="small-12 medium-3 cell">
+                        <label class="text-right">{{ __('system.full_name') }}</label>
+                    </div>
+                    <div class="small-3 medium-2 cell">
+                        <select name="title" id="title" v-model="editData.title" required>
+                            @foreach (__('system.titles') as $title)
+                                <option value="{{ $title }}">{{ $title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="small-5 medium-4 cell">
+                        <input type="text" name="first_name" id="first_name" pattern="text" v-model="editData.first_name"
+                               required>
+                    </div>
+                    <div class="small-4 medium-3 cell">
+                        <input type="text" name="last_name" id="last_name" pattern="text" v-model="editData.last_name"
+                               required>
+                    </div>
+                    <div class="small-12 medium-3 cell">
+                        <label class="text-right">{{ __('system.email') }}</label>
+                    </div>
+                    <div class="small-12 medium-9 cell">
+                        <input type="email" name="email" id="email" pattern="email" v-model="editData.email" required>
+                    </div>
+                    <div class="small-12 medium-3 cell">
+                        <label class="text-right">{{ __('system.type') }}</label>
+                    </div>
+                    <div class="small-12 medium-9 cell">
+                        <select name="tickets" id="tickets" v-model="editData.ticket.id" required>
+                            @foreach (\Jano\Models\Ticket::all() as $ticket)
+                                <option value="{{ $ticket->id }}">{{ $ticket->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="small-12 cell">
+                        <div class="float-right">
+                            <button id="submit" type="submit" class="button warning" @click="submit">
+                                {{ __('system.update') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <button class="close-button" @click="close" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </script>
+    <script type="text/html" id="exception">
+        <div class="reveal" id="exception-modal" data-reveal>
+            <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}</h3>
+            {{ __('system.exception_message') }}
+            <button class="close-button" @click="close" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function processErrorBag(errorBag) {
+                _.forEach(errorBag, function(messages, key) {
+                    let input = $(':input[name=' + key + ']');
+
+                    let formatted = '<ul>';
+                    _.forEach(messages, function(message) {
+                        formatted += '<li>' + message + '</li>';
+                    });
+                    formatted += '</ul>';
+
+                    form.foundation('findFormError', input).first().html(formatted);
+                    form.foundation('addErrorClasses', input);
+                });
+            }
+
+            function findRow(attendees, id) {
+                for (let i = 0, len = attendees.length; i < len; i++) {
+                    if (attendees[i].id === id)
+                        return attendees[i];
+                }
+
+                return null;
+            }
+
+            Vue.component('attendee-details-modal', {
+                template: '#attendee-details',
+                data: function() {
+                    return {
+                        editData: {
+                            title: '',
+                            first_name: '',
+                            last_name: '',
+                            email: '',
+                            ticket: {
+                                id: 1
+                            }
+                        }
+                    };
+                },
+                props: ['rowData'],
+                methods: {
+                    load: _.once(function() {
+                        $('#details-modal').foundation();
+                    }),
+                    close: function() {
+                        $('#details-modal').foundation('close');
+                        this.$emit('modal-closed');
+                    },
+                    submit: function() {
+                        event.preventDefault();
+
+                        let error = false;
+
+                        $('#details-modal').find('form').first().on('forminvalid.zf.abide', function(event, form) {
+                            error = true;
+                        }).foundation('validateForm');
+
+                        if (error === true) {
+                            return;
+                        }
+
+                        let parent = this;
+
+                        axios.put('backend/attendees/' + this.$data.editData.id, this.$data.editData)
+                            .then(function() {
+                                $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
+                                    + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
+                                    + ' type="button"><span aria-hidden="true">&times;</span></button>');
+                                parent.$nextTick(function() {parent.$refs.vuetable.reload();});
+                            })
+                            .catch(function(error) {
+                                if (error.response && error.response.status === '422') {
+                                    processErrorBag(error.response.data.errors);
+                                } else {
+                                    $('#details-modal').foundation('close');
+                                    parent.$emit('exception-occured');
+                                }
+                            });
+                    }
+                },
+                activated: function(event) {
+                    this.$data.editData = this.$props.rowData;
+                    this.$nextTick();
+
+                    this.load();
+                    $('#details-modal').foundation('open');
+                }
+            });
+
+            Vue.component('exception-modal', {
+                template: '#exception',
+                methods: {
+                    load: _.once(function () {
+                        $('#exception-modal').foundation();
+                    }),
+                    close: function() {
+                        $('#exception-modal').foundation('close');
+                        this.$emit('modal-closed');
+                    },
+                },
+                activated: function(event) {
+                    this.load();
+                    $('#exception-modal').foundation('open');
+                }
+            });
+
+            const vm = new Vue({
+                el: '#user-show-container',
+                data: {
+                    modalView: '',
+                    attendees: {!! json_encode($user->attendees()->with('ticket')->get()) !!},
+                    rowData: {}
+                },
+                methods: {
+                    editItem: function(model, id) {
+                        this.$data.rowData = findRow(this.$data.attendees, id);
+                        this.$data.modalView = model + '-details-modal';
+                        this.$nextTick();
+                    },
+                    clearModal: function() {
+                        this.$data.rowData = {};
+                        this.$data.modalView = '';
+                        this.$nextTick();
+                    },
+                    showException: function() {
+                        this.$data.modalView = 'exception-modal';
+                        this.$nextTick();
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

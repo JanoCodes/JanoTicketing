@@ -82,6 +82,7 @@ return [
     'order' => 'Order',
     'order_confirmed' => 'Order Confirmed',
     'order_summary' => 'Order Summary',
+    'order_tickets' => 'Order Tickets',
     'original_attendee' => 'Original Attendee',
     'new_attendee' => 'New Attendee',
     'password' => 'Password',
@@ -156,6 +157,7 @@ return [
     'transfer_edit' => 'Edit Transfer Request',
     'type' => 'Ticket Type',
     'update' => 'Update Entry',
+    'update_primary_ticket_holder' => 'Update Primary Ticket Holder',
     'update_success' => 'Entry updated successfully',
     'upload' => 'Upload',
     'upload_column_match_message' => 'We were unable to automatically identify the column headings for {{ name }}...'

@@ -23,6 +23,7 @@ namespace Jano\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Factory as Validator;
 use Jano\Contracts\AttendeeContract;
 use Jano\Contracts\ChargeContract;
 use Jano\Contracts\TicketContract;
@@ -30,7 +31,7 @@ use Jano\Contracts\TransferRequestContract;
 use Jano\Contracts\UserContract;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
-use Illuminate\Validation\Factory as Validator;
+use Setting;
 
 class AttendeeController extends Controller
 {
@@ -217,10 +218,19 @@ class AttendeeController extends Controller
     {
         $this->authorize('update', $attendee);
 
-        $this->updateValidator($request->all());
-        $this->transfer->store($attendee, $request->all());
+        $this->storeValidator($request->all());
 
-        return redirect('/');
+        $user = $request->user();
+
+        $charge = $this->charge->store($user->account(), [
+            'amount' => Setting::get('transfer.fee'),
+            'description' => ucfirst(strtolower(__('system.ticket_transfer_request')))
+        ]);
+        $transfer_request = $this->transfer->store($user, $charge, $request->all());
+
+        return view('transfer.store', [
+            'transfer_store' => $transfer_request,
+        ]);
     }
 
     /**
