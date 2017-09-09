@@ -12,11 +12,21 @@
                 {{ csrf_field() }}
                 <div class="small-4 cell">
                     <label class="text-right middle">
+                        {{ __('system.attendee') }}
+                    </label>
+                </div>
+                <div class="small-8 cell">
+                    <span class="field-content">
+                        {{ $attendee->title }} {{ $attendee->first_name }} {{ $attendee->last_name }}
+                    </span>
+                </div>
+                <div class="small-4 cell">
+                    <label class="text-right middle">
                         {{ __('system.type') }}
                     </label>
                 </div>
                 <div class="small-8 cell">
-                    {{ $attendee->ticket->name }}
+                    <span class="field-content">{{ $attendee->ticket->name }}</span>
                 </div>
                 <div class="small-4 cell">
                     <label class="text-right middle{{ $errors->has('title') ? ' is-invalid-label' : '' }}">
@@ -76,7 +86,7 @@
                 </div>
                 <div class="small-12 cell">
                     <button type="submit" class="button">{{ __('system.submit') }}</button>
-                    <a class="button hollow" href="{{ url('/') }}">
+                    <a class="button hollow" href="{{ route('accounts.view') }}">
                         {{ __('system.back') }}
                     </a>
                 </div>

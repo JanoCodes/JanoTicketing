@@ -28,6 +28,10 @@
         <div class="content off-canvas-content" data-off-canvas-content>
             @yield('content')
         </div>
+
+        <div class="footer">
+            {!! __('system.copyright') !!}
+        </div>
     </div>
 </div>
     <!-- Scripts -->
