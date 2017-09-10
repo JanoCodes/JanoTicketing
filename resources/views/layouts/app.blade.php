@@ -15,6 +15,6 @@
         </div>
     </div>
 </div>
-@include('partials.scripts')
+@include('partials.scripts', ['script' => 'app.js'])
 </body>
 </html>

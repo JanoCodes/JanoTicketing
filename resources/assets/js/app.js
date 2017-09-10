@@ -20,19 +20,6 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
 window.Vuex = require('vuex');
-
-import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue';
-import vSelect from 'vue-select';
-
-Vue.component("vuetable", Vuetable);
-Vue.component("vuetable-pagination", require('./components/VuetablePagination.vue'));
-Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
-Vue.component("v-select", vSelect);
-
-window.Dropzone = require('dropzone');
-window.flatpickr = require("flatpickr");
 
 $(document).foundation();

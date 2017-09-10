@@ -53,6 +53,6 @@
         </div>
     </div>
 </div>
-@include('partials.scripts')
+@include('partials.scripts', ['script' => 'backend.js'])
 </body>
 </html>

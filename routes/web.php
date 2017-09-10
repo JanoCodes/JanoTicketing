@@ -49,6 +49,7 @@ Route::group([
     'as' => 'backend.'
 ], function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('about', 'HomeController@about')->name('about');
     Route::resource('users', 'UserController');
     Route::resource('attendees', 'AttendeeController');
     Route::resource('collections', 'CollectionController');

@@ -77,6 +77,7 @@ class AppServiceProvider extends ServiceProvider
                ->action('Backend\TicketRequestController@index', __('system.waiting_list'))
                ->action('Backend\StaffController@index', __('system.staff'))
                ->action('Backend\SettingController@index', __('system.settings'))
+               ->action('Backend\HomeController@about', __('system.about'))
                ->setActiveFromRequest('/admin');
         });
 

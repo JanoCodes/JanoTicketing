@@ -1,7 +1,8 @@
 let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
-    .extract(['lodash', 'jquery', 'vue', 'vuetable-2', 'vue-select', 'foundation-sites', 'axios'])
+    .js('resources/assets/js/backend.js', 'public/js')
+    .extract(['lodash', 'jquery', 'vue', 'foundation-sites', 'axios'])
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/backend.scss', 'public/css');
 

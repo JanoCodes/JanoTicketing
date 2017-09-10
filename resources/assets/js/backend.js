@@ -18,30 +18,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-try {
-    window._ = require('lodash');
+require('./bootstrap');
 
-    window.$ = window.jQuery = require('jquery');
+window.Vuex = require('vuex');
 
-    window.Foundation = require('foundation-sites');
-} catch (e) {}
+import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue';
+import vSelect from 'vue-select';
 
-window.axios = require('axios');
+Vue.component("vuetable", Vuetable);
+Vue.component("vuetable-pagination", require('./components/VuetablePagination.vue'));
+Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
+Vue.component("v-select", vSelect);
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.Dropzone = require('dropzone');
+window.flatpickr = require("flatpickr");
+window.EasyPieChart = require('easy-pie-chart');
 
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-    console.error('CSRF token not found');
-}
-
-window.Vue = require('vue');
+$(document).foundation();

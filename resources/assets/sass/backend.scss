@@ -318,6 +318,17 @@
     }
   }
 
+  .credits {
+    @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
+
+    width: 100%;
+    max-width: 800px;
+    height: 50vh;
+    max-height: 700px;
+    overflow: hidden;
+    border: $light-gray 2px groove;
+  }
+
   .footer {
     @include xy-gutters($grid-margin-gutters, padding, top left right bottom, false);
 
