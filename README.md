@@ -32,3 +32,12 @@ Jano Ticketing System is open source and relies on the help of the community to 
 Jano Ticketing System is free software: you can redistribute it and/or modify it under the terms of the GNU [General Public License v3.0](LICENSE.md) as published by the Free Software Foundation. You must preserve all legal notices and author attributions present.
 
 Jano Ticketing System is distributed in the hope that it will be useful, but **WITHOUT ANY WARRANTY**; without even the implied warranty of **MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE**.  See the GNU General Public License for more details.
+
+## Credits
+The Jano Ticketing System is not possible without the presence of numerous other project which are listed [here](CREDITS.md). 
+
+We also thank the following sponsors for their help in funding the ongoing development of the Jano Ticketing System.
+
+| Supported by |
+| --- |
+| <a href="https://www.digitalocean.com" target="_blank" alt="DigitalOcean"><img src="https://www.digitalocean.com/assets/media/logos-badges/png/DO_Logo_Horizontal_Blue-3db19536.png" width="150px"></a> |
