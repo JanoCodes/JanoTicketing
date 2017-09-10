@@ -11,11 +11,12 @@
         {!! Menu::frontend()->addClass('menu horizontal') !!}
     </div>
 </div>
-<div class="off-canvas position-left sidebar" id="responsive-menu" data-off-canvas>
+<div class="off-canvas position-left sidebar" id="responsive-menu" data-off-canvas
+    data-transition="overlap">
     <a href="{{ url('/') }}">
         <img class="logo" src="{{ asset('images/logo.png') }}" />
     </a>
-    <button class="close-button" aria-label="Close Menu" type="button" data-close>
+    <button class="close-button" type="button" data-close>
         <span aria-hidden="true">&times;</span>
     </button>
     {!! Menu::frontend()->addClass('menu vertical') !!}

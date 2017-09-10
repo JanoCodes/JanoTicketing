@@ -3,7 +3,7 @@
 @section('title', __('system.user'))
 
 @section('content')
-    <div class="grid-x grid-padding-x cell" id="user-show-container">
+    <div class="grid-x cell" id="user-show-container">
         <div class="grid-x text-wrap">
             <div class="auto cell">
                 <h3>{{ $user->title }} {{ $user->first_name }} {{ $user->last_name }}</h3>
@@ -14,6 +14,12 @@
             <div class="shrink cell">
                 {{ $account->formatted_status }}
             </div>
+        </div>
+        <div class="grid-x cell text-wrap">
+            <a class="button hollow small" href="{{ route('backend.attendees.create') . '?' .
+                http_build_query(['user' => $user->id, 'redirect' => url()->current()]) }}">
+                {{ __('system.create_order') }}
+            </a>
         </div>
 
         @if ($user->attendees()->count() !== 0)
@@ -43,10 +49,10 @@
                             {{ __('system.edit') }}
                         </button>
                         @if (!$attendee->paid)
-                            <a class="button tiny danger cancel-ticket" data-cancel data-cancel-object="attendees"
-                               data-cancel-object-id="{{ $attendee->id }}" href="#">
+                            <button type="button" class="button tiny danger cancel-ticket"
+                                @click="deleteItem('attendees', {{ $attendee->id }})">
                                 {{ __('system.attendee_cancel') }}
-                            </a>
+                            </button>
                         @endif
                     </td>
                 </tr>
@@ -92,6 +98,22 @@
                 </div>
             </form>
         </div>
+            <div class="small reveal" id="cancel-attendees-container" data-reveal>
+                <p class="lead text-alert">
+                    <strong>
+                        {{ __('system.cancel_alert', ['attribute' => strtolower(__('system.attendee'))]) }}
+                    </strong><br />
+                    <small>{{ __('system.cancel_small') }}</small>
+                </p>
+                <form role="form" method="POST" action="#">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <button type="submit" class="alert button">{{ __('system.continue') }}</button>
+                    <button type="button" class="secondary button" href="#" data-close>
+                        {{ __('system.back') }}
+                    </button>
+                </form>
+            </div>
 
         <div class="text-wrap">
             <strong>{{ __('system.charges') }}</strong>&nbsp;&nbsp;
@@ -162,10 +184,10 @@
                                    href="{{ url('transfers/' . $ticket_transfer->id . '/edit') }}">
                                     {{ __('system.transfer_edit') }}
                                 </a>&nbsp;
-                                <a class="button tiny danger cancel-transfer" data-cancel data-cancel-object="transfers"
-                                   data-cancel-object-id="{{ $ticket_transfer->id }}" href="#">
+                                <button type="button" class="button tiny danger cancel-ticket"
+                                        @click="deleteItem('transfers', {{ $attendee->id }})">
                                     {{ __('system.transfer_cancel') }}
-                                </a>
+                                </button>
                             @endif
                         </td>
                     </tr>
@@ -247,31 +269,32 @@
         </div>
     </script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            function processErrorBag(errorBag) {
-                _.forEach(errorBag, function(messages, key) {
-                    let input = $(':input[name=' + key + ']');
+        function processErrorBag(errorBag) {
+            _.forEach(errorBag, function(messages, key) {
+                let input = $(':input[name=' + key + ']');
 
-                    let formatted = '<ul>';
-                    _.forEach(messages, function(message) {
-                        formatted += '<li>' + message + '</li>';
-                    });
-                    formatted += '</ul>';
-
-                    form.foundation('findFormError', input).first().html(formatted);
-                    form.foundation('addErrorClasses', input);
+                let formatted = '<ul>';
+                _.forEach(messages, function(message) {
+                    formatted += '<li>' + message + '</li>';
                 });
+                formatted += '</ul>';
+
+                form.foundation('findFormError', input).first().html(formatted);
+                form.foundation('addErrorClasses', input);
+            });
+        }
+
+        function findRow(attendees, id) {
+            for (let i = 0, len = attendees.length; i < len; i++) {
+                if (attendees[i].id === id)
+                    return attendees[i];
             }
 
-            function findRow(attendees, id) {
-                for (let i = 0, len = attendees.length; i < len; i++) {
-                    if (attendees[i].id === id)
-                        return attendees[i];
-                }
+            return null;
+        }
 
-                return null;
-            }
-
+        $(document).ready(function() {
+            @if ($user->attendees()->count() !== 0)
             Vue.component('attendee-details-modal', {
                 template: '#attendee-details',
                 data: function() {
@@ -311,7 +334,7 @@
 
                         let parent = this;
 
-                        axios.put('backend/attendees/' + this.$data.editData.id, this.$data.editData)
+                        axios.put('admin/attendees/' + this.$data.editData.id, this.$data.editData)
                             .then(function() {
                                 $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                     + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
@@ -367,6 +390,15 @@
                         this.$data.modalView = model + '-details-modal';
                         this.$nextTick();
                     },
+                    deleteItem: function(model, id) {
+                        axios.delete('admin/' + model + '/' + id)
+                            .then(function() {
+                                location.reload();
+                            })
+                            .catch(function(error) {
+                                alert(error.response.data);
+                            });
+                    },
                     clearModal: function() {
                         this.$data.rowData = {};
                         this.$data.modalView = '';
@@ -378,6 +410,7 @@
                     }
                 }
             });
+            @endif
         });
     </script>
 @endpush

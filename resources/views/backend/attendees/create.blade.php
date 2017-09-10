@@ -100,9 +100,18 @@
 <script type="text/javascript">
     const vm = new Vue({
         el: '#form',
+        @if (isset($user))
+        data: {
+            user: {
+                value: {{ $user->id }},
+                label: "{{ $user->first_name }} {{ $user->last_name }}"
+            },
+            options: [],
+        @else
         data: {
             user: '',
             options: [],
+        @endif
             attendees: [{
                 title: '',
                 first_name: '',

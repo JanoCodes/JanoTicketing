@@ -60,6 +60,7 @@ return [
     'exception_title' => 'Something went wrong...',
     'exception_message' => 'It looks like someone messed with the wires and now the system stopped working. We\'ve '
         . 'alerted an administrator and they should fix the issue very soon!',
+    'event_name' => 'Event Name',
     'first_name' => 'First Name',
     'for' => 'for',
     'form_error' => 'There was an error in the order form. Please try again.',
@@ -105,8 +106,11 @@ return [
     'unable_to_process_order_message' => 'An unexcepted system issue prevents us from processing your order at this '
         . 'moment. Please try again later. We apologise for the inconvenience and please feel free to contact us if you'
         . ' require any assistance.',
+    'unique_id' => 'Unique ID',
+    'unique_id_regeneration_queued' => 'Unique ID regeneration queued',
     'upload_files_prompt' => 'Drag files here to upload',
     'reference' => 'Reference',
+    'regenerate' => 'Regenerate',
     'register' => 'Register',
     'remember_me' => 'Remember Me',
     'request_create' => 'Create Waiting List Entry',

@@ -71,7 +71,16 @@ class AttendeeController extends Controller
      */
     public function create()
     {
-        return view('backend.attendees.create');
+        $data = [];
+
+        if ($redirect = request('redirect')) {
+            session('redirect_url', urldecode($redirect));
+        }
+        if ($user_id = request('user')) {
+            $data['user'] = User::where('id', $user_id)->firstOrFail();
+        }
+
+        return view('backend.attendees.create', $data);
     }
 
     /**

@@ -79,6 +79,15 @@
                     <input type="email" name="email" id="email" pattern="email" v-model="editData.email" required>
                 </div>
                 <div class="small-12 medium-3 cell">
+                    <label class="text-right">{{ __('system.unique_id') }}</label>
+                </div>
+                <div class="small-12 medium-9 cell">
+                    <span class="field-content" id="uuid">@{{ editData.uuid }}</span>&nbsp;&nbsp;
+                    <button type="button" class="button small hollow" @click="regenerateUuid()">
+                        {{ __('system.regenerate') }}
+                    </button>
+                </div>
+                <div class="small-12 medium-3 cell">
                     <label class="text-right">{{ __('system.type') }}</label>
                 </div>
                 <div class="small-12 medium-9 cell">
@@ -152,6 +161,17 @@
                     $('#details-modal').foundation('close');
                     this.$emit('modal-closed');
                 },
+                regenerateUuid: function(data) {
+                    const parent = this;
+
+                    axios.put('admin/attendees/' + this.$data.editData.id + '/regenerate')
+                        .then(function() {
+                            $('#uuid').html('<i>{{ __('system.unique_id_regeneration_queued') }}</i>');
+                        }).catch(function() {
+                            $('#details-modal').foundation('close');
+                            parent.$emit('exception-occured');
+                        });
+                },
                 submit: function() {
                     event.preventDefault();
 
@@ -167,7 +187,7 @@
 
                     let parent = this;
 
-                    axios.put('backend/attendees/' + this.$data.editData.id, this.$data.editData)
+                    axios.put('admin/attendees/' + this.$data.editData.id, this.$data.editData)
                         .then(function() {
                             $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                 + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'

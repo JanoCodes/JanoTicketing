@@ -29,6 +29,9 @@
 // Font Awesome
 @import '~font-awesome/scss/font-awesome';
 
+// Flatpickr
+@import '~flatpickr/dist/flatpickr';
+
 .page-container {
   min-height: 100vh;
 }
@@ -51,6 +54,8 @@
   .sidebar {
     background-color: adjust-hue(darken($light-gray, 2%), -15%);
     border-right: darken($light-gray, 20%) 1px solid;
+    height: 100%;
+    min-height: 100vh;
     padding-left: 7px;
     padding-right: 7px;
 
@@ -78,23 +83,46 @@
     }
   }
 
-  .main-content {
-    padding-bottom: 5rem;
-  }
+  .mobile-header {
+    background-color: adjust-hue(darken($light-gray, 2%), -15%);
+    border-bottom: darken($light-gray, 20%) 1px solid;
+    height: 80px;
+    width: 100%;
+    box-shadow: 0 0 10px transparentize($black, 0.7);
+    position: fixed;
 
-  table {
-    a,
+    img {
+      display: block;
+      height: 100%;
+      margin: 0 auto;
+    }
+
     button {
-      margin: 0;
-      padding: .65rem;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(0, -50%);
+      margin-bottom: 0;
+      color: $black;
     }
   }
 
-  .top-bar {
+  .header {
     @include xy-gutters($grid-margin-gutters, padding, left right, false);
 
     background: none;
     border-bottom: darken($light-gray, 15%) 1px solid;
+    height: 65px;
+    position: relative;
+
+    .cell {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .menu-container {
+      right: 0;
+    }
 
     h3 {
       color: lighten($black, 10%);
@@ -112,6 +140,26 @@
         border: 0;
       }
     }
+
+    @media screen and (max-width: 39.9375em) {
+      margin-top: 87px;
+    }
+  }
+
+  .main-content {
+    padding-bottom: 3.5rem;
+
+    @media screen and (max-width: 39.9375em) {
+      padding-bottom: 5rem;
+    }
+  }
+
+  table {
+    a,
+    button {
+      margin: 0;
+      padding: .65rem;
+    }
   }
 
   .actions, .text-wrap {
@@ -120,10 +168,6 @@
     .button, .input-group {
       margin-bottom: 0;
     }
-  }
-
-  .field-content {
-    padding: .5rem;
   }
 
   .vuetable {
@@ -283,4 +327,8 @@
     position: absolute;
     width: 100%;
   }
+}
+
+.field-content {
+  padding: .5rem;
 }

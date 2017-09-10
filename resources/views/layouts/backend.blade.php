@@ -1,48 +1,33 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>@yield('title') - {{ __('system.jano_ticketing_system') }}</title>
-
-    <!-- Styles -->
-    <link href="{{ mix('css/backend.css') }}" rel="stylesheet">
-
-    <!-- Scripts -->
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
-</head>
+@include('partials.head', ['stylesheet' => 'backend.css'])
 <body>
 <div class="grid-x page-container">
     <div class="small-12 large-12 cell off-canvas-wrapper">
-        <div class="content grid-x off-canvas-content" data-off-canvas-content>
-            <div class="medium-3 large-2 cell sidebar">
+        <div class="content grid-x">
+            <div class="shrink cell off-canvas in-canvas-for-medium sidebar" id="sidebar"
+                data-off-canvas data-transition="overlap">
                 <a class="logo" href="{{ url('/') }}">
                     <img src="{{ asset('images/logo.png') }}" />
                 </a>
+                <button class="close-button show-for-small-only" data-close>
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 {!! Menu::backend()->addClass('menu vertical') !!}
             </div>
-            <div class="medium-9 large-10 cell main-content">
-                <div class="top-bar">
-                    <div class="top-bar-left">
+            <div class="auto cell main-content off-canvas-content" data-off-canvas-content>
+                <div class="mobile-header show-for-small-only">
+                    <button class="button clear" data-toggle="sidebar">
+                        <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                    </button>
+                    <img src="{{ asset('images/logo.png') }}" />
+                </div>
+                <div class="header grid-x">
+                    <div class="auto cell">
                         <h3>@yield('title')</h3>
                     </div>
-                    <div class="top-bar-right">
+                    <div class="menu-container shrink cell">
                         <ul class="menu horizontal">
-                            <li>
-                                <button class="clear button secondary show-for-small-only sidebar-toggle" type="button"
-                                        data-toggle="responsive-menu">
-                                    <i class="fa fa-bars fa-2x"></i>
-                                </button>
-                            </li>
                             <li>
                                 <a class="clear button" href="#">
                                     {{ Auth::user()->first_name }}
@@ -68,10 +53,6 @@
         </div>
     </div>
 </div>
-    <!-- Scripts -->
-    <script src="{{ mix('js/manifest.js') }}"></script>
-    <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('js/app.js') }}"></script>
-    @stack('scripts')
+@include('partials.scripts')
 </body>
 </html>

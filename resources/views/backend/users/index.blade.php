@@ -162,7 +162,7 @@
 
                     let parent = this;
 
-                    axios.put('backend/users/' + this.$data.editData.id, this.$data.editData)
+                    axios.put('admin/users/' + this.$data.editData.id, this.$data.editData)
                         .then(function() {
                             $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                 + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'

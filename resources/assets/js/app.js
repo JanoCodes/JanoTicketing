@@ -33,5 +33,6 @@ Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
 Vue.component("v-select", vSelect);
 
 window.Dropzone = require('dropzone');
+window.flatpickr = require("flatpickr");
 
 $(document).foundation();
