@@ -41,7 +41,7 @@
             <small>
                 <i class="fa fa-credit-card fa-fw" aria-hidden="true"></i> {{ __('system.total_charges') }}
             </small>
-            <div class="stat">@{{ charges_total }}</div>
+            <div class="stat">{{ Setting::get('payment.currency') }}@{{ charges_total }}</div>
         </div>
         <div class="callout">
             <small>

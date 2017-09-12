@@ -100,14 +100,17 @@
                         state[index] = value;
                     });
                 }
-            }
+            },
+            plugins: [createPersistedState({
+                key: 'jano_{{ snake_case(config('app.name')) }}'
+            })]
         });
 
         function processErrorBag(errorBag) {
             _.forEach(errorBag, function(messages, key) {
-                var input = $(':input[name=' + key + ']');
+                let input = $(':input[name=' + key + ']');
 
-                var formatted = '<ul>';
+                let formatted = '<ul>';
                 _.forEach(messages, function(message) {
                     formatted += '<li>' + message + '</li>';
                 });
@@ -160,11 +163,11 @@
                     formData.commit('update', this.$data);
                 },
                 primaryTicketHolderOnChange: function (event) {
-                    var input = $(event.currentTarget).closest('input[id=primary_ticket_holder]');
-                    var id = $(input).attr('name').match(/attendees\.([0-9]+)\.primary_ticket_holder/)[1];
+                    const input = $(event.currentTarget).closest('input[id=primary_ticket_holder]');
+                    const id = $(input).attr('name').match(/attendees\.([0-9]+)\.primary_ticket_holder/)[1];
 
                     if (this.attendees[id].primary_ticket_holder) {
-                        var newAttendees = this.attendees;
+                        let newAttendees = this.attendees;
 
                         newAttendees[id]['title'] = formData.state.title;
                         newAttendees[id]['first_name'] = formData.state.first_name;
@@ -183,7 +186,7 @@
                             $(element).prop('disabled', true);
                         });
                     } else if (!this.attendees[id].primary_ticket_holder) {
-                        var newAttendees = this.attendees;
+                        let newAttendees = this.attendees;
 
                         newAttendees[id]['title'] = '';
                         newAttendees[id]['first_name'] = '';
@@ -209,11 +212,11 @@
                     $('#form').foundation();
 
                     $('#attendees-tabs').on('change.zf.tabs', _.debounce(function () {
-                        var count = $(this.attendees).length;
+                        const count = $(this.attendees).length;
                         var oldAttendees = formData.state.attendees;
 
-                        for (var i = 0; i < count; i++) {
-                            if (this.attendees[i].title && component.attendees[i].first_name && this.attendees[i].last_name
+                        for (let i = 0; i < count; i++) {
+                            if (this.attendees[i].title && this.attendees[i].first_name && this.attendees[i].last_name
                                 && !$('#panellink' + i).hasClass('is-active')) {
                                 oldAttendees[i].title = this.attendees[i].title;
                                 oldAttendees[i].first_name = this.attendees[i].first_name;
@@ -274,7 +277,7 @@
             template: '#exception'
         });
 
-        var vm = new Vue({
+        const vm = new Vue({
             el: '#order-form',
             data: {
                 formView: 'user',
@@ -381,7 +384,7 @@
                         })
                         .catch(function(error) {
                             if (error.response && error.response.status === '422') {
-                                var partition = _.partition(error.response.data.errors, function(o){
+                                const partition = _.partition(error.response.data.errors, function(o){
                                     return Object.keys(o)[0].includes('attendees')
                                 });
 

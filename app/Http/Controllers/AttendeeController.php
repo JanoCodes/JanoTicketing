@@ -96,30 +96,32 @@ class AttendeeController extends Controller
     {
         $this->authorize('create', \Jano\Models\Attendee::class);
 
-        $user = $request->user();
-        $this->validate($request, [
-            'tickets.*' => 'required|numeric|min:0',
-            'tickets' => 'sum_between:1,' . $user->ticket_limit
-        ]);
+        if ($reservation = $request->session()->get('reservation')) {
+            $user = $request->user();
+            $this->validate($request, [
+                'tickets.*' => 'required|numeric|min:0',
+                'tickets' => 'sum_between:1,' . $user->ticket_limit
+            ]);
 
-        $result = $this->ticket->hold($user, $request->all());
+            $result = $this->ticket->hold($user, $request->all());
 
-        if (array_sum($result['reserved']) === 0) {
-            return redirect(route('event.list'))->with('alert', '<strong>'
-                . __('system.tickets_unavailable_title') . '</strong><br />'
-                . __('system.tickets_unavailable_message'));
-        }
-        if ($result['ticket_unavailable']) {
-            $request->session()->flash('alert', '<strong>'
-                . __('system.tickets_partly_unavailable_title') . '</strong><br />'
-                . __('system.tickets_partly_unavailable_message'));
+            if (array_sum($result['reserved']) === 0) {
+                return redirect(route('event.list'))->with('alert', '<strong>'
+                    . __('system.tickets_unavailable_title') . '</strong><br />'
+                    . __('system.tickets_unavailable_message'));
+            }
+            if ($result['ticket_unavailable']) {
+                $request->session()->flash('alert', '<strong>'
+                    . __('system.tickets_partly_unavailable_title') . '</strong><br />'
+                    . __('system.tickets_partly_unavailable_message'));
+            }
         }
 
         return view('attendees.create', [
             'tickets' => Ticket::all(),
-            'reserved' => $result['reserved'],
-            'time' => $result['time'],
-            'state' => $result['state']
+            'reserved' => isset($result) ? $result['reserved'] : $reservation['reserved'],
+            'time' => isset($result) ? $result['time'] : $reservation['time'],
+            'state' => isset($result) ? $result['state'] : null
         ]);
     }
 

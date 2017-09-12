@@ -66,6 +66,7 @@ return [
     'exception_title' => 'Something went wrong...',
     'exception_message' => 'It looks like someone messed with the wires and now the system stopped working. We\'ve '
         . 'alerted an administrator and they should fix the issue very soon!',
+    'event_date' => 'Event Date',
     'event_name' => 'Event Name',
     'first_name' => 'First Name',
     'for' => 'for',

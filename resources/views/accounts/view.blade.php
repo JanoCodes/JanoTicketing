@@ -39,10 +39,10 @@
                         {{ __('system.transfer_create') }}
                     </a>
                     @if (!$attendee->paid)
-                    <a class="button tiny danger cancel-ticket" data-cancel data-cancel-object="attendees"
-                        data-cancel-object-id="{{ $attendee->id }}">
+                    <button type="button" class="button tiny danger cancel-ticket" data-cancel
+                        data-cancel-object="attendees" data-cancel-object-id="{{ $attendee->id }}">
                         {{ __('system.attendee_cancel') }}
-                    </a>
+                    </button>
                     @endif
                 </td>
             </tr>

@@ -21,5 +21,6 @@
 require('./bootstrap');
 
 window.Vuex = require('vuex');
+window.createPersistedState = require('vuex-persistedstate');
 
 $(document).foundation();
