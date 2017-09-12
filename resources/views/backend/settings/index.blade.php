@@ -54,7 +54,8 @@
             <label class="text-right middle"><strong>{{ __('system.terms') }}</strong></label>
         </div>
         <div class="small-9 large-8 cell">
-            <textarea rows="3" name="agreement" id="agreement" required>{!! Setting::get('agreement') !!}</textarea>
+            <input type="hidden" name="agreement" value="">
+            <div class="textarea" id="agreement">{!! Setting::get('agreement') !!}</div>
         </div>
         <div class="small-offset-3 small-9 large-offset-3 large-8 cell">
             <input class="button" type="submit" value="{{ __('system.update') }}" />
@@ -65,12 +66,37 @@
 
 @push('scripts')
 <script type="text/javascript">
-    $('#event_date').flatpickr({
-        altFormat: 'j M Y h:i K',
-        altInput: true,
-        dateFormat: 'd/m/Y',
-        enableTime: true,
-        mode: 'range'
+    $(document).ready(function() {
+        $('#event_date').flatpickr({
+            altFormat: 'j M Y h:i K',
+            altInput: true,
+            dateFormat: 'd/m/Y',
+            enableTime: true,
+            mode: 'range'
+        });
+
+        const agreement = $('#agreement').html();
+
+        var agreementQuill = new Quill('#agreement', {
+            theme: 'snow',
+            modules: {
+                clipboard: {},
+                history: {},
+                toolbar: [
+                    [{'color': []}, 'bold', 'italic'],
+                    [{'script': 'sub'}, {'script': 'super'}, 'underline'],
+                    [{'list': 'bullet'}, {'list': 'ordered'}, {'align': []}, 'link']
+                ]
+            }
+        });
+        agreementQuill.clipboard.dangerouslyPasteHTML(agreement);
+
+        $('form').submit(function(event) {
+            event.preventDefault();
+
+            $('input[name=agreement]').val(agreementQuill.root.innerHTML);
+            $(this).unbind('submit').submit();
+        });
     });
 </script>
 @endpush

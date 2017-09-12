@@ -24,6 +24,8 @@ namespace Jano\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Jano\Contracts\GroupContract;
+use Jano\Repositories\GroupRepository;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Spatie\Menu\Laravel\Facades\Menu;
 use Jano\Socialite\OauthProvider;
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
     protected $implementations = [
         'helper' => \Jano\Repositories\HelperRepository::class,
         \Jano\Contracts\UserContract::class => \Jano\Repositories\UserRepository::class,
+        \Jano\Contracts\GroupContract::class => \Jano\Repositories\GroupRepository::class,
         \Jano\Contracts\ChargeContract::class => \Jano\Repositories\ChargeRepository::class,
         \Jano\Contracts\PaymentContract::class => \Jano\Repositories\PaymentRepository::class,
         \Jano\Contracts\TicketContract::class => \Jano\Repositories\TicketRepository::class,
@@ -71,7 +74,9 @@ class AppServiceProvider extends ServiceProvider
             return Menu::new()
                ->action('Backend\HomeController@index', __('system.home'))
                ->action('Backend\UserController@index', __('system.users'))
+               ->action('Backend\GroupController@index', __('system.groups'))
                ->action('Backend\AttendeeController@index', __('system.attendees'))
+               ->action('Backend\TicketController@index', __('system.types'))
                ->action('Backend\PaymentController@index', __('system.payments'))
                ->action('Backend\TransferRequestController@index', __('system.ticket_transfer_request'))
                ->action('Backend\TicketRequestController@index', __('system.waiting_list'))

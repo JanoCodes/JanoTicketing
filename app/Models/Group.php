@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,11 +33,19 @@ use Jano\Cacheable\Eloquent\CanCache;
  * @property \Carbon\Carbon $can_order_at
  * @property int $ticket_limit
  * @property int $surcharge
+ * @property string $full_surcharge
  * @property int $right_to_buy
  */
 class Group extends Model
 {
     use CanCache;
+
+    /**
+     * The array of attributes which should be appended to the model.
+     *
+     * @var array
+     */
+    protected $appends = ['full_surcharge'];
 
     protected $dispatchesEvent = [
         'saved' => \Jano\Events\GroupChanged::class,
@@ -61,5 +70,15 @@ class Group extends Model
     public function user()
     {
         return $this->hasMany('Jano\Models\User');
+    }
+
+    /**
+     * Return the human-readable version of the surcharge.
+     *
+     * @return string
+     */
+    public function getSurchargeAttribute()
+    {
+        return Setting::get('payment.currency') . $this->surcharge;
     }
 }

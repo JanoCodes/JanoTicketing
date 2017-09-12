@@ -21,22 +21,20 @@
 
 namespace Jano\Contracts;
 
-use Jano\Models\Charge;
-use Jano\Models\Ticket;
-use Jano\Models\User;
+use Jano\Models\Group;
 
-interface TicketContract
+interface GroupContract
 {
     /**
-     * Store a newly created ticket class instance.
+     * Store a newly created group instance.
      *
      * @param array $data
-     * @return \Jano\Models\Ticket
+     * @return \Jano\Models\Group
      */
     public function store($data);
 
     /**
-     * Retrieve a collection of ticket classes.
+     * Retrieve a collection of group instance.
      *
      * @param mixed $query
      * @return \Illuminate\Support\Collection
@@ -44,46 +42,19 @@ interface TicketContract
     public function search($query);
 
     /**
-     * Update the attributes of the ticket class instance.
+     * Update the attributes of the group instance.
      *
-     * @param \Jano\Models\Ticket $ticket
+     * @param \Jano\Models\Group $group
      * @param array $data
-     * @return \Jano\Models\Ticket
+     * @return \Jano\Models\Group
      */
-    public function update(Ticket $ticket, $data);
+    public function update(Group $group, $data);
 
     /**
-     * Hold tickets for the user.
+     * Destroy the group instance.
      *
-     * @param \Jano\Models\User $user
-     * @param array $request
-     * @return array
-     */
-    public function hold(User $user, $request);
-
-    /**
-     * Reserve a ticket for the user.
-     *
-     * @param array $data
-     * @param boolean $frontend
-     * @return \Jano\Models\Attendee
-     */
-    public function reserve($data, $frontend);
-
-    /**
-     * Get ticket price.
-     *
-     * @param Ticket $ticket
-     * @param User $user
-     * @return float
-     */
-    public function getPrice(Ticket $ticket, User $user);
-
-    /**
-     * Destroy a ticket class instance.
-     *
-     * @param \Jano\Models\Ticket $ticket
+     * @param \Jano\Models\Group $group
      * @return void
      */
-    public function destroy(Ticket $ticket);
+    public function destroy(Group $group);
 }

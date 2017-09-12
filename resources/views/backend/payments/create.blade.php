@@ -35,9 +35,9 @@
                 <input name="amount" id="amount" class="input-group-field" type="number" pattern="integer"
                     required>
             </div>
-            @if ($errors->has('amount'))
+            @if ($errors->has('price'))
                 <span class="form-error">
-                    <strong>{{ $errors->first('amount') }}</strong>
+                    <strong>{{ $errors->first('price') }}</strong>
                 </span>
             @endif
         </div>

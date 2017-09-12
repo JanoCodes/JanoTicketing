@@ -1,16 +1,13 @@
 @extends('layouts.backend')
 
-@section('title', __('system.payments'))
+@section('title', __('system.types'))
 
 @section('content')
 <div id="data">
     <div class="actions grid-x">
         <div class="small-12 medium-6 large-8 cell">
-            <a class="button hollow" href="{{ route('backend.payments.create') }}">
+            <a class="button hollow" href="{{ route('backend.tickets.create') }}">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
-            </a>
-            <a class="button hollow" href="{{ route('backend.paymentimports.create') }}">
-                <i class="fa fa-upload" aria-hidden="true"></i> {{ __('system.import_entries') }}
             </a>
         </div>
         <div class="small-12 medium-6 large-4 cell">
@@ -23,7 +20,7 @@
             </div>
         </div>
     </div>
-    <vuetable ref="vuetable" api-url="{{ route('backend.payments.index') }}" :fields="fields" :append-params="param"
+    <vuetable ref="vuetable" api-url="{{ route('backend.tickets.index') }}" :fields="fields" :append-params="param"
         pagination-path="" @vuetable:pagination-data="onPaginationData">
         <template slot="actions" scope="props">
             <div class="table-actions">
@@ -58,44 +55,20 @@
             @include('partials.error')
             <div class="grid-x grid-padding-x vuetable-form">
                 <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.amount_paid') }}</label>
+                    <label class="text-right">{{ __('system.type') }}</label>
                 </div>
                 <div class="small-12 medium-9 cell">
-                    @{{ editData.full_amount }}
+                    <input type="text" name="name" id="name" v-model="editData.name" required>
                 </div>
                 <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.method') }}</label>
+                    <label class="text-right">{{ __('system.price') }}</label>
                 </div>
                 <div class="small-12 medium-9 cell">
-                    <span class="field-content">@{{ editData.type }}</span>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.account') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <v-select :debounce="250" :on-search="getOptions" :options="options"
-                              :value-sync="editData.account.id" label="account_id"></v-select>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.reference') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="text" name="reference" id="reference" v-model="editData.reference" required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.internal_reference') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="text" name="reference" id="reference" v-model="editData.internal_reference"
-                           required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.account') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <v-select :value.sync="editData.account.id" :debounce="500" :on-search="getOptions"
-                         :options="options" placeholder="{{ __('system.search') }}">
-                    </v-select>
+                    <div class="input-group">
+                        <span class="input-group-label">{{ Setting::get('payment.currency') }}</span>
+                        <input name="amount" id="amount" class="input-group-field" type="number"
+                               pattern="integer" v-model="editData.price" required>
+                    </div>
                 </div>
                 <div class="small-12 cell">
                     <div class="float-right">
@@ -142,15 +115,9 @@
             data: function() {
                 return {
                     editData: {
-                        amount: '',
-                        type: '',
-                        account: {
-                          id: ''
-                        },
-                        reference: '',
-                        internal_reference: ''
-                    },
-                    options: {}
+                        name: '',
+                        price: '',
+                    }
                 };
             },
             props: ['rowData'],
@@ -158,24 +125,6 @@
                 load: _.once(function() {
                     $('#details-modal').foundation();
                 }),
-                getOptions: function(search, loading) {
-                    loading(true);
-
-                    let parent = this;
-
-                    axios.get('{{ route('backend.users.index') }}' + '?q=' + search)
-                        .then(function (response) {
-                            parent.$data.options = $.map(response.data.data, function(val) {
-                                return {
-                                    label: val.first_name + ' ' + val.last_name,
-                                    value: val.account.id
-                                };
-                            });
-                            parent.$nextTick(() => loading(false));
-
-                            loading(false);
-                        });
-                },
                 close: function() {
                     $('#details-modal').foundation('close');
                     this.$emit('modal-closed');
@@ -195,7 +144,7 @@
 
                     let parent = this;
 
-                    axios.put('admin/payments/' + this.$data.editData.id, this.$data.editData)
+                    axios.put('admin/tickets/' + this.$data.editData.id, this.$data.editData)
                         .then(function() {
                             $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                 + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
@@ -253,23 +202,14 @@
                         name: '__checkbox'
                     },
                     {
-                        name: 'full_amount',
-                        sortField: 'amount',
-                        title: '{{ __('system.amount_paid') }}'
+                        name: 'name',
+                        sortField: 'name',
+                        title: '{{ __('system.type') }}'
                     },
                     {
-                        name: 'type',
-                        sortField: 'type',
-                        title: '{{ __('system.method') }}'
-                    },
-                    {
-                        name: 'reference',
-                        sortField: 'reference',
-                        title: '{{ __('system.reference') }}'
-                    },
-                    {
-                        name: 'internal_reference',
-                        visible: false,
+                        name: 'full_price',
+                        sortField: 'price',
+                        title: '{{ __('system.price') }}'
                     },
                     {
                         name: '__slot:actions',
@@ -303,7 +243,7 @@
                     this.$nextTick();
                 },
                 deleteItem: function(data) {
-                    axios.delete('admin/payments/' + data.id)
+                    axios.delete('admin/tickets/' + data.id)
                         .then(function() {
                             this.$refs.vuetable.reload();
                         })

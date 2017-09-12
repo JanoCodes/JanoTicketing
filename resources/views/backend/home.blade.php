@@ -11,7 +11,7 @@
             <tr>
                 <td colspan="2">
                     <a href="{{ route('backend.attendees.index') }}">
-                        {{ __('system.new_attendees') }}
+                        {{ __('system.recent_attendees') }}
                     </a>
                 </td>
             </tr>

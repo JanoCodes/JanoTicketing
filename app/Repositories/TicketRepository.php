@@ -22,6 +22,7 @@
 namespace Jano\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 use Jano\Contracts\TicketContract;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
@@ -30,6 +31,42 @@ use stdClass;
 
 class TicketRepository implements TicketContract
 {
+    /**
+     * @inheritdoc
+     */
+    public function store($data)
+    {
+        $ticket = new Ticket();
+        $ticket->name = $data['name'];
+        $ticket->price = $data['price'];
+        $ticket->save();
+
+        return $ticket;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function search($query)
+    {
+        $query = $query ? '%' . $query . '%' : '%';
+
+        return Ticket::where('name', 'like', $query)->paginate();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(Ticket $ticket, $data)
+    {
+        foreach ($data as $attribute => $value) {
+            $ticket->{$attribute} = $value;
+        }
+        $ticket->save();
+
+        return $ticket;
+    }
+
     /**
      * @inheritdoc
      */
@@ -108,6 +145,19 @@ class TicketRepository implements TicketContract
         DB::commit();
 
         return $attendee;
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \InvalidArgumentException
+     */
+    public function destroy(Ticket $ticket)
+    {
+        if ($ticket->attendees()) {
+            throw new InvalidArgumentException('Attendees with this ticket class exist.');
+        }
+
+        $ticket->delete();
     }
 
     /**

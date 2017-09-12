@@ -32,7 +32,7 @@ Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
 Vue.component("v-select", vSelect);
 
 window.Dropzone = require('dropzone');
-window.flatpickr = require("flatpickr");
-window.EasyPieChart = require('easy-pie-chart');
+window.flatpickr = require('flatpickr');
+window.Quill = require('quill');
 
 $(document).foundation();
