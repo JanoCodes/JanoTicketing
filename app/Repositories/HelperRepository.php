@@ -83,7 +83,7 @@ class HelperRepository
     {
         $hashids = new Hashids(config('app.key'));
 
-        return $hashids->encode(self::bcRandomInteger(0, bcpow(62, $length)));
+        return $hashids->encode(self::bcRandomInteger(0, bcsub(bcpow(44, $length - 1), '1')));
     }
 
     /**

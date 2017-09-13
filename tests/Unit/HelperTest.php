@@ -2,7 +2,8 @@
 
 namespace Tests\Unit;
 
-use Jano\Facades\Helper;
+use Hashids\Hashids;
+use Jano\Repositories\HelperRepository as Helper;
 use PHPUnit_Framework_Error;
 use PHPUnit_Framework_Error_Warning;
 use Tests\TestCase;
@@ -45,5 +46,23 @@ class HelperTest extends TestCase
     {
         $class = new \stdClass();
         Helper::flattenArrayKey($class);
+    }
+
+    /**
+     * Asserts that UUID can be generated as expected.
+     */
+    public function testGenerateUuid()
+    {
+        $uuid = Helper::generateUuid();
+
+        $this->assertInternalType('string', $uuid);
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->assertTrue(strlen($uuid) <= 12);
+
+            $new = Helper::generateUuid();
+            $this->assertNotSame($uuid, $new);
+            $uuid = $new;
+        }
     }
 }
