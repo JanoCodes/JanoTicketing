@@ -66,7 +66,7 @@ class CollectionController extends Controller
      * @param array $data
      * @return \Illuminate\Validation\Validator
      */
-    protected function validate($data)
+    protected function updateValidator($data)
     {
         return Validator::make($data, [
             'first_name' => 'required',
@@ -87,7 +87,7 @@ class CollectionController extends Controller
     {
         $this->authorize('update', $collection);
 
-        $this->validate($request->all());
+        $this->updateValidator($request->all());
         $this->contract->update($collection, $request->all());
 
         return redirect(route('attendees.index'));
