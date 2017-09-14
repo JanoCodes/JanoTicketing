@@ -14,7 +14,7 @@
                     </span>
                 </div>
                 <div class="card-section text-center">
-                    Location: Secret
+                    <h5>{{ $event_date['from']->format('j M, Y g:i a') }} {{ __('system.to') }} {{ $event_date['to']->format('j M, Y g:i a') }}</h5>
                     <div class="event-map" id="map">
                         <iframe width="100%" height="100%" frameborder="0" style="border:0"
                                 src="https://www.google.com/maps/embed/v1/view?key=
@@ -65,6 +65,8 @@
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function(){
+            localStorage.removeItem('jano_{{ snake_case(config('app.name')) }}');
+
             function onUpdateQuantity() {
                 let sum = 0;
 

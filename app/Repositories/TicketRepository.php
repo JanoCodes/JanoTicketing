@@ -84,38 +84,40 @@ class TicketRepository implements TicketContract
         $state->attendees = array();
 
         foreach ($tickets as $ticket) {
-            $status = $this->holdByType(
-                $ticket->id,
-                $request['tickets'][$ticket->id],
-                $time
-            );
-            $reserved[$ticket->id] = count($status);
+            if ($request['tickets'][$ticket->id]) {
+                $status = $this->holdByType(
+                    $ticket->id,
+                    $request['tickets'][$ticket->id],
+                    $time
+                );
+                $reserved[$ticket->id] = count($status);
 
-            if ($status) {
-                if (count($status) !== (int) $request['tickets'][$ticket->id]) {
+                if ($status) {
+                    if ($status->count() !== (int) $request['tickets'][$ticket->id]) {
+                        $ticket_unavailable = true;
+                    }
+
+                    foreach ($status as $id) {
+                        $attendee = new \stdClass();
+                        foreach (Attendee::getAttributeListing() as $attribute) {
+                            $attendee->{$attribute} = '';
+                        }
+                        $attendee->ticket = $ticket;
+                        $attendee->ticket_id = $id;
+                        $attendee->user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user, false);
+                        $attendee->full_user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user);
+
+                        $state->attendees[] = $attendee;
+                    }
+                } else {
                     $ticket_unavailable = true;
                 }
-
-                foreach ($status as $id) {
-                    $attendee = new \stdClass();
-                    foreach (Attendee::getAttributeListing() as $attribute) {
-                        $attendee->{$attribute} = '';
-                    }
-                    $attendee->ticket = $ticket;
-                    $attendee->ticket_id = $id;
-                    $attendee->user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user, false);
-                    $attendee->full_user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user);
-
-                    $state->attendees[] = $attendee;
-                }
-            } else {
-                $ticket_unavailable = true;
             }
         }
 
         return [
             'reserved' => $reserved,
-            'time' => $time,
+            'time' => $time + 60 * 15,
             'state' => $state,
             'ticket_unavailable' => $ticket_unavailable
         ];
@@ -174,7 +176,7 @@ class TicketRepository implements TicketContract
      * @param int $ticket_id
      * @param int $number
      * @param int $time
-     * @return array|bool
+     * @return mixed
      */
     private function holdByType($ticket_id, $number, $time)
     {
@@ -196,6 +198,6 @@ class TicketRepository implements TicketContract
 
         DB::commit();
 
-        return count($tickets) > 0 ? $tickets : false;
+        return $tickets->count() > 0 ? $tickets : false;
     }
 }

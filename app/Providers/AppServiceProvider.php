@@ -63,10 +63,12 @@ class AppServiceProvider extends ServiceProvider
             return Menu::new()
                 ->action('HomeController@index', __('system.home'))
                 ->htmlIf(!$authenticated, '<a href="#" data-open="login-modal">'
-                    . __('system.login') . __('system.slash') . __('system.register') . '</a>')
+                    . __('system.login') . __('system.slash') . __('system.register')
+                    . '</a>')
                 ->actionIf($authenticated, 'AccountController@view', __('system.account'))
-                ->htmlIf($authenticated, '<form method="post" action="logout">' . csrf_field()
-                    . '<button type="submit" class="clear button">' . __('system.logout') . '</button></form>')
+                ->htmlIf($authenticated, '<form method="post" action="' . url('logout') . '">'
+                    . csrf_field() . '<button type="submit" class="clear button">'
+                    . __('system.logout') . '</button></form>')
                 ->setActiveFromRequest();
         });
 

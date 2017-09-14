@@ -23,7 +23,7 @@
                 <th></th>
             </tr>
             </thead>
-            @foreach ($user->attendees()->get() as $attendee)
+            @forelse ($user->attendees()->get() as $attendee)
             <tr>
                 <td>
                     <strong>{{ $attendee->title }} {{ $attendee->first_name }} {{ $attendee->last_name }}</strong>
@@ -46,7 +46,11 @@
                     @endif
                 </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="3">{{ __('system.no_attendee_exists') }}</td>
+            </tr>
+            @endforelse
         </table>
 
         @if ($account->payments()->count() !== 0)

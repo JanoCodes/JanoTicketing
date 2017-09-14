@@ -6,7 +6,7 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation. You must preserve all legal
+ * published by the Free Software Foundation. You must preserve all legal 
  * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
@@ -21,6 +21,9 @@
 require('./bootstrap');
 
 window.Vuex = require('vuex');
+window.VueCountdown = require('vue-countdown');
 window.createPersistedState = require('vuex-persistedstate');
+
+Vue.component('countdown', VueCountdown);
 
 $(document).foundation();

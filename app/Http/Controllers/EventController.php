@@ -21,7 +21,10 @@
 
 namespace Jano\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Jano\Models\Ticket;
+use Setting;
 
 class EventController extends Controller
 {
@@ -34,24 +37,22 @@ class EventController extends Controller
     }
 
     /**
-     * Show event listing page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('home');
-    }
-
-    /**
      * Show event page.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request)
     {
+        $request->session()->pull('reservation');
+        $event_date = [
+            'from' => Carbon::parse(Setting::get('event.date.from')),
+            'to' => Carbon::parse(Setting::get('event.date.to'))
+        ];
+
         return view('event', [
-            'tickets' => Ticket::all()
+            'tickets' => Ticket::all(),
+            'event_date' => $event_date
         ]);
     }
 }

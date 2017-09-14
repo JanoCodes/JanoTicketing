@@ -7,9 +7,8 @@
         <div class="small-12 medium-8 cell callout">
             <div class="grid-x grid-padding-x">
                 <div class="small-12 cell form-progress">
-                    <div class="progress" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0"
-                         aria-valuemax="100">
-                        <div class="progress-meter"></div>
+                    <div class="progress" role="progressbar" tabindex="0">
+                        <div class="progress-meter" :style="'width: ' + progress + '%;'"></div>
                     </div>
                     <div class="step" :class="{ 'is-active': (step == 1), 'was-active': (step > 1) }">
                         <h1>1</h1>
@@ -71,6 +70,12 @@
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+            <div class="callout success">
+                <strong>{{ __('system.tickets_reserved_title') }}</strong><br />
+                <countdown :countdownend="reservationExpires" :time="time" ref="countdown">
+                    <template scope="props">{{ __('system.tickets_reserved_message') }}</template>
+                </countdown>
             </div>
         </div>
     </div>
@@ -250,6 +255,7 @@
                     agreement: formData.state.agreement
                 };
             },
+            props: ['getTotalPrice'],
             methods: {
                 agreementUpdate: function() {
                     formData.commit('update', {'agreement': this.agreement});
@@ -287,6 +293,7 @@
                     'guests',
                     'confirmation'
                 ],
+                time: {{ ($time - time()) * 1000 }},
                 title: formData.state.title,
                 first_name: formData.state.first_name,
                 last_name: formData.state.last_name,
@@ -303,6 +310,9 @@
             computed: {
                 getTotalPrice: function() {
                     return this.calculatePrice();
+                },
+                progress: function() {
+                    return (this.$data.step - 1)/(this.$data.views.length - 1) * 100;
                 }
             },
             methods: {
@@ -413,8 +423,14 @@
                                 this.formView('exception');
                             }
                         });
+                },
+                reservationExpires: function() {
+                    window.location.reload(true);
                 }
-            }
+            },
+            mounted: _.once(function() {
+                formData.commit('update');
+            })
         });
     });
 </script>

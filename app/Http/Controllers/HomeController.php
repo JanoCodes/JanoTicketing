@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,7 +21,8 @@
 
 namespace Jano\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Setting;
 
 class HomeController extends Controller
 {
@@ -31,10 +33,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (!Auth::check()) {
-            return view('welcome');
-        }
+        $event_date = [
+            'from' => Carbon::parse(Setting::get('event.date.from')),
+            'to' => Carbon::parse(Setting::get('event.date.to'))
+        ];
 
-        return view('home');
+        return view('home', [
+            'event_date' => $event_date
+        ]);
     }
 }

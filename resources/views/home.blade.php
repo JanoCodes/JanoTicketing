@@ -14,8 +14,7 @@
                     </span>
                 </div>
                 <div class="card-section text-center event-details">
-                    {{ Setting::get('event.date') }}<br />
-                    Location: Secret
+                    <h5>{{ $event_date['from']->format('j M, Y g:i a') }} {{ __('system.to') }} {{ $event_date['to']->format('j M, Y g:i a') }}</h5>
                     <div class="event-map" id="map">
                         <iframe width="100%" height="100%" frameborder="0" style="border:0"
                             src="https://www.google.com/maps/embed/v1/view?key=
@@ -28,8 +27,13 @@
         </div>
         <div class="small-12 medium-5 large-4 cell">
             <div class="callout event-side">
+                @if (Auth::check())
                 <h3>{{ __('system.order_tickets') }}</h3>
                 <a class="button success" href="{{ url('/event') }}">{{ __('system.order') }}</a>
+                @else
+                <h4>{!! __('system.login_required') !!}</h4>
+                @include('auth.modal')
+                @endif
             </div>
         </div>
     </div>

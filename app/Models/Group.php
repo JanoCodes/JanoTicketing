@@ -23,6 +23,7 @@ namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Jano\Cacheable\Eloquent\CanCache;
+use Setting;
 
 /**
  * Class Group
@@ -77,7 +78,7 @@ class Group extends Model
      *
      * @return string
      */
-    public function getSurchargeAttribute()
+    public function getFullSurchargeAttribute()
     {
         return Setting::get('payment.currency') . $this->surcharge;
     }

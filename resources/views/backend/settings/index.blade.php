@@ -27,8 +27,13 @@
             <label class="text-right middle"><strong>{{ __('system.event_date') }}</strong></label>
         </div>
         <div class="small-9 large-8 cell">
-            <input type="text" name="event.date" id="event_date" pattern="text"
-                   value="{{ Setting::get('event.date') }}" required>
+            <div class="input-group date-range-selector">
+                <input type="text" name="event.date.from" id="event_date" pattern="text"
+                    class="input-group-field" value="{{ Setting::get('event.date.from') }}" required>
+                <span class="input-group-label">{{ __('system.to') }}</span>
+                <input type="text" name="event.date.to" id="event_date" pattern="text"
+                    class="input-group-field" value="{{ Setting::get('event.date.to') }}" required>
+            </div>
         </div>
         <div class="small-offset-3 small-9 large-offset-3 large-8 cell">
             <strong>{{ __('system.payment_information') }}</strong>
@@ -67,12 +72,13 @@
 @push('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#event_date').flatpickr({
-            altFormat: 'j M Y h:i K',
-            altInput: true,
-            dateFormat: 'd/m/Y',
-            enableTime: true,
-            mode: 'range'
+        $('.date-range-selector > input').each(function() {
+            $(this).flatpickr({
+                altFormat: 'j M Y h:i K',
+                altInput: true,
+                dateFormat: 'Y-m-d H:i',
+                enableTime: true,
+            });
         });
 
         const agreement = $('#agreement').html();

@@ -84,11 +84,14 @@ return [
     'jano_ticketing_system' => 'Jano Ticketing System',
     'last_name' => 'Last Name',
     'login' => 'Login',
+    'login_required' => 'Please login/register <a href="#" data-open="login-modal">here</a> to '
+        . 'purchase tickets for this event.',
     'logout' => 'Logout',
     'method' => 'Method',
     'new_entry' => 'New Entry',
     'new_password' => 'New Password',
     'next' => 'Next',
+    'no_attendee_exists' => 'No attendees exist under your account.',
     'no_ticket_type_exists' => 'No ticket type exists for this event.',
     'order' => 'Order',
     'order_confirmed' => 'Order Confirmed',
@@ -130,6 +133,9 @@ return [
         . 'entry are supplied below for your reference. You would be notified via email should a ticket becomes '
         . 'available.',
     'request_edit' => 'Edit Waiting List Entry',
+    'reservation_expired' => '<strong>Ticket Reservation Expired</strong><br />The tickets reservation'
+        . ' has expired and the tickets have been released. Please try again if you still want tickets'
+        . ' for the event.',
     'reset' => 'Reset',
     'reset_password' => 'Reset Password',
     'right_to_buy' => 'Right to Buy',
@@ -145,6 +151,7 @@ return [
     'status' => 'Status',
     'system_title' => 'System Title',
     'terms' => 'Terms',
+    'to' => 'to',
     'total_charges' => 'Total Charges',
     'ticket_limit' => 'Ticket Limit',
     'ticket_limit_reached' => 'You have reached the number of tickets you are allowed to purchase.',
@@ -162,6 +169,9 @@ return [
     'tickets_partly_unavailable_title' => 'Unable to reserve all tickets requested',
     'tickets_partly_unavailable_message' => 'Please check the order summary to the right for the number of tickets the '
         . 'system was able to reserve for you, and either continue with or cancel your order as appropriate.',
+    'tickets_reserved_title' => 'Relax - the tickets have been held for you!',
+    'tickets_reserved_message' => 'You have {{ props.minutes }} minutes and {{ props.seconds }} seconds '
+        . 'to complete your reservation.',
     'time_for_payment' => 'Time for Payment',
     'title' => 'Title',
     'titles' => [

@@ -96,7 +96,7 @@ class AttendeeController extends Controller
     {
         $this->authorize('create', \Jano\Models\Attendee::class);
 
-        if ($reservation = $request->session()->get('reservation')) {
+        if (!$reservation = $request->session()->get('reservation')) {
             $user = $request->user();
             $this->validate($request, [
                 'tickets.*' => 'required|numeric|min:0',
@@ -106,7 +106,7 @@ class AttendeeController extends Controller
             $result = $this->ticket->hold($user, $request->all());
 
             if (array_sum($result['reserved']) === 0) {
-                return redirect(route('event.list'))->with('alert', '<strong>'
+                return redirect('event')->with('alert', '<strong>'
                     . __('system.tickets_unavailable_title') . '</strong><br />'
                     . __('system.tickets_unavailable_message'));
             }
@@ -115,6 +115,12 @@ class AttendeeController extends Controller
                     . __('system.tickets_partly_unavailable_title') . '</strong><br />'
                     . __('system.tickets_partly_unavailable_message'));
             }
+
+            $request->session()->put('reservation', $result);
+        } elseif (time() > $reservation['time']) {
+            $request->session()->pull('reservation');
+
+            return redirect('event')->with('alert', __('system.reservation_expired'));
         }
 
         return view('attendees.create', [

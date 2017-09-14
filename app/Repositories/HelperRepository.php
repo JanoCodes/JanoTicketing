@@ -24,7 +24,7 @@ namespace Jano\Repositories;
 use Hashids\Hashids;
 use InvalidArgumentException;
 use Jano\Models\User;
-use Jano\Settings\Facade as Setting;
+use Setting;
 
 class HelperRepository
 {
