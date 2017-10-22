@@ -10,13 +10,6 @@
         {{ method_field('PUT') }}
         {{ csrf_field() }}
         <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle"><strong>{{ __('system.title') }}</strong></label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <input type="text" name="system.title" id="system_title" pattern="text"
-                value="{{ Setting::get('system.title') }}" required>
-        </div>
-        <div class="small-3 large-offset-1 large-2 cell">
             <label class="text-right middle"><strong>{{ __('system.event_name') }}</strong></label>
         </div>
         <div class="small-9 large-8 cell">
@@ -33,6 +26,33 @@
                 <span class="input-group-label">{{ __('system.to') }}</span>
                 <input type="text" name="event.date.to" id="event_date" pattern="text"
                     class="input-group-field" value="{{ Setting::get('event.date.to') }}" required>
+            </div>
+        </div>
+        <div class="small-3 large-offset-1 large-2 cell">
+            <label class="text-right middle"><strong>{{ __('system.event_location') }}</strong></label>
+        </div>
+        <div class="small-9 large-8 cell">
+            <button type="button" class="button hollow">{{ __('system.select_location') }}</button>
+            <div class="reveal" id="location-select" data-reveal>
+                <h3>{{ __('system.select_location') }}</h3>
+                <div class="grid-x grid-padding-x">
+                    <div class="small-12 medium-4 cell">
+                        <label class="text-right middle">{{ __('system.location_name') }}</label>
+                    </div>
+                    <div class="small-12 medium-8 cell">
+                        <input type="text" name="event.location.name" id="event_location_name"
+                               pattern="text" value="{{ Setting::get('event.location.name') }}"
+                               required>
+                        <input type="hidden" name="event.location.lat" id="event_location_lat"
+                            value="{{ Setting::get('event.location.lat') }}" required>
+                        <input type="hidden" name="event.location.long" id="event_location_long"
+                               value="{{ Setting::get('event.location.long') }}" required>
+                    </div>
+                    <div class="small-12 medium-12 cell">
+                        <span><strong>{{ __('system.drag_marker_to_location') }}</strong></span>
+                        <div id="map" class="location-map"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="small-offset-3 small-9 large-offset-3 large-8 cell">
@@ -70,6 +90,7 @@
 @endsection
 
 @push('scripts')
+<script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.date-range-selector > input').each(function() {
@@ -102,6 +123,15 @@
 
             $('input[name=agreement]').val(agreementQuill.root.innerHTML);
             $(this).unbind('submit').submit();
+        });
+
+        $('#map').locationpicker({
+            inputBinding: {
+                latitudeInput: $('#event_location_lat'),
+                longitudeInput: $('#event_location_long'),
+                locationNameInput: $('#event_location_name')
+            },
+            radius: 0,
         });
     });
 </script>

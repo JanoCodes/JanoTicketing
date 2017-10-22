@@ -153,6 +153,12 @@
     }
   }
 
+  .dashboard {
+    a {
+      padding: 0;
+    }
+  }
+
   table {
     a,
     button {
@@ -213,6 +219,12 @@
       background: none;
       border: none;
     }
+  }
+
+  .location-map {
+    width: 100%;
+    height: 40vh;
+    min-height: 300px;
   }
 
   .credits {

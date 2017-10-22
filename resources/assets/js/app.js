@@ -21,7 +21,7 @@
 require('./bootstrap');
 
 window.Vuex = require('vuex');
-window.VueCountdown = require('vue-countdown');
+window.VueCountdown = require('@xkeshi/vue-countdown');
 window.createPersistedState = require('vuex-persistedstate');
 
 Vue.component('countdown', VueCountdown);

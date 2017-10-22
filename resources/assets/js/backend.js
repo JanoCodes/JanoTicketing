@@ -33,6 +33,7 @@ Vue.component("v-select", vSelect);
 
 window.Dropzone = require('dropzone');
 window.flatpickr = require('flatpickr');
+window.locationpicker = require('jquery-locationpicker');
 window.Quill = require('quill');
 
 $(document).foundation();
