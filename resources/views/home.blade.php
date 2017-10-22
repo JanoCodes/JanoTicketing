@@ -15,11 +15,12 @@
                 </div>
                 <div class="card-section text-center event-details">
                     <h5>{{ $event_date['from']->format('j M, Y g:i a') }} {{ __('system.to') }} {{ $event_date['to']->format('j M, Y g:i a') }}</h5>
-                    {{ Setting::get('event.location') }}
+                    {{ Setting::get('event.location.name') }}
                     <div class="event-map" id="map">
                         <iframe width="100%" height="100%" frameborder="0" style="border:0"
                             src="https://www.google.com/maps/embed/v1/view?key=
-                            {{ Setting::get('system.google_maps_key') }}&center=52.2005954,0.1214614
+                            {{ Setting::get('system.google_maps_key') }}&center=
+                            {{ Setting::get('system.location.lat') . ',' . Setting::get('system.location.long') }}
                             &zoom=12">
                         </iframe>
                     </div>
