@@ -32,7 +32,7 @@ use Jano\Contracts\PaymentContract;
 use League\Csv\Reader;
 use Illuminate\Log\Writer as Log;
 use SplFileObject;
-use Illuminate\Validation\Factory as Validator;
+use Validator;
 
 class ImportPaymentFromFile implements ShouldQueue
 {

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="clearfix">&nbsp;</div>
-<form id="form" role="form" method="POST" action="{{ route('backend.payments.create') }}">
+<form id="form" role="form" method="POST" action="{{ route('backend.payments.store') }}">
     <div class="grid-x grid-padding-x">
         @include('partials.error')
         {{ csrf_field() }}
@@ -42,19 +42,19 @@
             @endif
         </div>
         <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('method') ? ' is-invalid-label' : '' }}">
+            <label class="text-right middle{{ $errors->has('type') ? ' is-invalid-label' : '' }}">
                 {{ __('system.method') }}
             </label>
         </div>
         <div class="small-9 large-8 cell">
-            <select id="method" name="method" required>
+            <select id="type" name="type" required>
                 @foreach (__('system.payment_methods') as $key => $value)
                     <option value="{{ $key }}">{{ $value }}</option>
                 @endforeach
             </select>
-            @if ($errors->has('method'))
+            @if ($errors->has('type'))
                 <span class="form-error">
-                    <strong>{{ $errors->first('method') }}</strong>
+                    <strong>{{ $errors->first('type') }}</strong>
                 </span>
             @endif
         </div>

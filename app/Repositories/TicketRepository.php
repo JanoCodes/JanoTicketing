@@ -128,8 +128,6 @@ class TicketRepository implements TicketContract
      */
     public function reserve($data, $frontend)
     {
-        DB::beginTransaction();
-
         $attendee = new Attendee();
         $attendee->title = $data['data']['title'];
         $attendee->first_name = $data['data']['first_name'];
@@ -140,11 +138,11 @@ class TicketRepository implements TicketContract
         $attendee->primary_ticket_holder = $data['data']['primary_ticket_holder'];
         $attendee->ticket()->associate($data['ticket']);
         $attendee->checked_in = false;
+        $attendee->save();
 
         if ($frontend) {
             DB::table('ticket_store')->where('id', $data['data']['ticket_id'])->delete();
         }
-        DB::commit();
 
         return $attendee;
     }

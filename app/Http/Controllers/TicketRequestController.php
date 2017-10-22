@@ -25,7 +25,7 @@ use Illuminate\Http\Request;
 use Jano\Contracts\TicketRequestContract;
 use Jano\Models\Ticket;
 use Jano\Models\TicketRequest;
-use Illuminate\Validation\Factory as Validator;
+use Validator;
 
 class TicketRequestController extends Controller
 {

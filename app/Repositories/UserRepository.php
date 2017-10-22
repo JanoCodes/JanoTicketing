@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -77,25 +78,17 @@ class UserRepository implements UserContract
      */
     public function update(User $user, $data)
     {
-        $user->title = $data['title'];
-        $user->first_name = $data['first_name'];
-        $user->last_name = $data['last_name'];
-        $user->email = $data['email'];
-
-        if (isset($data['password'])) {
-            if (empty($user->oauth_id)) {
-                $user->password = bcrypt($data['password']);
+        foreach ($data as $attribute => $value) {
+            if ($attribute === 'password') {
+                if (empty($user->oauth_id)) {
+                    $user->password = bcrypt($data['password']);
+                } else {
+                    throw new InvalidArgumentException('Password cannot be updated for users authenticated via OAuth.');
+                }
             } else {
-                throw new InvalidArgumentException('Password cannot be updated for users authenticated via OAuth.');
+                $user->{$attribute} = $value;
             }
         }
-
-        $user->group_id = $data['group_id'];
-        $user->phone = $data['phone'];
-        $user->can_order_at = $data['can_order_at'];
-        $user->ticket_limit = $data['ticket_limit'];
-        $user->surcharge = $data['surcharge'];
-        $user->right_to_buy = $data['right_to_buy'];
         $user->save();
 
         return $user;

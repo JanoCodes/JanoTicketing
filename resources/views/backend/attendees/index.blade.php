@@ -164,7 +164,7 @@
                 regenerateUuid: function(data) {
                     const parent = this;
 
-                    axios.put('admin/attendees/' + this.$data.editData.id + '/regenerate')
+                    axios.put('/admin/attendees/' + this.$data.editData.id + '/regenerate')
                         .then(function() {
                             $('#uuid').html('<i>{{ __('system.unique_id_regeneration_queued') }}</i>');
                         }).catch(function() {
@@ -187,7 +187,7 @@
 
                     let parent = this;
 
-                    axios.put('admin/attendees/' + this.$data.editData.id, this.$data.editData)
+                    axios.put('/admin/attendees/' + this.$data.editData.id, this.$data.editData)
                         .then(function() {
                             $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                 + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'

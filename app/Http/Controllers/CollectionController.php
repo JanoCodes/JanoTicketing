@@ -22,7 +22,7 @@
 namespace Jano\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Factory as Validator;
+use Validator;
 use Jano\Contracts\CollectionContract;
 use Jano\Models\Collection;
 

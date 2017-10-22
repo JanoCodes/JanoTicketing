@@ -60,7 +60,12 @@ class GroupRepository implements GroupContract
      */
     public function update(Group $group, $data)
     {
-        // TODO: Implement update() method.
+        foreach ($data as $attribute => $value) {
+            $group->{$attribute} = $value;
+        }
+        $group->save();
+
+        return $group;
     }
 
     /**
@@ -68,6 +73,6 @@ class GroupRepository implements GroupContract
      */
     public function destroy(Group $group)
     {
-        // TODO: Implement destroy() method.
+        $group->delete();
     }
 }

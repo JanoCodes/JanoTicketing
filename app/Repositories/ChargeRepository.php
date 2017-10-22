@@ -50,16 +50,18 @@ class ChargeRepository implements ChargeContract
      */
     public function update(Charge $charge, $data)
     {
-        $charge->description = $data['description'];
-
-        if ($charge->paid && $data['amount'] > $charge->amount) {
+        if ($charge->paid && isset($data['amount']) && $data['amount'] > $charge->amount) {
             $charge->paid = false;
         }
+
+        foreach ($data as $attribute => $value) {
+            $charge->{$attribute} = $value;
+        }
+
         if (!$charge->paid) {
             $charge->due_by = Carbon::now()->addDays(Setting::get('payment.deadline'));
         }
 
-        $charge->amount = $data['amount'];
         $charge->save();
 
         return $charge;

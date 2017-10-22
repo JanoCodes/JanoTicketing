@@ -334,7 +334,7 @@
 
                         let parent = this;
 
-                        axios.put('admin/attendees/' + this.$data.editData.id, this.$data.editData)
+                        axios.put('/admin/attendees/' + this.$data.editData.id, this.$data.editData)
                             .then(function() {
                                 $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                     + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
@@ -391,7 +391,7 @@
                         this.$nextTick();
                     },
                     deleteItem: function(model, id) {
-                        axios.delete('admin/' + model + '/' + id)
+                        axios.delete('/admin/' + model + '/' + id)
                             .then(function() {
                                 location.reload();
                             })

@@ -26,7 +26,7 @@ use Jano\Http\Controllers\Controller;
 use Jano\Jobs\ImportPaymentFromFile;
 use League\Csv\Reader;
 use SplFileObject;
-use Illuminate\Validation\Factory as Validator;
+use Validator;
 
 class PaymentImportController extends Controller
 {

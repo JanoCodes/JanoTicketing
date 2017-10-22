@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="clearfix">&nbsp;</div>
-<div class="grid-x grid-padding-x" id="dashboard">
+<div class="grid-x grid-padding-x dashboard" id="dashboard">
     <div class="small-12 medium-7 large-9 cell">
         <table>
             <thead>

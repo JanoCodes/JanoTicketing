@@ -26,7 +26,8 @@
             </div>
             @include('partials.error')
             <keep-alive>
-                <component v-bind:is="formView" :errors="errors">
+                <component :is="formView" ref="form" :total-price="totalPrice" :errors="errors"
+                    :commited="commited">
                 </component>
             </keep-alive>
             <div class="grid-x grid-padding-x">
@@ -66,14 +67,14 @@
                     <tfoot class="total-price">
                         <tr>
                             <td></td>
-                            <td>@{{ getTotalPrice }}</td>
+                            <td>@{{ totalPrice }}</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <div class="callout success">
                 <strong>{{ __('system.tickets_reserved_title') }}</strong><br />
-                <countdown :countdownend="reservationExpires" :time="time" ref="countdown">
+                <countdown @countdownend="reservationExpires" :time="time" ref="countdown">
                     <template scope="props">{{ __('system.tickets_reserved_message') }}</template>
                 </countdown>
             </div>
@@ -88,7 +89,7 @@
 @endsection
 
 @push('scripts')
-@foreach (['user', 'guests', 'confirmation', 'exception'] as $view)
+@foreach (['user', 'guests', 'confirmation', 'success', 'exception'] as $view)
 <script type="text/html" id="{!! $view !!}">
     @include('attendees.partials.' . $view)
 </script>
@@ -252,10 +253,10 @@
                     email: formData.state.email,
                     phone: formData.state.phone,
                     attendees: formData.state.attendees,
-                    agreement: formData.state.agreement
+                    agreement: formData.state.agreement,
                 };
             },
-            props: ['getTotalPrice'],
+            props: ['totalPrice'],
             methods: {
                 agreementUpdate: function() {
                     formData.commit('update', {'agreement': this.agreement});
@@ -276,7 +277,7 @@
 
         Vue.component('success', {
             template: '#success',
-            prop: ['commited']
+            props: ['commited']
         });
 
         Vue.component('exception', {
@@ -301,6 +302,7 @@
                 phone: formData.state.phone,
                 attendees: formData.state.attendees,
                 agreement: formData.state.agreement,
+                totalPrice: '',
                 commited: null,
                 errors: {
                     'user': [],
@@ -308,9 +310,6 @@
                 }
             },
             computed: {
-                getTotalPrice: function() {
-                    return this.calculatePrice();
-                },
                 progress: function() {
                     return (this.$data.step - 1)/(this.$data.views.length - 1) * 100;
                 }
@@ -328,16 +327,16 @@
                         return;
                     }
 
-                    var i = $.inArray(this.formView, this.views);
-                    if (i < -1 || i + 1 >= this.views.length) {
+                    var i = $.inArray(this.$data.formView, this.$data.views);
+                    if (i < -1 || i + 1 >= this.$data.views.length) {
                         alert('{{ __('system.form_error') }}');
                         return;
                     }
-                    this['$children'][i].update();
+                    this.$refs.form.update();
                     this.$nextTick();
 
                     i++;
-                    if (i + 1 === this.views.length) {
+                    if (i + 1 === this.$data.views.length) {
                         $('#next').hide();
                         $('#submit').show();
                     }
@@ -345,14 +344,14 @@
                         $('#back').prop('disabled', false);
                     }
 
-                    this.formView = this.views[i];
-                    this.step++;
+                    this.$data.formView = this.$data.views[i];
+                    this.$data.step++;
                 },
                 back: function(event) {
-                    var i = $.inArray(this.formView, this.views);
+                    var i = $.inArray(this.$data.formView, this.$data.views);
                     i--;
 
-                    if (i + 2 === this.views.length) {
+                    if (i + 2 === this.$data.views.length) {
                         $('#next').show();
                         $('#submit').hide();
                     }
@@ -360,37 +359,47 @@
                         $('#back').prop('disabled', true);
                     }
 
-                    this.formView = this.views[i];
-                    this.step--;
+                    this.$data.formView = this.$data.views[i];
+                    this.$data.step--;
                 },
-                calculatePrice: _.throttle(
-                    function () {
-                        var totalPrice = 0;
+                calculatePrice: function() {
+                    var parent = this;
 
-                        formData.state.attendees.forEach(function (attendee) {
-                            totalPrice += attendee.user_ticket_price;
-                        });
+                    _.throttle(
+                        function () {
+                            var totalPrice = 0;
 
-                        return "{{ Setting::get('payment.currency') }}" + totalPrice;
-                    },
-                    5000
-                ),
+                            formData.state.attendees.forEach(function (attendee) {
+                                totalPrice += attendee.user_ticket_price;
+                            });
+
+                            parent.$data.totalPrice = "{{ Setting::get('payment.currency') }}" +
+                                totalPrice;
+                            parent.$nextTick();
+                        },
+                        5000
+                    )
+                },
                 submit: function(event) {
                     event.preventDefault();
 
-                    if (formData.agreement !== '1') {
+                    if (formData.state.agreement !== true) {
                         $('div[data-abide-error]').show();
                         $('input#agreement').closest('form-error').addClass('is-visible');
                         return;
                     }
 
-                    axios.post('{{ route('attendees.store') }}', formData)
+                    var parent = this;
+
+                    $('#processingModal').foundation('open');
+
+                    axios.post('{{ route('attendees.store') }}', formData.state)
                         .then(function(response) {
                             $('#back').hide();
                             $('#next').hide();
                             $('#submit').hide();
-                            this.commited = response.data;
-                            this.formView = 'success';
+                            parent.$data.commited = response.data;
+                            parent.$data.formView = 'success';
                         })
                         .catch(function(error) {
                             if (error.response && error.response.status === '422') {
@@ -398,29 +407,32 @@
                                     return Object.keys(o)[0].includes('attendees')
                                 });
 
-                                this.errors.user = partition[1];
-                                this.errors.guests = partition[0];
+                                parent.$data.errors.user = partition[1];
+                                parent.$data.errors.guests = partition[0];
 
                                 $('#processingModal').foundation('close');
 
                                 if (partition[1].length > 0) {
-                                    this.formView = 'user';
+                                    parent.$data.formView = 'user';
                                     $('#back').prop('disabled', true);
                                     $('#next').show();
                                     $('#submit').hide();
                                 }
                                 else {
-                                    this.formView = 'guests';
+                                    parent.$data.formView = 'guests';
                                     $('#back').prop('disabled', false);
                                     $('#next').show();
                                     $('#submit').hide();
                                 }
                             }
                             else {
+                                $('#processingModal').foundation('close');
+
                                 $('#back').hide();
                                 $('#next').hide();
                                 $('#submit').hide();
-                                this.formView('exception');
+                                console.log(error.response.data);
+                                parent.$data.formView = 'exception';
                             }
                         });
                 },
@@ -430,6 +442,16 @@
             },
             mounted: _.once(function() {
                 formData.commit('update');
+
+                var totalPrice = 0;
+
+                formData.state.attendees.forEach(function (attendee) {
+                    totalPrice += attendee.user_ticket_price;
+                });
+
+                this.$data.totalPrice = "{{ Setting::get('payment.currency') }}" +
+                    totalPrice;
+                this.$nextTick();
             })
         });
     });

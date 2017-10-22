@@ -38,7 +38,7 @@
         <tfoot class="total-price">
             <tr>
                 <td></td>
-                <td>@{{ getTotalPrice }}</td>
+                <td>@{{ totalPrice }}</td>
             </tr>
         </tfoot>
     </table>

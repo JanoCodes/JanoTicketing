@@ -22,7 +22,7 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Factory as Validator;
+use Validator;
 use Jano\Contracts\GroupContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;

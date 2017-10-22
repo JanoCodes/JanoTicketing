@@ -144,7 +144,7 @@
 
                     let parent = this;
 
-                    axios.put('admin/tickets/' + this.$data.editData.id, this.$data.editData)
+                    axios.put('/admin/tickets/' + this.$data.editData.id, this.$data.editData)
                         .then(function() {
                             $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
                                 + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
@@ -243,7 +243,7 @@
                     this.$nextTick();
                 },
                 deleteItem: function(data) {
-                    axios.delete('admin/tickets/' + data.id)
+                    axios.delete('/admin/tickets/' + data.id)
                         .then(function() {
                             this.$refs.vuetable.reload();
                         })

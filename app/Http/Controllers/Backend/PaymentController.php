@@ -22,7 +22,7 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Factory as Validator;
+use Validator;
 use Jano\Contracts\PaymentContract;
 use Jano\Http\Controllers\Controller;
 use Jano\Http\Traits\RendersAjaxView;
@@ -94,9 +94,9 @@ class PaymentController extends Controller
         return Validator::make($data, [
             'account' => 'exists:accounts,id',
             'amount' => 'required|integer|min:0',
-            'method' => 'required|in:' . implode(
+            'type' => 'required|in:' . implode(
                 ',',
-                collect(__('system.payment_methods'))->keys()
+                collect(__('system.payment_methods'))->keys()->toArray()
             ),
             'reference' => 'required'
         ]);

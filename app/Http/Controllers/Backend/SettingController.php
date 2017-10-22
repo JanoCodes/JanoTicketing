@@ -25,7 +25,7 @@ use Illuminate\Http\Request;
 use Jano\Http\Controllers\Controller;
 use Jano\Repositories\HelperRepository as Helper;
 use Jano\Settings\Facade as Setting;
-use Illuminate\Validation\Factory as Validator;
+use Validator;
 
 class SettingController extends Controller
 {
@@ -34,7 +34,15 @@ class SettingController extends Controller
      *
      * @var array
      */
-    protected $fields = ['system.name', 'payment.currency', 'payment.deadline'];
+    protected $fields = [
+        'system.name',
+        'event.name',
+        'event.date.from',
+        'event.date.to',
+        'payment.currency',
+        'payment.deadline',
+        'terms'
+    ];
 
     /**
      * SettingController constructor.
@@ -63,9 +71,8 @@ class SettingController extends Controller
     protected function updateValidator($data)
     {
         return Validator::make($data, [
-            'system.name' => 'required',
-            'payment.currency' => 'required',
-            'payment.deadline' => 'required|integer|min:0'
+            'event.date.*' => 'date',
+            'payment.deadline' => 'integer|min:0'
         ]);
     }
 

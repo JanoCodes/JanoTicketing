@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,6 +21,7 @@
 
 namespace Jano\Repositories;
 
+use Carbon\Carbon;
 use Jano\Contracts\PaymentContract;
 use Jano\Models\Account;
 use Jano\Models\Payment;
@@ -41,7 +43,7 @@ class PaymentRepository implements PaymentContract
         $payment->type = $data['type'];
         $payment->reference = $data['reference'];
         $payment->internal_reference = $data['internal_reference'] ?? null;
-        $payment->made_at = $data['made_at'];
+        $payment->made_at = $data['made_at'] ? Carbon::parse($data['made_at']) : Carbon::now();
         $payment->save();
 
         return $payment;

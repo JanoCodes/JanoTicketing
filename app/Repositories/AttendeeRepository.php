@@ -21,6 +21,7 @@
 
 namespace Jano\Repositories;
 
+use DB;
 use Illuminate\Support\Collection;
 use Jano\Contracts\AttendeeContract;
 use Jano\Contracts\ChargeContract;
@@ -75,6 +76,8 @@ class AttendeeRepository implements AttendeeContract
 
         $account = $user->account()->first();
 
+        DB::beginTransaction();
+
         $charge_created = $this->charge->store($account, [
             'amount' => $amount,
             'description' => trans_choice(
@@ -98,6 +101,8 @@ class AttendeeRepository implements AttendeeContract
                 'data' => $attendee
             ], $frontend));
         }
+
+        DB::commit();
 
         event(new AttendeesCreated($user, $return));
 

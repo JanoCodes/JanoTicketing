@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -163,7 +164,10 @@ class User extends Authenticatable
      */
     public function getTicketLimitAttribute($value)
     {
-        return empty($value) ? $this->group->ticket_limit : $value;
+        $initial = empty($value) ? $this->group->ticket_limit : $value;
+        $limit = $initial - $this->attendees()->count();
+
+        return $limit >= 0 ? $limit : 0;
     }
 
     /**

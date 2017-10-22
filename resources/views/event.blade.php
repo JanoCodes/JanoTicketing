@@ -15,6 +15,7 @@
                 </div>
                 <div class="card-section text-center">
                     <h5>{{ $event_date['from']->format('j M, Y g:i a') }} {{ __('system.to') }} {{ $event_date['to']->format('j M, Y g:i a') }}</h5>
+                    {{ Setting::get('event.location') }}
                     <div class="event-map" id="map">
                         <iframe width="100%" height="100%" frameborder="0" style="border:0"
                                 src="https://www.google.com/maps/embed/v1/view?key=
@@ -74,20 +75,22 @@
                     sum += parseInt($(this).val());
                 });
 
-                if (sum >= {{ Auth::user()->ticket_limit }}) {
+                if (sum > {{ Auth::user()->ticket_limit }}) {
                     $('[data-quantity="plus"]').each(function (index, element) {
                         $(element).prop('disabled', true);
                     });
-                    $('[data-abide-error]').html("{{ __('system.ticket_limit_reached') }}").show();
+                    $('[data-abide-error]').html("{{ __('system.ticket_limit_exceeded') }}").show();
                     $('[name=submit]').prop('disabled', true);
                 } else {
                     $('[data-quantity="plus"]').each(function (index, element) {
                         $(element).prop('disabled', false);
                     });
-                    $('[data-abide-error]').html("{{ __('system.ticket_limit_reached') }}").hide();
+                    $('[data-abide-error]').hide();
                     $('[name=submit]').prop('disabled', false);
                 }
             }
+
+            onUpdateQuantity();
 
             $('input#tickets').on('change', function() {
                 onUpdateQuantity();
