@@ -41,7 +41,7 @@
         ],
         "psr-4": {
             "Jano\\": "app/",
-            "Jano\\Modules\\": "modules"
+            "Jano\\Modules\\": "modules/"
         }
     },
     "autoload-dev": {
