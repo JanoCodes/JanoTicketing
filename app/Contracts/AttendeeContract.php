@@ -59,6 +59,14 @@ interface AttendeeContract
     public function update(Attendee $attendee, $data);
 
     /**
+     * Export attendee instances.
+     *
+     * @param array $fields
+     * @return array
+     */
+    public function export(array $fields = []);
+
+    /**
      * Destroy an attendee instance.
      *
      * @param \Jano\Models\Attendee|\Illuminate\Support\Collection $attendee

@@ -152,6 +152,34 @@ class AttendeeRepository implements AttendeeContract
     /**
      * @inheritdoc
      */
+    public function export(array $fields = [])
+    {
+        if (empty($fields)) {
+            $fields = Attendee::getAttributeListing();
+        }
+
+        $attendees = Attendee::with('ticket')->get();
+
+        $array = array();
+        foreach ($attendees as $attendee) {
+            $row = array();
+            foreach ($fields as $field) {
+                if ($field === 'ticket') {
+                    $row[] = $attendee->ticket->name;
+                } else {
+                    $row[] = $attendee->{$field};
+                }
+            }
+
+            $array[] = $row;
+        }
+
+        return $array;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function destroy($attendee)
     {
         if (is_a($attendee, Collection::class)) {
