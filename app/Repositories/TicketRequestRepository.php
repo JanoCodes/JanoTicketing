@@ -23,9 +23,11 @@ namespace Jano\Repositories;
 
 use Carbon\Carbon;
 use Jano\Contracts\TicketRequestContract;
+use Jano\Events\TicketRequestCreated;
 use Jano\Models\Attendee;
 use Jano\Models\TicketRequest;
 use Jano\Models\User;
+use Jano\Notifications\TicketRequestCreated as TicketRequestCreatedNotification;
 
 class TicketRequestRepository implements TicketRequestContract
 {
@@ -44,6 +46,9 @@ class TicketRequestRepository implements TicketRequestContract
         $request->right_to_buy = $user->right_to_buy > 0;
         $request->honoured = false;
         $request->save();
+
+        $user->notify(new TicketRequestCreatedNotification($request));
+        event(new TicketRequestCreated($user, $request));
 
         return $request;
     }

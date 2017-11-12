@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -52,7 +53,7 @@ class AttendeesCreated
      * Create a new event instance.
      *
      * @param \Jano\Models\User $user
-     * @param \Jano\Models\Order $order
+     * @param \Illuminate\Support\Collection $attendees
      */
     public function __construct(User $user, Collection $attendees)
     {

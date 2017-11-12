@@ -24,11 +24,14 @@ namespace Jano\Repositories;
 use Carbon\Carbon;
 use InvalidArgumentException;
 use Jano\Contracts\TransferRequestContract;
+use Jano\Events\TransferRequestCreated;
 use Jano\Events\TransferRequestProcessed;
 use Jano\Models\Attendee;
 use Jano\Models\Charge;
 use Jano\Models\TransferRequest;
 use Jano\Models\User;
+use Jano\Notifications\TransferRequestCreated as TransferRequestCreatedNotification;
+use Jano\Notifications\TransferRequestProcessed as TransferRequestProcessedNotification;
 
 class TransferRequestRepository implements TransferRequestContract
 {
@@ -54,6 +57,9 @@ class TransferRequestRepository implements TransferRequestContract
         $request->confirmation_code = str_random();
         $request->processed = false;
         $request->save();
+
+        $attendee->user()->notify(new TransferRequestCreatedNotification($charge->account(), $request));
+        event(new TransferRequestCreated($attendee->user(), $request));
 
         return $request;
     }
@@ -161,6 +167,7 @@ class TransferRequestRepository implements TransferRequestContract
         $request->processed_at = Carbon::now();
         $request->save();
 
+        $request->user()->notify(new TransferRequestProcessedNotification($request));
         event(new TransferRequestProcessed($request->user(), $request));
 
         return $request;

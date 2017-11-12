@@ -31,6 +31,7 @@ use Jano\Events\AttendeesCreated;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
 use Jano\Models\User;
+use Jano\Notifications\AttendeesCreated as AttendeesCreatedNotification;
 use Jano\Repositories\HelperRepository as Helper;
 
 class AttendeeRepository implements AttendeeContract
@@ -116,6 +117,9 @@ class AttendeeRepository implements AttendeeContract
 
         DB::commit();
 
+        if ($frontend) {
+            $user->notify(new AttendeesCreatedNotification($user->account(), $return));
+        }
         event(new AttendeesCreated($user, $return));
 
         return $return;
