@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -27,6 +28,7 @@ use Jano\Events\TransferRequestProcessed;
 use Jano\Models\Attendee;
 use Jano\Models\Charge;
 use Jano\Models\TransferRequest;
+use Jano\Models\User;
 
 class TransferRequestRepository implements TransferRequestContract
 {
@@ -112,20 +114,34 @@ class TransferRequestRepository implements TransferRequestContract
      */
     public function getPending()
     {
-        return TransferRequest::where('processed', false)
-            ->whereHas('charge', function ($query) {
-                $query->where('paid', true);
-            })->all();
+        return TransferRequest::where(function ($query) {
+            return $query->where('processed', false)
+                ->where('primary_ticket_holder', false)
+                ->whereHas('charge', function ($query) {
+                    $query->where('paid', true);
+                });
+        })->orWhere(function ($query) {
+            return $query->where('processed', false)
+                ->where('primary_ticket_holder', true)
+                ->whereHas('new_user')
+                ->whereHas('charge', function ($query) {
+                    return $query->where('paid', true);
+                });
+        })->all();
     }
 
-    public function associateNew(TransferRequest $request, Attendee $attendee)
+    /**
+     * @inheritdoc
+     * @throws \InvalidArgumentException
+     */
+    public function associateNewUser(TransferRequest $request, User $user)
     {
         if ($request->processed) {
-            throw new InvalidArgumentException('A new attendee cannot be associated with a processed transfer '
+            throw new InvalidArgumentException('A new user cannot be associated with a processed transfer '
                 . 'request.');
         }
 
-        $request->newAttendee()->associate($attendee);
+        $request->newUser()->associate($user);
         $request->save();
 
         return $request;
@@ -135,7 +151,7 @@ class TransferRequestRepository implements TransferRequestContract
      * @inheritdoc
      * @throws \InvalidArgumentException
      */
-    public function process(TransferRequest $request)
+    public function markAsProcessed(TransferRequest $request)
     {
         if ($request->processed) {
             throw new InvalidArgumentException('The transfer request has already been processed.');
@@ -156,8 +172,8 @@ class TransferRequestRepository implements TransferRequestContract
      */
     public function destroy(TransferRequest $request)
     {
-        if ($request->processed) {
-            throw new InvalidArgumentException('The transfer request has already been processed.');
+        if (!$request || $request->processed) {
+            throw new InvalidArgumentException('The transfer request selected is invalid.');
         }
 
         $request->delete();

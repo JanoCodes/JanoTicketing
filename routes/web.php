@@ -61,6 +61,7 @@ Route::group([
     Route::resource('payments', 'PaymentController');
     Route::resource('transfers', 'TransferRequestController');
     Route::resource('requests', 'TicketRequestController');
+    Route::resource('jobs', 'JobController')->only(['store']);
     Route::resource('staff', 'StaffController');
     Route::get('settings', 'SettingController@index')->name('settings.index');
     Route::put('settings', 'SettingController@update')->name('settings.update');

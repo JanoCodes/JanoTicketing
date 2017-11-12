@@ -5,7 +5,17 @@
 @section('content')
 <div id="data">
     <div class="actions grid-x">
-        <div class="small-12 medium-offset-6 medium-6 large-offset-8 large-4 cell">
+        <div class="small-12 medium-6 large-8 cell">
+            <form method="POST" action="{{ route('backend.jobs.store') }}">
+                {{ csrf_field() }}
+                <input type="hidden" name="type" value="command">
+                <input type="hidden" name="value" value="transfers:process">
+                <button type="submit" class="button hollow">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.process_transfers') }}
+                </button>
+            </form>
+        </div>
+        <div class="small-12 medium-6 large-4 cell">
             <div class="input-group">
                 <input type="text" v-model="filterText" class="input-group-field" @keydown="doFilter"
                        placeholder="{{ __('system.search') }}">

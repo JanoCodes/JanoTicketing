@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -73,8 +74,9 @@ interface TransferRequestContract
      *
      * @param \Jano\Models\TransferRequest $request
      * @return \Jano\Models\TransferRequest
+     * @internal param \Jano\Contracts\AttendeeContract $attendeeContract
      */
-    public function process(TransferRequest $request);
+    public function markAsProcessed(TransferRequest $request);
 
     /**
      * Destroy the transfer request instance.

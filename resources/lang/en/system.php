@@ -84,6 +84,8 @@ return [
     'import_entries' => 'Import Entries',
     'internal_reference' => 'Internal Reference',
     'jano_ticketing_system' => 'Jano Ticketing System',
+    'job_successfully_queued' => 'The job has been successfully queued. You will be notified when it has been'
+        . ' successfully processed.',
     'last_name' => 'Last Name',
     'location_name' => 'Location Name',
     'login' => 'Login',
@@ -114,6 +116,7 @@ return [
     'phone' => 'Phone Number',
     'price' => 'Price',
     'primary_ticket_holder' => 'Primary ticket holder',
+    'process_transfers' => 'Process pending transfers',
     'processing_order_title' => 'Processing Order',
     'processing_order_message' => 'We are currently processing your order. Please do not refresh this window. You will '
         . 'be redirected automatically when your order is confirmed.',

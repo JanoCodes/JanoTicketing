@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,7 +24,7 @@ namespace Jano\Console\Commands;
 use Illuminate\Console\Command;
 use Jano\Contracts\AttendeeContract;
 use Jano\Contracts\TransferRequestContract;
-use Jano\Models\TransferRequest;
+use Jano\Jobs\ProcessTransferRequests as Job;
 
 class ProcessTransferRequests extends Command
 {
@@ -42,7 +43,7 @@ class ProcessTransferRequests extends Command
      *
      * @var string
      */
-    protected $signature = 'transfer:process';
+    protected $signature = 'transfers:process';
 
     /**
      * The console command description.
@@ -69,19 +70,6 @@ class ProcessTransferRequests extends Command
      */
     public function handle()
     {
-        $transfers = $this->transfer->getPending();
-
-        foreach ($transfers as $transfer) {
-            $old_attendee = $transfer->attendee();
-
-            $new_attendee = $this->attendee->store($transfer->user(), $old_attendee->ticket(), collect([
-                'title' => $transfer->title,
-                'first_name' => $transfer->first_name,
-                'last_name' => $transfer->last_name
-            ]));
-            $this->transfer->associateNew($new_attendee);
-
-            $this->transfer->process($transfer);
-        }
+        Job::dispatch($this->transfer, $this->attendee);
     }
 }

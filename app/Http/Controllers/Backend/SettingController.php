@@ -39,6 +39,8 @@ class SettingController extends Controller
         'event.name',
         'event.date.from',
         'event.date.to',
+        'event.location.lat',
+        'event.location.long',
         'payment.currency',
         'payment.deadline',
         'terms'
@@ -72,6 +74,8 @@ class SettingController extends Controller
     {
         return Validator::make($data, [
             'event.date.*' => 'date',
+            'event.location.lat' => 'numeric|between:-90,90',
+            'event.location.long' => 'numeric|between:-180,180',
             'payment.deadline' => 'integer|min:0'
         ]);
     }

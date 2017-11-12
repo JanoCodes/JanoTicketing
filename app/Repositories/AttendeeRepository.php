@@ -66,29 +66,41 @@ class AttendeeRepository implements AttendeeContract
         $frontend = true
     ) {
         $tickets = Ticket::all();
-
-        $amount = 0;
-
-        foreach ($tickets as $ticket_type) {
-            $amount += Helper::getUserPrice($ticket_type->price, $user, false) *
-                $attendees->where('ticket_id', $ticket_type['id'])->count();
-        }
-
         $account = $user->account()->first();
 
-        DB::beginTransaction();
+        if ($frontend) {
+            $amount = 0;
 
-        $charge_created = $this->charge->store($account, [
-            'amount' => $amount,
-            'description' => trans_choice(
-                'system.ticket_order_for_attendee',
-                $attendees->count(),
-                ['count' => $attendees->count()]
-            )
-        ]);
+            foreach ($tickets as $ticket_type) {
+                $amount += Helper::getUserPrice($ticket_type->price, $user, false) *
+                    $attendees->where('ticket_id', $ticket_type['id'])->count();
+            }
 
-        $account->amount_due += $amount;
-        $account->save();
+            DB::beginTransaction();
+
+            $charge_created = $this->charge->store($account, [
+                'amount' => $amount,
+                'description' => trans_choice(
+                    'system.ticket_order_for_attendee',
+                    $attendees->count(),
+                    ['count' => $attendees->count()]
+                )
+            ]);
+
+            $account->amount_due += $amount;
+            $account->save();
+        } else {
+            DB::beginTransaction();
+
+            $charge_created = $this->charge->store($account, [
+                'amount' => 0,
+                'description' => trans_choice(
+                    'system.ticket_order_for_attendee',
+                    $attendees->count(),
+                    ['count' => $attendees->count()]
+                )
+            ]);
+        }
 
         $return = collect();
 

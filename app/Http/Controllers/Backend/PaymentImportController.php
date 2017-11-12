@@ -120,7 +120,7 @@ class PaymentImportController extends Controller
      * Dispatch job for payment import.
      *
      * @param string|\SplFileObject $file
-     * @param array $definition
+     * @param array|\Illuminate\Support\Collection $definition
      */
     protected function dispatchJob($file, $definition)
     {
