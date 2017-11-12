@@ -7,7 +7,8 @@
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -53,13 +54,20 @@ interface TicketRequestContract
     public function update(TicketRequest $request, $data);
 
     /**
+     * Retrieve a collection of pending ticket requests.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getPending();
+
+    /**
      * Mark the ticket request instance as honoured.
      *
      * @param \Jano\Models\TicketRequest $request
      * @param \Jano\Models\Attendee $attendee
      * @return \Jano\Models\TicketRequest
      */
-    public function honour(TicketRequest $request, Attendee $attendee);
+    public function markAsHonoured(TicketRequest $request, Attendee $attendee);
 
     /**
      * Destroy the ticket request instance.
