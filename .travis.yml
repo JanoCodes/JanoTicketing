@@ -25,11 +25,18 @@ matrix:
       env: setup=lowest
     - php: 7.0
       env: setup=stable
+    - php: 7.1
+      env: setup=lowest
+    - php: 7.1
+      env: setup=stable
+    - php: 7.2
+      env: setup=lowest
+    - php: 7.2
+      env: setup=stable
 
 before_install:
-  - if [[ $TRAVIS_PHP_VERSION != 7.1 ]] ; then phpenv config-rm xdebug.ini; fi
+  - if [[ $TRAVIS_PHP_VERSION != 7.1 || $TRAVIS_PHP_VERSION != 7.2 ]] ; then phpenv config-rm xdebug.ini; fi
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - pecl install -f redis
   - travis_retry composer self-update
   - mysql -e 'CREATE DATABASE IF NOT EXISTS travis;'
 
@@ -42,9 +49,6 @@ install:
   - travis_retry php artisan migrate --seed
 
 script: vendor/bin/phpunit
-
-after_success:
-  - vendor/bin/test-reporter
 
 addons:
   code_climate:
