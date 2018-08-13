@@ -1,6 +1,6 @@
 <?php
 
-namespace $NAMESPACE$;
+namespace $MODULE_NAMESPACE$\$MODULE$\Console\Command;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;

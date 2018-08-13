@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -26,7 +26,6 @@ use Illuminate\Http\Request;
 use Jano\Contracts\AttendeeContract;
 use Jano\Contracts\ChargeContract;
 use Jano\Contracts\TicketContract;
-use Jano\Contracts\TransferRequestContract;
 use Jano\Contracts\UserContract;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
@@ -56,32 +55,24 @@ class AttendeeController extends Controller
     protected $charge;
 
     /**
-     * @var \Jano\Contracts\TransferRequestContract
-     */
-    protected $transfer;
-
-    /**
      * AttendeeController constructor.
      *
      * @param \Jano\Contracts\UserContract $user
      * @param \Jano\Contracts\TicketContract $ticket
      * @param \Jano\Contracts\AttendeeContract $attendee
      * @param \Jano\Contracts\ChargeContract $charge
-     * @param \Jano\Contracts\TransferRequestContract $transfer
      */
     public function __construct(
         UserContract $user,
         TicketContract $ticket,
         AttendeeContract $attendee,
-        ChargeContract $charge,
-        TransferRequestContract $transfer
+        ChargeContract $charge
     ) {
         $this->middleware(['auth']);
         $this->user = $user;
         $this->ticket = $ticket;
         $this->attendee = $attendee;
         $this->charge = $charge;
-        $this->transfer = $transfer;
     }
 
     /**
@@ -211,33 +202,6 @@ class AttendeeController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
-        ]);
-    }
-
-    /**
-     * Store a newly created ticket transfer request instance.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Jano\Models\Attendee $attendee
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function update(Request $request, Attendee $attendee)
-    {
-        $this->authorize('update', $attendee);
-
-        $this->storeValidator($request->all());
-
-        $user = $request->user();
-
-        $charge = $this->charge->store($user->account(), [
-            'amount' => Setting::get('transfer.fee'),
-            'description' => ucfirst(strtolower(__('system.ticket_transfer_request')))
-        ]);
-        $transfer_request = $this->transfer->store($user, $charge, $request->all());
-
-        return view('transfer.store', [
-            'transfer_store' => $transfer_request,
         ]);
     }
 

@@ -3,6 +3,12 @@
     "description": "Jano Ticketing System",
     "keywords": ["php", "mysql", "redis", "event-ticketing"],
     "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Andrew Ying",
+            "email": "hi@andrewying.com"
+        }
+    ],
     "type": "project",
     "require": {
         "php": ">=7.0.0",
@@ -37,11 +43,11 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "modules"
         ],
         "psr-4": {
-            "Jano\\": "app/",
-            "Jano\\Modules\\": "modules/"
+            "Jano\\": "app/"
         }
     },
     "autoload-dev": {

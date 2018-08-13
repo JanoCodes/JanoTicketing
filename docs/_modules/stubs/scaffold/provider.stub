@@ -1,6 +1,6 @@
 <?php
 
-namespace $NAMESPACE$;
+namespace $MODULE_NAMESPACE$\$MODULE$\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
@@ -15,6 +15,13 @@ class $CLASS$ extends ServiceProvider
     protected $defer = false;
 
     /**
+     * Binding of implementations to abstracts.
+     *
+     * @var array
+     */
+    protected $implementations = [];
+
+    /**
      * Boot the application events.
      *
      * @return void
@@ -22,10 +29,11 @@ class $CLASS$ extends ServiceProvider
     public function boot()
     {
         $this->registerTranslations();
+        $this->registerBindings();
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
-        $this->loadMigrationsFrom(__DIR__ . '/../$MIGRATIONS_PATH$');
+        $this->loadMigrationsFrom(__DIR__ . '/../../$MIGRATIONS_PATH$');
     }
 
     /**
@@ -38,6 +46,20 @@ class $CLASS$ extends ServiceProvider
         //
     }
 
+    /*
+     * Registers the repositories used for the application.
+     *
+     * @return void
+     */
+    protected function registerBindings()
+    {
+        foreach ($this->implementations as $abstract => $implementation) {
+            $this->app->bind($abstract, function ($app) use ($implementation) {
+                return new $implementation();
+            });
+        }
+    }
+
     /**
      * Register config.
      *
@@ -46,10 +68,10 @@ class $CLASS$ extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../$PATH_CONFIG$/config.php' => config_path('$LOWER_NAME$.php'),
+            __DIR__.'/../../$PATH_CONFIG$/config.php' => config_path('$LOWER_NAME$.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../$PATH_CONFIG$/config.php', '$LOWER_NAME$'
+            __DIR__.'/../../$PATH_CONFIG$/config.php', '$LOWER_NAME$'
         );
     }
 
@@ -62,7 +84,7 @@ class $CLASS$ extends ServiceProvider
     {
         $viewPath = resource_path('views/modules/$LOWER_NAME$');
 
-        $sourcePath = __DIR__.'/../$PATH_VIEWS$';
+        $sourcePath = __DIR__.'/../../$PATH_VIEWS$';
 
         $this->publishes([
             $sourcePath => $viewPath
@@ -85,7 +107,7 @@ class $CLASS$ extends ServiceProvider
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, '$LOWER_NAME$');
         } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../$PATH_LANG$', '$LOWER_NAME$');
+            $this->loadTranslationsFrom(__DIR__ .'/../../$PATH_LANG$', '$LOWER_NAME$');
         }
     }
 

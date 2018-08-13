@@ -1,0 +1,27 @@
+{
+    "name": "jano-may-ball/transfer-request",
+    "description": "",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Andrew Ying",
+            "email": "andrew@janoticketing.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jano\\Modules\\TransferRequest\\Providers\\ModuleServiceProvider",
+                "Jano\\Modules\\TransferRequest\\Providers\\RouteServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Jano\\Modules\\TransferRequest\\": "src/"
+        }
+    }
+}

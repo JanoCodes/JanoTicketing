@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -24,8 +24,6 @@ namespace Jano\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Jano\Contracts\GroupContract;
-use Jano\Repositories\GroupRepository;
 use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Spatie\Menu\Laravel\Facades\Menu;
 use Jano\Socialite\OauthProvider;
@@ -45,8 +43,6 @@ class AppServiceProvider extends ServiceProvider
         \Jano\Contracts\PaymentContract::class => \Jano\Repositories\PaymentRepository::class,
         \Jano\Contracts\TicketContract::class => \Jano\Repositories\TicketRepository::class,
         \Jano\Contracts\StaffContract::class => \Jano\Repositories\StaffRepository::class,
-        \Jano\Contracts\TicketRequestContract::class => \Jano\Repositories\TicketRequestRepository::class,
-        \Jano\Contracts\TransferRequestContract::class => \Jano\Repositories\TransferRequestRepository::class,
         \Jano\Contracts\CollectionContract::class => \Jano\Repositories\CollectionRepository::class,
     ];
 
@@ -80,8 +76,6 @@ class AppServiceProvider extends ServiceProvider
                ->action('Backend\AttendeeController@index', __('system.attendees'))
                ->action('Backend\TicketController@index', __('system.types'))
                ->action('Backend\PaymentController@index', __('system.payments'))
-               ->action('Backend\TransferRequestController@index', __('system.ticket_transfer_request'))
-               ->action('Backend\TicketRequestController@index', __('system.waiting_list'))
                ->action('Backend\StaffController@index', __('system.staff'))
                ->action('Backend\SettingController@index', __('system.settings'))
                ->action('Backend\HomeController@about', __('system.about'))

@@ -35,9 +35,3 @@ Jano Ticketing System is distributed in the hope that it will be useful, but **W
 
 ## Credits
 The Jano Ticketing System is not possible without the presence of numerous other project which are listed [here](CREDITS.md). 
-
-We also thank the following sponsors for their help in funding the ongoing development of the Jano Ticketing System.
-
-| Supported by |
-| --- |
-| <a href="https://www.digitalocean.com" target="_blank" alt="DigitalOcean"><img src="https://www.digitalocean.com/assets/media/logos-badges/png/DO_Logo_Horizontal_Blue-3db19536.png" width="150px"></a> |

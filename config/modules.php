@@ -26,16 +26,14 @@ return [
         'enabled' => false,
         'path' => base_path() . '/docs/_modules/stubs',
         'files' => [
-            'start' => 'start.php',
-            'routes' => 'Http/routes.php',
-            'views/index' => 'Resources/views/index.blade.php',
-            'views/master' => 'Resources/views/layouts/master.blade.php',
-            'scaffold/config' => 'Config/config.php',
+            'routes' => 'routes/web.php',
+            'route-provider' => 'src/Providers/RouteServiceProvider.php',
+            'scaffold/config' => 'config/config.php',
             'composer' => 'composer.json',
         ],
         'replacements' => [
-            'start' => ['LOWER_NAME', 'ROUTES_LOCATION'],
             'routes' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'routes-provider' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
             'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
             'views/index' => ['LOWER_NAME'],
             'views/master' => ['STUDLY_NAME'],
@@ -51,6 +49,7 @@ return [
         ],
     ],
     'paths' => [
+
         /*
         |--------------------------------------------------------------------------
         | Modules path
@@ -62,6 +61,7 @@ return [
         */
 
         'modules' => base_path('modules'),
+
         /*
         |--------------------------------------------------------------------------
         | Modules assets path
@@ -72,6 +72,7 @@ return [
         */
 
         'assets' => public_path('modules'),
+
         /*
         |--------------------------------------------------------------------------
         | The migrations path
@@ -83,6 +84,7 @@ return [
         */
 
         'migration' => base_path('database/migrations'),
+
         /*
         |--------------------------------------------------------------------------
         | Generator path
@@ -90,6 +92,7 @@ return [
         | Customise the paths where the folders will be generated.
         | Se the generate key to false to not generate that folder
         */
+
         'generator' => [
             'config' => ['path' => 'config', 'generate' => true],
             'command' => ['path' => 'src/Console', 'generate' => true],
@@ -101,7 +104,7 @@ return [
             'filter' => ['path' => 'src/Http/Middleware', 'generate' => true],
             'request' => ['path' => 'src/Http/Requests', 'generate' => true],
             'provider' => ['path' => 'src/Providers', 'generate' => true],
-            'assets' => ['path' => 'src/Resources/assets', 'generate' => true],
+            'assets' => ['path' => 'src/Resources/assets', 'generate' => false],
             'lang' => ['path' => 'resources/lang', 'generate' => true],
             'views' => ['path' => 'resources/views', 'generate' => true],
             'test' => ['path' => 'tests', 'generate' => true],
@@ -112,10 +115,11 @@ return [
             'rules' => ['path' => 'src/Rules', 'generate' => false],
             'jobs' => ['path' => 'src/Jobs', 'generate' => false],
             'emails' => ['path' => 'src/Emails', 'generate' => false],
-            'notifications' => ['path' => 'src/Notifications', 'generate' => false],
+            'notifications' => ['path' => 'src/Notifications', 'generate' => true],
             'resource' => ['path' => 'src/Transformers', 'generate' => false],
         ],
     ],
+
     /*
     |--------------------------------------------------------------------------
     | Scan Path
@@ -145,9 +149,10 @@ return [
         'vendor' => 'jano-may-ball',
         'author' => [
             'name' => 'Andrew Ying',
-            'email' => 'andrew@janoticketing.com',
+            'email' => 'hi@andrewying.com',
         ],
     ],
+
     /*
     |--------------------------------------------------------------------------
     | Caching
@@ -156,11 +161,13 @@ return [
     | Here is the config for setting up caching feature.
     |
     */
+
     'cache' => [
         'enabled' => false,
         'key' => 'modules',
         'lifetime' => 60,
     ],
+
     /*
     |--------------------------------------------------------------------------
     | Choose what laravel-modules will register as custom namespaces.
@@ -168,6 +175,7 @@ return [
     | in your own Service Provider class.
     |--------------------------------------------------------------------------
     */
+
     'register' => [
         'translations' => true,
     ],

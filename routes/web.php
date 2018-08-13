@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -36,12 +36,6 @@ Route::get('/', 'HomeController@index');
 Route::get('event', 'EventController@show');
 Route::get('account', 'AccountController@view')->name('accounts.view');
 Route::resource('attendees', 'AttendeeController', ['except' => ['list', 'view']]);
-Route::resource('requests', 'TicketRequestController');
-Route::resource('transfers', 'TransferRequestController');
-Route::get('transfers/{transfer}/confirm/{token}', 'ConfirmedTransferRequestController@store')
-    ->name('transfers.confirm');
-Route::get('transfers/{transfer}/associate', 'ConfirmedTransferRequestController@update')
-    ->name('transfers.associate');
 
 Route::group([
     'namespace' => 'Backend',
@@ -59,8 +53,6 @@ Route::group([
     Route::post('payments/import', 'PaymentImportController@store')->name('paymentimports.store');
     Route::put('payments/import', 'PaymentImportController@update')->name('paymentimports.update');
     Route::resource('payments', 'PaymentController');
-    Route::resource('transfers', 'TransferRequestController');
-    Route::resource('requests', 'TicketRequestController');
     Route::resource('jobs', 'JobController')->only(['store']);
     Route::resource('staff', 'StaffController');
     Route::get('settings', 'SettingController@index')->name('settings.index');

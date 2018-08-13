@@ -1,6 +1,6 @@
 <?php
 
-namespace $CLASS_NAMESPACE$;
+namespace $MODULE_NAMESPACE$\$MODULE$\Http\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
