@@ -31,7 +31,7 @@ class UserDatabaseSeeder extends Seeder
             $group = Group::inRandomOrder()->first();
 
             $user = new User();
-            $user->title = $faker->title;
+            $user->title = str_replace('.', '', $faker->title);
             $user->first_name = $faker->firstName;
             $user->last_name = $faker->lastName;
             $user->email = $j === 0 ? 'user@example.com' : $faker->unique()->safeEmail;

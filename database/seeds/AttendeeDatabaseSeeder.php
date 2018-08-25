@@ -65,7 +65,7 @@ class AttendeeDatabaseSeeder extends Seeder
                     $attendee->ticket()->associate($ticket);
                     $attendee->charge()->associate($charge);
                     $attendee->uuid = Helper::generateUuid();
-                    $attendee->title = $j === 0 ? $user->title : $faker->title;
+                    $attendee->title = $j === 0 ? $user->title : str_replace('.', '', $faker->title);
                     $attendee->first_name = $j === 0 ? $user->first_name : $faker->firstName;
                     $attendee->last_name = $j === 0 ? $user->last_name : $faker->lastName;
                     $attendee->email = $j === 0 ? $user->email : $faker->unique()->safeEmail;
