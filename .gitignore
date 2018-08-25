@@ -1,6 +1,7 @@
 /node_modules
 /docs/_api
 /docs/_build
+/modules/*/vendor
 /public/css
 /public/fonts
 /public/images
