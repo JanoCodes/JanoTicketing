@@ -11,26 +11,26 @@
     ],
     "type": "project",
     "require": {
-        "php": ">=7.0.0",
-        "barryvdh/laravel-dompdf": "^0.8.0",
-        "erusev/parsedown": "^1.6",
-        "fideloper/proxy": "~3.3",
+        "php": ">=7.1.0",
+        "arrilot/laravel-widgets": "^3.12",
+        "barryvdh/laravel-dompdf": "^0.8",
+        "erusev/parsedown": "^1.7",
+        "fideloper/proxy": "^3.3",
         "guzzlehttp/guzzle": "^6.2",
-        "hashids/hashids": "^2.0",
-        "jano-may-ball/cacheable": "dev-master",
+        "hashids/hashids": "^3.0",
         "jano-may-ball/settings": "dev-master",
         "laravel/framework": "5.5.*",
-        "laravel/socialite": "^3.0",
-        "laravel/tinker": "~1.0",
-        "league/csv": "^9.0",
-        "nwidart/laravel-modules": "^2.5",
+        "laravel/socialite": "^3.1",
+        "laravel/tinker": "^1.0",
+        "league/csv": "^9.1",
+        "nwidart/laravel-modules": "^2.7",
         "owen-it/laravel-auditing": "^4.1",
-        "predis/predis": "^1.1.0",
-        "propaganistas/laravel-phone": "^2.8",
-        "spatie/laravel-menu": "^3.0"
+        "predis/predis": "^1.1",
+        "propaganistas/laravel-phone": "^4.0",
+        "spatie/laravel-menu": "^3.1"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.3",
+        "barryvdh/laravel-ide-helper": "^2.4",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
@@ -45,6 +45,9 @@
             "database/seeds",
             "database/factories",
             "modules"
+        ],
+        "exclude-from-classmap": [
+            "modules/*/vendor/**"
         ],
         "psr-4": {
             "Jano\\": "app/"
@@ -76,6 +79,7 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "classmap-authoritative": true
     }
 }

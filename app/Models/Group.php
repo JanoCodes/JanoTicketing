@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -22,7 +22,6 @@
 namespace Jano\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Jano\Cacheable\Eloquent\CanCache;
 use Setting;
 
 /**
@@ -39,8 +38,6 @@ use Setting;
  */
 class Group extends Model
 {
-    use CanCache;
-
     /**
      * The array of attributes which should be appended to the model.
      *
@@ -59,8 +56,6 @@ class Group extends Model
     public function __construct()
     {
         parent::__construct();
-
-        $this->expire = -1;
     }
 
     /**
