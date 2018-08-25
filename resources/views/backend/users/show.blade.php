@@ -207,7 +207,7 @@
 @push('scripts')
     <script type="text/html" id="attendee-details">
         <div class="reveal" id="details-modal" data-reveal>
-            <h3><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
+            <h3><i class="fas fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
             <form method="POST" data-abide novalidate>
                 @include('partials.error')
                 <div class="grid-x grid-padding-x vuetable-form">

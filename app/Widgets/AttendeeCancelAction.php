@@ -1,4 +1,5 @@
-/*
+<?php
+/**
  * Jano Ticketing System
  * Copyright (C) 2016-2018 Andrew Ying
  *
@@ -18,21 +19,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require('./bootstrap');
+namespace Jano\Widgets;
 
-window.Vuex = require('vuex');
+use Arrilot\Widgets\AbstractWidget;
 
-import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue';
-import vSelect from 'vue-select';
+class AttendeeCancelAction extends AbstractWidget
+{
+    /**
+     * The configuration array.
+     *
+     * @var array
+     */
+    protected $config = [
+        'attendee' => null
+    ];
 
-Vue.component("vuetable", Vuetable);
-Vue.component("vuetable-pagination", require('./components/VuetablePagination.vue'));
-Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
-Vue.component("v-select", vSelect);
-
-window.Dropzone = require('dropzone');
-window.flatpickr = require('flatpickr');
-window.Quill = require('quill');
-
-$(document).foundation();
+    /**
+     * Treat this method as a controller action.
+     * Return view() or other content to display.
+     */
+    public function run()
+    {
+        return view('widgets.attendee_cancel_action', [
+            'attendee' => $this->config['attendee'],
+        ]);
+    }
+}

@@ -57,11 +57,11 @@ class AppServiceProvider extends ServiceProvider
             $authenticated = Auth::check();
 
             return Menu::new()
-                ->action('HomeController@index', __('system.home'))
+                ->link('/', __('system.home'))
                 ->htmlIf(!$authenticated, '<a href="#" data-open="login-modal">'
                     . __('system.login') . __('system.slash') . __('system.register')
                     . '</a>')
-                ->actionIf($authenticated, 'AccountController@view', __('system.account'))
+                ->linkIf($authenticated, '/account', __('system.account'))
                 ->htmlIf($authenticated, '<form method="post" action="' . url('logout') . '">'
                     . csrf_field() . '<button type="submit" class="clear button">'
                     . __('system.logout') . '</button></form>')
@@ -70,15 +70,15 @@ class AppServiceProvider extends ServiceProvider
 
         Menu::macro('backend', function () {
             return Menu::new()
-               ->action('Backend\HomeController@index', __('system.home'))
-               ->action('Backend\UserController@index', __('system.users'))
-               ->action('Backend\GroupController@index', __('system.groups'))
-               ->action('Backend\AttendeeController@index', __('system.attendees'))
-               ->action('Backend\TicketController@index', __('system.types'))
-               ->action('Backend\PaymentController@index', __('system.payments'))
-               ->action('Backend\StaffController@index', __('system.staff'))
-               ->action('Backend\SettingController@index', __('system.settings'))
-               ->action('Backend\HomeController@about', __('system.about'))
+               ->link('/admin', __('system.home'))
+               ->link('/admin/users', __('system.users'))
+               ->link('/admin/groups', __('system.groups'))
+               ->link('/admin/attendees', __('system.attendees'))
+               ->link('/admin/tickets', __('system.types'))
+               ->link('/admin/payments', __('system.payments'))
+               ->link('/admin/staffs', __('system.staff'))
+               ->link('/admin/settings', __('system.settings'))
+               ->link('/admin/about', __('system.about'))
                ->setActiveFromRequest('/admin');
         });
 

@@ -18,10 +18,10 @@
                     {{ Setting::get('event.location.name') }}
                     <div class="event-map" id="map">
                         <iframe width="100%" height="100%" frameborder="0" style="border:0"
-                            src="https://www.google.com/maps/embed/v1/view?key=
-                            {{ Setting::get('system.google_maps_key') }}&center=
-                            {{ Setting::get('system.location.lat') . ',' . Setting::get('system.location.long') }}
-                            &zoom=12">
+                            src="https://www.google.com/maps/embed/v1/view?key={{
+                            Setting::get('system.google_maps_key') }}&center={{
+                            Setting::get('event.location.lat') . ',' .
+                            Setting::get('event.location.long') }}&zoom=12">
                         </iframe>
                     </div>
                 </div>
@@ -91,15 +91,13 @@
                 }
             }
 
-            onUpdateQuantity();
-
             $('input#tickets').on('change', function() {
                 onUpdateQuantity();
             });
 
             $('[data-quantity="plus"]').click(function(e){
                 e.preventDefault();
-                var currentVal = parseInt($(this).closest('.input-group').find('input').val());
+                let currentVal = parseInt($(this).closest('.input-group').find('input').val());
                 if (!isNaN(currentVal)) {
                     $(this).closest('.input-group').find('input').val(currentVal + 1);
                     onUpdateQuantity();
@@ -109,7 +107,7 @@
             });
             $('[data-quantity="minus"]').click(function(e) {
                 e.preventDefault();
-                var currentVal = parseInt($(this).closest('.input-group').find('input').val());
+                let currentVal = parseInt($(this).closest('.input-group').find('input').val());
                 if (!isNaN(currentVal) && currentVal > 0) {
                     $(this).closest('.input-group').find('input').val(currentVal - 1);
                     onUpdateQuantity();

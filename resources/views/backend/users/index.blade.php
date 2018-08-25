@@ -20,10 +20,10 @@
         <template slot="actions" scope="props">
             <div class="table-actions">
                 <a class="button small primary" :href="'{{ url('admin/users') }}/' + props.rowData.id">
-                    <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                 </a>
                 <button class="button small warning" @click="editItem(props.rowData)">
-                    <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
                 </button>
             </div>
         </template>
@@ -45,7 +45,7 @@
 @push('scripts')
 <script type="text/html" id="details">
     <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
+        <h3><i class="fas fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
         <form method="POST" data-abide novalidate>
             @include('partials.error')
             <div class="grid-x grid-padding-x vuetable-form">

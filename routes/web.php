@@ -54,7 +54,7 @@ Route::group([
     Route::put('payments/import', 'PaymentImportController@update')->name('paymentimports.update');
     Route::resource('payments', 'PaymentController');
     Route::resource('jobs', 'JobController')->only(['store']);
-    Route::resource('staff', 'StaffController');
+    Route::resource('staffs', 'StaffController');
     Route::get('settings', 'SettingController@index')->name('settings.index');
     Route::put('settings', 'SettingController@update')->name('settings.update');
 });

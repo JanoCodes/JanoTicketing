@@ -108,7 +108,12 @@ class AttendeeController extends Controller
             }
 
             $request->session()->put('reservation', $result);
-        } elseif (time() > $reservation['time']) {
+            $request->session()->reflash();
+
+            return redirect('attendees/create');
+        }
+
+        if (time() > $reservation['time']) {
             $request->session()->pull('reservation');
 
             return redirect('event')->with('alert', __('system.reservation_expired'));
@@ -116,9 +121,9 @@ class AttendeeController extends Controller
 
         return view('attendees.create', [
             'tickets' => Ticket::all(),
-            'reserved' => isset($result) ? $result['reserved'] : $reservation['reserved'],
-            'time' => isset($result) ? $result['time'] : $reservation['time'],
-            'state' => isset($result) ? $result['state'] : null
+            'reserved' => $reservation['reserved'],
+            'time' => $reservation['time'],
+            'state' => $reservation['state']
         ]);
     }
 
@@ -171,38 +176,6 @@ class AttendeeController extends Controller
             $user,
             collect($request->input('attendees'))
         );
-    }
-
-    /**
-     * Render the create ticket transfer request page.
-     *
-     * @param \Jano\Models\Attendee $attendee
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function edit(Attendee $attendee)
-    {
-        $this->authorize('update', $attendee);
-
-        return view('transfers.create', [
-            'attendee' => $attendee
-        ]);
-    }
-
-    /**
-     * Get a validator for a newly created ticket transfer request.
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function updateValidator($data)
-    {
-        return Validator::make($data, [
-            'title' => 'required|in:' . implode(',', __('system.titles')),
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-        ]);
     }
 
     /**

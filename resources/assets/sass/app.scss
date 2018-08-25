@@ -1,5 +1,5 @@
 // Jano Ticketing System
-// Copyright (C) 2016-2017 Andrew Ying
+// Copyright (C) 2016-2018 Andrew Ying
 //
 // This file is part of Jano Ticketing System.
 //
@@ -25,9 +25,6 @@
 // Foundation
 @import '~foundation-sites/scss/foundation';
 @include foundation-everything;
-
-// Font Awesome
-@import '~font-awesome/scss/font-awesome';
 
 .page-container {
   min-height: 100%;
@@ -251,6 +248,11 @@ label {
     .progress-meter {
       background-color: $dark-gray;
     }
+  }
+
+  .sidebar {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .total-price {

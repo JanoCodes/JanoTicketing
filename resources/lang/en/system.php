@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -25,7 +25,7 @@ return [
      * System Languages
      */
     'about' => 'About',
-    'about_copyright' => '&copy; Andrew Ying and contributors 2016-17.',
+    'about_copyright' => '&copy; Andrew Ying and contributors 2016-18.',
     'about_license' => 'Jano Ticketing System is free software: you can redistribute it and/or modify it'
         . ' under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank"'
         . '>GNU General Public License v3.0</a>. You <b>must</b> preserve all legal notices and author '
@@ -49,7 +49,7 @@ return [
     'collection_edit' => 'Edit Proxy Information',
     'confirm_password' => 'Confirm Password',
     'continue' => 'Continue',
-    'copyright' => 'Copyright &copy; Andrew Ying 2016-17. Licensed under the '
+    'copyright' => 'Copyright &copy; Andrew Ying 2016-18. Licensed under the '
         . '<a href="https://github.com/jano-may-ball/ticketing/blob/master/LICENSE.md" target="_blank">'
         . 'GNU General Public License v3.0</a>.',
     'currency' => 'Currency',
@@ -139,9 +139,12 @@ return [
         . 'entry are supplied below for your reference. You would be notified via email should a ticket becomes '
         . 'available.',
     'request_edit' => 'Edit Waiting List Entry',
-    'reservation_expired' => '<strong>Ticket Reservation Expired</strong><br />The tickets reservation'
-        . ' has expired and the tickets have been released. Please try again if you still want tickets'
-        . ' for the event.',
+    'reservation_expiring_popup' => '-!- Reservation Expiring',
+    'reservation_expiring_title' => 'Ticket Reservation Expiring',
+    'reservation_expiring_message' => 'Your ticket reservation is expiring in the next few minutes. Please complete '
+        . 'the ticket order as soon as possible. Otherwise the tickets reserved will be released.',
+    'reservation_expired' => '<strong>Ticket Reservation Expired</strong><br />The ticket reservation has expired and '
+        . 'the tickets have been released. Please try again if you still want tickets for the event.',
     'reset' => 'Reset',
     'reset_password' => 'Reset Password',
     'right_to_buy' => 'Right to Buy',

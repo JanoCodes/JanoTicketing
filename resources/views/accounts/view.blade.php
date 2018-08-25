@@ -24,123 +24,46 @@
             </tr>
             </thead>
             @forelse ($user->attendees()->get() as $attendee)
-            <tr>
-                <td>
-                    <strong>{{ $attendee->title }} {{ $attendee->first_name }} {{ $attendee->last_name }}</strong>
-                </td>
-                <td>
-                    <strong>{{ $attendee->ticket->name }}</strong><br />
-                    <small>
-                        {{ \Jano\Repositories\HelperRepository::getUserPrice($attendee->ticket->price, $user) }}
-                    </small>
-                </td>
-                <td>
-                    <a class="button tiny warning" href="{{ route('attendees.edit', ['attendee' => $attendee]) }}">
-                        {{ __('system.transfer_create') }}
-                    </a>
-                    @if (!$attendee->paid)
-                    <button type="button" class="button tiny danger cancel-ticket" data-cancel
-                        data-cancel-object="attendees" data-cancel-object-id="{{ $attendee->id }}">
-                        {{ __('system.attendee_cancel') }}
-                    </button>
-                    @endif
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <strong>{{ $attendee->title }} {{ $attendee->first_name }} {{ $attendee->last_name }}</strong>
+                    </td>
+                    <td>
+                        <strong>{{ $attendee->ticket->name }}</strong><br />
+                        <small>
+                            {{ \Jano\Repositories\HelperRepository::getUserPrice($attendee->ticket->price, $user) }}
+                        </small>
+                    </td>
+                    <td>
+                        <a class="button tiny warning" href="{{ route('attendees.edit', ['attendee' => $attendee]) }}">
+                            {{ __('system.transfer_create') }}
+                        </a>
+                        @widget('attendeeCancelAction', ['attendee' => $attendee])
+                    </td>
+                </tr>
             @empty
-            <tr>
-                <td colspan="3">{{ __('system.no_attendee_exists') }}</td>
-            </tr>
+                <tr>
+                    <td colspan="3">{{ __('system.no_attendee_exists') }}</td>
+                </tr>
             @endforelse
         </table>
-
-        @if ($account->payments()->count() !== 0)
-            <h3>{{ __('system.payments') }}</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>{{ __('system.date_credited') }}</th>
-                    <th>{{ __('system.amount_paid') }}</th>
-                    <th>{{ __('system.method') }}</th>
-                    <th>{{ __('system.reference') }}</th>
-                </tr>
-                </thead>
-                @foreach ($account->payments()->get() as $payment)
-                <tr>
-                    <td>{{ $payment->made_at->toDateString() }}</td>
-                    <td>{{ $payment->full_amount }}</td>
-                    <td>{{ __('system.payment_methods.' . $payment->method) }}</td>
-                    <td>{{ $payment->reference }}</td>
-                </tr>
-                @endforeach
-            </table>
-        @endif
-
-        @if ($user->transferRequests()->count() !== 0)
-            <h3>{{ __('system.ticket_transfer_request') }}</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>{{ __('system.original_attendee') }}</th>
-                    <th>{{ __('system.new_attendee') }}</th>
-                    <th>{{ __('system.status') }}</th>
-                    <th></th>
-                </tr>
-                </thead>
-                @foreach ($user->transferRequests()->get() as $ticket_transfer)
-                    <tr>
-                        <td>{{ $ticket_transfer->original_full_name }}</td>
-                        <td>{{ $ticket_transfer->full_name }}</td>
-                        <td>{{ $ticket_transfer->formatted_status }}</td>
-                        <td>
-                            @if (!$ticket_transfer->completed)
-                            <a class="button tiny secondary"
-                               href="{{ url('transfers/' . $ticket_transfer->id . '/edit') }}">
-                                {{ __('system.transfer_edit') }}
-                            </a>&nbsp;
-                            <a class="button tiny danger cancel-transfer" data-cancel
-                               data-cancel-object="transfers" data-cancel-object-id="{{ $ticket_transfer->id }}">
-                                {{ __('system.transfer_cancel') }}
-                            </a>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
-        @endif
-    </div>
-    <div class="small reveal" id="cancel-attendees-container" data-reveal>
-        <p class="lead text-alert">
-            <strong>
-                {{ __('system.cancel_alert', ['attribute' => strtolower(__('system.attendee'))]) }}
-            </strong><br />
-            <small>{{ __('system.cancel_small') }}</small>
-        </p>
-        <form role="form" method="POST" action="#">
-            {{ csrf_field() }}
-            {{ method_field('DELETE') }}
-            <button type="submit" class="alert button">{{ __('system.continue') }}</button>
-            <button type="button" class="secondary button" href="#" data-close>
-                {{ __('system.back') }}
-            </button>
-        </form>
-    </div>
-    <div class="small reveal" id="cancel-transfers-container" data-reveal>
-        <p class="lead text-alert">
-            <strong>
-                {{ __('system.cancel_alert', [
-                    'attribute' => strtolower(__('system.ticket_transfer_request'))
-                ]) }}
-            </strong><br />
-            <small>{{ __('system.cancel_small') }}</small>
-        </p>
-        <form role="form" method="POST" action="#">
-            {{ csrf_field() }}
-            {{ method_field('DELETE') }}
-            <button type="submit" class="alert button">{{ __('system.continue') }}</button>
-            <button type="button" class="secondary button" href="#" data-close>
-                {{ __('system.back') }}
-            </button>
-        </form>
+        <div class="small reveal" id="cancel-attendees-container" data-reveal>
+            <p class="lead text-alert">
+                <strong>
+                    {{ __('system.cancel_alert', ['attribute' => strtolower(__('system.attendee'))]) }}
+                </strong><br />
+                <small>{{ __('system.cancel_small') }}</small>
+            </p>
+            <form role="form" method="POST" action="#">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <button type="submit" class="alert button">{{ __('system.continue') }}</button>
+                <button type="button" class="secondary button" href="#" data-close>
+                    {{ __('system.back') }}
+                </button>
+            </form>
+        </div>
+        @widget('accountPayments')
     </div>
 @endsection
 
@@ -155,7 +78,6 @@
                     .foundation('open')
                     .children('form')
                     .attr('action', object + '/' + $(this).data('cancel-object-id'));
-
             })
         });
     </script>

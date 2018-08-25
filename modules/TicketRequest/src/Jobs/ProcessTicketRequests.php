@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Jobs;
+namespace Jano\Modules\TicketRequest\Jobs;
 
 use DB;
 use Illuminate\Bus\Queueable;
@@ -29,7 +29,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Collection;
 use Jano\Contracts\AttendeeContract;
-use Jano\Contracts\TicketRequestContract;
+use Jano\Modules\TicketRequest\Contracts\RequestContract;
 
 class ProcessTicketRequests implements ShouldQueue
 {
@@ -41,7 +41,7 @@ class ProcessTicketRequests implements ShouldQueue
     protected $attendeeContract;
 
     /**
-     * @var \Jano\Contracts\TicketRequestContract
+     * @var \Jano\Modules\TicketRequest\Contracts\RequestContract
      */
     protected $requestContract;
 
@@ -54,12 +54,12 @@ class ProcessTicketRequests implements ShouldQueue
      * Create a new job instance.
      *
      * @param \Jano\Contracts\AttendeeContract $attendeeContract
-     * @param \Jano\Contracts\TicketRequestContract $requestContract
+     * @param \Jano\Modules\TicketRequest\Contracts\RequestContract $requestContract
      * @param \Illuminate\Support\Collection $tickets
      */
     public function __construct(
         AttendeeContract $attendeeContract,
-        TicketRequestContract $requestContract,
+        RequestContract $requestContract,
         Collection $tickets
     ) {
         $this->attendeeContract = $attendeeContract;

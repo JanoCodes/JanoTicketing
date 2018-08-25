@@ -74,11 +74,19 @@
             </div>
             <div class="callout success">
                 <strong>{{ __('system.tickets_reserved_title') }}</strong><br />
-                <countdown @countdownend="reservationExpires" :time="time" ref="countdown">
+                <countdown @countdownprogress="reservationWillExpire" @countdownend="reservationExpires" :time="time"
+                    ref="countdown">
                     <template scope="props">{{ __('system.tickets_reserved_message') }}</template>
                 </countdown>
             </div>
         </div>
+    </div>
+    <div class="reveal" id="expiringModal" data-reveal>
+        <h2>{{ __('system.reservation_expiring_title') }}</h2>
+        <p>{{ __('system.reservation_expiring_message') }}</p>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="reveal order-processing" id="processingModal" data-reveal data-close-on-click="false"
          data-close-on-esc="false">
@@ -96,9 +104,9 @@
 @endforeach
 <script type="text/javascript">
     $(document).ready(function() {
-        var tickets = {!! json_encode($tickets) !!};
+        let tickets = {!! json_encode($tickets) !!};
 
-        var formData = new Vuex.Store({
+        let formData = new Vuex.Store({
             state: {!! json_encode($state) !!},
             mutations: {
                 update: function(state, payload) {
@@ -108,7 +116,7 @@
                 }
             },
             plugins: [createPersistedState({
-                key: 'jano_{{ snake_case(config('app.name')) }}'
+                key: '{{ snake_case(config('app.name')) }}'
             })]
         });
 
@@ -172,7 +180,7 @@
                     const input = $(event.currentTarget).closest('input[id=primary_ticket_holder]');
                     const id = $(input).attr('name').match(/attendees\.([0-9]+)\.primary_ticket_holder/)[1];
 
-                    if (this.attendees[id].primary_ticket_holder) {
+                    if (this.attendees[id].primary_ticket_holder === true) {
                         let newAttendees = this.attendees;
 
                         newAttendees[id]['title'] = formData.state.title;
@@ -219,7 +227,7 @@
 
                     $('#attendees-tabs').on('change.zf.tabs', _.debounce(function () {
                         const count = $(this.attendees).length;
-                        var oldAttendees = formData.state.attendees;
+                        let oldAttendees = formData.state.attendees;
 
                         for (let i = 0; i < count; i++) {
                             if (this.attendees[i].title && this.attendees[i].first_name && this.attendees[i].last_name
@@ -316,7 +324,7 @@
             },
             methods: {
                 next: function (event) {
-                    var error = false;
+                    let error = false;
 
                     $('#form').on('forminvalid.zf.abide', function(event, form) {
                             error = true;
@@ -327,7 +335,7 @@
                         return;
                     }
 
-                    var i = $.inArray(this.$data.formView, this.$data.views);
+                    let i = $.inArray(this.$data.formView, this.$data.views);
                     if (i < -1 || i + 1 >= this.$data.views.length) {
                         alert('{{ __('system.form_error') }}');
                         return;
@@ -348,7 +356,7 @@
                     this.$data.step++;
                 },
                 back: function(event) {
-                    var i = $.inArray(this.$data.formView, this.$data.views);
+                    let i = $.inArray(this.$data.formView, this.$data.views);
                     i--;
 
                     if (i + 2 === this.$data.views.length) {
@@ -363,11 +371,11 @@
                     this.$data.step--;
                 },
                 calculatePrice: function() {
-                    var parent = this;
+                    const parent = this;
 
                     _.throttle(
                         function () {
-                            var totalPrice = 0;
+                            let totalPrice = 0;
 
                             formData.state.attendees.forEach(function (attendee) {
                                 totalPrice += attendee.user_ticket_price;
@@ -389,7 +397,7 @@
                         return;
                     }
 
-                    var parent = this;
+                    const parent = this;
 
                     $('#processingModal').foundation('open');
 
@@ -436,6 +444,24 @@
                             }
                         });
                 },
+                reservationWillExpire: function(data) {
+                    if (data.totalSeconds === 180) {
+                        _.once(function() {
+                            $('#expiringModal').foundation('open');
+
+                            const flash = setInterval(function(){
+                                if (!document.hasFocus()) {
+                                    (title.text() === "{{ __('system.reservation_expiring_popup') }}") ?
+                                    title.text("{{ __('system.create_order') }} - {{ Setting::get('system.title') }}") :
+                                    title.text("{{ __('system.reservation_expiring_popup') }}");
+                                } else {
+                                    title.text("{{ __('system.create_order') }} - {{ Setting::get('system.title') }}");
+                                    clearInterval(flash);
+                                }
+                            }, 1000);
+                        })
+                    }
+                },
                 reservationExpires: function() {
                     window.location.reload(true);
                 }
@@ -443,7 +469,7 @@
             mounted: _.once(function() {
                 formData.commit('update');
 
-                var totalPrice = 0;
+                let totalPrice = 0;
 
                 formData.state.attendees.forEach(function (attendee) {
                     totalPrice += attendee.user_ticket_price;

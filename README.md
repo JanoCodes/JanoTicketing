@@ -1,9 +1,8 @@
 <p style="text-align:center;"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
 
-<p style="text-align:center;"><a href="https://build.janoticketing.com/job/Jano%20Ticketing/" target="blank"><img src="https://build.janoticketing.com/buildStatus/icon?job=Jano%20Ticketing" alt="Build Status"></a>
 <a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="Licensed under GNU GPL v3.0"></a></p>
 
-Copyright &copy; Andrew Ying 2016-2017
+Copyright &copy; Andrew Ying 2016-2018.
 
 ## Installing
 * Clone repository and install dependencies

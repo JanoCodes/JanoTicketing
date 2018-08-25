@@ -1,5 +1,5 @@
 // Jano Ticketing System
-// Copyright (C) 2016-2017 Andrew Ying
+// Copyright (C) 2016-2018 Andrew Ying
 //
 // This file is part of Jano Ticketing System.
 //
@@ -27,7 +27,6 @@
 @include foundation-everything;
 
 // Other packages
-@import '~font-awesome/scss/font-awesome';
 @import '~flatpickr/dist/flatpickr';
 @import '~quill/dist/quill.snow';
 
@@ -53,7 +52,6 @@
   .sidebar {
     background-color: adjust-hue(darken($light-gray, 2%), -15%);
     border-right: darken($light-gray, 20%) 1px solid;
-    height: 100%;
     min-height: 100vh;
     padding-left: 7px;
     padding-right: 7px;

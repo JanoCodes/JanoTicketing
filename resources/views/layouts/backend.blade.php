@@ -37,8 +37,9 @@
                             <li>
                                 <form method="post" action="{{ url('logout') }}">
                                     {{ csrf_field() }}
-                                    <button class="button clear" type="submit" aria-label="{{ __('system.logout') }}">
-                                        <i class="fa fa-2x fa-sign-out" aria-hidden="true"></i>
+                                    <button class="button clear" type="submit" aria-label="{{
+                                        __('system.logout') }}">
+                                        <i class="fas fa-2x fa-sign-out-alt" aria-hidden="true"></i>
                                     </button>
                                 </form>
                             </li>

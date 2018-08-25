@@ -1,4 +1,5 @@
-/*
+<?php
+/**
  * Jano Ticketing System
  * Copyright (C) 2016-2018 Andrew Ying
  *
@@ -18,21 +19,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require('./bootstrap');
+namespace Jano\Widgets\Backend;
 
-window.Vuex = require('vuex');
+use Arrilot\Widgets\AbstractWidget;
+use Jano\Models\Attendee;
 
-import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue';
-import vSelect from 'vue-select';
+class RecentAttendees extends AbstractWidget
+{
+    /**
+     * The configuration array.
+     *
+     * @var array
+     */
+    protected $config = [
+        'count' => 5
+    ];
 
-Vue.component("vuetable", Vuetable);
-Vue.component("vuetable-pagination", require('./components/VuetablePagination.vue'));
-Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
-Vue.component("v-select", vSelect);
-
-window.Dropzone = require('dropzone');
-window.flatpickr = require('flatpickr');
-window.Quill = require('quill');
-
-$(document).foundation();
+    /**
+     * Return the recent attendees widget
+     */
+    public function run()
+    {
+        return view('widgets.backend.recent_attendees', [
+            'attendees' => Attendee::latest()->get()->take($this->config['count']),
+        ]);
+    }
+}

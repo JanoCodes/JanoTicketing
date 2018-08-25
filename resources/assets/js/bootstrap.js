@@ -1,6 +1,6 @@
 /*
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -20,14 +20,15 @@
 
 try {
     window._ = require('lodash');
-
     window.$ = window.jQuery = require('jquery');
-
     window.Foundation = require('foundation-sites');
+
+    window.Vue = require('vue');
+
+    window.axios = require('axios');
 } catch (e) {}
 
 window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
@@ -44,4 +45,10 @@ if (token) {
     console.error('CSRF token not found');
 }
 
-window.Vue = require('vue');
+import { library, dom } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+dom.watch();
+
+library.add(fas, far, fab);

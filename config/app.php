@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Jano Ticketing',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,7 +167,6 @@ return [
          * Package Service Providers
          */
         Jano\Settings\ServiceProvider::class,
-        Jano\Cacheable\ServiceProvider::class,
 
         /*
          * Application Service Providers

@@ -25,7 +25,7 @@
         <template slot="actions" scope="props">
             <div class="table-actions">
                 <button class="button small warning" @click="editItem(props.rowData)">
-                    <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
                 </button>
                 <button class="button small alert" @click="deleteItem(props.rowData)">
                     <i class="fa fa-trash fa-fw" aria-hidden="true"></i>

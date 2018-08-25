@@ -90,7 +90,9 @@
 @endsection
 
 @push('scripts')
-<script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{
+    Setting::get('system.google_maps_key') }}&libraries=places"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-locationpicker@0.1.12/dist/locationpicker.jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.date-range-selector > input').each(function() {
@@ -104,7 +106,7 @@
 
         const agreement = $('#agreement').html();
 
-        var agreementQuill = new Quill('#agreement', {
+        let agreementQuill = new Quill('#agreement', {
             theme: 'snow',
             modules: {
                 clipboard: {},
@@ -125,7 +127,7 @@
             $(this).unbind('submit').submit();
         });
 
-        $('#map').locationpicker({
+        $('#location-select').locationpicker({
             inputBinding: {
                 latitudeInput: $('#event_location_lat'),
                 longitudeInput: $('#event_location_long'),
