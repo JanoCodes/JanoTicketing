@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Contracts;
+namespace Jano\Modules\Collection\Contracts;
 
-use Jano\Models\Collection;
+use Jano\Modules\Collection\Models\Collection;
 use Jano\Models\User;
 
 interface CollectionContract
@@ -29,24 +30,24 @@ interface CollectionContract
      * Store a new collection instance.
      *
      * @param \Jano\Models\User $user
-     * @return \Jano\Models\Collection
+     * @return \Jano\Modules\Collection\Models\Collection
      */
     public function store(User $user);
 
     /**
      * Update the parameters of the collection instance.
      *
-     * @param \Jano\Models\Collection $collection
+     * @param \Jano\Modules\Collection\Models\Collection $collection
      * @param array $data
-     * @return \Jano\Models\Collection
+     * @return \Jano\Modules\Collection\Models\Collection
      */
     public function update(Collection $collection, $data);
 
     /**
      * Mark the collection instance as collected.
      *
-     * @param \Jano\Models\Collection $collection
-     * @return \Jano\Models\Collection
+     * @param \Jano\Modules\Collection\Models\Collection $collection
+     * @return \Jano\Modules\Collection\Models\Collection
      */
     public function collect(Collection $collection);
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Repositories;
+namespace Jano\Modules\Collection\Repositories;
 
 use Carbon\Carbon;
 use InvalidArgumentException;
-use Jano\Contracts\CollectionContract;
-use Jano\Models\Collection;
+use Jano\Modules\Collection\Contracts\CollectionContract;
+use Jano\Modules\Collection\Models\Collection;
 use Jano\Models\User;
-use Jano\Notifications\CollectionCreated as CollectionCreatedNotification;
+use Jano\Modules\Collection\Notifications\CollectionCreated as CollectionCreatedNotification;
 
 class CollectionRepository implements CollectionContract
 {

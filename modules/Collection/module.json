@@ -1,0 +1,14 @@
+{
+    "name": "Collection",
+    "alias": "collection",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Jano\\Modules\\Collection\\Providers\\ModuleServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

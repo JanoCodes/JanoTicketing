@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,27 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Notifications;
+namespace Jano\Modules\Collection\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Jano\Models\Collection;
+use Jano\Modules\Collection\Models\Collection;
 
 class CollectionCreated extends Notification
 {
     use Queueable;
 
     /**
-     * @var \Jano\Models\Collection
+     * @var \Jano\Modules\Collection\Models\Collection
      */
     public $collection;
 
     /**
      * Create a new notification instance.
      *
-     * @param \Jano\Models\Collection
+     * @param \Jano\Modules\Collection\Models\Collection
      */
     public function __construct(Collection $collection)
     {
@@ -65,7 +65,7 @@ class CollectionCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->markdown('emails.collections.created', [
+            ->markdown('collection::emails.created', [
                 'notifiable' => $notifiable,
                 'collection' => $this->collection
             ]);

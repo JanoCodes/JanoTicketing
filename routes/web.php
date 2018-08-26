@@ -48,7 +48,6 @@ Route::group([
     Route::resource('groups', 'GroupController');
     Route::resource('attendees', 'AttendeeController');
     Route::resource('tickets', 'TicketController');
-    Route::resource('collections', 'CollectionController');
     Route::get('payments/import', 'PaymentImportController@create')->name('paymentimports.create');
     Route::post('payments/import', 'PaymentImportController@store')->name('paymentimports.store');
     Route::put('payments/import', 'PaymentImportController@update')->name('paymentimports.update');

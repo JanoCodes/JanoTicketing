@@ -33,9 +33,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Jano\Console\Commands\CloseTicketRequests::class,
         \Jano\Console\Commands\ExportLanguageFiles::class,
-        \Jano\Console\Commands\OpenTicketRequests::class,
     ];
 
     /**
