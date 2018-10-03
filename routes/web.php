@@ -59,5 +59,3 @@ Route::group([
 });
 
 Route::auth();
-Route::get('login/oauth', 'Auth\LoginController@redirectToProvider')->name('oauth.login');
-Route::get('login/oauth/callback', 'Auth\LoginController@handleProviderCallback')->name('oauth.callback');

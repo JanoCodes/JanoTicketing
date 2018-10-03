@@ -24,9 +24,7 @@ namespace Jano\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Socialite\Contracts\Factory as SocialiteContract;
 use Spatie\Menu\Laravel\Facades\Menu;
-use Jano\Socialite\OauthProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,7 +41,6 @@ class AppServiceProvider extends ServiceProvider
         \Jano\Contracts\PaymentContract::class => \Jano\Repositories\PaymentRepository::class,
         \Jano\Contracts\TicketContract::class => \Jano\Repositories\TicketRepository::class,
         \Jano\Contracts\StaffContract::class => \Jano\Repositories\StaffRepository::class,
-        \Jano\Contracts\CollectionContract::class => \Jano\Repositories\CollectionRepository::class,
     ];
 
     /**
@@ -83,15 +80,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Schema::defaultStringLength(191);
-
-        $socialite = $this->app->make(SocialiteContract::class);
-        $socialite->extend(
-            'oauth',
-            function ($app) use ($socialite) {
-                $config = $app['config']['services.oauth'];
-                return $socialite->buildProvider(OauthProvider::class, $config);
-            }
-        );
 
         $this->binding();
         $this->bindingSpecial();
