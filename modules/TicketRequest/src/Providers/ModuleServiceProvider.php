@@ -44,6 +44,16 @@ class ModuleServiceProvider extends ServiceProvider
     ];
 
     /**
+     * Array of commands available for the module
+     *
+     * @var array
+     */
+    protected $commands = [
+        \Jano\Modules\TicketRequest\Console\OpenTicketRequests::class,
+        \Jano\Modules\TicketRequest\Console\CloseTicketRequests::class
+    ];
+
+    /**
      * Boot the application events.
      *
      * @return void
@@ -52,6 +62,7 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->registerTranslations();
         $this->registerBindings();
+        $this->registerCommands();
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
@@ -80,6 +91,16 @@ class ModuleServiceProvider extends ServiceProvider
                 return new $implementation();
             });
         }
+    }
+
+    /**
+     * Register console commands
+     *
+     * @return void
+     */
+    public function registerCommands()
+    {
+        $this->commands($this->commands);
     }
 
     /**
