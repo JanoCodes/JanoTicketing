@@ -106,7 +106,7 @@ class AttendeeRepository implements AttendeeContract
         $return = collect();
 
         foreach ($attendees as $attendee) {
-            $ticket = $tickets->where('id', $attendee['ticket_id'])->first();
+            $ticket = $tickets->where('id', $attendee['ticket']['id'])->first();
             $return->push($this->ticket->reserve([
                 'ticket' => $ticket,
                 'user' => $user,
@@ -118,7 +118,7 @@ class AttendeeRepository implements AttendeeContract
         DB::commit();
 
         if ($frontend) {
-            $user->notify(new AttendeesCreatedNotification($user->account(), $return));
+            $user->notify(new AttendeesCreatedNotification($account, $return));
         }
         event(new AttendeesCreated($user, $return));
 

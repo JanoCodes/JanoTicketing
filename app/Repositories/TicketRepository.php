@@ -21,6 +21,7 @@
 
 namespace Jano\Repositories;
 
+use Hashids\Hashids;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Jano\Contracts\TicketContract;
@@ -82,6 +83,7 @@ class TicketRepository implements TicketContract
             $state->{$attribute} = $value;
         }
         $state->attendees = array();
+        $state->has_attendees = $user->attendees()->count() !== 0;
 
         foreach ($tickets as $ticket) {
             if ($request['tickets'][$ticket->id]) {
@@ -97,15 +99,22 @@ class TicketRepository implements TicketContract
                         $ticket_unavailable = true;
                     }
 
-                    foreach ($status as $id) {
+                    foreach ($status as $item) {
                         $attendee = new \stdClass();
                         foreach (Attendee::getAttributeListing() as $attribute) {
                             $attendee->{$attribute} = '';
                         }
                         $attendee->ticket = $ticket;
-                        $attendee->ticket_id = $id;
-                        $attendee->user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user, false);
-                        $attendee->full_user_ticket_price = HelperRepository::getUserPrice($ticket->price, $user);
+                        $attendee->ticket_id = $item->id;
+                        $attendee->user_ticket_price = HelperRepository::getUserPrice(
+                            $ticket->price,
+                            $user,
+                            false
+                        );
+                        $attendee->full_user_ticket_price = HelperRepository::getUserPrice(
+                            $ticket->price,
+                            $user
+                        );
 
                         $state->attendees[] = $attendee;
                     }
@@ -128,6 +137,8 @@ class TicketRepository implements TicketContract
      */
     public function reserve($data, $frontend)
     {
+        $hashids = new Hashids(config('app.key'), 6);
+
         $attendee = new Attendee();
         $attendee->title = $data['data']['title'];
         $attendee->first_name = $data['data']['first_name'];
@@ -135,8 +146,9 @@ class TicketRepository implements TicketContract
         $attendee->email = $data['data']['email'];
         $attendee->user()->associate($data['user']);
         $attendee->charge()->associate($data['charge']);
-        $attendee->primary_ticket_holder = $data['data']['primary_ticket_holder'];
+        $attendee->primary_ticket_holder = $data['data']['primary_ticket_holder'] ?? false;
         $attendee->ticket()->associate($data['ticket']);
+        $attendee->uuid = $hashids->encode((int) $data['data']['ticket_id']);
         $attendee->checked_in = false;
         $attendee->save();
 
@@ -154,7 +166,8 @@ class TicketRepository implements TicketContract
     public function destroy(Ticket $ticket)
     {
         if ($ticket->attendees()) {
-            throw new InvalidArgumentException('Attendees with this ticket class exist.');
+            throw new InvalidArgumentException('Attendees with this ticket class exist. Cannot delete
+                ticket class.');
         }
 
         $ticket->delete();
@@ -178,6 +191,10 @@ class TicketRepository implements TicketContract
      */
     private function holdByType($ticket_id, $number, $time)
     {
+        if ($number == 0) {
+            return false;
+        }
+
         DB::beginTransaction();
 
         $tickets = DB::table('ticket_store')
