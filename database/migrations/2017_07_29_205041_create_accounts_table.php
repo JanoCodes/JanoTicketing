@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -37,6 +38,7 @@ class CreateAccountsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('amount_due')->unsigned();
             $table->integer('amount_paid')->unsigned();
+            $table->string('payment_reference')->nullable();
             $table->timestamps();
         });
         Schema::table('payments', function (Blueprint $table) {

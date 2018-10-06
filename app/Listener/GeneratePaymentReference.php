@@ -19,36 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Listener;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Hashids\Hashids;
+use Jano\Events\AccountSaving;
 
-class EventServiceProvider extends ServiceProvider
+class GeneratePaymentReference
 {
     /**
-     * The event listener mappings for the application.
-     *
-     * @var array
+     * @param \Jano\Events\AccountSaving $event
      */
-    protected $listen = [
-        \Jano\Events\CachedModelChanged::class => [
-            \Jano\Listener\ClearModelCache::class
-        ],
-        \Jano\Events\AccountSaving::class => [
-            \Jano\Listener\GeneratePaymentReference::class
-        ]
-    ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
+    public function handle(AccountSaving $event)
     {
-        parent::boot();
+        $user = $event->account->user()->first();
+        $hashids = new Hashids(config('app.key'), 5);
 
-        //
+        $payment_reference = str_pad(substr($user->last_name, 0, 6), 6, '0');
+        $payment_reference .= $user->first_name[0];
+        $payment_reference .= substr($hashids->encode($event->account->id), 0, 5);
+        $payment_reference = strtoupper($payment_reference);
+
+        $event->account->payment_reference = $payment_reference;
     }
 }

@@ -19,36 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Events;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Jano\Models\Account;
 
-class EventServiceProvider extends ServiceProvider
+class AccountSaving
 {
     /**
-     * The event listener mappings for the application.
-     *
-     * @var array
+     * @var \Jano\Models\Account
      */
-    protected $listen = [
-        \Jano\Events\CachedModelChanged::class => [
-            \Jano\Listener\ClearModelCache::class
-        ],
-        \Jano\Events\AccountSaving::class => [
-            \Jano\Listener\GeneratePaymentReference::class
-        ]
-    ];
+    public $account;
 
     /**
-     * Register any events for your application.
+     * AccountSaving constructor.
      *
-     * @return void
+     * @param \Jano\Models\Account $account
      */
-    public function boot()
+    public function __construct(Account $account)
     {
-        parent::boot();
-
-        //
+        $this->account = $account;
     }
 }
