@@ -39,7 +39,7 @@ class TicketRepository implements TicketContract
     {
         $ticket = new Ticket();
         $ticket->name = $data['name'];
-        $ticket->price = $data['price'];
+        $ticket->price = $data['amount'];
         $ticket->save();
 
         return $ticket;
@@ -92,7 +92,7 @@ class TicketRepository implements TicketContract
                     $request['tickets'][$ticket->id],
                     $time
                 );
-                $reserved[$ticket->id] = count($status);
+                $reserved[$ticket->id] = $status ? count($status): 0;
 
                 if ($status) {
                     if ($status->count() !== (int) $request['tickets'][$ticket->id]) {
