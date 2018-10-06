@@ -1,7 +1,7 @@
 /node_modules
 /docs/_api
 /docs/_build
-/modules/*/vendor
+/modules
 /public/css
 /public/fonts
 /public/images
@@ -9,8 +9,9 @@
 /public/storage
 /public/hot
 /public/mix-manifest.json
+/reports
 /resources/views/vendor/mail/html/themes/mail.css
-/storage/*.key
+/storage
 /vendor
 /.idea
 Homestead.json
