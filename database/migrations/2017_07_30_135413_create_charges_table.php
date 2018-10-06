@@ -46,9 +46,6 @@ class CreateChargesTable extends Migration
         Schema::table('attendees', function (Blueprint $table) {
             $table->foreign('charge_id')->references('id')->on('charges');
         });
-        Schema::table('transfer_requests', function (Blueprint $table) {
-            $table->foreign('charge_id')->references('id')->on('charges');
-        });
     }
 
     /**
@@ -59,9 +56,6 @@ class CreateChargesTable extends Migration
     public function down()
     {
         Schema::table('attendees', function (Blueprint $table) {
-            $table->dropForeign(['charge_id']);
-        });
-        Schema::table('transfer_requests', function (Blueprint $table) {
             $table->dropForeign(['charge_id']);
         });
         Schema::dropIfExists('charges');

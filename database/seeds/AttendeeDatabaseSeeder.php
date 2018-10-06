@@ -37,6 +37,7 @@ class AttendeeDatabaseSeeder extends Seeder
             DB::table('ticket_store')->insert($array);
         }
 
+        /**
         $users = User::inRandomOrder()->get();
 
         foreach ($users as $user) {
@@ -74,6 +75,6 @@ class AttendeeDatabaseSeeder extends Seeder
                     $attendee->save();
                 }
             }
-        }
+        } **/
     }
 }
