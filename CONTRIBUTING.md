@@ -3,11 +3,10 @@ Thank you for your interest in contributing to the Jano Ticketing System. We are
 help of the community to make improvements which we wouldn't otherwise have time to make!
 
 ## Getting Started
-* Make sure you have a [GitHub account](https://github.com/signup/free) and a 
-[planio account](https://jano.plan.io/account/register)
+* Make sure you have a [GitHub account](https://github.com/signup/free)
 * Read through this Guide and our [Code of Conduct](CODE_OF_CONDUCT.md) and make sure that you're happy with them
-* Look through the list of [outstanding issues](https://jano.plan.io/projects/ticketing/issues), or 
-[create a new issue](https://jano.plan.io/projects/ticketing/issues/new) if it has not already been reported
+* Look through the list of [outstanding issues](https://github.com/jano-may-ball/ticketing/issues), or 
+[create a new issue](https://github.com/jano-may-ball/ticketing/issues/new) if it has not already been reported
 * Assign the issue to yourself so everyone knows that you're working on it
 * Fork this repository and create a new branch (e.g. `bug-42`) 
 * Start working!

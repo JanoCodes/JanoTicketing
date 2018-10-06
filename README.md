@@ -1,6 +1,6 @@
 <p style="text-align:center;"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
 
-<a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="Licensed under GNU GPL v3.0"></a></p>
+<a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="Licensed under GNU GPL v3.0"></a> [![Code Climate](https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing)</p>
 
 Copyright &copy; Andrew Ying 2016-2018.
 

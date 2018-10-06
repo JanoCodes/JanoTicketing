@@ -11,7 +11,8 @@
 /public/mix-manifest.json
 /reports
 /resources/views/vendor/mail/html/themes/mail.css
-/storage
+/storage/debugbar
+/storage/settings.hjson
 /vendor
 /.idea
 Homestead.json
