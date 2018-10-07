@@ -80,6 +80,7 @@ class RegisterController extends Controller
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'phone' => 'required',
             'password' => 'required|min:6|confirmed',
             'group_id' => 'required|exists:groups,id',
         ]);

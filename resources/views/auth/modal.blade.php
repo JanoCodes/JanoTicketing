@@ -127,12 +127,12 @@
                 <div class="grid-x cell">
                     <label{{ $errors->has('phone') ? ' class="is-invalid-label"' : '' }}>
                         {{ __('system.phone') }}
-                        <input id="phone" type="text" pattern="phone"
+                        <input id="phone" type="text"
                                {{ $errors->has('phone') ? 'class="is-invalid-input" aria-invalid ' : '' }}
                                name="phone" value="{{ old('phone') }}" required>
                         @if ($errors->has('phone'))
                             <span class="form-error is-visible">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <strong>{{ $errors->first('phone') }}</strong>
                                 </span>
                         @else
                             <span class="form-error">
@@ -144,42 +144,42 @@
                 </div>
 
                 <div class="grid-x cell">
-                    <label{{ $errors->has('password') ? ' class="is-invalid-label"' : '' }}>
-                        {{ __('system.password') }}
-                        <input id="password" type="password"
-                               {{ $errors->has('email') ? 'class="is-invalid-input" aria-invalid ' : '' }}
-                               name="password" required>
-                        @if ($errors->has('password'))
-                            <span class="form-error">
+                        <label{{ $errors->has('password') ? ' class="is-invalid-label"' : '' }}>
+                            {{ __('system.password') }}
+                            <input id="password" type="password"
+                                   {{ $errors->has('password') ? 'class="is-invalid-input" aria-invalid ' : '' }}
+                                   name="password" required>
+                            @if ($errors->has('password'))
+                                <span class="form-error">
                                     <strong>{{ $errors->first('password') }}</strong>
                                 </span>
-                        @else
-                            <span class="form-error">
+                            @else
+                                <span class="form-error">
                                     <strong>{{ __('validation.required', ['attribute' => strtolower(__('system.password'))])
                                     }}</strong>
                                 </span>
-                        @endif
-                    </label>
-                </div>
+                            @endif
+                        </label>
+                    </div>
 
-                <div class="grid-x cell">
-                    <label{{ $errors->has('password_confirmation') ? ' class="is-invalid-label"' : '' }}>
-                        {{ __('system.confirm_password') }}
-                        <input id="password_confirmation" type="password" name="password_confirmation"
-                               data-equalto="password" required>
-                        @if ($errors->has('password_confirmation'))
-                            <span class="form-error is-visible">
+                    <div class="grid-x cell">
+                        <label{{ $errors->has('password_confirmation') ? ' class="is-invalid-label"' : '' }}>
+                            {{ __('system.confirm_password') }}
+                            <input id="password_confirmation" type="password" name="password_confirmation"
+                                   data-equalto="password" required>
+                            @if ($errors->has('password_confirmation'))
+                                <span class="form-error is-visible">
                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
                                 </span>
-                        @else
-                            <span class="form-error">
+                            @else
+                                <span class="form-error">
                                     <strong>{{ __('validation.confirmed', [
                                         'attribute' => strtolower(__('system.password'))
                                     ])}}</strong>
                                 </span>
-                        @endif
-                    </label>
-                </div>
+                            @endif
+                        </label>
+                    </div>
 
                 <div class="grid-x cell">
                     <div class="button-group stacked-for-small">

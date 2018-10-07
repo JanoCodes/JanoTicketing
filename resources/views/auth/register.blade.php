@@ -70,12 +70,12 @@
                     <div class="grid-x cell">
                         <label{{ $errors->has('phone') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.phone') }}
-                            <input id="phone" type="text" pattern="phone"
+                            <input id="phone" type="text"
                                    {{ $errors->has('phone') ? 'class="is-invalid-input" aria-invalid ' : '' }}
                                    name="phone" value="{{ old('phone') }}" required>
                             @if ($errors->has('phone'))
                                 <span class="form-error is-visible">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                                    <strong>{{ $errors->first('phone') }}</strong>
                                 </span>
                             @else
                                 <span class="form-error">
@@ -90,7 +90,7 @@
                         <label{{ $errors->has('password') ? ' class="is-invalid-label"' : '' }}>
                             {{ __('system.password') }}
                             <input id="password" type="password"
-                                   {{ $errors->has('email') ? 'class="is-invalid-input" aria-invalid ' : '' }}
+                                   {{ $errors->has('password') ? 'class="is-invalid-input" aria-invalid ' : '' }}
                                    name="password" required>
                             @if ($errors->has('password'))
                                 <span class="form-error">
