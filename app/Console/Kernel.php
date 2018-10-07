@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors
  *
  * This file is part of Jano Ticketing System.
  *
@@ -33,6 +33,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        \Jano\Console\Commands\CreateUser::class,
         \Jano\Console\Commands\ExportLanguageFiles::class,
     ];
 
