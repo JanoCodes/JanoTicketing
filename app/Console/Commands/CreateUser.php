@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying and other contributors
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -67,16 +67,16 @@ class CreateUser extends Command
     {
         $user = array();
         $user['email'] = $this->argument('email');
-        $user['password'] = $this->secret('Password:');
-        $user['title'] = $this->choice('Title:', __('system.titles'), 0);
-        $user['first_name'] = $this->ask('First Name:');
-        $user['last_name'] = $this->ask('Last Name:');
+        $user['password'] = $this->secret('Password');
+        $user['title'] = $this->choice('Title', __('system.titles'), 0);
+        $user['first_name'] = $this->ask('First Name');
+        $user['last_name'] = $this->ask('Last Name');
         $user['group_id'] = 1;
         $user['method'] = User::DATABASE_METHOD;
 
         $user = $this->contract->store($user);
 
-        if ($this->option('queue')) {
+        if ($this->option('admin')) {
             $user->staff()->create(['access_level' => 999]);
         }
 

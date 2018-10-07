@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,29 +22,40 @@
 namespace Jano\Console\Commands;
 
 use Illuminate\Console\Command;
-use Setting;
+use Jano\Contracts\GroupContract;
 
-class CloseTicketRequests extends Command
+class CreateGroup extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'request:close';
+    protected $signature = 'group:create
+        {name : Display name of the group}
+        {slug : Slug of the group}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Close the creation of ticket requests';
+    protected $description = 'Create new group';
+
+    /**
+     * @var \Jano\Contracts\GroupContract
+     */
+    private $contract;
 
     /**
      * Create a new command instance.
+     *
+     * @param \Jano\Contracts\GroupContract $contract
+     * @return void
      */
-    public function __construct()
+    public function __construct(GroupContract $contract)
     {
+        $this->contract = $contract;
         parent::__construct();
     }
 
@@ -52,6 +64,13 @@ class CloseTicketRequests extends Command
      */
     public function handle()
     {
-        Setting::set('system.ticket_request.open', false);
+        $group = array();
+        $group['name'] = $this->argument('name');
+        $group['slug'] = $this->argument('slug');
+        $group['ticket_limit'] = $this->ask('Ticket Limit');
+
+        $this->contract->store($group);
+
+        $this->info('Successfully created new group.');
     }
 }

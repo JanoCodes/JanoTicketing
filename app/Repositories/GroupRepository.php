@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -32,12 +32,12 @@ class GroupRepository implements GroupContract
     public function store($data)
     {
         $group = new Group();
-        $group->slug = $group['slug'];
-        $group->name = $group['name'];
-        $group->can_order_at = $group['can_order_at'];
-        $group->ticket_limit = $group['ticket_limit'];
-        $group->surcharge = $group['surcharge'];
-        $group->right_to_buy = $group['right_to_buy'];
+        $group->slug = $data['slug'];
+        $group->name = $data['name'];
+        $group->can_order_at = $data['can_order_at'] ?? null;
+        $group->ticket_limit = $data['ticket_limit'];
+        $group->surcharge = $data['surcharge'] ?? 0;
+        $group->right_to_buy = $data['right_to_buy'] ?? 0;
         $group->save();
 
         return $group;
