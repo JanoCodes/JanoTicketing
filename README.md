@@ -2,7 +2,8 @@
 
 <a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="Licensed under GNU GPL v3.0"></a> [![Code Climate](https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing)</p>
 
-Copyright &copy; Andrew Ying 2016-2018.
+Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-may-ball/ticketing/graphs/contributors) 
+2016-2018.
 
 ## Installing
 * Clone repository and install dependencies
