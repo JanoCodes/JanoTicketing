@@ -50,7 +50,7 @@
 @push('scripts')
 <script type="text/html" id="details">
     <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
+        <h3><i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
         <form method="POST" data-abide novalidate>
             @include('partials.error')
             <div class="grid-x grid-padding-x vuetable-form">
@@ -102,7 +102,7 @@
                 </div>
                 <div class="small-12 cell">
                     <div class="float-right">
-                        <button id="submit" type="submit" class="button warning" @click="submit">
+                        <button id="submit" type="submit" class="button warning" @click="submit($event)">
                             {{ __('system.update') }}
                         </button>
                     </div>
@@ -162,7 +162,7 @@
                     $('#can_order_at').flatpickr({
                         altFormat: 'j M Y h:i K',
                         altInput: true,
-                        dateFormat: 'd/m/Y',
+                        dateFormat: 'Y-m-d H:i:s',
                         enableTime: true
                     });
                 }),
@@ -170,7 +170,7 @@
                     $('#details-modal').foundation('close');
                     this.$emit('modal-closed');
                 },
-                submit: function() {
+                submit: function(event) {
                     event.preventDefault();
 
                     let error = false;
@@ -185,12 +185,12 @@
 
                     let parent = this;
 
-                    axios.put('/admin/tickets/' + this.$data.editData.id, this.$data.editData)
+                    axios.put('/admin/groups/' + parent.$data.editData.id, parent.$data.editData)
                         .then(function() {
                             $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
-                                + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
+                                + ' {{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
                                 + ' type="button"><span aria-hidden="true">&times;</span></button>');
-                            parent.$nextTick(function() {parent.$refs.vuetable.reload();});
+                            parent.$nextTick(function() { parent.$refs.vuetable.reload(); });
                         })
                         .catch(function(error) {
                             if (error.response && error.response.status === '422') {
@@ -289,7 +289,7 @@
                     this.$nextTick();
                 },
                 deleteItem: function(data) {
-                    axios.delete('/admin/tickets/' + data.id)
+                    axios.delete('/admin/groups/' + data.id)
                         .then(function() {
                             this.$refs.vuetable.reload();
                         })

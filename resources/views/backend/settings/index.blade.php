@@ -32,7 +32,9 @@
             <label class="text-right middle"><strong>{{ __('system.event_location') }}</strong></label>
         </div>
         <div class="small-9 large-8 cell">
-            <button type="button" class="button hollow">{{ __('system.select_location') }}</button>
+            <button type="button" data-open="location-select" class="button hollow">
+                {{ __('system.select_location') }}
+            </button>
             <div class="reveal" id="location-select" data-reveal>
                 <h3>{{ __('system.select_location') }}</h3>
                 <div class="grid-x grid-padding-x">
@@ -127,7 +129,7 @@
             $(this).unbind('submit').submit();
         });
 
-        $('#location-select').locationpicker({
+        $('#map').locationpicker({
             inputBinding: {
                 latitudeInput: $('#event_location_lat'),
                 longitudeInput: $('#event_location_long'),

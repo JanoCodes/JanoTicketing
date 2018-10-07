@@ -53,7 +53,7 @@
 @push('scripts')
 <script type="text/html" id="details">
     <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
+        <h3><i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
         <form method="POST" data-abide novalidate>
             @include('partials.error')
             <div class="grid-x grid-padding-x vuetable-form">
@@ -99,7 +99,7 @@
                 </div>
                 <div class="small-12 cell">
                     <div class="float-right">
-                        <button id="submit" type="submit" class="button warning" @click="submit">
+                        <button id="submit" type="submit" class="button warning" @click="submit($event)">
                             {{ __('system.update') }}
                         </button>
                     </div>
@@ -180,7 +180,7 @@
                     $('#details-modal').foundation('close');
                     this.$emit('modal-closed');
                 },
-                submit: function() {
+                submit: function(event) {
                     event.preventDefault();
 
                     let error = false;

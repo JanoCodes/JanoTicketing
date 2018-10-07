@@ -50,7 +50,7 @@
 @push('scripts')
 <script type="text/html" id="details">
     <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
+        <h3><i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
         <form method="POST" data-abide novalidate>
             @include('partials.error')
             <div class="grid-x grid-padding-x vuetable-form">
@@ -146,7 +146,7 @@
 
                     axios.put('/admin/tickets/' + this.$data.editData.id, this.$data.editData)
                         .then(function() {
-                            $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i>'
+                            $('#details-modal').html('<h3><i class="fa fa-check" aria-hidden="true"></i> '
                                 + '{{ __('system.update_success') }}</h3><button class="close-button" @click="close"'
                                 + ' type="button"><span aria-hidden="true">&times;</span></button>');
                             parent.$nextTick(function() {parent.$refs.vuetable.reload();});

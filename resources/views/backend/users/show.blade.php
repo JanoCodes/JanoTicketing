@@ -162,38 +162,6 @@
             </table>
         @endif
 
-        @if ($user->transferRequests()->count() !== 0)
-            <strong>{{ __('system.ticket_transfer_request') }}</strong>
-            <table>
-                <thead>
-                <tr>
-                    <th>{{ __('system.original_attendee') }}</th>
-                    <th>{{ __('system.new_attendee') }}</th>
-                    <th>{{ __('system.status') }}</th>
-                    <th></th>
-                </tr>
-                </thead>
-                @foreach ($user->transferRequests()->get() as $ticket_transfer)
-                    <tr>
-                        <td>{{ $ticket_transfer->original_full_name }}</td>
-                        <td>{{ $ticket_transfer->full_name }}</td>
-                        <td>{{ $ticket_transfer->formatted_status }}</td>
-                        <td>
-                            @if (!$ticket_transfer->completed)
-                                <a class="button tiny secondary"
-                                   href="{{ url('transfers/' . $ticket_transfer->id . '/edit') }}">
-                                    {{ __('system.transfer_edit') }}
-                                </a>&nbsp;
-                                <button type="button" class="button tiny danger cancel-ticket"
-                                        @click="deleteItem('transfers', {{ $attendee->id }})">
-                                    {{ __('system.transfer_cancel') }}
-                                </button>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
-        @endif
         <div class="text-wrap">
             <a class="button primary" href="{{ route('backend.users.index') }}">{{ __('system.back') }}</a>
         </div>
@@ -210,6 +178,7 @@
             <h3><i class="fas fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
             <form method="POST" data-abide novalidate>
                 @include('partials.error')
+                {{ csrf_field() }}
                 <div class="grid-x grid-padding-x vuetable-form">
                     <div class="small-12 medium-3 cell">
                         <label class="text-right">{{ __('system.full_name') }}</label>
