@@ -35,6 +35,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \Jano\Console\Commands\CreateGroup::class,
         \Jano\Console\Commands\CreateUser::class,
+        \Jano\Console\Commands\ExportAttendees::class,
         \Jano\Console\Commands\ExportLanguageFiles::class,
     ];
 

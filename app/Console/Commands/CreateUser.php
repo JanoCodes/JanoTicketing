@@ -22,6 +22,7 @@
 namespace Jano\Console\Commands;
 
 use Illuminate\Console\Command;
+use Jano\Contracts\StaffContract;
 use Jano\Contracts\UserContract;
 use Jano\Models\User;
 
@@ -34,7 +35,7 @@ class CreateUser extends Command
      */
     protected $signature = 'user:create
         {email : Email address of the new user}
-        {--admin : Whether the new user should have admin privileges}';
+        {--admin=999 : Level of backend access privileges}';
 
     /**
      * The console command description.
@@ -46,17 +47,24 @@ class CreateUser extends Command
     /**
      * @var \Jano\Contracts\UserContract
      */
-    private $contract;
+    private $user;
+
+    /**
+     * @var \Jano\Contracts\StaffContract
+     */
+    private $staff;
 
     /**
      * Create a new command instance.
      *
      * @param \Jano\Contracts\UserContract $contract
+     * @param \Jano\Contracts\StaffContract $staff
      * @return void
      */
-    public function __construct(UserContract $contract)
+    public function __construct(UserContract $contract, StaffContract $staff)
     {
-        $this->contract = $contract;
+        $this->user = $contract;
+        $this->staff = $staff;
         parent::__construct();
     }
 
@@ -74,10 +82,10 @@ class CreateUser extends Command
         $user['group_id'] = 1;
         $user['method'] = User::DATABASE_METHOD;
 
-        $user = $this->contract->store($user);
+        $user = $this->user->store($user);
 
-        if ($this->option('admin')) {
-            $user->staff()->create(['access_level' => 999]);
+        if ($level = $this->option('admin')) {
+            $this->staff->store($user, $level);
         }
 
         $this->info('Successfully created new user.');
