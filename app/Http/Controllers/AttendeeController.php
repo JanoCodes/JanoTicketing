@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -21,7 +21,6 @@
 
 namespace Jano\Http\Controllers;
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Jano\Contracts\AttendeeContract;
 use Jano\Contracts\ChargeContract;
@@ -131,11 +130,12 @@ class AttendeeController extends Controller
      * Get a validator for newly created attendees.
      *
      * @param array $data
+     * @param bool $has_attendees
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function storeValidator($data)
+    protected function storeValidator($data, $has_attendees = false)
     {
-        return Validator::make($data, [
+        $rules = array(
             'title' => 'required|in:' . implode(',', __('system.titles')),
             'first_name' => 'required',
             'last_name' => 'required',
@@ -147,7 +147,13 @@ class AttendeeController extends Controller
             'attendees.*.email' => 'required|email',
             'attendees.*.ticket' => 'required|exists:tickets,id',
             'attendees.*.primary_ticket_holder' => 'sum_between:1,1'
-        ]);
+        );
+
+        if ($has_attendees) {
+            $rules['attendees.*.primary_ticket_holder'] = 'sum_between:0,0';
+        }
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -171,6 +177,8 @@ class AttendeeController extends Controller
             'email',
             'phone'
         ]));
+
+        $request->session()->pull('reservation');
 
         return $this->attendee->store(
             $user,
