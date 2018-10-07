@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="clearfix">&nbsp;</div>
-<form id="form" role="form" method="POST" action="{{ route('backend.staff.store') }}">
+<form id="form" role="form" method="POST" action="{{ route('backend.staffs.store') }}">
     <div class="grid-x grid-padding-x">
         @include('partials.error')
         {{ csrf_field() }}
@@ -38,7 +38,7 @@
             @endif
         </div>
         <div class="small-offset-3 small-9 large-8 cell">
-            <a class="button warning" href="{{ route('backend.staff.index') }}">{{ __('system.back') }}</a>
+            <a class="button warning" href="{{ route('backend.staffs.index') }}">{{ __('system.back') }}</a>
             <button class="button" type="submit">{{ __('system.submit') }}</button>
         </div>
     </div>

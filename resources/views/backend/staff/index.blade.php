@@ -6,7 +6,7 @@
 <div id="data">
     <div class="actions grid-x">
         <div class="small-12 medium-6 large-8 cell">
-            <a class="button hollow" href="{{ route('backend.staff.create') }}">
+            <a class="button hollow" href="{{ route('backend.staffs.create') }}">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
             </a>
         </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <vuetable ref="vuetable" api-url="{{ route('backend.staff.index') }}" :fields="fields" :append-params="param"
+    <vuetable ref="vuetable" api-url="{{ route('backend.staffs.index') }}" :fields="fields" :append-params="param"
         pagination-path="" @vuetable:pagination-data="onPaginationData">
         <template slot="actions" scope="props">
             <div class="table-actions">
