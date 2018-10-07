@@ -3,7 +3,6 @@
 /docs/_build
 /public/css
 /public/fonts
-/public/images
 /public/js
 /public/storage
 /public/hot
@@ -18,4 +17,5 @@ Homestead.json
 Homestead.yaml
 .env
 .DS_Store
+.phpstorm.meta.php
 phpDocumentor.phar
