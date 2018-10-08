@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -57,6 +57,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'oauth_id',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['can_order_at'];
 
     /**
      * The relationships to eager-load automatically.
@@ -153,7 +160,7 @@ class User extends Authenticatable
      */
     public function getCanOrderAtAttribute($value)
     {
-        return empty($value) ? $this->group->can_order_by : $value;
+        return empty($value) ? $this->group->can_order_at : $value;
     }
 
     /**

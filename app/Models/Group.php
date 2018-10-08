@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -49,6 +49,13 @@ class Group extends Model
         'saved' => \Jano\Events\GroupChanged::class,
         'deleted' => \Jano\Events\GroupChanged::class,
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['can_order_at'];
 
     /**
      * Group constructor; defines the number of minutes cache should persists for.

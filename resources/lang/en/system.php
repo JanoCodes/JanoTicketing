@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -72,6 +72,7 @@ return [
     'event_date' => 'Event Date',
     'event_location' => 'Event Location',
     'event_name' => 'Event Name',
+    'exit' => 'Exit',
     'first_name' => 'First Name',
     'for' => 'for',
     'form_error' => 'There was an error in the order form. Please try again.',
@@ -100,6 +101,8 @@ return [
     'no_ticket_type_exists' => 'No ticket type exists for this event.',
     'order' => 'Order',
     'order_confirmed' => 'Order Confirmed',
+    'order_confirmed_message' => 'Congratulations! Your order has been successful and you should be receiving an email'
+        . ' confirmation shortly.',
     'order_summary' => 'Order Summary',
     'order_tickets' => 'Order Tickets',
     'original_attendee' => 'Original Attendee',
@@ -139,7 +142,7 @@ return [
         . 'entry are supplied below for your reference. You would be notified via email should a ticket becomes '
         . 'available.',
     'request_edit' => 'Edit Waiting List Entry',
-    'reservation_expiring_popup' => '-!- Reservation Expiring',
+    'reservation_expiring_popup' => 'Reservation Expiring',
     'reservation_expiring_title' => 'Ticket Reservation Expiring',
     'reservation_expiring_message' => 'Your ticket reservation is expiring in the next few minutes. Please complete '
         . 'the ticket order as soon as possible. Otherwise the tickets reserved will be released.',

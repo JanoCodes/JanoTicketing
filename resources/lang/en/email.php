@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,11 +21,17 @@
 
 return [
     'opening' => 'Dear :name,',
-    'closing' => 'Best wishes,\n:event',
+    'closing' => 'Best wishes,<br>:event',
     'generic_user' => 'Sir/Madam',
     'order_created_message' => 'Thank you for your interest in :event. We are pleased to confirm that the following '
         . 'tickets have been reserved for you:',
     'order_created_closing' => 'We look forward to seeing you at :event!',
+    'bank_payment_message' => 'Please transfer the balance of :balance to the following bank account within :deadline'
+        . ' working days. Please ensure that you use the payment reference **exactly as shown**.',
+    'bank_account_name' => 'Account name',
+    'bank_account_sort_code' => 'Sort code',
+    'bank_account_number' => 'Account number',
+    'bank_payment_reference' => 'Reference',
     'transfer_created_message' => 'We are writing to confirm that we have received your request to transfer a :class '
         . 'ticket from :original to :new. To confirm and to proceed with the request, please click on the button below.'
         . ' **Without this confirmation, your transfer request would not be processed.**',
