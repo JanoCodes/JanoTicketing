@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="clearfix">&nbsp;</div>
-<form role="form" action="{{ route('backend.settings.update') }}" data-abide novalidate>
+<form role="form" method="POST" action="{{ route('backend.settings.update') }}" data-abide novalidate>
     <div class="grid-x grid-padding-x">
         @include('partials.error')
         {{ method_field('PUT') }}

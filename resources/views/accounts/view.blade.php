@@ -35,9 +35,6 @@
                         </small>
                     </td>
                     <td>
-                        <a class="button tiny warning" href="{{ route('attendees.edit', ['attendee' => $attendee]) }}">
-                            {{ __('system.transfer_create') }}
-                        </a>
                         @widget('attendeeCancelAction', ['attendee' => $attendee])
                     </td>
                 </tr>

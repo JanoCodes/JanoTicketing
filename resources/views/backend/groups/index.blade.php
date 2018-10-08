@@ -162,7 +162,7 @@
                     $('#can_order_at').flatpickr({
                         altFormat: 'j M Y h:i K',
                         altInput: true,
-                        dateFormat: 'Y-m-d H:i:s',
+                        dateFormat: 'Y-m-d H:i:S',
                         enableTime: true
                     });
                 }),

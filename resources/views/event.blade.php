@@ -31,6 +31,7 @@
             <div class="callout event-side">
                 <h3>{{ __('system.order_tickets') }}</h3>
                 @include('partials.error')
+                @can('create', Jano\Models\Attendee::class)
                 <div class="table-scroll">
                     <form method="GET" action="{{ route('attendees.create') }}" id="form" data-abide
                         novalidate>
@@ -59,6 +60,9 @@
                         </table>
                     </form>
                 </div>
+                @else
+                <p>You're not yet able to order tickets. Please return on {{ $user->can_order_at }}</p>
+                @endcan
             </div>
         </div>
     </div>

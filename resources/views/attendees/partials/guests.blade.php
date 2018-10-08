@@ -17,7 +17,7 @@
                     <div class="small-12 medium-8 medium-offset-4 cell">
                         <input :name="'attendees.' + index + '.primary_ticket_holder'" id="primary_ticket_holder"
                                v-model="attendee.primary_ticket_holder"
-                               v-on:click="primaryTicketHolderOnChange($event)" type="checkbox" value="1">
+                               v-on:click="primaryTicketHolderOnChange($event)" type="checkbox" value="true">
                         <label>{{ __('system.primary_ticket_holder') }}</label>
                     </div>
                     <div class="small-12 medium-4 cell">

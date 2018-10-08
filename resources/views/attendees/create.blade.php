@@ -42,6 +42,7 @@
                         <button id="submit" type="button" class="button"
                                 style="display: none;" :disabled="agreement ? false : true"
                                 v-on:click="submit">{{ __('system.submit') }}</button>
+                        <a id="exit" href="{{ route('accounts.view') }}" class="button">{{ __('system.exit') }}</a>
                     </div>
                 </div>
             </div>
@@ -72,7 +73,7 @@
                     </tfoot>
                 </table>
             </div>
-            <div class="callout success">
+            <div class="callout success" id="countdown">
                 <strong>{{ __('system.tickets_reserved_title') }}</strong><br />
                 <countdown @countdownprogress="reservationWillExpire" @countdownend="reservationExpires" :time="time"
                     ref="countdown">
@@ -114,10 +115,7 @@
                         state[index] = value;
                     });
                 }
-            },
-            plugins: [createPersistedState({
-                key: '{{ snake_case(config('app.name')) }}'
-            })]
+            }
         });
 
         function processErrorBag(errorBag) {
@@ -169,6 +167,7 @@
             props: ['errors'],
             data: function() {
                 return {
+                    hasAttendees: formData.state.has_attendees,
                     attendees: formData.state.attendees
                 };
             },
@@ -177,16 +176,16 @@
                     formData.commit('update', this.$data);
                 },
                 primaryTicketHolderOnChange: function (event) {
-                    const input = $(event.currentTarget).closest('input[id=primary_ticket_holder]');
-                    const id = $(input).attr('name').match(/attendees\.([0-9]+)\.primary_ticket_holder/)[1];
+                    let input = $(event.currentTarget).closest('input[id=primary_ticket_holder]');
+                    let id = $(input).attr('name').match(/attendees\.([0-9]+)\.primary_ticket_holder/)[1];
 
-                    if (this.attendees[id].primary_ticket_holder === true) {
+                    if ($(input).prop('checked')) {
                         let newAttendees = this.attendees;
 
-                        newAttendees[id]['title'] = formData.state.title;
-                        newAttendees[id]['first_name'] = formData.state.first_name;
-                        newAttendees[id]['last_name'] = formData.state.last_name;
-                        newAttendees[id]['email'] = formData.state.email;
+                        newAttendees[id].title = formData.state.title;
+                        newAttendees[id].first_name = formData.state.first_name;
+                        newAttendees[id].last_name = formData.state.last_name;
+                        newAttendees[id].email = formData.state.email;
                         this.attendees = newAttendees;
 
                         $(':input[name=\'attendees.'+id+'.title\']').prop('disabled', true);
@@ -194,18 +193,18 @@
                         $(':input[name=\'attendees.'+id+'.last_name\']').prop('disabled', true);
                         $(':input[name=\'attendees.'+id+'.email\']').prop('disabled', true);
 
-                        this.$nextTick();
-
                         $(':input[id=primary_ticket_holder]').not(input).each(function(index, element) {
                             $(element).prop('disabled', true);
                         });
-                    } else if (!this.attendees[id].primary_ticket_holder) {
+
+                        this.$nextTick();
+                    } else {
                         let newAttendees = this.attendees;
 
-                        newAttendees[id]['title'] = '';
-                        newAttendees[id]['first_name'] = '';
-                        newAttendees[id]['last_name'] = '';
-                        newAttendees[id]['email'] = '';
+                        newAttendees[id].title = '';
+                        newAttendees[id].first_name = '';
+                        newAttendees[id].last_name = '';
+                        newAttendees[id].email = '';
                         this.attendees = newAttendees;
 
                         $(':input[name=\'attendees.'+id+'.title\']').prop('disabled', false);
@@ -213,16 +212,21 @@
                         $(':input[name=\'attendees.'+id+'.last_name\']').prop('disabled', false);
                         $(':input[name=\'attendees.'+id+'.email\']').prop('disabled', false);
 
-                        this.$nextTick();
-
                         $('input[id=primary_ticket_holder]').not(input).each(function(index, element) {
-                            $(element).prop('readonly', false);
+                            $(element).prop('disabled', false);
                         });
-                    } else {
-                        throw new Error('Value of the field `primary ticket holder` is invalid.');
+
+                        this.$nextTick();
                     }
                 },
                 load: _.once(function() {
+                    if (this.hasAttendees) {
+                        $('input[id=primary_ticket_holder]').each(function(index, element) {
+                            $(element).prop('checked', false);
+                            $(element).prop('disabled', true);
+                        });
+                    }
+
                     $('#form').foundation();
 
                     $('#attendees-tabs').on('change.zf.tabs', _.debounce(function () {
@@ -267,8 +271,10 @@
             props: ['totalPrice'],
             methods: {
                 agreementUpdate: function() {
-                    formData.commit('update', {'agreement': this.agreement});
-                    vm.agreement = this.agreement;
+                    let value = $('#agreement').prop('checked');
+
+                    formData.commit('update', {'agreement': value});
+                    vm.agreement = value;
                     vm.$nextTick();
                 },
                 update: function(event) {
@@ -285,11 +291,40 @@
 
         Vue.component('success', {
             template: '#success',
-            props: ['commited']
+            data: function() {
+                return {
+                    attendees: formData.state.attendees
+                };
+            },
+            props: ['totalPrice'],
+            methods: {
+                load: _.once(function() {
+                    $('#countdown').hide();
+                })
+            },
+            activated: function() {
+                this.load();
+            }
         });
 
         Vue.component('exception', {
             template: '#exception'
+        });
+
+        const reservationExpiring = _.once(function() {
+            console.log('Reservation will expire: opening pop-up.');
+            $('#expiringModal').foundation('open');
+
+            const flash = setInterval(function(){
+                if (!document.hasFocus()) {
+                    (document.title === "{{ __('system.reservation_expiring_popup') }}") ?
+                        (document.title = "{{ __('system.create_order') }} - {{ Setting::get('system.title') }}") :
+                        (document.title = "{{ __('system.reservation_expiring_popup') }}");
+                } else {
+                    document.title = "{{ __('system.create_order') }} - {{ Setting::get('system.title') }}";
+                    clearInterval(flash);
+                }
+            }, 1000);
         });
 
         const vm = new Vue({
@@ -406,7 +441,10 @@
                             $('#back').hide();
                             $('#next').hide();
                             $('#submit').hide();
-                            parent.$data.commited = response.data;
+                            $('#exit').show();
+
+                            $('#processingModal').foundation('close');
+
                             parent.$data.formView = 'success';
                         })
                         .catch(function(error) {
@@ -445,21 +483,8 @@
                         });
                 },
                 reservationWillExpire: function(data) {
-                    if (data.totalSeconds === 180) {
-                        _.once(function() {
-                            $('#expiringModal').foundation('open');
-
-                            const flash = setInterval(function(){
-                                if (!document.hasFocus()) {
-                                    (title.text() === "{{ __('system.reservation_expiring_popup') }}") ?
-                                    title.text("{{ __('system.create_order') }} - {{ Setting::get('system.title') }}") :
-                                    title.text("{{ __('system.reservation_expiring_popup') }}");
-                                } else {
-                                    title.text("{{ __('system.create_order') }} - {{ Setting::get('system.title') }}");
-                                    clearInterval(flash);
-                                }
-                            }, 1000);
-                        })
+                    if (data.totalSeconds < 180) {
+                        reservationExpiring();
                     }
                 },
                 reservationExpires: function() {
@@ -470,13 +495,13 @@
                 formData.commit('update');
 
                 let totalPrice = 0;
-
                 formData.state.attendees.forEach(function (attendee) {
                     totalPrice += attendee.user_ticket_price;
                 });
+                this.$data.totalPrice = "{{ Setting::get('payment.currency') }}" + totalPrice;
 
-                this.$data.totalPrice = "{{ Setting::get('payment.currency') }}" +
-                    totalPrice;
+                $('#exit').hide();
+
                 this.$nextTick();
             })
         });

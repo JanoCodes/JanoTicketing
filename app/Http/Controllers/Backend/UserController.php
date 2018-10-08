@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -73,5 +74,40 @@ class UserController extends Controller
             'user' => $user,
             'account' => $user->account()->first()
         ]);
+    }
+
+    /**
+     * Return the validator instance.
+     *
+     * @param array $data
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function updateValidator($data)
+    {
+        return Validator::make($data, [
+            'title' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'group_id' => 'required|exists:groups'
+        ]);
+    }
+
+    /**
+     * Update a user instance.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Jano\Models\User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, User $user)
+    {
+        $data = $request->only(['title', 'first_name', 'last_name', 'group_id']);
+        $this->updateValidator($data);
+
+        return response()
+            ->json([
+                'success' => true,
+                'user' => $this->contract->update($user, $data)
+            ]);
     }
 }

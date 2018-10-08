@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -112,7 +112,7 @@ class GroupController extends Controller
     protected function updateValidator($data)
     {
         return Validator::make($data, [
-            'price' => 'numeric|min:0'
+            'surcharge' => 'numeric|min:0'
         ]);
     }
 
@@ -125,11 +125,13 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        $data = $request->only(['name', 'price']);
-
+        $data = $request->only(['slug', 'name', 'can_order_at', 'ticket_limit', 'surcharge', 'right_to_buy']);
         $this->updateValidator($data);
-        $this->contract->update($group, $data);
 
-        return redirect()->route('backend.groups.index');
+        return response()
+            ->json([
+                'success' => true,
+                'group' => $this->contract->update($group, $data)
+            ]);
     }
 }
