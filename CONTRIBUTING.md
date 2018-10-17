@@ -102,13 +102,11 @@ You confirm that:
 
 (a) You have the legal authority to enter into this Agreement.
 
-(b) You own the Copyright and patent claims covering the Contribution which are required to grant the rights under 
-Section 2.
+(b) You own the Copyright and patent claims covering the Contribution which are required to grant the rights under Section 2.
 
 (c) The grant of rights under Section 2 does not violate any grant of rights which You have made to third parties, 
 including Your employer. If You are an employee, You have had Your employer approve this Agreement or sign the Entity 
-version of this document. If You are less than eighteen years old, please have Your parents or guardian sign the 
-Agreement.
+version of this document. If You are less than eighteen years old, please have Your parents or guardian sign the Agreement.
 
 ### 4. Disclaimer
 
@@ -125,9 +123,7 @@ THIS AGREEMENT REGARDLESS OF THE LEGAL OR EQUITABLE THEORY (CONTRACT, TORT OR OT
 
 ### 6. Miscellaneous
 
-6.1 This Agreement will be governed by and construed in accordance with the laws of Hong Kong Speical Administrative 
-Region excluding its conflicts of law provisions. Under certain circumstances, the governing law in this section might 
-be superseded by the United Nations Convention on Contracts for the International Sale of Goods ("UN Convention") and 
+6.1 This Agreement will be governed by and construed in accordance with the laws of England and Wales excluding its conflicts of law provisions. Under certain circumstances, the governing law in this section might be superseded by the United Nations Convention on Contracts for the International Sale of Goods ("UN Convention") and 
 the parties intend to avoid the application of the UN Convention to this Agreement and, thus, exclude the application 
 of the UN Convention in its entirety to this Agreement.
 

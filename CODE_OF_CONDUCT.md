@@ -57,7 +57,8 @@ characteristics above, including participants with disabilities.
 
 ## Reporting Issues
 
-If you experience or witness unacceptable behavior — or have any other concerns — please contact us via email at [conduct@janoticketing.com][email]. All reports will be handled with discretion. In your report please include:
+If you experience or witness unacceptable behavior — or have any other concerns — please contact us via email at 
+[conduct@janoticketing.co.uk][email]. All reports will be handled with discretion. In your report please include:
 
 - Your contact information.
 - Names (real, nicknames, or pseudonyms) of any individuals involved. If there are additional witnesses, please include them as well. Your account of what occurred, and if you believe the incident is ongoing. If there is a publicly available record (e.g. a mailing list archive or a public IRC logger), please include a link.
@@ -71,6 +72,6 @@ We will respect your confidentiality and only disclose information on a need-to-
 
 This Code of Conduct is adapted from the templates from [TODO Group][todogroup] and [Contributor Covenant][covenant].
 
-[email]: mailto:conduct@janoticketing.com
+[email]: mailto:conduct@janoticketing.co.uk
 [todogroup]: http://todogroup.org/opencodeofconduct/
 [covenant]: http://contributor-covenant.org/version/1/4/
