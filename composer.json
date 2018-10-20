@@ -21,6 +21,7 @@
         "hashids/hashids": "^3.0",
         "jano-may-ball/settings": "^1.0",
         "laravel/framework": "5.5.*",
+        "laravel/passport": "~4.0",
         "laravel/socialite": "^3.1",
         "laravel/tinker": "^1.0",
         "league/csv": "^9.1",
