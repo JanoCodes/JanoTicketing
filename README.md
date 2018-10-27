@@ -1,6 +1,6 @@
 <p style="text-align:center;"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
 
-<a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg" alt="Licensed under GNU GPL v3.0"></a> [![Code Climate](https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing)</p>
+[![Licensed under GNU GPL v3.0](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](https://github.com/jano-may-ball/ticketing/blob/master/README.md) [![Code Climate](https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing)
 
 Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-may-ball/ticketing/graphs/contributors) 
 2016-2018.
@@ -34,4 +34,7 @@ Jano Ticketing System is free software: you can redistribute it and/or modify it
 Jano Ticketing System is distributed in the hope that it will be useful, but **WITHOUT ANY WARRANTY**; without even the implied warranty of **MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE**.  See the GNU General Public License for more details.
 
 ## Credits
-The Jano Ticketing System is not possible without the presence of numerous other project which are listed [here](CREDITS.md). 
+The Jano Ticketing System is not possible without the presence of [numerous other project](CREDITS.md) and the 
+generosity of the sponsors below.
+
+<a href="https://lokalise.co" target="_blank"><img src="https://lokalise.co/img/lokalise_logo_black.png" height="50" alt="Lokalise"></a>
