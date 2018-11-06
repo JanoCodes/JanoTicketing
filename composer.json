@@ -25,6 +25,7 @@
         "laravel/socialite": "^3.1",
         "laravel/tinker": "^1.0",
         "league/csv": "^9.1",
+        "milon/barcode": "^5.3",
         "nwidart/laravel-modules": "^2.7",
         "owen-it/laravel-auditing": "^4.1",
         "predis/predis": "^1.1",
@@ -61,6 +62,7 @@
         }
     },
     "extra": {
+        "class": "Jano\\Composer\\InstallerRepository",
         "laravel": {
             "dont-discover": [
             ]
