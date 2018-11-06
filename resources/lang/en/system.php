@@ -166,6 +166,7 @@ return [
     'terms' => 'Terms',
     'to' => 'to',
     'total_charges' => 'Total Charges',
+    'ticket' => 'Ticket',
     'ticket_limit' => 'Ticket Limit',
     'ticket_limit_exceeded' => 'You have chosen a number of tickets exceeding the number of tickets'
         . ' you are allowed to purchase.',
@@ -192,9 +193,10 @@ return [
         0 => 'Mr',
         1 => 'Ms',
         2 => 'Miss',
-        3 => 'Mrs',
-        4 => 'Dr',
-        5 => 'Prof'
+        3 => 'Mx',
+        4 => 'Mrs',
+        5 => 'Dr',
+        6 => 'Prof'
     ],
     'transfer_cancel' => 'Cancel Transfer Request',
     'transfer_create' => 'Create Transfer Request',
