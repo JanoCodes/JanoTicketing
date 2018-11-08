@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -81,7 +82,7 @@ class RegisterController extends Controller
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'phone' => 'required',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|pwned|confirmed',
             'group_id' => 'required|exists:groups,id',
         ]);
     }
@@ -113,6 +114,16 @@ class RegisterController extends Controller
 
         $validation = $this->validator($data);
 
+        $email = $request->get('email');
+
+        if (!preg_match('/^.+@.*cam.ac.uk$/', $email)
+            && !preg_match('/^.+@.*cantab.net$/', $email)
+            && !preg_match('/^.+@.*ox.ac.uk$/', $email)) {
+            return redirect('register')
+                ->withInput($request->except(['password', 'password_confirmation']))
+                ->withErrors(['email' => 'You must register using a valid Cambridge or Oxford email.']);
+        }
+
         if ($validation->failed()) {
             return redirect('register')
                 ->withInput($request->except(['password', 'password_confirmation']))
@@ -123,32 +134,5 @@ class RegisterController extends Controller
         $this->guard()->login($user);
 
         return redirect($this->redirectPath());
-    }
-
-    /**
-     * Create a new user instance after OAuth authentication.
-     *
-     * @param \Laravel\Socialite\Two\User $user
-     * @return \Jano\Models\User
-     */
-    public function oauthCreate(SocialiteUser $user)
-    {
-        $raw = $user->getRaw();
-
-        $name = $user->getName();
-        $parts = explode(' ', $name);
-        $lastname = array_pop($parts);
-        $firstname = implode(' ', $parts);
-
-        return $this->create([
-            'first_name' => $firstname,
-            'last_name' => $lastname,
-            'email' => $user->getEmail(),
-            'method' => 'oauth',
-            'oauth_id' => $user->getId(),
-            'group_id' => $raw['group']->id,
-            'right_to_buy' => $raw['group']->right_to_buy,
-            'guaranteed_addon' => $raw['group']->guaranteed_addon,
-        ]);
     }
 }

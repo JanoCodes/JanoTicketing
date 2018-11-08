@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -89,6 +90,7 @@ return [
     'numeric'              => 'The :attribute must be a number.',
     'preferences'          => 'The :attribute must be a valid list of preferences.',
     'present'              => 'The :attribute field must be present.',
+    'pwned'                => 'The password you chose is insufficiently secure as it has been found in known password breaches, please choose a new one.',
     'regex'                => 'The :attribute format is invalid.',
     'required'             => 'The :attribute field is required.',
     'required_if'          => 'The :attribute field is required when :other is :value.',

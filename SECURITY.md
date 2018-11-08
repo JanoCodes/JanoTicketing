@@ -1,9 +1,9 @@
-## Security
+# Security
 
 The Jano Ticketing System maintainers take security very seriously. We welcome any peer review of open source code to
  ensure nobody's system is ever compromised or hacked.
 
-### Where should I report security issues?
+## Where should I report security issues?
 
 In order to give the community time to respond and upgrade we strongly urge you report all security issues privately.
  Please use our vulnerability disclosure program at Hacker One to provide details and repro steps and we will respond

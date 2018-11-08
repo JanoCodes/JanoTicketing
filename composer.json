@@ -1,7 +1,7 @@
 {
     "name": "jano-may-ball/ticketing",
     "description": "Jano Ticketing System",
-    "keywords": ["php", "mysql", "redis", "event-ticketing"],
+    "keywords": ["php", "mysql", "event-ticketing"],
     "license": "GPL-3.0",
     "authors": [
         {
@@ -30,7 +30,8 @@
         "owen-it/laravel-auditing": "^4.1",
         "predis/predis": "^1.1",
         "propaganistas/laravel-phone": "^4.0",
-        "spatie/laravel-menu": "^3.1"
+        "spatie/laravel-menu": "^3.1",
+        "valorin/pwned-validator": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -46,8 +47,7 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories",
-            "modules"
+            "database/factories"
         ],
         "exclude-from-classmap": [
             "modules/*/vendor/**"
@@ -73,11 +73,11 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate"
+            "@php jano key:generate"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
+            "@php jano package:discover"
         ]
     },
     "config": {

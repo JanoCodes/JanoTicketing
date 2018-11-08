@@ -21,7 +21,7 @@ npm run production
 * Edit the configuration file at `.env` and `storage/settings.hjson`
 * Create tables required by the application
 ```
-php artisan migrate
+php jano migrate
 ```
 * Point web server to `public` directory and **you're done**!
 
@@ -34,7 +34,7 @@ Jano Ticketing System is free software: you can redistribute it and/or modify it
 Jano Ticketing System is distributed in the hope that it will be useful, but **WITHOUT ANY WARRANTY**; without even the implied warranty of **MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE**.  See the GNU General Public License for more details.
 
 ## Credits
-The Jano Ticketing System is not possible without the presence of [numerous other project](CREDITS.md) and the 
+The Jano Ticketing System is not possible without the presence of [numerous other projects](CREDITS.md) and the 
 generosity of the sponsors below.
 
 <a href="https://lokalise.co" target="_blank"><img src="https://lokalise.co/img/lokalise_logo_black.png" height="50" alt="Lokalise"></a>
