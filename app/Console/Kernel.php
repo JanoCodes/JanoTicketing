@@ -21,7 +21,7 @@
 
 namespace Jano\Console;
 
-use Jano\Console\Application as Artisan;
+use Jano\Console\Application as Jano;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -37,6 +37,7 @@ class Kernel extends ConsoleKernel
         \Jano\Console\Commands\CreateUser::class,
         \Jano\Console\Commands\ExportAttendees::class,
         \Jano\Console\Commands\ExportLanguageFiles::class,
+        \Jano\Console\Commands\GenerateQRCodes::class,
     ];
 
     /**
@@ -71,7 +72,7 @@ class Kernel extends ConsoleKernel
     protected function getArtisan()
     {
         if (is_null($this->artisan)) {
-            return $this->artisan = (new Artisan($this->app, $this->events, $this->app->version()))
+            return $this->artisan = (new Jano($this->app, $this->events, $this->app->version()))
                 ->resolveCommands($this->commands);
         }
         return $this->artisan;
