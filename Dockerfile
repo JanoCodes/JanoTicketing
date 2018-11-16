@@ -3,18 +3,6 @@ FROM php:7.1-apache
 # Add MySQL user
 RUN groupadd -r mysql && useradd -r -g mysql mysql
 
-RUN apt-get update \
-    && apt-get install -y \
-        apt-transport-https \
-        ca-certificates \
-        libcurl4-openssl-dev \
-        libtool \
-        libxml2-dev \
-        $PHPIZE_DEPS \
-        pwgen \
-        unzip \
-        tzdata
-
 # https://bugs.debian.org/830696 (apt uses gpgv by default in newer releases, rather than gpg)
 RUN set -ex; \
 	apt-get update; \
@@ -30,22 +18,31 @@ RUN set -ex; \
 # Fetch Node JS repository
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
-# Install production dependencies
-RUN apt-get install -y \
-    bash \
-    curl \
-    g++ \
-    gcc \
-    git \
-    libc-dev \
-    libpng-dev \
-    make \
-    mysql-client \
-    nodejs \
-    openssh-client \
-    rsync \
-    sudo \
-    wget
+# Install build and production dependencies
+RUN apt-get update \
+    && apt-get install -y \
+        apt-transport-https \
+        bash \
+        build-essential \
+        ca-certificates \
+        curl \
+        g++ \
+        gcc \
+        git \
+        libc-dev \
+        libcurl4-openssl-dev \
+        libpng-dev \
+        libtool \
+        libxml2-dev \
+        make \
+        nodejs \
+        openssh-client \
+        $PHPIZE_DEPS \
+        pwgen \
+        tzdata \
+        sudo \
+        unzip \
+        wget
 
 # Setup Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/ticketing/public
@@ -165,16 +162,12 @@ ENV PATH="./vendor/bin:$PATH"
 
 # Cleanup dev dependencies
 RUN apt-get remove -y \
-        apt-transport-https \
-        ca-certificates \
         dirmngr \
         gnupg \
         libcurl4-openssl-dev \
         libtool \
         libxml2-dev \
-        $PHPIZE_DEPS \
         pwgen \
-        unzip \
         tzdata
 
 RUN chown -R www-data:www-data /var/www
@@ -185,7 +178,7 @@ RUN cd /var/www \
     && cd ticketing \
     && sudo -u www-data composer install --no-dev \
     && sudo -u www-data npm install \
-    && sudo -u www-data npm build production
+    && sudo -u www-data npm run production
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
