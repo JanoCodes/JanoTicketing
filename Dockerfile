@@ -27,6 +27,9 @@ RUN set -ex; \
 		 apt-get install -y dirmngr; \
 	fi
 
+# Fetch Node JS repository
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+
 # Install production dependencies
 RUN apt-get install -y \
     bash \
