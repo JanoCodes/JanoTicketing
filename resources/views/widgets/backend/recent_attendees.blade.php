@@ -1,4 +1,4 @@
-<table>
+<table class="table">
     <thead>
     <tr>
         <td colspan="2">

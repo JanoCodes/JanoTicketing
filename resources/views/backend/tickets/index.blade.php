@@ -4,18 +4,18 @@
 
 @section('content')
 <div id="data">
-    <div class="actions grid-x">
-        <div class="small-12 medium-6 large-8 cell">
-            <a class="button hollow" href="{{ route('backend.tickets.create') }}">
+    <div class="actions row">
+        <div class="col-sm-12 col-md-6 col-lg-8">
+            <a class="btn btn-outline-primary" href="{{ route('backend.tickets.create') }}">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
             </a>
         </div>
-        <div class="small-12 medium-6 large-4 cell">
+        <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="input-group">
-                <input type="text" v-model="filterText" class="input-group-field" @keydown="doFilter"
+                <input type="text" v-model="filterText" class="form-control" @keydown="doFilter"
                        placeholder="{{ __('system.search') }}">
-                <div class="input-group-button">
-                    <button class="button warning" @click="resetFilter">{{ __('system.reset') }}</button>
+                <div class="input-group-append">
+                    <button class="btn btn-warning" @click="resetFilter">{{ __('system.reset') }}</button>
                 </div>
             </div>
         </div>
@@ -24,20 +24,22 @@
         pagination-path="" @vuetable:pagination-data="onPaginationData">
         <template slot="actions" scope="props">
             <div class="table-actions">
-                <button class="button small warning" @click="editItem(props.rowData)">
-                    <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
-                </button>
-                <button class="button small alert" @click="deleteItem(props.rowData)">
-                    <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
-                </button>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-warning" @click="editItem(props.rowData)">
+                        <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-danger" @click="deleteItem(props.rowData)">
+                        <i class="fas fa-trash fa-fw" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
         </template>
     </vuetable>
-    <div class="vuetable-pagination grid-x">
-        <div class="small-12 medium-6 cell">
+    <div class="vuetable-pagination row">
+        <div class="col-sm-12 col-md-6">
             <vuetable-pagination-info ref="paginationInfo"></vuetable-pagination-info>
         </div>
-        <div class="small-12 medium-6 cell">
+        <div class="col-sm-12 col-md-6">
             <vuetable-pagination ref="pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
         </div>
     </div>

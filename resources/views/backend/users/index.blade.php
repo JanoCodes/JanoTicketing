@@ -4,13 +4,13 @@
 
 @section('content')
 <div id="data">
-    <div class="actions grid-x">
-        <div class="small-12 medium-offset-6 medium-6 large-offset-8 large-4 cell">
+    <div class="actions row">
+        <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
             <div class="input-group">
-                <input type="text" v-model="filterText" class="input-group-field" @keydown="doFilter"
+                <input type="text" v-model="filterText" class="form-control" @keydown="doFilter"
                        placeholder="{{ __('system.search') }}">
-                <div class="input-group-button">
-                    <button class="button warning" @click="resetFilter">{{ __('system.reset') }}</button>
+                <div class="input-group-append">
+                    <button class="btn btn-warning" @click="resetFilter">{{ __('system.reset') }}</button>
                 </div>
             </div>
         </div>
@@ -19,20 +19,22 @@
         pagination-path="" @vuetable:pagination-data="onPaginationData">
         <template slot="actions" scope="props">
             <div class="table-actions">
-                <a class="button small primary" :href="'{{ url('admin/users') }}/' + props.rowData.id">
-                    <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                </a>
-                <button class="button small warning" @click="editItem(props.rowData)">
-                    <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
-                </button>
+                <div class="btn-group btn-group-sm">
+                    <a class="btn btn-primary" :href="'{{ url('admin/users') }}/' + props.rowData.id">
+                        <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                    </a>
+                    <button class="btn btn-warning" @click="editItem(props.rowData)">
+                        <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
         </template>
     </vuetable>
-    <div class="vuetable-pagination grid-x">
-        <div class="small-12 medium-6 cell">
+    <div class="vuetable-pagination row">
+        <div class="col-sm-12 col-md-6">
             <vuetable-pagination-info ref="paginationInfo"></vuetable-pagination-info>
         </div>
-        <div class="small-12 medium-6 cell">
+        <div class="col-sm-12 col-md-6">
             <vuetable-pagination ref="pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
         </div>
     </div>

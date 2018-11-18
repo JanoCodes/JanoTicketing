@@ -1,6 +1,6 @@
 /*
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -21,7 +21,8 @@
 try {
     window._ = require('lodash');
     window.$ = window.jQuery = require('jquery');
-    window.Foundation = require('foundation-sites');
+    window.Popper = require('popper.js');
+    require('bootstrap');
 
     window.Vue = require('vue');
 

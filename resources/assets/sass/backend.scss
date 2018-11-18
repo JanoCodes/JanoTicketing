@@ -20,9 +20,6 @@
 @import 'variables';
 @import '~bootstrap/scss/bootstrap';
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans:300,400,600);
-
 // Other packages
 @import '~flatpickr/dist/flatpickr';
 @import '~quill/dist/quill.snow';
@@ -174,11 +171,6 @@
     a,
     button {
       margin: 0;
-    }
-
-    a,
-    button {
-      padding: .65rem;
     }
   }
 

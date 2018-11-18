@@ -1,4 +1,6 @@
-<small>
-    <i class="fas fa-credit-card fa-fw" aria-hidden="true"></i> {{ __('system.total_charges') }}
-</small>
-<div class="stat">{{ Setting::get('payment.currency') }}{{ $charges_total }}</div>
+<div class="card-body">
+    <small>
+        <i class="fas fa-credit-card fa-fw" aria-hidden="true"></i> {{ __('system.total_charges') }}
+    </small>
+    <h2>{{ Setting::get('payment.currency') }}{{ $charges_total }}</h2>
+</div>
