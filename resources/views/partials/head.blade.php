@@ -10,6 +10,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/' . $stylesheet) }}" rel="stylesheet">
+    @stack('stylesheets')
 
     <!-- Scripts -->
     <script>

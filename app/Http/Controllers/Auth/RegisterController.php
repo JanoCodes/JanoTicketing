@@ -22,13 +22,12 @@
 namespace Jano\Http\Controllers\Auth;
 
 use Jano\Contracts\UserContract;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Setting;
 use Illuminate\Http\Request;
-use Jano\Models\User;
 use Jano\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Laravel\Socialite\Two\User as SocialiteUser;
 
 class RegisterController extends Controller
 {
@@ -66,6 +65,79 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->contract = $contract;
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @param \Kris\LaravelFormBuilder\FormBuilder $builder
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm(FormBuilder $builder)
+    {
+        $form = $builder->createByArray([
+            [
+                'name' => 'title',
+                'type' => 'select',
+                'label' => __('system.title'),
+                'choices' => __('system.titles'),
+                'rules' => ['required'],
+                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.title'))])
+            ],
+            [
+                'name' => 'first_name',
+                'type' => 'text',
+                'label' => __('system.first_name'),
+                'rules' => ['required'],
+                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.first_name'))])
+            ],
+            [
+                'name' => 'last_name',
+                'type' => 'text',
+                'label' => __('system.last_name'),
+                'rules' => ['required'],
+                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.last_name'))])
+            ],
+            [
+                'name' => 'email',
+                'type' => 'email',
+                'label' => __('system.email'),
+                'rules' => ['required'],
+                'validationMessage' => __('validation.email', ['attribute' => strtolower(__('system.email'))])
+            ],
+            [
+                'name' => 'password',
+                'type' => 'password',
+                'label' => __('system.password'),
+                'rules' => ['required'],
+                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.password'))])
+            ],
+            [
+                'name' => 'password_confirmation',
+                'type' => 'password',
+                'label' => __('system.confirm_password'),
+                'rules' => [
+                    'required',
+                    'confirmed'
+                ]
+            ],
+            [
+                'name' => 'submit',
+                'type' => 'submit',
+                'label' => __('system.register'),
+                'wrapper' => [
+                    'class' => 'col-sm-8 offset-sm-4'
+                ],
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ]
+        ], [
+            'method' => 'POST',
+            'url' => route('register')
+        ]);
+
+        return view('auth.register', ['form' => $form]);
     }
 
     /**
@@ -113,16 +185,6 @@ class RegisterController extends Controller
         }
 
         $validation = $this->validator($data);
-
-        $email = $request->get('email');
-
-        if (!preg_match('/^.+@.*cam.ac.uk$/', $email)
-            && !preg_match('/^.+@.*cantab.net$/', $email)
-            && !preg_match('/^.+@.*ox.ac.uk$/', $email)) {
-            return redirect('register')
-                ->withInput($request->except(['password', 'password_confirmation']))
-                ->withErrors(['email' => 'You must register using a valid Cambridge or Oxford email.']);
-        }
 
         if ($validation->failed()) {
             return redirect('register')

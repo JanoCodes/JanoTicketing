@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -24,6 +24,7 @@ namespace Jano\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Jano\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class LoginController extends Controller
 {
@@ -53,6 +54,53 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @param \Kris\LaravelFormBuilder\FormBuilder $builder
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm(FormBuilder $builder)
+    {
+        $form = $builder->createByArray([
+            [
+                'name' => 'email',
+                'type' => 'email',
+                'label' => __('system.email'),
+                'rules' => ['required'],
+                'validationMessage' => __('validation.email', ['attribute' => strtolower(__('system.email'))])
+            ],
+            [
+                'name' => 'password',
+                'type' => 'password',
+                'label' => __('system.password'),
+                'rules' => ['required'],
+                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.password'))])
+            ],
+            [
+                'name' => 'remember',
+                'type' => 'checkbox',
+                'label' => __('system.remember_me')
+            ],
+            [
+                'name' => 'submit',
+                'type' => 'submit',
+                'label' => __('system.login'),
+                'wrapper' => [
+                    'class' => 'col-sm-8 offset-sm-4'
+                ],
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ]
+        ], [
+            'method' => 'POST',
+            'url' => route('login')
+        ]);
+
+        return view('auth.login', ['form' => $form]);
     }
 
     /**

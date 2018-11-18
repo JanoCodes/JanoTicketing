@@ -1,5 +1,5 @@
 // Jano Ticketing System
-// Copyright (C) 2016-2017 Andrew Ying
+// Copyright (C) 2016-2018 Andrew Ying and other contributors.
 //
 // This file is part of Jano Ticketing System.
 //
@@ -16,150 +16,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-@import '../../../node_modules/foundation-sites/scss/util/util';
+@import '../../../node_modules/bootstrap/scss/functions';
 
-// Foundation for Sites by ZURB
-// foundation.zurb.com
-// Licensed under MIT Open Source
-
-////
-/// @group global
-////
-
-/// Font size attribute applied to `<html>` and `<body>`. We use 100% by default so the value is inherited from the user's browser settings.
-/// @type Number
-$global-font-size: 14px !default;
-
-/// Global width of your site. Used by the grid to determine row width.
-/// @type Number
-$global-width: rem-calc(1200) !default;
-
-/// Default line height for all type. `$global-lineheight` is 24px while `$global-font-size` is 16px
-/// @type Number
-$global-lineheight: 1.5 !default;
-
-/// Colors used for buttons, callouts, links, etc. There must always be a color called `primary`.
-/// @type Map
-$foundation-palette: (
-  primary: #91547d,
-  secondary: #472249,
-  success: #3adb76,
-  warning: #ffae00,
-  alert: #cc4b37,
-) !default;
-
-/// Color used for light gray UI items.
-/// @type Color
-$light-gray: #efefef !default;
-
-/// Color used for medium gray UI items.
-/// @type Color
-$medium-gray: #ccb0af !default;
-
-/// Color used for dark gray UI items.
-/// @type Color
-$dark-gray: #a293ad !default;
-
-/// Color used for black ui items.
-/// @type Color
+$white:    #fdfdfd !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
 $black: #0e060e !default;
 
-/// Color used for white ui items.
-/// @type Color
-$white: #fdfdfd !default;
+$primary:       #91547d !default;
+$secondary:     #472249 !default;
 
-/// Background color of the body.
-/// @type Color
-$body-background: $white !default;
+$border-radius:    .35rem !default;
+$border-radius-lg: .4rem !default;
+$border-radius-sm: .25rem !default;
 
-/// Text color of the body.
-/// @type Color
-$body-font-color: $black !default;
+$input-btn-padding-y: .375rem !default;
+$input-btn-padding-x: .8rem !default;
 
-/// Font stack of the body.
-/// @type List
-$body-font-family: 'Noto Sans', Helvetica, Roboto, Arial, sans-serif !default;
-
-/// Set to `true` to enable antialiased type, using the `-webkit-font-smoothing` and `-moz-osx-font-smoothing` CSS properties.
-/// @type Boolean
-$body-antialiased: true !default;
-
-/// Global value used for margin on components.
-/// @type Number
-$global-margin: 1rem !default;
-
-/// Global value used for padding on components.
-/// @type Number
-$global-padding: 1rem !default;
-
-/// Global value used for positioning on components.
-/// @type Number
-$global-position: 1rem !default;
-
-/// Global font weight used for normal type.
-/// @type Keyword | Number
-$global-weight-normal: normal !default;
-
-/// Global font weight used for bold type.
-/// @type Keyword | Number
-$global-weight-bold: bold !default;
-
-/// Global value used for all elements that have a border radius.
-/// @type Number
-$global-radius: 5px !default;
-
-/// Global value used for all menu styles. Can be overwritten at individual menu component level.
-/// @type Number
-$global-menu-padding: .7rem 1rem !default;
-
-/// Global value used for all menu styles. Nested margin for submenu.
-$global-menu-nested-margin: 1rem !default;
-
-/// Sets the text direction of the CSS. Can be either `ltr` or `rtl`.
-/// @type Keyword
-$global-text-direction: ltr !default;
-
-/// Enables flexbox for components that support it.
-/// @type Boolean
-$global-flexbox: false !default;
-
-/// Enabled responsive breakpoints for prototypes if applicable
-// @type Boolean
-$global-prototype-breakpoints: false !default;
-
-/// Padding inside buttons.
-/// @type List
-$button-padding: .8em .95em;
-
-/// Margin around buttons.
-/// @type List
-$button-margin: 0 3px $global-margin 0;
-
-/// Sizes for buttons.
-/// @type Map
-$button-sizes: (
-  tiny: .6rem,
-  small: .75rem,
-  default: 1rem,
-  large: 1.25rem
-);
-
-/// Margin between buttons in a button group.
-/// @type Number
-$buttongroup-spacing: 3px;
-
-/// Default width of a modal, with no class applied.
-/// @type Number
-$reveal-width: 65vw;
-
-/// Default maximum width of a modal.
-/// @type Number
-$reveal-max-width: 1000px;
-
-/// Font size of tab items.
-/// @Type Number
-$tab-item-font-size: rem-calc(14);
+$navbar-nav-link-padding-x: .8rem !default;
 
 /// Path for the Font Awesome fonts
 /// @type Path
 $fa-font-path: '../fonts';
+
+@import '../../../node_modules/bootstrap/scss/variables';

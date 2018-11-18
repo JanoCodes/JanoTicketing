@@ -2,15 +2,15 @@
 <html lang="{{ config('app.locale') }}">
 @include('partials.head', ['stylesheet' => 'app.css'])
 <body>
-<div class="grid-x page-container">
-    <div class="small-12 large-12 cell off-canvas-wrapper">
-        @include('partials.header')
+<div class="container-fluid page-container">
+    @include('partials.header')
 
-        <div class="content off-canvas-content" data-off-canvas-content>
-            @yield('content')
-        </div>
+    <main class="container content">
+        @yield('content')
+    </main>
 
-        <div class="footer">
+    <div class="footer">
+        <div class="container">
             {!! __('system.copyright') !!}
         </div>
     </div>

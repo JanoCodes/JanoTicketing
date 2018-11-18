@@ -1,11 +1,12 @@
 // Jano Ticketing System
-// Copyright (C) 2016-2017 Andrew Ying
+// Copyright (C) 2016-2018 Andrew Ying and other contributors.
 //
 // This file is part of Jano Ticketing System.
 //
 // Jano Ticketing System is free software: you can redistribute it and/or
 // modify it under the terms of the GNU General Public License v3.0 as
-// published by the Free Software Foundation.
+// published by the Free Software Foundation. You must preserve all legal
+// notices and author attributions present.
 //
 // Jano Ticketing System is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -25,7 +26,7 @@ body *:not(html):not(style):not(br):not(tr):not(code) {
 }
 
 body {
-  background-color: $light-gray;
+  background-color: $gray-200;
   color: $black;
   height: 100%;
   line-height: 1.4;
@@ -43,7 +44,7 @@ blockquote {
 }
 
 a {
-  color: map-get($foundation-palette, primary);
+  color: $primary;
 
   img {
     border: 0;
@@ -51,7 +52,7 @@ a {
 }
 
 h1 {
-  color: map-get($foundation-palette, secondary);
+  color: $secondary;
   font-size: 19px;
   font-weight: bold;
   margin-top: 0;
@@ -59,7 +60,7 @@ h1 {
 }
 
 h2 {
-  color: map-get($foundation-palette, secondary);
+  color: $secondary;
   font-size: 16px;
   font-weight: bold;
   margin-top: 0;
@@ -67,7 +68,7 @@ h2 {
 }
 
 h3 {
-  color: map-get($foundation-palette, secondary);
+  color: $secondary;
   font-size: 14px;
   font-weight: bold;
   margin-top: 0;
@@ -91,7 +92,7 @@ img {
 }
 
 .wrapper {
-  background-color: $light-gray;
+  background-color: $gray-200;
   -premailer-cellpadding: 0;
   -premailer-cellspacing: 0;
   margin: 0;
@@ -114,7 +115,7 @@ img {
   text-align: center;
 
   a {
-    color: $dark-gray;
+    color: $gray-800;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
@@ -123,9 +124,9 @@ img {
 }
 
 .body {
-  background-color: $light-gray;
-  border-bottom: 1px solid $light-gray;
-  border-top: 1px solid $light-gray;
+  background-color: $gray-200;
+  border-bottom: 1px solid $gray-200;
+  border-top: 1px solid $gray-200;
   -premailer-cellpadding: 0;
   -premailer-cellspacing: 0;
   margin: 0;
@@ -145,7 +146,7 @@ img {
 }
 
 .subcopy {
-  border-top: 1px solid $light-gray;
+  border-top: 1px solid $gray-200;
   margin-top: 25px;
   padding-top: 25px;
 
@@ -164,7 +165,7 @@ img {
   width: 570px;
 
   p {
-    color: $medium-gray;
+    color: $gray-400;
     font-size: 12px;
     text-align: center;
   }
@@ -180,7 +181,7 @@ img {
   }
 
   th {
-    border-bottom: 1px solid $light-gray;
+    border-bottom: 1px solid $gray-200;
     padding-bottom: 8px;
   }
 
@@ -208,7 +209,7 @@ img {
 
 .button {
   border-radius: 3px;
-  box-shadow: 0 2px 3px $light-gray;
+  box-shadow: 0 2px 3px $gray-200;
   color: $white;
   display: inline-block;
   text-decoration: none;
@@ -216,27 +217,27 @@ img {
 }
 
 .button-primary {
-  background-color: map-get($foundation-palette, primary);
-  border-bottom: 10px solid map-get($foundation-palette, primary);
-  border-left: 18px solid map-get($foundation-palette, primary);
-  border-right: 18px solid map-get($foundation-palette, primary);
-  border-top: 10px solid map-get($foundation-palette, primary);
+  background-color: $primary;
+  border-bottom: 10px solid $primary;
+  border-left: 18px solid $primary;
+  border-right: 18px solid $primary;
+  border-top: 10px solid $primary;
 }
 
 .button-secondary {
-  background-color: map-get($foundation-palette, secondary);
-  border-bottom: 10px solid map-get($foundation-palette, secondary);
-  border-left: 18px solid map-get($foundation-palette, secondary);
-  border-right: 18px solid map-get($foundation-palette, secondary);
-  border-top: 10px solid map-get($foundation-palette, secondary);
+  background-color: $secondary;
+  border-bottom: 10px solid $secondary;
+  border-left: 18px solid $secondary;
+  border-right: 18px solid $secondary;
+  border-top: 10px solid $secondary;
 }
 
 .button-success {
-  background-color: map-get($foundation-palette, success);
-  border-bottom: 10px solid map-get($foundation-palette, success);
-  border-left: 18px solid map-get($foundation-palette, success);
-  border-right: 18px solid map-get($foundation-palette, success);
-  border-top: 10px solid map-get($foundation-palette, success);
+  background-color: $success;
+  border-bottom: 10px solid $success;
+  border-left: 18px solid $success;
+  border-right: 18px solid $success;
+  border-top: 10px solid $success;
 }
 
 .panel {
@@ -244,7 +245,7 @@ img {
 }
 
 .panel-content {
-  background-color: $light-gray;
+  background-color: $gray-200;
   padding: 16px;
 }
 
@@ -259,7 +260,7 @@ img {
 
 .promotion {
   background-color: $white;
-  border: 2px dashed $medium-gray;
+  border: 2px dashed $gray-400;
   margin: 0;
   margin-bottom: 25px;
   margin-top: 25px;
