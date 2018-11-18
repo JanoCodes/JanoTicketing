@@ -1,0 +1,27 @@
+{
+    system: {
+        title: Jano Ticketing System
+    }
+    event: {
+        name: The Best Event Ever
+        date: {
+            from: 2018-01-01 00:00
+            to: 2018-01-02 00:00
+        }
+        location: {
+            name: Downing College
+            lat: 52.2054353
+            long: 0.1211812
+        }
+        cover_image: cover_image.jpg
+    },
+    payment: {
+        currency: £
+        deadline: 3
+        account: {
+            name: Jano Bank Account
+            sort_code: 00-00-00
+            number: 12345678
+        }
+    }
+}

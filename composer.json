@@ -70,7 +70,8 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"file_exists('storage/settings.hjson.example') || copy('storage/settings.hjson.example, 'storage/settings.hjson');\""
         ],
         "post-create-project-cmd": [
             "@php jano key:generate"
