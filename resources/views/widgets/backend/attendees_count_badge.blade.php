@@ -1,4 +1,4 @@
-<div class="card-body">
+<div class="card-body backend-card">
     <small>
         <i class="fas fa-ticket-alt fa-fw" aria-hidden="true"></i> {{ __('system.tickets_purchased') }}
     </small>
