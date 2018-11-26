@@ -124,9 +124,20 @@ label {
     margin-top: 15px;
   }
 
+  .ticket-plus {
+    border-bottom-left-radius: $border-radius !important;
+    border-top-left-radius: $border-radius !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
   .ticket-preference {
     margin-right: .5rem;
     width: 4rem;
+  }
+
+  .attendee-view {
+    line-height: 1.2 !important;
   }
 }
 

@@ -1,17 +1,17 @@
 @if (count($errors) > 0)
-    <div data-abide-error role="alert" class="alert callout" style="display: block;">
+    <div role="alert" class="alert alert-warning" style="display: block;">
         <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ __('validation.errors_in_form') }}</p>
     </div>
 @elseif (session('success'))
-    <div data-abide-error role="alert" class="success callout" style="display: block;">
+    <div role="alert" class="alert alert-success" style="display: block;">
         {!! session('success') !!}
     </div>
 @elseif (session('alert'))
-    <div data-abide-error role="alert" class="alert callout" style="display: block;">
+    <div role="alert" class="alert alert-warning" style="display: block;">
         <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {!! session('alert') !!}</p>
     </div>
 @else
-    <div data-abide-error class="alert callout" style="display: none;">
+    <div role="alert" class="alert alert-warnng" style="display: none;">
         <p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ __('validation.errors_in_form') }}</p>
     </div>
 @endif

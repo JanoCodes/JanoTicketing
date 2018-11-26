@@ -20,6 +20,7 @@
                     {!! form($register) !!}
                 </div>
             </div>
+            <div class="clearfix">&nbsp;</div>
         </div>
     </div>
 </div>

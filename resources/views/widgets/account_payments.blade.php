@@ -1,6 +1,6 @@
 @if ($account->payments()->count() !== 0)
     <h3>{{ __('system.payments') }}</h3>
-    <table>
+    <table class="table">
         <thead>
         <tr>
             <th>{{ __('system.date_credited') }}</th>

@@ -5,8 +5,7 @@
 <div class="container-fluid m-0 p-0 page-container">
     <div class="col-sm-12 col-lg-12 p-0">
         <div class="content d-flex">
-            <div class="flex-md-shrink-0 off-canvas in-canvas-for-medium sidebar" id="sidebar"
-                data-off-canvas data-transition="overlap">
+            <div class="flex-md-shrink-1 sidebar" id="sidebar">
                 <a class="logo" href="{{ url('/') }}">
                     <img src="{{ asset('images/logo.png') }}" />
                 </a>
@@ -17,7 +16,7 @@
                 </span>
                 {!! Menu::backend()->addClass('nav flex-column') !!}
             </div>
-            <div class="flex-md-grow-1 main-content off-canvas-content" data-off-canvas-content>
+            <div class="flex-md-grow-1 main-content">
                 <div class="mobile-header d-block d-md-none">
                     <button class="button clear" data-toggle="sidebar">
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -51,7 +50,7 @@
                 <div class="container-fluid">
                     @yield('content')
                 </div>
-                <div class="flex-md-grow-1 footer">
+                <div class="footer">
                     {!! __('system.copyright') !!}
                 </div>
             </div>

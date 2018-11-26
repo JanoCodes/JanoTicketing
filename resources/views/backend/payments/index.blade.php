@@ -6,12 +6,14 @@
 <div id="data">
     <div class="actions row">
         <div class="col-sm-12 col-md-6 col-lg-8">
-            <a class="btn btn-outline-primary" href="{{ route('backend.payments.create') }}">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
-            </a>
-            <a class="btn btn-outline-primary" href="{{ route('backend.paymentimports.create') }}">
-                <i class="fa fa-upload" aria-hidden="true"></i> {{ __('system.import_entries') }}
-            </a>
+            <div class="btn-group">
+                <a class="btn btn-outline-primary" href="{{ route('backend.payments.create') }}">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> {{ __('system.new_entry') }}
+                </a>
+                <a class="btn btn-outline-success" href="{{ route('backend.paymentimports.create') }}">
+                    <i class="fa fa-upload" aria-hidden="true"></i> {{ __('system.import_entries') }}
+                </a>
+            </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="input-group">

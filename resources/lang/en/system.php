@@ -90,7 +90,7 @@ return [
     'last_name' => 'Last Name',
     'location_name' => 'Location Name',
     'login' => 'Login',
-    'login_required' => 'Please login/register <a href="#" data-open="login-modal">here</a> to '
+    'login_required' => 'Please login/register <a href="#login-modal" data-toggle="modal">here</a> to '
         . 'purchase tickets for this event.',
     'logout' => 'Logout',
     'method' => 'Method',

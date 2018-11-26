@@ -3,66 +3,62 @@
 @section('title', __('system.create_order'))
 
 @section('content')
-    <div class="grid-x">
-        <div class="small-12 medium-7 large-8 cell">
+    <div class="row">
+        <div class="col-sm-12 col-md-7 col-lg-8">
             <div class="card event-card">
                 <div class="event-cover" style="background-image:
-                        url({{ asset('images/' . Setting::get('event.cover_image')) }});" />&nbsp;</div>
+                        url({{ asset('images/' . Setting::get('event.cover_image')) }});">&nbsp;</div>
                 <div class="event-info">
-                    <span>
-                        <h2>{{ Setting::get('event.name') }}</h2>
-                    </span>
+                    <h2 class="event-name">{{ Setting::get('event.name') }}</h2>
                 </div>
-                <div class="card-section text-center">
+                <div class="card-body text-center event-details">
                     <h5>{{ $event_date['from']->format('j M, Y g:i a') }} {{ __('system.to') }} {{ $event_date['to']->format('j M, Y g:i a') }}</h5>
                     {{ Setting::get('event.location.name') }}
                     <div class="event-map" id="map">
-                        <iframe width="100%" height="100%" frameborder="0" style="border:0"
-                            src="https://www.google.com/maps/embed/v1/view?key={{
-                            Setting::get('system.google_maps_key') }}&center={{
-                            Setting::get('event.location.lat') . ',' .
-                            Setting::get('event.location.long') }}&zoom=12">
-                        </iframe>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="small-12 medium-5 large-4 cell">
-            <div class="callout event-side">
-                <h3>{{ __('system.order_tickets') }}</h3>
-                @include('partials.error')
-                @can('create', Jano\Models\Attendee::class)
-                <div class="table-scroll">
-                    <form method="GET" action="{{ route('attendees.create') }}" id="form" data-abide
-                        novalidate>
-                        {{ csrf_field() }}
-                        <table class="hover tickets">
-                            <thead>
-                            <tr>
-                                <th>{{ __('system.type') }}</th>
-                                <th>{{ __('system.quantity') }}</th>
-                            </tr>
-                            </thead>
-                            @each('partials.ticket', $tickets, 'ticket', 'partials.ticket-empty')
-                            <tfoot>
-                            <tr>
-                                <td colspan="2" class="text-right">
-                                    <a class="button warning" href="{{ url('/') }}">
-                                        {{ __('system.back') }}
-                                    </a>
-                                    <button class="button" name="submit" value="true"
-                                        type="submit">
-                                        {{ __('system.next') }}
-                                    </button>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                    </form>
+        <div class="col-sm-12 col-md-5 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>{{ __('system.order_tickets') }}</h3>
+                    @include('partials.error')
+                    @can('create', Jano\Models\Attendee::class)
+                        <div class="table-scroll">
+                            <form method="GET" action="{{ route('attendees.create') }}" id="form" data-abide
+                                  novalidate>
+                                {{ csrf_field() }}
+                                <table class="table table-hover tickets">
+                                    <thead>
+                                    <tr>
+                                        <th>{{ __('system.type') }}</th>
+                                        <th>{{ __('system.quantity') }}</th>
+                                    </tr>
+                                    </thead>
+                                    @each('partials.ticket', $tickets, 'ticket', 'partials.ticket-empty')
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-right">
+                                            <div class="btn-group">
+                                                <a class="btn btn-warning" href="{{ url('/') }}">
+                                                    {{ __('system.back') }}
+                                                </a>
+                                                <button class="btn btn-primary" name="submit" value="true"
+                                                        type="submit">
+                                                    {{ __('system.next') }}
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </form>
+                        </div>
+                    @else
+                    <p>You're not yet able to order tickets. Please return on {{ $user->can_order_at }}</p>
+                    @endcan
                 </div>
-                @else
-                <p>You're not yet able to order tickets. Please return on {{ $user->can_order_at }}</p>
-                @endcan
             </div>
         </div>
     </div>
@@ -121,5 +117,23 @@
                 }
             });
         });
+    </script>
+@endpush
+
+
+@push('scripts')
+    <script>
+        var map = L.map('map', {
+            attributionControl: false,
+            zoomControl: false
+        }).setView(
+            [ {{ Setting::get('event.location.lat') }}, {{ Setting::get('event.location.long') }} ],
+            14
+        );
+        L.control.attribution({prefix: false}).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            subdomains: 'abc'
+        }).addTo(map);
     </script>
 @endpush

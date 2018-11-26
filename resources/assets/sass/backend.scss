@@ -30,6 +30,7 @@
 
 .content {
   height: 100%;
+  width: 100%;
 
   .sidebar {
     background-color: adjust-hue(darken($gray-200, 2%), -15%);
@@ -126,6 +127,7 @@
 
   .main-content {
     padding-bottom: 3.5rem;
+    position: relative;
 
     @media screen and (max-width: 39.9375em) {
       padding-bottom: 5rem;
