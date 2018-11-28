@@ -28,7 +28,7 @@
     "laravel-mix": "^2.1.14",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
-    "popper.js": "^1.14.5",
+    "popper.js": "^1.14.6",
     "quill": "^1.3.6",
     "vue": "^2.5.17",
     "vue-select": "~2.0",
