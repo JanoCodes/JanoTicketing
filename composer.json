@@ -15,7 +15,7 @@
         "arrilot/laravel-widgets": "^3.12",
         "barryvdh/laravel-dompdf": "^0.8",
         "erusev/parsedown": "^1.7",
-        "fideloper/proxy": "^3.3",
+        "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "~1.4",
         "guzzlehttp/guzzle": "^6.2",
         "hashids/hashids": "^3.0",
