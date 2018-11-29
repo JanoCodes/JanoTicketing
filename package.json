@@ -25,7 +25,7 @@
     "foundation-sites": "^6.5.1",
     "jquery": "^3.3.1",
     "jquery-locationpicker": "github:Logicify/jquery-locationpicker-plugin",
-    "laravel-mix": "^2.1.14",
+    "laravel-mix": "^3.0.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "popper.js": "^1.14.6",
