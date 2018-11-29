@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -22,6 +22,7 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Validator;
 use Jano\Contracts\AttendeeContract;
 use Jano\Http\Controllers\Controller;
@@ -67,9 +68,10 @@ class AttendeeController extends Controller
     /**
      * Renders the attendee creation page.
      *
+     * @param \Kris\LaravelFormBuilder\FormBuilder $builder
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $builder)
     {
         $data = [];
 

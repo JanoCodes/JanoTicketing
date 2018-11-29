@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -51,6 +51,7 @@ class EventController extends Controller
         ];
 
         return view('event', [
+            'user' => $request->user(),
             'tickets' => Ticket::all(),
             'event_date' => $event_date
         ]);

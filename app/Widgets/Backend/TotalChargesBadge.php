@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -35,7 +35,7 @@ class TotalChargesBadge extends AbstractWidget
     {
         return [
             'element'       => 'div',
-            'attributes'    => 'class="callout"',
+            'attributes'    => 'class="card"',
         ];
     }
 

@@ -7,7 +7,13 @@
     <?php endif; ?>
 
         <?php foreach($options['buttons'] as $button): ?>
-            <?= Form::button($button['label'], $button['attr']) ?>
+            <?php if (isset($button['link'])) : ?>
+                <a href="<?= $button['link'] ?>" class="<?= $button['attr']['class'] ?>">
+                    <?= $button['label'] ?>
+                </a>
+            <?php else: ?>
+                <?= Form::button($button['label'], $button['attr']) ?>
+            <?php endif; ?>
         <?php endforeach; ?>
 
     <?php if ( !$options['splitted'] ): ?>

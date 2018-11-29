@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -22,6 +22,7 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Validator;
 use Jano\Contracts\TicketContract;
 use Jano\Http\Controllers\Controller;
@@ -66,11 +67,55 @@ class TicketController extends Controller
     /**
      * Render the ticket type creation page.
      *
+     * @param \Kris\LaravelFormBuilder\FormBuilder $builder
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $builder)
     {
-        return view('backend.tickets.create');
+        $form = $builder->createByArray([
+            [
+                'name' => 'name',
+                'type' => 'text',
+                'label' => __('system.type'),
+                'rules' => ['required']
+            ], [
+                'name' => 'amount',
+                'type' => 'number',
+                'icon' => 'fas fa-pound-sign',
+                'label' => __('system.price'),
+                'rules' => ['required']
+            ],
+            [
+                'name' => 'buttons',
+                'type' => 'buttongroup',
+                'wrapper' => [
+                    'class' => 'col-sm-8 offset-sm-4'
+                ],
+                'buttons' => [
+                    [
+                        'name' => 'back',
+                        'type' => 'button',
+                        'label' => __('system.back'),
+                        'link' => route('backend.tickets.index'),
+                        'attr' => [
+                            'class' => 'btn btn-warning'
+                        ]
+                    ], [
+                        'name' => 'submit',
+                        'type' => 'submit',
+                        'label' => __('system.submit'),
+                        'attr' => [
+                            'class' => 'btn btn-primary'
+                        ]
+                    ]
+                ]
+            ]
+        ], [
+            'method' => 'POST',
+            'url' => route('backend.tickets.store')
+        ]);
+
+        return view('backend.tickets.create', ['form' => $form]);
     }
 
     /**

@@ -10,7 +10,25 @@
 
 <?php if ($showField): ?>
     <div class="col-sm-8">
+        <?php if (isset($options['icon']) || isset($options['append'])) : ?>
+        <div class="input-group">
+        <?php endif; ?>
+        <?php if (isset($options['icon'])) : ?>
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="<?= $options['icon'] ?>"></i>
+                </span>
+            </div>
+        <?php endif; ?>
         <?= Form::input($type, $name, $options['value'], $options['attr']) ?>
+        <?php if (isset($options['append'])) : ?>
+            <div class="input-group-append">
+                <span class="input-group-text"><?= $options['append'] ?></span>
+            </div>
+        <?php endif; ?>
+        <?php if (isset($options['icon']) || isset($options['append'])) : ?>
+        </div>
+        <?php endif; ?>
 
         <?php include 'help_block.php' ?>
         <?php include 'errors.php' ?>

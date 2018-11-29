@@ -4,93 +4,117 @@
 
 @section('content')
 <div class="clearfix">&nbsp;</div>
-<form role="form" id="form" method="POST" action="{{ route('backend.attendees.store') }}" data-abide novalidate>
-    <div class="grid-x grid-padding-x">
-        @include('partials.error')
-        {{ csrf_field() }}
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle">{{ __('system.user') }}</label>
-        </div>
-        <div class="small-9 large-8 cell">
+<form role="form" id="form" method="POST" action="{{ route('backend.attendees.store') }}">
+    @include('partials.error')
+    {{ csrf_field() }}
+    <div class="row">
+        <label class="col-sm-3 offset-lg-1 col-lg-3 col-form-label">
+            {{ __('system.user') }}
+        </label>
+        <div class="col-sm-9 col-lg-7">
             <v-select :value.sync="user" :debounce="500" :on-search="getOptions" :options="options"
                  placeholder="{{ __('system.search') }}">
             </v-select>
         </div>
-        <div class="small-12 large-offset-1 large-10 cell">
-            <ul class="tabs" data-tabs id="attendee-tabs">
-                <template v-for="(attendee, index) in attendees">
-                    <li class="tabs-title" :class="{ 'is-active': index === 0 }">
-                        <a :data-tabs-target="'panel' + index" :href="'#panel' + index">
+    </div>
+    <div class="clearfix">&nbsp;</div>
+    <div class="row">
+        <div class="col-sm-12 offset-lg-1 col-lg-10">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <template v-for="(attendee, index) in attendees">
+                        <a class="nav-item nav-link" :class="{ 'active': index === 0 }"
+                           data-toggle="tab" :href="'#panel' + index">
                             {{ __('system.attendee') }} #@{{ index + 1 }}
                         </a>
-                    </li>
-                </template>
-            </ul>
-            <div class="tabs-content" data-tabs-content="attendee-tabs">
+                    </template>
+                </div>
+            </nav>
+            <div class="tab-content">
                 <template v-for="(attendee, index) in attendees">
-                    <div class="tabs-panel" :class="{ 'is-active': index === 0 }" :id="'panel' + index">
-                        <div class="grid-x grid-padding-x">
-                            <div v-if="index !== 0" class="small-12 cell text-right">
-                                <button type="button" class="button small alert"
-                                    @click="deleteAttendee(index)">
-                                    {{ __('system.delete') }}
-                                </button>
-                            </div>
-                            <div class="small-12 medium-4 cell">
-                                <label class="text-right middle">{{ __('system.title') }}</label>
-                            </div>
-                            <div class="small-12 medium-8 cell">
-                                <select :name="'attendees.' + index + '.title'" id="title" v-model="attendee.title" required>
-                                    @foreach (__('system.titles') as $title)
-                                        <option value="{{ $title }}">{{ $title }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="small-12 medium-4 cell">
-                                <label class="text-right middle">{{ __('system.first_name') }}</label>
-                            </div>
-                            <div class="small-12 medium-8 cell">
-                                <input type="text" :name="'attendees.' + index + '.first_name'" id="first_name"
-                                       v-model="attendee.first_name" pattern="text" required>
-                            </div>
-                            <div class="small-12 medium-4 cell">
-                                <label class="text-right middle">{{ __('system.last_name') }}</label>
-                            </div>
-                            <div class="small-12 medium-8 cell">
-                                <input type="text" :name="'attendees.' + index + '.last_name'" id="last_name"
-                                       v-model="attendee.last_name" pattern="text" required>
-                            </div>
-                            <div class="small-12 medium-4 cell">
-                                <label class="text-right middle">{{ __('system.email') }}</label>
-                            </div>
-                            <div class="small-12 medium-8 cell">
-                                <input type="email" :name="'attendees.' + index + '.email'" id="email" v-model="attendee.email"
-                                       pattern="email" required>
-                            </div>
-                            <div class="small-12 medium-4 cell">
-                                <label class="text-right middle">{{ __('system.type') }}</label>
-                            </div>
-                            <div class="small-12 medium-8 cell">
-                                <select :name="'attendees.' + index + '.ticket'" id="ticket"
-                                    v-model="attendee.ticket" required>
-                                    @foreach (\Jano\Models\Ticket::all() as $ticket)
-                                        <option value="{{ $ticket->id }}">
-                                            {{ $ticket->name }} ({{ $ticket->full_price }})
-                                        </option>
-                                    @endforeach
-                                </select>
+                    <div class="tabs-pane fade" :class="{ 'show active': index === 0 }" :id="'panel' + index">
+                        <div class="card attendee-form-container">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <div v-if="index !== 0" class="col-sm-12">
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                @click="deleteAttendee(index)">
+                                            {{ __('system.delete') }}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-4 col-form-label" for="title">
+                                        {{ __('system.title') }}
+                                    </label>
+                                    <div class="col-sm-12 col-md-8">
+                                        <select :name="'attendees.' + index + '.title'" id="title"
+                                                v-model="attendee.title" class="custom-select" required>
+                                            @foreach (__('system.titles') as $title)
+                                                <option value="{{ $title }}">{{ $title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-4 col-form-label" for="first_name">
+                                        {{ __('system.first_name') }}
+                                    </label>
+                                    <div class="col-sm-12 col-md-8">
+                                        <input type="text" :name="'attendees.' + index + '.first_name'"
+                                               id="first_name" v-model="attendee.first_name" class="form-control"
+                                               pattern="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-4 col-form-label">
+                                        {{ __('system.last_name') }}
+                                    </label>
+                                    <div class="col-sm-12 col-md-8">
+                                        <input type="text" :name="'attendees.' + index + '.last_name'"
+                                               id="last_name" class="form-control" v-model="attendee.last_name"
+                                               pattern="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-4 col-form-label">
+                                        {{ __('system.email') }}
+                                    </label>
+                                    <div class="col-sm-12 col-md-8">
+                                        <input type="email" :name="'attendees.' + index + '.email'" id="email"
+                                               class="form-control" v-model="attendee.email" pattern="email"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-12 col-md-4 col-form-label">
+                                        {{ __('system.type') }}
+                                    </label>
+                                    <div class="col-sm-12 col-md-8">
+                                        <select :name="'attendees.' + index + '.ticket'" class="custom-select"
+                                                id="ticket" v-model="attendee.ticket" required>
+                                            @foreach (\Jano\Models\Ticket::all() as $ticket)
+                                                <option value="{{ $ticket->id }}">
+                                                    {{ $ticket->name }} ({{ $ticket->full_price }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </template>
             </div>
         </div>
-        <div class="small-12 large-10 text-right cell">
+        <div class="col-sm-12 col-lg-10 text-right">
             <div class="clearfix">&nbsp;</div>
-            <button type="button" class="button secondary hollow" @click="addAttendee">
-                {{ __('system.add_attendee') }}
-            </button>
-            <button type="button" class="button" @click="submit">{{ __('system.submit') }}</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary" @click="addAttendee">
+                    {{ __('system.add_attendee') }}
+                </button>
+                <button type="button" class="btn btn-primary" @click="submit">{{ __('system.submit') }}</button>
+            </div>
         </div>
     </div>
 </form>

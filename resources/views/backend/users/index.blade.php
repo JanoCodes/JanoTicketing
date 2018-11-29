@@ -46,57 +46,69 @@
 
 @push('scripts')
 <script type="text/html" id="details">
-    <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fas fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
-        <form method="POST" data-abide novalidate>
-            @include('partials.error')
-            <div class="grid-x grid-padding-x vuetable-form">
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.full_name') }}</label>
+    <div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}
+                    </h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="small-3 medium-2 cell">
-                    <select name="title" id="title" v-model="editData.title" required>
-                        @foreach (__('system.titles') as $title)
-                            <option value="{{ $title }}">{{ $title }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="small-5 medium-4 cell">
-                    <input type="text" name="first_name" id="first_name" pattern="text" v-model="editData.first_name"
-                           required>
-                </div>
-                <div class="small-4 medium-3 cell">
-                    <input type="text" name="last_name" id="last_name" pattern="text" v-model="editData.last_name"
-                           required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.email') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="email" name="email" id="email" pattern="email" v-model="editData.email" disabled>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.group') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <select name="group" id="group" v-model="editData.group.id" required>
-                        @foreach (\Jano\Models\Group::all() as $group)
-                            <option value="{{ $group->id }}">{{ $group->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="small-12 cell">
-                    <div class="float-right">
-                        <button id="submit" type="submit" class="button warning" @click="submit($event)">
-                            {{ __('system.update') }}
-                        </button>
-                    </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        @include('partials.error')
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.full_name') }}</label>
+                            <div class="col-sm-3 col-md-2">
+                                <select name="title" id="title" class="custom-select" v-model="editData.title" required>
+                                    @foreach (__('system.titles') as $title)
+                                        <option value="{{ $title }}">{{ $title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-5 col-md-4">
+                                <input type="text" name="first_name" id="first_name" class="form-control"
+                                       pattern="text" v-model="editData.first_name" required>
+                            </div>
+                            <div class="col-sm-4 col-md-3">
+                                <input type="text" name="last_name" id="last_name" class="form-control" pattern="text"
+                                       v-model="editData.last_name" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.email') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="email" name="email" id="email" class="form-control" pattern="email"
+                                    v-model="editData.email" disabled>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.group') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <select name="group" id="group" class="custom-select" v-model="editData.group.id"
+                                    required>
+                                    @foreach (\Jano\Models\Group::all() as $group)
+                                        <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <div class="text-right">
+                                    <button id="submit" type="submit" class="btn btn-warning" @click="submit($event)">
+                                        {{ __('system.update') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="exception">
@@ -143,10 +155,10 @@
             props: ['rowData'],
             methods: {
                 load: _.once(function() {
-                    $('#details-modal').foundation();
+                    $('#details-modal').modal();
                 }),
                 close: function() {
-                    $('#details-modal').foundation('close');
+                    $('#details-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
                 submit: function(event) {
@@ -186,7 +198,7 @@
                 this.$nextTick();
 
                 this.load();
-                $('#details-modal').foundation('open');
+                $('#details-modal').modal('open');
             }
         });
 
@@ -194,16 +206,16 @@
             template: '#exception',
             methods: {
                 load: _.once(function () {
-                    $('#exception-modal').foundation();
+                    $('#exception-modal').modal();
                 }),
                 close: function() {
-                    $('#exception-modal').foundation('close');
+                    $('#exception-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
             },
             activated: function(event) {
                 this.load();
-                $('#exception-modal').foundation('open');
+                $('#exception-modal').modal('open');
             }
         });
 

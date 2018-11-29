@@ -28,6 +28,7 @@ use Jano\Contracts\TicketContract;
 use Jano\Contracts\UserContract;
 use Jano\Models\Attendee;
 use Jano\Models\Ticket;
+use Jano\Modules\Queue\Http\Middleware\ValidateQueueRequest;
 use Setting;
 use Validator;
 
@@ -67,11 +68,24 @@ class AttendeeController extends Controller
         AttendeeContract $attendee,
         ChargeContract $charge
     ) {
-        $this->middleware(['auth']);
+        $this->middleware(['auth', ValidateQueueRequest::class]);
         $this->user = $user;
         $this->ticket = $ticket;
         $this->attendee = $attendee;
         $this->charge = $charge;
+    }
+
+    /**
+     * Render the view attendee page.
+     *
+     * @param \Jano\Models\Attendee $attendee
+     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function show(Attendee $attendee)
+    {
+        $this->authorize('show', $attendee);
+        return view('attendees.show', ['attendee' => $attendee]);
     }
 
     /**

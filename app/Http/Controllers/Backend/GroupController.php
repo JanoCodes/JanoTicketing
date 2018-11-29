@@ -22,6 +22,7 @@
 namespace Jano\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Validator;
 use Jano\Contracts\GroupContract;
 use Jano\Http\Controllers\Controller;
@@ -66,11 +67,76 @@ class GroupController extends Controller
     /**
      * Render the ticket type creation page.
      *
+     * @param \Kris\LaravelFormBuilder\FormBuilder $builder
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $builder)
     {
-        return view('backend.groups.create');
+        $form = $builder->createByArray([
+            [
+                'name' => 'name',
+                'type' => 'text',
+                'label' => __('system.group'),
+                'rules' => ['required']
+            ], [
+                'name' => 'slug',
+                'type' => 'text',
+                'label' => __('system.slug'),
+                'rules' => ['required']
+            ], [
+                'name' => 'can_order_at',
+                'type' => 'text',
+                'label' => __('system.ticket_order_begins'),
+                'rules' => ['required']
+            ], [
+                'name' => 'ticket_limit',
+                'type' => 'number',
+                'label' => __('system.ticket_limit'),
+                'rules' => ['required']
+            ], [
+                'name' => 'surcharge',
+                'type' => 'number',
+                'icon' => 'fas fa-pound-sign',
+                'label' => __('system.surcharge'),
+                'rules' => ['required']
+            ], [
+                'name' => 'right_to_buy',
+                'type' => 'number',
+                'append' => __('system.ticket_s'),
+                'label' => __('system.right_to_buy'),
+                'rules' => ['required']
+            ],
+            [
+                'name' => 'buttons',
+                'type' => 'buttongroup',
+                'wrapper' => [
+                    'class' => 'col-sm-8 offset-sm-4'
+                ],
+                'buttons' => [
+                    [
+                        'name' => 'back',
+                        'type' => 'button',
+                        'label' => __('system.back'),
+                        'link' => route('backend.groups.index'),
+                        'attr' => [
+                            'class' => 'btn btn-warning'
+                        ]
+                    ], [
+                        'name' => 'submit',
+                        'type' => 'submit',
+                        'label' => __('system.submit'),
+                        'attr' => [
+                            'class' => 'btn btn-primary'
+                        ]
+                    ]
+                ]
+            ]
+        ], [
+            'method' => 'POST',
+            'url' => route('backend.groups.store')
+        ]);
+
+        return view('backend.groups.create', ['form' => $form]);
     }
 
     /**
