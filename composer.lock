@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb9822d3e7be9198e42bee757c33c14d",
+    "content-hash": "85aa59b7e8fe0bc43251cb57462bc960",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -2455,28 +2455,29 @@
         },
         {
             "name": "owen-it/laravel-auditing",
-            "version": "v4.1.4",
+            "version": "v8.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/owen-it/laravel-auditing.git",
-                "reference": "c383fb4eb58acbb3b819ce0ff9936e7ea70ff966"
+                "reference": "825f576de946820e6e587ffa4e96b9bb70b5586b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/owen-it/laravel-auditing/zipball/c383fb4eb58acbb3b819ce0ff9936e7ea70ff966",
-                "reference": "c383fb4eb58acbb3b819ce0ff9936e7ea70ff966",
+                "url": "https://api.github.com/repos/owen-it/laravel-auditing/zipball/825f576de946820e6e587ffa4e96b9bb70b5586b",
+                "reference": "825f576de946820e6e587ffa4e96b9bb70b5586b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "5.2.* || 5.3.* || 5.4.* || 5.5.*",
-                "illuminate/database": "5.2.* || 5.3.* || 5.4.* || 5.5.*",
-                "illuminate/filesystem": "5.2.* || 5.3.* || 5.4.* || 5.5.*",
-                "php": ">=5.5.9"
+                "illuminate/console": "5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "illuminate/database": "5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "illuminate/filesystem": "5.2.* || 5.3.* || 5.4.* || 5.5.* || 5.6.* || 5.7.*",
+                "php": ">=7.0.13"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.4",
-                "orchestra/testbench": "^3.2",
-                "phpunit/phpunit": "^4.0"
+                "mockery/mockery": "^1.0",
+                "orchestra/database": "^3.5",
+                "orchestra/testbench": "^3.5",
+                "phpunit/phpunit": "^6.0"
             },
             "suggest": {
                 "laravelista/lumen-vendor-publish": "Needed to publish the package configuration in Lumen"
@@ -2484,7 +2485,7 @@
             "type": "package",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "8.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -2516,7 +2517,7 @@
                 }
             ],
             "description": "Audit changes of your Eloquent models in Laravel/Lumen",
-            "homepage": "https://laravel-auditing.com",
+            "homepage": "http://laravel-auditing.com",
             "keywords": [
                 "Accountability",
                 "Audit",
@@ -2533,7 +2534,7 @@
                 "revision",
                 "tracking"
             ],
-            "time": "2017-10-29T21:34:57+00:00"
+            "time": "2018-11-20T19:34:12+00:00"
         },
         {
             "name": "paragonie/random_compat",
