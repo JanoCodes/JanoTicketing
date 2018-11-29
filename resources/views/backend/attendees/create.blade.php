@@ -32,11 +32,11 @@
             </nav>
             <div class="tab-content">
                 <template v-for="(attendee, index) in attendees">
-                    <div class="tabs-pane fade" :class="{ 'show active': index === 0 }" :id="'panel' + index">
+                    <div class="tab-pane fade" :class="{ 'show active': index === 0 }" :id="'panel' + index">
                         <div class="card attendee-form-container">
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <div v-if="index !== 0" class="col-sm-12">
+                                    <div v-if="index !== 0" class="col-sm-12 text-right">
                                         <button type="button" class="btn btn-sm btn-danger"
                                                 @click="deleteAttendee(index)">
                                             {{ __('system.delete') }}
@@ -170,25 +170,22 @@
                     ticket: ''
                 };
 
-                const tabs = $('.tabs');
-                tabs.foundation('destroy');
-                tabs.children('li').show();
+                const tabs = $('.nav-tabs');
+                tabs.tab('dispose');
 
                 this.$data.attendees.push(instance);
                 this.$nextTick(function() {
-                    tabs.attr('data-tabs', '');
-                    tabs.foundation();
+                    tabs.tab();
                 });
             },
             deleteAttendee: function(index) {
-                const tabs = $('.tabs');
-                tabs.foundation('destroy');
-                tabs.children('li').show();
+                const tabs = $('.nav-tabs');
+                tabs.tab('dispose');
 
                 this.$data.attendees.splice(index, 1);
                 this.$nextTick(function() {
-                    tabs.attr('data-tabs', '');
-                    tabs.foundation();
+                    tabs.tab();
+                    tabs.children('a').first().tab('show');
                 });
             },
             submit: function() {
@@ -220,9 +217,6 @@
                     }
                 });
             }
-        },
-        mounted: function() {
-            $('#form').foundation();
         }
     });
 </script>

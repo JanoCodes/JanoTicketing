@@ -189,16 +189,31 @@
     }
   }
 
-  .v-select {
+  .v-select.single {
     font-family: $font-family-base !important;
 
     input[type=search] {
       color: $black;
     }
 
+    .dropdown-toggle::after {
+      display: none;
+    }
+
     .selected-tag {
       background: none;
       border: 0;
+      line-height: $line-height-base;
+    }
+
+    .clear {
+      display: none;
+    }
+  }
+
+  .v-select.single.open {
+    .selected-tag {
+      display: none !important;
     }
   }
 
