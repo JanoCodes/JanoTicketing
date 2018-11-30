@@ -25,8 +25,9 @@ try {
     require('bootstrap');
 
     window.Vue = require('vue');
-
     window.axios = require('axios');
+
+    window.mapboxgl = require('mapbox-gl/dist/mapbox-gl');
 } catch (e) {}
 
 window.axios = require('axios');

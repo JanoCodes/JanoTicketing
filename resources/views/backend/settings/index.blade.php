@@ -5,96 +5,117 @@
 @section('content')
 <div class="clearfix">&nbsp;</div>
 <form role="form" method="POST" action="{{ route('backend.settings.update') }}" data-abide novalidate>
-    <div class="grid-x grid-padding-x">
-        @include('partials.error')
-        {{ method_field('PUT') }}
-        {{ csrf_field() }}
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle"><strong>{{ __('system.event_name') }}</strong></label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <input type="text" name="event.name" id="event_name" pattern="text"
+    @include('partials.error')
+    {{ method_field('PUT') }}
+    {{ csrf_field() }}
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label">
+            <strong>{{ __('system.event_name') }}</strong>
+        </label>
+        <div class="col-sm-9 col-lg-8">
+            <input type="text" name="event.name" id="event_name" class="form-control" pattern="text"
                    value="{{ Setting::get('event.name') }}" required>
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle"><strong>{{ __('system.event_date') }}</strong></label>
-        </div>
-        <div class="small-9 large-8 cell">
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label">
+            <strong>{{ __('system.event_date') }}</strong>
+        </label>
+        <div class="col-sm-9 col-lg-8">
             <div class="input-group date-range-selector">
                 <input type="text" name="event.date.from" id="event_date" pattern="text"
-                    class="input-group-field" value="{{ Setting::get('event.date.from') }}" required>
-                <span class="input-group-label">{{ __('system.to') }}</span>
+                       class="form-control" value="{{ Setting::get('event.date.from') }}" required>
+                <div class="input-group-append">
+                    <span class="input-group-text">{{ __('system.to') }}</span>
+                </div>
                 <input type="text" name="event.date.to" id="event_date" pattern="text"
-                    class="input-group-field" value="{{ Setting::get('event.date.to') }}" required>
+                       class="form-control" value="{{ Setting::get('event.date.to') }}" required>
             </div>
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle"><strong>{{ __('system.event_location') }}</strong></label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <button type="button" data-open="location-select" class="button hollow">
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label">
+            <strong>{{ __('system.event_location') }}</strong>
+        </label>
+        <div class="col-sm-9 col-lg-8">
+            <button type="button" data-toggle="modal" data-target="#location-select" class="btn btn-outline-primary">
                 {{ __('system.select_location') }}
             </button>
-            <div class="reveal" id="location-select" data-reveal>
-                <h3>{{ __('system.select_location') }}</h3>
-                <div class="grid-x grid-padding-x">
-                    <div class="small-12 medium-4 cell">
-                        <label class="text-right middle">{{ __('system.location_name') }}</label>
-                    </div>
-                    <div class="small-12 medium-8 cell">
-                        <input type="text" name="event.location.name" id="event_location_name"
-                               pattern="text" value="{{ Setting::get('event.location.name') }}"
-                               required>
-                        <input type="hidden" name="event.location.lat" id="event_location_lat"
-                            value="{{ Setting::get('event.location.lat') }}" required>
-                        <input type="hidden" name="event.location.long" id="event_location_long"
-                               value="{{ Setting::get('event.location.long') }}" required>
-                    </div>
-                    <div class="small-12 medium-12 cell">
-                        <span><strong>{{ __('system.drag_marker_to_location') }}</strong></span>
-                        <div id="map" class="location-map"></div>
+            <div class="modal" id="location-select" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{ __('system.select_location') }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <label class="col-sm-12 col-md-4 col-form-label">
+                                    {{ __('system.location_name') }}
+                                </label>
+                                <div class="col-sm-12 col-md-8" id="geocoder">
+                                </div>
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <span><strong>{{ __('system.drag_marker_to_location') }}</strong></span>
+                                    <div class="location-map-container">
+                                        <div id="map" class="location-map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="small-offset-3 small-9 large-offset-3 large-8 cell">
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-9 offset-lg-3 col-lg-8">
             <strong>{{ __('system.payment_information') }}</strong>
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle">{{ __('system.currency') }}</label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <input type="text" name="payment.currency" id="payment_currency" pattern="text"
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label">
+            {{ __('system.currency') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
+            <input type="text" name="payment.currency" id="payment_currency" class="form-control" pattern="text"
                 value="{{ Setting::get('payment.currency') }}" required>
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle">{{ __('system.time_for_payment') }}</label>
-        </div>
-        <div class="small-9 large-8 cell">
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label">
+            {{ __('system.time_for_payment') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
             <div class="input-group">
                 <input type="number" name="payment.deadline" id="payment_deadline" pattern="integer"
-                    class="input-group-field" value="{{ Setting::get('payment.deadline') }}" required>
-                <span class="input-group-label">{{ __('system.days') }}</span>
+                    class="form-control" value="{{ Setting::get('payment.deadline') }}" required>
+                <div class="input-group-append">
+                    <span class="input-group-text">{{ __('system.days') }}</span>
+                </div>
             </div>
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle"><strong>{{ __('system.terms') }}</strong></label>
-        </div>
-        <div class="small-9 large-8 cell">
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label">
+            <strong>{{ __('system.terms') }}</strong>
+        </label>
+        <div class="col-sm-9 col-lg-8">
             <input type="hidden" name="agreement" value="">
             <div class="textarea" id="agreement">{!! Setting::get('agreement') !!}</div>
         </div>
-        <div class="small-offset-3 small-9 large-offset-3 large-8 cell">
-            <input class="button" type="submit" value="{{ __('system.update') }}" />
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-9 offset-lg-3 col-lg-8">
+            <input class="btn btn-primary" type="submit" value="{{ __('system.update') }}" />
         </div>
     </div>
 </form>
 @endsection
 
 @push('scripts')
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{
-    Setting::get('system.google_maps_key') }}&libraries=places"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-locationpicker@0.1.12/dist/locationpicker.jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.date-range-selector > input').each(function() {
@@ -129,14 +150,36 @@
             $(this).unbind('submit').submit();
         });
 
-        $('#map').locationpicker({
-            inputBinding: {
-                latitudeInput: $('#event_location_lat'),
-                longitudeInput: $('#event_location_long'),
-                locationNameInput: $('#event_location_name')
-            },
-            radius: 0,
-        });
+        mapboxgl.accessToken = '{{ Setting::get('mapbox.access_token') }}';
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [{{ Setting::get('event.location.long') }}, {{ Setting::get('event.location.lat') }}],
+            zoom: 14,
+            minZoom: 13,
+            attributionControl: false
+        })
+            .addControl(new mapboxgl.AttributionControl({
+                compact: false
+            }));
+
+        let marker = new mapboxgl.Marker({
+            draggable: true
+        })
+            .setLngLat([{{ Setting::get('event.location.long') }}, {{ Setting::get('event.location.lat') }}])
+            .addTo(map);
+
+        let geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken
+        })
+            .on('result', function (result) {
+                marker.setLngLat(result.result.center);
+            });
+        $('#geocoder').append(geocoder.onAdd(map));
+
+        $('#location-select').on('shown.bs.modal', function (e) {
+            map.resize();
+        })
     });
 </script>
 @endpush

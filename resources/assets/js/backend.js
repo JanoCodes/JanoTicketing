@@ -1,6 +1,6 @@
 /*
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -34,5 +34,4 @@ Vue.component("v-select", vSelect);
 window.Dropzone = require('dropzone');
 window.flatpickr = require('flatpickr');
 window.Quill = require('quill');
-
-$(document).foundation();
+window.MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');

@@ -10,8 +10,8 @@
         }
         location: {
             name: Downing College
-            lat: 52.2054353
             long: 0.1211812
+            lat: 52.2054353
         }
         cover_image: cover_image.jpg
     },
@@ -23,5 +23,8 @@
             sort_code: 00-00-00
             number: 12345678
         }
+    },
+    mapbox: {
+        access_token: access_token_from_mapbox
     }
 }

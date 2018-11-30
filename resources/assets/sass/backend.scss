@@ -223,10 +223,23 @@
     border-top-right-radius: 0;
   }
 
-  .location-map {
+  .location-map-container {
+    position: relative;
     width: 100%;
     height: 40vh;
     min-height: 300px;
+  }
+
+  .location-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mapboxgl-ctrl-logo {
+    background-image: url('~mapbox-gl/src/css/svg/mapboxgl-ctrl-logo.svg');
   }
 
   .credits {
@@ -251,6 +264,15 @@
 
 .field-content {
   padding: .5rem;
+}
+
+@import '~mapbox-gl/src/css/mapbox-gl';
+@import '~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder';
+
+.mapboxgl-ctrl-geocoder {
+  input[type="text"] {
+    font-size: $font-size-base * .9;
+  }
 }
 
 .dz-container {
