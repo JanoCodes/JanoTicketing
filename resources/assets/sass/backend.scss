@@ -28,39 +28,39 @@
   min-height: 100vh;
 }
 
+.sidebar {
+  background-color: adjust-hue(darken($gray-200, 2%), -15%);
+  border-right: darken($gray-200, 20%) 1px solid;
+  min-height: 100vh;
+  padding-left: 7px;
+  padding-right: 7px;
+
+  li {
+    a {
+      border-radius: 5px;
+      padding-left: $spacer;
+      padding-right: $spacer;
+    }
+  }
+
+  .logo {
+    display: inline-block;
+    width: 100%;
+    border-bottom: $gray-300 1px solid;
+    text-align: center;
+    margin-top: $spacer;
+    margin-bottom: 10px;
+
+    img {
+      max-width: 200px;
+      width: 85%;
+    }
+  }
+}
+
 .content {
   height: 100%;
   width: 100%;
-
-  .sidebar {
-    background-color: adjust-hue(darken($gray-200, 2%), -15%);
-    border-right: darken($gray-200, 20%) 1px solid;
-    min-height: 100vh;
-    padding-left: 7px;
-    padding-right: 7px;
-
-    li {
-      a {
-        border-radius: 5px;
-        padding-left: $spacer;
-        padding-right: $spacer;
-      }
-    }
-
-    .logo {
-      display: inline-block;
-      width: 100%;
-      border-bottom: $gray-300 1px solid;
-      text-align: center;
-      margin-top: $spacer;
-      margin-bottom: 10px;
-
-      img {
-        max-width: 200px;
-        width: 85%;
-      }
-    }
-  }
 
   .mobile-header {
     background-color: adjust-hue(darken($gray-200, 2%), -15%);
@@ -69,6 +69,7 @@
     width: 100%;
     box-shadow: 0 0 10px transparentize($black, .7);
     position: fixed;
+    z-index: 1002;
 
     img {
       display: block;
@@ -120,7 +121,7 @@
       }
     }
 
-    @media screen and (max-width: 39.9375em) {
+    @media screen and (max-width: map-get($container-max-widths, 'md')) {
       margin-top: 87px;
     }
   }
@@ -129,8 +130,8 @@
     padding-bottom: 3.5rem;
     position: relative;
 
-    @media screen and (max-width: 39.9375em) {
-      padding-bottom: 5rem;
+    @media screen and (max-width: map-get($container-max-widths, 'md')) {
+      padding-bottom: 8rem;
     }
   }
 
@@ -139,9 +140,12 @@
       padding: 0;
     }
 
+    .backend-card-container {
+      margin-bottom: .5rem;
+    }
+
     .backend-card {
       padding: .5rem 1rem .25rem;
-      margin-bottom: .5rem;
     }
   }
 
@@ -264,6 +268,48 @@
 
 .field-content {
   padding: .5rem;
+}
+
+.slideout-menu {
+  border-right: 1px solid $gray-200;
+  box-shadow: inset -8px 0 8px -8px $gray-600;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 256px;
+  min-height: 100vh;
+  overflow-y: scroll;
+  z-index: 1000;
+
+  .close-button {
+    color: $gray-800;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+  }
+}
+
+.slideout-panel {
+  position: relative;
+  z-index: 1001;
+  will-change: transform;
+  background-color: $white;
+  min-height: 100vh;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
+
+.sidebar-toggle {
+  height: 100%;
 }
 
 @import '~mapbox-gl/src/css/mapbox-gl';

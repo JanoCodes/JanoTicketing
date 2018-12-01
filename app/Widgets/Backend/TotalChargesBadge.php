@@ -27,7 +27,7 @@ use Jano\Models\Charge;
 class TotalChargesBadge extends AbstractWidget
 {
     /**
-     * Wrap badget in `callout` container
+     * Wrap badget in `card` container
      *
      * @return array
      */
@@ -35,7 +35,7 @@ class TotalChargesBadge extends AbstractWidget
     {
         return [
             'element'       => 'div',
-            'attributes'    => 'class="card"',
+            'attributes'    => 'class="card backend-card-container"',
         ];
     }
 

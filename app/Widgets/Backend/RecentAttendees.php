@@ -1,7 +1,7 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
@@ -34,6 +34,19 @@ class RecentAttendees extends AbstractWidget
     protected $config = [
         'count' => 5
     ];
+
+    /**
+     * Wrap badget in `card` container
+     *
+     * @return array
+     */
+    public function container()
+    {
+        return [
+            'element'       => 'div',
+            'attributes'    => 'class="card backend-card-container"',
+        ];
+    }
 
     /**
      * Return the recent attendees widget

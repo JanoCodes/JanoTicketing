@@ -2,23 +2,18 @@
 <html lang="{{ config('app.locale') }}">
 @include('partials.head', ['stylesheet' => 'backend.css'])
 <body>
-<div class="container-fluid m-0 p-0 page-container">
+<div class="container-fluid m-0 p-0 page-container" id="container">
     <div class="col-sm-12 col-lg-12 p-0">
         <div class="content d-flex">
-            <div class="flex-md-shrink-1 sidebar" id="sidebar">
+            <div class="d-none d-md-block flex-md-shrink-1 sidebar">
                 <a class="logo" href="{{ url('/') }}">
                     <img src="{{ asset('images/logo.png') }}" />
                 </a>
-                <span class="text-right">
-                    <button class="close d-block d-md-none">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </span>
                 {!! Menu::backend()->addClass('nav flex-column') !!}
             </div>
             <div class="flex-md-grow-1 main-content">
                 <div class="mobile-header d-block d-md-none">
-                    <button class="button clear" data-toggle="sidebar">
+                    <button class="btn btn-link sidebar-toggle">
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
                     </button>
                     <img src="{{ asset('images/logo.png') }}" />
@@ -56,6 +51,17 @@
             </div>
         </div>
     </div>
+</div>
+<div class="slideout-menu sidebar d-md-none" id="responsive-menu">
+    <a class="logo" href="{{ url('/') }}">
+        <img src="{{ asset('images/logo.png') }}" />
+    </a>
+    <span class="text-right">
+        <button class="close sidebar-close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </span>
+    {!! Menu::backend()->addClass('nav flex-column') !!}
 </div>
 @include('partials.scripts', ['script' => 'backend.js'])
 </body>

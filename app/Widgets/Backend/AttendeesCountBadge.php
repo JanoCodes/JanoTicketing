@@ -27,7 +27,7 @@ use Jano\Models\Attendee;
 class AttendeesCountBadge extends AbstractWidget
 {
     /**
-     * Wrap badget in `callout` container
+     * Wrap badget in `card` container
      *
      * @return array
      */
@@ -35,7 +35,7 @@ class AttendeesCountBadge extends AbstractWidget
     {
         return [
             'element'       => 'div',
-            'attributes'    => 'class="card"',
+            'attributes'    => 'class="card backend-card-container"',
         ];
     }
 
