@@ -37,17 +37,17 @@
 
 @push('scripts')
 <script>
-    var map = L.map('map', {
-        attributionControl: false,
-        zoomControl: false
-    }).setView(
-        [ {{ Setting::get('event.location.lat') }}, {{ Setting::get('event.location.long') }} ],
-        14
-    );
-    L.control.attribution({prefix: false}).addTo(map);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: 'abc'
-    }).addTo(map);
+    mapboxgl.accessToken = '{{ Setting::get('mapbox.access_token') }}';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v10',
+        center: [{{ Setting::get('event.location.long') }}, {{ Setting::get('event.location.lat') }}],
+        zoom: 14,
+        minZoom: 13,
+        attributionControl: false
+    })
+        .addControl(new mapboxgl.AttributionControl({
+            compact: false
+        }));
 </script>
 @endpush

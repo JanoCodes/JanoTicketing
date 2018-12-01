@@ -301,4 +301,14 @@ label {
   height: 100%;
 }
 
-@import 'leaflet';
+@import '~mapbox-gl/src/css/mapbox-gl';
+
+.mapboxgl-canvas {
+  left: 0;
+  top: 0;
+}
+
+.mapboxgl-ctrl-attrib {
+  font-size: $font-size-base * .7;
+  line-height: 1.2;
+}
