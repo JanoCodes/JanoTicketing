@@ -286,8 +286,18 @@ label {
   }
 }
 
-.sidebar {
-  padding: $spacer 0 $spacer $spacer;
+.slideout-menu {
+  border-right: 1px solid $gray-200;
+  box-shadow: inset -8px 0 8px -8px $gray-600;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 256px;
+  min-height: 100vh;
+  padding: $spacer;
+  overflow-y: scroll;
+  z-index: 1000;
 
   .close-button {
     color: $gray-800;
@@ -295,6 +305,24 @@ label {
     right: 15px;
     top: 5px;
   }
+}
+
+.slideout-panel {
+  position: relative;
+  z-index: 1001;
+  will-change: transform;
+  background-color: $gray-100;
+  min-height: 100vh;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
 }
 
 .sidebar-toggle {

@@ -24,7 +24,6 @@
     "flatpickr": "^4.5.2",
     "foundation-sites": "^6.5.1",
     "jquery": "^3.3.1",
-    "jquery-locationpicker": "github:Logicify/jquery-locationpicker-plugin",
     "laravel-mix": "^3.0.0",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
@@ -34,10 +33,9 @@
     "vue-select": "~2.5",
     "vuetable-2": "^1.7.5",
     "vuex": "^3.0.1",
-    "vuex-persistedstate": "^2.5.4"
-  },
-  "dependencies": {
+    "vuex-persistedstate": "^2.5.4",
     "@mapbox/mapbox-gl-geocoder": "^2.3.0",
-    "mapbox-gl": "^0.51.0"
+    "mapbox-gl": "^0.51.0",
+    "slideout": "^1.0.1"
   }
 }

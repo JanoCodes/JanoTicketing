@@ -26,3 +26,5 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.component('countdown', VueCountdown);
 window.createPersistedState = createPersistedState;
+
+window.Slideout = require('slideout');
