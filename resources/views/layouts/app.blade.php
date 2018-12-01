@@ -26,7 +26,9 @@
 </div>
 @include('partials.scripts', ['script' => 'app.js'])
 <script type="text/javascript">
-    if ($(window).height < 768) {
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+    if (width < 768) {
         var slideout = new Slideout({
             'panel': document.getElementById('container'),
             'menu': document.getElementById('responsive-menu'),
