@@ -27,7 +27,7 @@
         "laravel/tinker": "^1.0",
         "league/csv": "^9.1",
         "milon/barcode": "^5.3",
-        "nwidart/laravel-modules": "^2.7",
+        "nwidart/laravel-modules": "^3.3",
         "owen-it/laravel-auditing": "^8.0",
         "predis/predis": "^1.1",
         "propaganistas/laravel-phone": "^4.0",
