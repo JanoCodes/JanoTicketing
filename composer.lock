@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6084064512b2678357ddbf63cfaf5bce",
+    "content-hash": "98c6d32e2178eeb0866a6f2f6d5cec69",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -2386,27 +2386,28 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "2.7.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "30c1475f99ef8b439a1cf7d8a9c55787c80bbf71"
+                "reference": "5250efef2505c47687ebe4c0368a4f0cd01c84ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/30c1475f99ef8b439a1cf7d8a9c55787c80bbf71",
-                "reference": "30c1475f99ef8b439a1cf7d8a9c55787c80bbf71",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/5250efef2505c47687ebe4c0368a4f0cd01c84ef",
+                "reference": "5250efef2505c47687ebe4c0368a4f0cd01c84ef",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=7.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.7",
-                "laravel/framework": "5.5.*",
+                "laravel/framework": "5.6.*",
                 "mockery/mockery": "~1.0",
-                "orchestra/testbench": "^3.5",
-                "phpunit/phpunit": "~6.0",
+                "orchestra/testbench": "^3.6",
+                "phpstan/phpstan": "^0.9.2",
+                "phpunit/phpunit": "~7.0",
                 "spatie/phpunit-snapshot-assertions": "^1.0"
             },
             "type": "library",
@@ -2420,7 +2421,7 @@
                     }
                 },
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -2451,7 +2452,7 @@
                 "nwidart",
                 "rad"
             ],
-            "time": "2018-01-13T20:11:46+00:00"
+            "time": "2018-04-16T17:35:14+00:00"
         },
         {
             "name": "owen-it/laravel-auditing",
