@@ -34,7 +34,7 @@ Jano Ticketing System is free software: you can redistribute it and/or modify it
 Jano Ticketing System is distributed in the hope that it will be useful, but **WITHOUT ANY WARRANTY**; without even the implied warranty of **MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE**.  See the GNU General Public License for more details.
 
 ## Credits
-The Jano Ticketing System is not possible without the presence of [numerous other projects](CREDITS.md) and the 
-generosity of the sponsors below.
+The Jano Ticketing System is not possible without the presence of [numerous other projects](CREDITS.md) and the generosity of the sponsors below.
 
-<a href="https://lokalise.co" target="_blank"><img src="https://lokalise.co/img/lokalise_logo_black.png" height="50" alt="Lokalise"></a>
+<a href="https://lokalise.co" target="_blank"><img src="https://lokalise.co/img/lokalise_logo_black.png" height="50" alt="Lokalise"></a><br />
+<a href="https://www.hackerone.com" target="_blank"><img src="https://www.hackerone.com/sites/default/files/2017-06/HackerOne.png" height="40" alt="HackerOne"></a>
