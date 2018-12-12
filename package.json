@@ -24,7 +24,7 @@
     "flatpickr": "^4.5.2",
     "foundation-sites": "^6.5.1",
     "jquery": "^3.3.1",
-    "laravel-mix": "^3.0.0",
+    "laravel-mix": "^4.0.4",
     "lodash": "^4.17.11",
     "node-sass": "^4.11.0",
     "popper.js": "^1.14.6",
