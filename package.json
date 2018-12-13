@@ -10,7 +10,7 @@
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass --output-style compressed -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.9",
+    "@fortawesome/fontawesome-svg-core": "^1.2.10",
     "@fortawesome/free-brands-svg-icons": "^5.6.0",
     "@fortawesome/free-regular-svg-icons": "^5.6.0",
     "@fortawesome/free-solid-svg-icons": "^5.6.0",
