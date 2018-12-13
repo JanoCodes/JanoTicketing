@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     mariadb-server \
     redis-server \
     supervisor \
+    openssl \
     openssh-server \
     apache2 \
     apache2-bin \
@@ -24,6 +25,7 @@ RUN apt-get update && apt-get install -y \
     php7.1-redis \
     php7.1-mbstring \
     php7.1-tokenizer \
+    php7.1-bcmath \
     php7.1-gd \
     php7.1-xml \
     php7.1-curl \
@@ -39,8 +41,8 @@ RUN sed -ie 's/upload_max_filesize\ =\ 2M/upload_max_filesize\ =\ 200M/g' /etc/p
 RUN set -xe; \
     bash -c "mysqld_safe --user=mysql &"; \
     sleep 10; \
-    echo "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql; \
-    echo "CREATE DATABASE jano" | mysql
+    echo "GRANT ALL ON *.* TO root@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql; \
+    echo "CREATE DATABASE jano" | mysql -u root -ppassword
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN mkdir /var/www/jano \
@@ -48,14 +50,20 @@ RUN mkdir /var/www/jano \
     && sudo -u www-data git clone https://github.com/jano-may-ball/ticketing.git /var/www/jano
 RUN cd /var/www/jano \
     && sudo -u www-data composer install \
+    && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \
+    && sudo -u www-data openssl rsa -in storage/oauth-private.key -outform PEM -pubout -out storage/oauth-public.key \
+    && sudo -u www-data cp /var/www/jano/.env.example /var/www/jano/.env \
+    && sudo -u www-data cp /var/www/jano/storage/settings.hjson.example /var/www/jano/storage/settings.hjson \
     && HOME=/var/www/jano sudo -u www-data npm install \
     && HOME=/var/www/jano sudo -u www-data npm run production
 RUN rm -rf /var/www/html \
     && ln -s /var/www/jano/public /var/www/html
-RUN cd /var/www/jano; \
+RUN set -xe; \
+    cd /var/www/jano; \
     bash -c "mysqld --user=mysql &"; \
-    sleep 10; \
-    php jano migrate --seed --force
+    sleep 20; \
+    sudo -u www-data php jano key:generate; \
+    sudo -u www-data php jano migrate --seed --force
 
 RUN apt-get clean \
     && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /root/.composer /var/www/jano/node_modules
