@@ -1,13 +1,14 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2018 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation.
+ * published by the Free Software Foundation. You must preserve all legal
+ * notices and author attributions present.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,19 +33,22 @@ class CreateAuditsTable extends Migration
      */
     public function up()
     {
-        Schema::connection(Config::get('audit.drivers.database.connection'))
-            ->create(Config::get('audit.drivers.database.table'), function (Blueprint $table) {
-                $table->increments('id');
-                $table->unsignedInteger(Config::get('audit.user.foreign_key', 'user_id'))->nullable();
-                $table->string('event');
-                $table->morphs('auditable');
-                $table->text('old_values')->nullable();
-                $table->text('new_values')->nullable();
-                $table->string('url')->nullable();
-                $table->ipAddress('ip_address')->nullable();
-                $table->string('user_agent')->nullable();
-                $table->timestamps();
-            });
+        Schema::create('audits', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('user_type')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('event');
+            $table->morphs('auditable');
+            $table->text('old_values')->nullable();
+            $table->text('new_values')->nullable();
+            $table->text('url')->nullable();
+            $table->ipAddress('ip_address')->nullable();
+            $table->string('user_agent')->nullable();
+            $table->string('tags')->nullable();
+            $table->timestamps();
+
+            $table->index(['user_id', 'user_type']);
+        });
     }
 
     /**
