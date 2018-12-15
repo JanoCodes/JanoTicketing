@@ -2,7 +2,7 @@
     "name": "jano-may-ball/ticketing",
     "description": "Jano Ticketing System",
     "keywords": ["php", "mysql", "event-ticketing"],
-    "license": "GPL-3.0",
+    "license": "AGPL-3.0",
     "authors": [
         {
             "name": "Andrew Ying",
