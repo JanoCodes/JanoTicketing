@@ -73,7 +73,7 @@
         "post-install-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php -r \"file_exists('storage/settings.hjson.example') || copy('storage/settings.hjson.example', 'storage/settings.hjson');\"",
-            "@php -r \"getenv('APP_KEY');\" || @php jano key:generate"
+            "@php -r \"getenv('APP_KEY') || shell_exec('php jano key:generate');\""
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
