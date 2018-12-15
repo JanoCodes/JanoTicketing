@@ -52,8 +52,6 @@ RUN cd /var/www/jano \
     && sudo -u www-data composer install \
     && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \
     && sudo -u www-data openssl rsa -in storage/oauth-private.key -outform PEM -pubout -out storage/oauth-public.key \
-    && sudo -u www-data cp /var/www/jano/.env.example /var/www/jano/.env \
-    && sudo -u www-data cp /var/www/jano/storage/settings.hjson.example /var/www/jano/storage/settings.hjson \
     && HOME=/var/www/jano sudo -u www-data npm install \
     && HOME=/var/www/jano sudo -u www-data npm run production
 RUN rm -rf /var/www/html \
@@ -62,7 +60,6 @@ RUN set -xe; \
     cd /var/www/jano; \
     bash -c "mysqld --user=mysql &"; \
     sleep 20; \
-    sudo -u www-data php jano key:generate; \
     sudo -u www-data php jano migrate --seed --force
 
 RUN apt-get clean \

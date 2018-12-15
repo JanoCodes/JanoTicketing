@@ -2,12 +2,12 @@
 
 [![Licensed under GNU GPL v3.0](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](https://github.com/jano-may-ball/ticketing/blob/master/README.md) [![Code Climate](https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing)
 
-Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-may-ball/ticketing/graphs/contributors) 
+Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-may-ball/ticketing/graphs/contributors)
 2016-2018.
 
 ## Installing
 * Clone repository and install dependencies
-```
+```bash
 git clone https://github.com/jano-may-ball/ticketing.git
 cd ticketing
 composer install --no-dev
@@ -15,15 +15,22 @@ npm install
 ```
 * Stylesheet can be customised by editing `resources/assets/sass/_variables.scss`
 * Complie stylesheet and scripts
-```
+```bash
 npm run production
 ```
 * Edit the configuration file at `.env` and `storage/settings.hjson`
-* Create tables required by the application
+* Generate the public and private keys for OAuth authentication
+```bash
+openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048
+openssl rsa -in storage/oauth-private.key -outform PEM -pubout -out storage/oauth-public.key
 ```
+* Create tables required by the application
+```bash
 php jano migrate
 ```
 * Point web server to `public` directory and **you're done**!
+
+If you do not want to have to worry about the dependencies, you can also use the Docker image [janomayball/ticketing](https://hub.docker.com/r/janomayball/ticketing).
 
 ## Contributing
 Jano Ticketing System is open source and relies on the help of the community to maintain. You are welcomed to work at issues and submit pull requests. Please note our [Contributing Guide](CONTRIBUTING.md) and our [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
