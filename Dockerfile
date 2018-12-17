@@ -46,6 +46,7 @@ RUN set -xe; \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY . /var/www/jano
+WORKDIR /var/www/jano
 
 RUN chown -R www-data:www-data /var/www/jano \
     && cd /var/www/jano \
