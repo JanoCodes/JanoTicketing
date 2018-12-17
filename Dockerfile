@@ -47,7 +47,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY . /var/www/jano
 
-RUN chown www-data:www-data /var/www/jano \
+RUN chown -R www-data:www-data /var/www/jano \
     && cd /var/www/jano \
     && sudo -u www-data composer install --prefer-source --no-interaction \
     && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \
