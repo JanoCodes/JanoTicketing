@@ -1,0 +1,4 @@
+jano:
+  build:
+    image: janomayball/ticketing
+    dockerfile: Dockerfile

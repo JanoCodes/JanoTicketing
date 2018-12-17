@@ -45,11 +45,11 @@ RUN set -xe; \
     echo "CREATE DATABASE jano" | mysql -u root -ppassword
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN mkdir /var/www/jano \
-    && chown www-data:www-data /var/www/jano \
-    && sudo -u www-data git clone https://github.com/jano-may-ball/ticketing.git /var/www/jano
-RUN cd /var/www/jano \
-    && sudo -u www-data composer install \
+COPY . /var/www/jano
+
+RUN chown www-data:www-data /var/www/jano \
+    && cd /var/www/jano \
+    && sudo -u www-data composer install --prefer-source --no-interaction \
     && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \
     && sudo -u www-data openssl rsa -in storage/oauth-private.key -outform PEM -pubout -out storage/oauth-public.key \
     && HOME=/var/www/jano sudo -u www-data npm install \
