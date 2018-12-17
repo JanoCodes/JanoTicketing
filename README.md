@@ -1,9 +1,12 @@
-<p style="text-align:center;"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
 
-[![Licensed under GNU AGPL v3.0](https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg)](https://github.com/jano-may-ball/ticketing/blob/master/README.md) [![Code Climate](https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg)](https://codeclimate.com/github/jano-may-ball/ticketing)
+<p align="center">
+<a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg" alt="Licensed under GNU AGPL v3.0"></a> 
+<a href="https://codeclimate.com/github/jano-may-ball/ticketing"><img src="https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg" alt="Code Climate"></a>
+</p>
 
 Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-may-ball/ticketing/graphs/contributors)
-2016-2018.
+ 2016-2018.
 
 ## Installing
 * Clone repository and install dependencies
