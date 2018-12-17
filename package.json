@@ -1,4 +1,7 @@
 {
+  "name": "@jano-may-ball/ticketing",
+  "homepage": "https://github.com/jano-may-ball/ticketing",
+  "license": "AGPL-3.0",
   "private": true,
   "scripts": {
     "dev": "npm run development",
