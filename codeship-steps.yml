@@ -1,3 +1,6 @@
 - name: tests
   service: jano
-  command: vendor/bin/phpunit
+  type: serial
+  steps:
+  - command: sleep 20
+  - command: vendor/bin/phpunit
