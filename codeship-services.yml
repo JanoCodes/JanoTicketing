@@ -2,3 +2,4 @@ jano:
   build:
     image: janomayball/ticketing
     dockerfile: Dockerfile
+  cached: true

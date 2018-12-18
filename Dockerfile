@@ -45,6 +45,10 @@ RUN set -xe; \
     echo "CREATE DATABASE jano" | mysql -u root -ppassword
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN apt-get clean \
+    && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /root/.composer /var/www/jano/node_modules
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 COPY . /var/www/jano
 WORKDIR /var/www/jano
 
@@ -62,9 +66,5 @@ RUN set -xe; \
     bash -c "mysqld --user=mysql &"; \
     sleep 20; \
     sudo -u www-data php jano migrate --seed --force
-
-RUN apt-get clean \
-    && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /root/.composer /var/www/jano/node_modules
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["supervisord"]
