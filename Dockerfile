@@ -49,6 +49,9 @@ RUN apt-get clean \
     && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/* /root/.composer /var/www/jano/node_modules
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+COPY .codeship /var/www/codeship
+RUN chmod +x /var/www/codeship/*
+
 COPY . /var/www/jano
 WORKDIR /var/www/jano
 
@@ -67,4 +70,4 @@ RUN set -xe; \
     sleep 20; \
     sudo -u www-data php jano migrate --seed --force
 
-CMD ["supervisord"]
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -2,4 +2,4 @@
   type: serial
   steps:
   - name: phpunit
-    command: vendor/bin/phpunit
+    command: /var/www/codeship/phpunit.sh

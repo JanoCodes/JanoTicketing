@@ -1,0 +1,15 @@
+.env
+codeship-*.yml
+node_modules/**/*
+docs/**/*
+public/css/**/*
+public/fonts/**/*
+public/js/**/*
+public/images/vendor/**/*
+public/storage/**/*
+public/mix-manifest.json
+storage/debugbar/**/*
+storage/oauth-*.key
+storage/settings.hjson
+reports/**/*
+vendor/**/*
