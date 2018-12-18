@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     git \
     vim \
     htop \
-    libsass \
+    libsass-dev \
     mariadb-server \
     redis-server \
     supervisor \
