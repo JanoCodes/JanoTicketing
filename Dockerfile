@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     apache2-utils \
     libapache2-mod-php7.1 \
     php7.1 \
+    php7.1-xdebug \
     php7.1-mysql \
     php7.1-redis \
     php7.1-mbstring \
