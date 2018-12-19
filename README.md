@@ -9,6 +9,9 @@ Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-ma
  2016-2018.
 
 ## Installing
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1eab16f55c44ae0bfcbf2c64bbae442)](https://app.codacy.com/app/jano/ticketing?utm_source=github.com&utm_medium=referral&utm_content=jano-may-ball/ticketing&utm_campaign=Badge_Grade_Dashboard)
+
 * Clone repository and install dependencies
 ```bash
 git clone https://github.com/jano-may-ball/ticketing.git
