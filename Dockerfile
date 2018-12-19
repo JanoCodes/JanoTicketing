@@ -5,6 +5,7 @@ LABEL org.label-schema.name="Jano Ticketing System" \
     org.label-schema.vcs-url="https://github.com/jano-may-ball/ticketing" \
     org.label-schema.schema-version="1.0"
 
+ARG BUILD_ENV=development
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y apt-utils curl gnupg wget
@@ -63,11 +64,18 @@ WORKDIR /var/www/jano
 
 RUN chown -R www-data:www-data /var/www/jano \
     && cd /var/www/jano \
-    && sudo -u www-data composer install --prefer-source --no-interaction \
+    && if [ "$BUILD_ENV" = "development"]; \
+           then sudo -u www-data composer install --prefer-source --no-interaction; \
+           else sudo -u www-data composer install --prefer-source --no-dev --no-interaction; \
+       fi \
     && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \
     && sudo -u www-data openssl rsa -in storage/oauth-private.key -outform PEM -pubout -out storage/oauth-public.key \
     && HOME=/var/www/jano sudo -u www-data npm install \
-    && HOME=/var/www/jano sudo -u www-data npm run production
+    && if [ "$BUILD_ENV" = "development"]; \
+           then HOME=/var/www/jano sudo -u www-data npm run development; \
+           else HOME=/var/www/jano sudo -u www-data npm run production; \
+       fi
+
 RUN rm -rf /var/www/html \
     && ln -s /var/www/jano/public /var/www/html
 RUN set -xe; \
