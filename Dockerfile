@@ -65,14 +65,14 @@ COPY . /var/www/jano
 WORKDIR /var/www/jano
 
 RUN chown -R www-data:www-data /var/www/jano \
-    && if [ "$BUILD_ENV" = "development"]; \
-           then sudo -u www-data composer install --prefer-source --no-interaction; \
-           else sudo -u www-data composer install --prefer-source --no-dev --no-interaction; \
+    && if [ "$BUILD_ENV" = "development" ]; \
+           then HOME=/var/www/jano sudo -u www-data composer install --prefer-source --no-interaction; \
+           else HOME=/var/www/jano sudo -u www-data composer install --prefer-source --no-dev --no-interaction; \
        fi \
     && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \
     && sudo -u www-data openssl rsa -in storage/oauth-private.key -outform PEM -pubout -out storage/oauth-public.key \
     && HOME=/var/www/jano sudo -u www-data npm install \
-    && if [ "$BUILD_ENV" = "development"]; \
+    && if [ "$BUILD_ENV" = "development" ]; \
            then HOME=/var/www/jano sudo -u www-data npm run development; \
            else HOME=/var/www/jano sudo -u www-data npm run production; \
        fi
