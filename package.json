@@ -5,12 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "npm run development",
-    "development": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;",
-    "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass -w -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;",
+    "development": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; sass resources/assets/sass/mail.scss resources/views/vendor/mail/html/themes/mail.css;",
+    "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; sass --watch resources/assets/sass/mail.scss resources/views/vendor/mail/html/themes/mail.css;",
     "watch-poll": "npm run watch -- --watch-poll",
     "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
-    "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; node-sass --output-style compressed -q -o resources/views/vendor/mail/html/themes resources/assets/sass/mail.scss;"
+    "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; sass --style compressed resources/assets/sass/mail.scss resources/views/vendor/mail/html/themes/mail.css;"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.10",
