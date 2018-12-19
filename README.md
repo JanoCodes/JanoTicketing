@@ -10,29 +10,29 @@ Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-ma
  2016-2018.
 
 ## Installing
-* Clone repository and install dependencies
+*  Clone repository and install dependencies
 ```bash
 git clone https://github.com/jano-may-ball/ticketing.git
 cd ticketing
 composer install --no-dev
 npm install
 ```
-* Stylesheet can be customised by editing `resources/assets/sass/_variables.scss`
-* Complie stylesheet and scripts
+*  Stylesheet can be customised by editing `resources/assets/sass/_variables.scss`
+*  Complie stylesheet and scripts
 ```bash
 npm run production
 ```
-* Edit the configuration file at `.env` and `storage/settings.hjson`
-* Generate the public and private keys for OAuth authentication
+*  Edit the configuration file at `.env` and `storage/settings.hjson`
+*  Generate the public and private keys for OAuth authentication
 ```bash
 openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048
 openssl rsa -in storage/oauth-private.key -outform PEM -pubout -out storage/oauth-public.key
 ```
-* Create tables required by the application
+*  Create tables required by the application
 ```bash
 php jano migrate
 ```
-* Point web server to `public` directory and **you're done**!
+*  Point web server to `public` directory and **you're done**!
 
 If you do not want to have to worry about the dependencies, you can also use the Docker image [janomayball/ticketing](https://hub.docker.com/r/janomayball/ticketing).
 
