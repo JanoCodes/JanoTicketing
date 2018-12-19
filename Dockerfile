@@ -1,5 +1,9 @@
 FROM ubuntu:bionic
-MAINTAINER Andrew Ying <hi@andrewying.com>
+LABEL org.label-schema.name="Jano Ticketing System" \
+    maintainer="Andrew Ying <hi@andrewying.com>" \
+    org.label-schema.description="Official Docker image for the Jano Ticketing System" \
+    org.label-schema.vcs-url="https://github.com/jano-may-ball/ticketing" \
+    org.label-schema.schema-version="1.0"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
