@@ -1,7 +1,0 @@
-plugins:
-  phpmd:
-    enabled: true
-  phpcodesniffer:
-    enabled: true
-    config:
-      standard: "PSR1,PSR2"

@@ -1,8 +1,9 @@
 <p align="center"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
 
 <p align="center">
-<a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg" alt="Licensed under GNU AGPL v3.0"></a> 
-<a href="https://codeclimate.com/github/jano-may-ball/ticketing"><img src="https://img.shields.io/codeclimate/maintainability/jano-may-ball/ticketing.svg" alt="Code Climate"></a>
+<a href="https://app.codeship.com/projects/319077"><img src="https://img.shields.io/codeship/ee9f4010-e46c-0136-4bf8-2a01672139f5/master.svg" alt="Codeship"></a>
+ <a href="https://www.codacy.com/app/jano/ticketing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jano-may-ball/ticketing&amp;utm_campaign=Badge_Grade"><img src="https://img.shields.io/codacy/grade/25ff23782c494860967de4de1eded43a/master.svg" alt="Codacy"></a>
+ <a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg" alt="Licensed under GNU AGPL v3.0"></a>
 </p>
 
 Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-may-ball/ticketing/graphs/contributors)
