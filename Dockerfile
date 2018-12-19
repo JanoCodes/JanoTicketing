@@ -46,6 +46,7 @@ RUN apt-get update \
 RUN a2enmod rewrite
 RUN sed -ie 's/upload_max_filesize\ =\ 2M/upload_max_filesize\ =\ 200M/g' /etc/php/7.1/apache2/php.ini \
     && sed -ie 's/post_max_size\ =\ 8M/post_max_size\ =\ 200M/g' /etc/php/7.1/apache2/php.ini \
+    && sed -ie 's/bind/# bind/g' /etc/redis/redis.conf \
     && sed -ie 's/daemonize yes/daemonize no/g' /etc/redis/redis.conf
 RUN set -xe; \
     bash -c "mysqld_safe --user=mysql &"; \
