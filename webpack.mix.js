@@ -4,7 +4,7 @@ mix.setPublicPath('public');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/backend.js', 'public/js')
-    .extract(['lodash', 'jquery', 'vue', 'foundation-sites', 'axios'])
+    .extract(['lodash', 'jquery', 'vue', 'bootstrap', 'axios'])
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/backend.scss', 'public/css');
 
