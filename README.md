@@ -50,6 +50,7 @@ the implied warranty of **MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE**.
 The Jano Ticketing System is not possible without the presence of [numerous other projects](CREDITS.md) and the generosity of the sponsors below.
 
 <p align="center">
+<a href="https://www.digitalocean.com/"><img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/SVG/DO_Logo_horizontal_blue.svg" width="201px"></a><br />
 <a href="https://lokalise.co" target="_blank"><img src="https://lokalise.co/img/lokalise_logo_black.png" height="50" alt="Lokalise"></a><br />
 <a href="https://www.hackerone.com" target="_blank"><img src="https://www.hackerone.com/sites/default/files/2017-06/HackerOne.png" height="40" alt="HackerOne"></a><br />
 <a href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss" target="_blank"><img width="150" height="50" alt="JWT Auth for open source projects" src="https://cdn.auth0.com/oss/badges/a0-badge-light.png" /></a>
