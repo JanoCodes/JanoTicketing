@@ -1,13 +1,14 @@
 <p align="center"><img src="https://raw.githubusercontent.com/jano-may-ball/ticketing/master/logo.png" height="75" alt="Jano"></p>
 
 <p align="center">
-<a href="https://app.codeship.com/projects/319077"><img src="https://img.shields.io/codeship/ee9f4010-e46c-0136-4bf8-2a01672139f5/master.svg" alt="Codeship"></a>
- <a href="https://www.codacy.com/app/jano/ticketing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jano-may-ball/ticketing&amp;utm_campaign=Badge_Grade"><img src="https://img.shields.io/codacy/grade/25ff23782c494860967de4de1eded43a/master.svg" alt="Codacy"></a>
- <a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md"><img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg" alt="Licensed under GNU AGPL v3.0"></a>
+<a href="https://app.codeship.com/projects/319077" target="_blank"><img src="https://img.shields.io/codeship/ee9f4010-e46c-0136-4bf8-2a01672139f5/master.svg" alt="Codeship"></a>
+ <a href="https://www.codacy.com/app/jano/ticketing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jano-may-ball/ticketing&amp;utm_campaign=Badge_Grade" target="_blank"><img src="https://img.shields.io/codacy/grade/25ff23782c494860967de4de1eded43a/master.svg" alt="Codacy"></a>
+ <a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md" target="_blank"><img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg" alt="Licensed under GNU AGPL v3.0"></a>
 </p>
 
-Copyright &copy; Andrew Ying and [other contributors](https://github.com/jano-may-ball/ticketing/graphs/contributors)
- 2016-2018.
+<p align="center">
+Copyright &copy; Andrew Ying and <a href="https://github.com/jano-may-ball/ticketing/graphs/contributors" target="_blank">other contributors</a> 2016-2018.
+</p>
 
 ## Installing
 *  Clone repository and install dependencies
@@ -48,5 +49,8 @@ the implied warranty of **MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE**.
 ## Credits
 The Jano Ticketing System is not possible without the presence of [numerous other projects](CREDITS.md) and the generosity of the sponsors below.
 
+<p align="center">
 <a href="https://lokalise.co" target="_blank"><img src="https://lokalise.co/img/lokalise_logo_black.png" height="50" alt="Lokalise"></a><br />
-<a href="https://www.hackerone.com" target="_blank"><img src="https://www.hackerone.com/sites/default/files/2017-06/HackerOne.png" height="40" alt="HackerOne"></a>
+<a href="https://www.hackerone.com" target="_blank"><img src="https://www.hackerone.com/sites/default/files/2017-06/HackerOne.png" height="40" alt="HackerOne"></a><br />
+<a href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss" target="_blank"><img width="150" height="50" alt="JWT Auth for open source projects" src="https://cdn.auth0.com/oss/badges/a0-badge-light.png" /></a>
+</p>
