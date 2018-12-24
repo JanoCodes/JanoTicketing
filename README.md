@@ -3,7 +3,7 @@
 <p align="center">
 <a href="https://app.codeship.com/projects/319077" target="_blank"><img src="https://img.shields.io/codeship/ee9f4010-e46c-0136-4bf8-2a01672139f5/master.svg" alt="Codeship"></a>
  <a href="https://www.codacy.com/app/jano/ticketing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jano-may-ball/ticketing&amp;utm_campaign=Badge_Grade" target="_blank"><img src="https://img.shields.io/codacy/grade/25ff23782c494860967de4de1eded43a/master.svg" alt="Codacy"></a>
- <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fjano-may-ball%2Fticketing?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjano-may-ball%2Fticketing.svg?type=shield"/></a>
+ <a href="https://app.fossa.io/projects/custom%2B372%2Fgit%40github.com%3Ajano-may-ball%2Fticketing.git?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.io/api/projects/custom%2B372%2Fgit%40github.com%3Ajano-may-ball%2Fticketing.git.svg?type=shield"/></a>
  <a href="https://github.com/jano-may-ball/ticketing/blob/master/README.md" target="_blank"><img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg" alt="Licensed under GNU AGPL v3.0"></a>
 </p>
 
