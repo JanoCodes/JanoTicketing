@@ -4,6 +4,7 @@
   - name: phpunit
     command: /var/www/codeship/phpunit.sh
   - type: serial
+    steps:
     - name: fossa analyse
       command: fossa analyze
     - name: fossa test
