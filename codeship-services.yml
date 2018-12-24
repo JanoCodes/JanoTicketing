@@ -3,3 +3,4 @@ jano:
     image: janomayball/ticketing
     dockerfile: Dockerfile
   cached: true
+  encrypted_env_file: codeship-env
