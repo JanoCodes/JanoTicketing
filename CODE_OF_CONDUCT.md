@@ -35,7 +35,8 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 ## Reporting Issues
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at
-  [conduct@janoticketing.co.uk][email]. In order to allow for the most effective response, please consider including:
+  [conduct@janoticketing.co.uk](mailto:conduct@janoticketing.co.uk). In order to allow for the most effective response, 
+  please consider including the following:
 
 *  Your contact information.
 *  Names (real, nicknames, or pseudonyms) of any individuals involved. If there are additional witnesses, please include their details as well.
@@ -48,8 +49,6 @@ Project maintainers who do not follow or enforce the Code of Conduct in good fai
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant][covenant], version 1.4, available at [https://www
-.contributor-covenant.org/version/1/4/code-of-conduct.html][covenant].
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/version/1/4/code-of-conduct.html), version 1.4, available at <https://www.contributor-covenant.org/version/1/4/code-of-conduct.html>.
 
-[email]: mailto:conduct@janoticketing.co.uk
-[covenant]: https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+For answers to common questions about this code of conduct, see <https://www.contributor-covenant.org/faq>
