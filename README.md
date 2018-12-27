@@ -84,3 +84,4 @@ src="https://cdn.auth0.com/oss/badges/a0-badge-light.png" /></a>
 
 * Translation management by [Lokalise](https://lokalise.co)
 * License management by [FOSSA](https://fossa.com)
+* Broswer compatibility testing by [BrowserStack](https://www.browserstack.com)
