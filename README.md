@@ -73,18 +73,32 @@ PARTICULAR PURPOSE**. See the GNU Affero General Public License for more details
 The Jano Ticketing System is not possible without the presence of
 [numerous other projects](CREDITS.md) and the generosity of the sponsors below.
 
-<p align="center">
+<table>
+<tr>
+<td style="text-align:center;">
 <a href="https://www.digitalocean.com/">
 <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/SVG/DO_Logo_horizontal_blue.svg" 
-alt="DigitalOcean" width="200px">
-</a><br />
+alt="DigitalOcean" height="50px">
+</a><br />Server Hosting
+</td>
+<td style="text-align:center;">
 <a href="https://www.keycdn.com"><img src="https://logos.keycdn.com/keycdn-logo.png" 
-alt="KeyCDN" width="200px"></a><br />
+alt="KeyCDN" height="50px"></a><br />Global CDN
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
 <a href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss" target="_blank">
-<img width="150px" height="50px" alt="JWT Auth for open source projects"
-src="https://cdn.auth0.com/oss/badges/a0-badge-light.png" /></a>
-</p>
+<img width="170px" alt="JWT Auth for open source projects"
+src="https://cdn.auth0.com/oss/badges/a0-badge-light.png" /></a><br />Single Sign-On
+</td>
+<td style="text-align:center;">
+<a href="https://www.browserstack.com/" target="_blank">
+<img src="https://assets.janoticketing.co.uk/images/browserstack.png" height="50px" 
+alt="BrowserStack" /></a><br />Browser compatibility testing
+</td>
+</tr>
+</table>
 
 * Translation management by [Lokalise](https://lokalise.co)
 * License management by [FOSSA](https://fossa.com)
-* Broswer compatibility testing by [BrowserStack](https://www.browserstack.com)
