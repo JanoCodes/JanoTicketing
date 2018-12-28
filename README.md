@@ -61,9 +61,8 @@ You are welcomed to work at issues and submit pull requests. Please note our
 
 ## License
 Jano Ticketing System is free software: you can redistribute it and/or modify it under
-the terms of the GNU [Affero General Public License v3.0](LICENSE.md) as published by
-the Free Software Foundation. You must preserve all legal notices and author attributions
-present.
+the terms of the [GNU Affero General Public License v3.0](LICENSE.md) supplemented by
+[additional permissions and terms](COPYING.md).
 
 Jano Ticketing System is distributed in the hope that it will be useful, but **WITHOUT
 ANY WARRANTY**; without even the implied warranty of **MERCHANTABILITY or FITNESS FOR A
@@ -78,7 +77,7 @@ The Jano Ticketing System is not possible without the presence of
 <td style="text-align:center;">
 <a href="https://www.digitalocean.com/">
 <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/SVG/DO_Logo_horizontal_blue.svg" 
-alt="DigitalOcean" height="50px">
+alt="DigitalOcean" height="45px">
 </a><br />Server Hosting
 </td>
 <td style="text-align:center;">
@@ -89,7 +88,7 @@ alt="KeyCDN" height="50px"></a><br />Global CDN
 <tr>
 <td style="text-align:center;">
 <a href="https://auth0.com/?utm_source=oss&utm_medium=gp&utm_campaign=oss" target="_blank">
-<img width="170px" alt="JWT Auth for open source projects"
+<img height="60px" alt="JWT Auth for open source projects"
 src="https://cdn.auth0.com/oss/badges/a0-badge-light.png" /></a><br />Single Sign-On
 </td>
 <td style="text-align:center;">
