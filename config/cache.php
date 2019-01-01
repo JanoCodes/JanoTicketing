@@ -75,7 +75,7 @@ return [
 
         'redis' => [
             'driver' => 'redis',
-            'connection' => 'default',
+            'connection' => 'cache',
         ],
 
     ],
@@ -91,6 +91,6 @@ return [
     |
     */
 
-    'prefix' => 'janotix',
+    'prefix' => 'janotix_cache',
 
 ];
