@@ -26,6 +26,19 @@ other contributors</a> 2016-2018.
 </p>
 
 ## Installing
+
+### Requirements
+
+If you're not using the Docker image, you will need to make sure that the following are
+installed on your machine:
+
+* Web server (e.g. Apache or Nginx)
+* PHP, version 7.1 or above
+* Database (either MySQL or MariaDB)
+* Node.js and npm
+
+### Steps
+
 * Clone repository and install dependencies
 ```bash
 git clone https://github.com/jano-may-ball/ticketing.git
