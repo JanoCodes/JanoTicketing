@@ -109,23 +109,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => env('APP_LOG', 'single'),
-
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -166,6 +149,7 @@ return [
         /*
          * Package Service Providers
          */
+        Milon\Barcode\BarcodeServiceProvider::class,
         Jano\Settings\ServiceProvider::class,
 
         /*
@@ -229,6 +213,7 @@ return [
         /*
          * Package aliases
          */
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Menu' => Spatie\Menu\Laravel\Menu::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Helper' => Jano\Facades\Helper::class,

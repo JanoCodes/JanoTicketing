@@ -22,22 +22,16 @@
 
 namespace Jano\Http\Middleware;
 
-use Illuminate\Http\Request;
-use Fideloper\Proxy\TrustProxies as Middleware;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode as Middleware;
 
-class TrustProxies extends Middleware
+class CheckForMaintenanceMode extends Middleware
 {
     /**
-     * The trusted proxies for this application.
+     * The URIs that should be reachable while maintenance mode is enabled.
      *
      * @var array
      */
-    protected $proxies;
-
-    /**
-     * The headers that should be used to detect proxies.
-     *
-     * @var int
-     */
-    protected $headers = Request::HEADER_X_FORWARDED_ALL;
+    protected $except = [
+        //
+    ];
 }
