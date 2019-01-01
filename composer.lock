@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1258c55f8681ff2ee154985723a5632",
+    "content-hash": "ddac93f616bbcd1c6853bf97b7abf73b",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -2590,16 +2590,16 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "3.3.1",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "a7ec8a5871e57d337b7d37bbeb246fb99c41c703"
+                "reference": "d487d9be3bfd6b7365678fd805d9ba5f0dd8295c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/a7ec8a5871e57d337b7d37bbeb246fb99c41c703",
-                "reference": "a7ec8a5871e57d337b7d37bbeb246fb99c41c703",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/d487d9be3bfd6b7365678fd805d9ba5f0dd8295c",
+                "reference": "d487d9be3bfd6b7365678fd805d9ba5f0dd8295c",
                 "shasum": ""
             },
             "require": {
@@ -2607,11 +2607,11 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.7",
-                "laravel/framework": "5.6.*",
+                "laravel/framework": "5.7.*",
                 "mockery/mockery": "~1.0",
-                "orchestra/testbench": "^3.6",
+                "orchestra/testbench": "^3.7",
                 "phpstan/phpstan": "^0.9.2",
-                "phpunit/phpunit": "~7.0",
+                "phpunit/phpunit": "~7.3",
                 "spatie/phpunit-snapshot-assertions": "^1.0"
             },
             "type": "library",
@@ -2625,7 +2625,7 @@
                     }
                 },
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -2656,7 +2656,7 @@
                 "nwidart",
                 "rad"
             ],
-            "time": "2018-07-13T15:36:59+00:00"
+            "time": "2018-09-30T10:02:46+00:00"
         },
         {
             "name": "opis/closure",
@@ -5400,6 +5400,67 @@
                 }
             ],
             "time": "2018-12-13T10:34:14+00:00"
+        },
+        {
+            "name": "beyondcode/laravel-dump-server",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beyondcode/laravel-dump-server.git",
+                "reference": "8864b9efcb48e0a79e83014dd7f0a5481f5c808f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beyondcode/laravel-dump-server/zipball/8864b9efcb48e0a79e83014dd7f0a5481f5c808f",
+                "reference": "8864b9efcb48e0a79e83014dd7f0a5481f5c808f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.6.*|5.7.*|5.8.*",
+                "illuminate/http": "5.6.*|5.7.*|5.8.*",
+                "illuminate/support": "5.6.*|5.7.*|5.8.*",
+                "php": "^7.1",
+                "symfony/var-dumper": "^4.1.1"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BeyondCode\\DumpServer\\DumpServerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BeyondCode\\DumpServer\\": "src"
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Pociot",
+                    "email": "marcel@beyondco.de",
+                    "homepage": "https://beyondcode.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Symfony Var-Dump Server for Laravel",
+            "homepage": "https://github.com/beyondcode/laravel-dump-server",
+            "keywords": [
+                "beyondcode",
+                "laravel-dump-server"
+            ],
+            "time": "2018-10-04T07:22:24+00:00"
         },
         {
             "name": "composer/ca-bundle",
