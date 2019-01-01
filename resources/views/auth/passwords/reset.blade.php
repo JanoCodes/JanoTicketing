@@ -23,7 +23,7 @@
                             {{ __('system.email') }}
                             <input id="email" type="email" pattern="email"
                                    {{ $errors->has('email') ? 'class="is-invalid-input" aria-invalid ' : '' }}
-                                   name="email" value="{{ $email or old('email') }}" required autofocus>
+                                   name="email" value="{{ $email ?? old('email') }}" required autofocus>
                             @if ($errors->has('email'))
                                 <span class="form-error is-visible">
                                     <strong>{{ $errors->first('email') }}</strong>
