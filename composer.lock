@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "38ad8a1089d12fab37524ceb0c6cd0ce",
+    "content-hash": "3704c7ed40322c959a2e91ea6cd802c3",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -1469,16 +1469,16 @@
         },
         {
             "name": "laravel/passport",
-            "version": "v6.0.7",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "5a3dbeb0904573fcfecf11c018eaa42bfc935372"
+                "reference": "670a358d15e4320bd5d2ddb0253ec65344df4a3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/5a3dbeb0904573fcfecf11c018eaa42bfc935372",
-                "reference": "5a3dbeb0904573fcfecf11c018eaa42bfc935372",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/670a358d15e4320bd5d2ddb0253ec65344df4a3c",
+                "reference": "670a358d15e4320bd5d2ddb0253ec65344df4a3c",
                 "shasum": ""
             },
             "require": {
@@ -1500,12 +1500,12 @@
             },
             "require-dev": {
                 "mockery/mockery": "~1.0",
-                "phpunit/phpunit": "~6.0"
+                "phpunit/phpunit": "~7.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.0-dev"
+                    "dev-master": "7.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1534,7 +1534,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2018-08-09T19:10:08+00:00"
+            "time": "2018-12-31T15:03:54+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -1778,7 +1778,7 @@
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
                     "email": "lcobucci@gmail.com",
-                    "role": "Developer"
+                    "role": "developer"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",

@@ -22,7 +22,7 @@
         "jano-may-ball/settings": "^1.0",
         "kris/laravel-form-builder": "^1.15",
         "laravel/framework": "5.6.*",
-        "laravel/passport": "^6.0",
+        "laravel/passport": "^7.0",
         "laravel/socialite": "^3.1",
         "laravel/tinker": "^1.0",
         "league/csv": "^9.1",
