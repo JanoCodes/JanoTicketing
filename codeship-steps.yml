@@ -1,11 +1,13 @@
-- service: jano
-  type: parallel
+- service: jano_dev
+  type: serial
   steps:
-  - name: phpunit
-    command: /var/www/codeship/phpunit.sh
-  - type: serial
+  - type: parallel
     steps:
-    - name: fossa analyse
-      command: fossa analyze
-    - name: fossa test
-      command: fossa test
+    - name: PHPUnit
+      command: /var/www/codeship/phpunit.sh
+    - type: serial
+      steps:
+      - name: FOSSA Analyse
+        command: fossa analyze
+  - name: Docker
+    command: /var/www/codeship/docker.sh
