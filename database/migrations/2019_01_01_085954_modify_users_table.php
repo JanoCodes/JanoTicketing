@@ -20,39 +20,33 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
-class EventServiceProvider extends ServiceProvider
+class ModifyUsersTable extends Migration
 {
     /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        Illuminate\Auth\Events\Registered::class => [
-            Illuminate\Auth\Listeners\SendEmailVerificationNotification::class
-        ],
-        \Jano\Events\CachedModelChanged::class => [
-            \Jano\Listener\ClearModelCache::class
-        ],
-        \Jano\Events\AccountSaving::class => [
-            \Jano\Listener\GeneratePaymentReference::class
-        ]
-    ];
-
-    /**
-     * Register any events for your application.
+     * Run the migrations.
      *
      * @return void
      */
-    public function boot()
+    public function up()
     {
-        parent::boot();
+        Schema::table('users', function (Blueprint $table) {
+            $table->timestamp('email_verified_at')->nullable()->after('group_id');
+        });
+    }
 
-        //
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('email_verified_at');
+        });
     }
 }

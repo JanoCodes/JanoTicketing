@@ -20,39 +20,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-namespace Jano\Providers;
+namespace Jano\Http\Middleware;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
-class EventServiceProvider extends ServiceProvider
+class Authenticate extends Middleware
 {
     /**
-     * The event listener mappings for the application.
+     * Get the path the user should be redirected to when they are not authenticated.
      *
-     * @var array
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
      */
-    protected $listen = [
-        Illuminate\Auth\Events\Registered::class => [
-            Illuminate\Auth\Listeners\SendEmailVerificationNotification::class
-        ],
-        \Jano\Events\CachedModelChanged::class => [
-            \Jano\Listener\ClearModelCache::class
-        ],
-        \Jano\Events\AccountSaving::class => [
-            \Jano\Listener\GeneratePaymentReference::class
-        ]
-    ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
+    protected function redirectTo($request)
     {
-        parent::boot();
-
-        //
+        if (! $request->expectsJson()) {
+            return route('login');
+        }
     }
 }

@@ -21,13 +21,13 @@
         "hashids/hashids": "^3.0",
         "jano-may-ball/settings": "^1.0",
         "kris/laravel-form-builder": "^1.15",
-        "laravel/framework": "5.6.*",
-        "laravel/passport": "^6.0",
-        "laravel/socialite": "^3.1",
+        "laravel/framework": "5.7.*",
+        "laravel/passport": "^7.0",
+        "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
         "league/csv": "^9.1",
         "milon/barcode": "^5.3",
-        "nwidart/laravel-modules": "^3.0",
+        "nwidart/laravel-modules": "^4.0",
         "owen-it/laravel-auditing": "^8.0",
         "predis/predis": "^1.1",
         "propaganistas/laravel-phone": "^4.0",
@@ -37,6 +37,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.4",
+        "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
@@ -74,11 +75,11 @@
         "post-install-cmd": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php -r \"file_exists('storage/settings.hjson.example') || copy('storage/settings.hjson.example', 'storage/settings.hjson');\"",
-            "@php -r \"getenv('APP_KEY') || shell_exec('php jano key:generate');\""
+            "@php -r \"getenv('APP_KEY') || shell_exec('php jano key:generate --ansi');\""
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php jano package:discover"
+            "@php jano package:discover --ansi"
         ]
     },
     "config": {
