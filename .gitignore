@@ -16,6 +16,7 @@
 /storage/settings.hjson
 /vendor
 /.idea
+Code.iml
 Homestead.json
 Homestead.yaml
 .env
