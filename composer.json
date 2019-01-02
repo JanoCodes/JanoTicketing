@@ -23,7 +23,7 @@
         "kris/laravel-form-builder": "^1.15",
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.0",
-        "laravel/socialite": "^3.1",
+        "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
         "league/csv": "^9.1",
         "milon/barcode": "^5.3",
