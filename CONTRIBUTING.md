@@ -1,9 +1,11 @@
 # How to Contribute
+
 Thank you for your interest in contributing to the Jano Ticketing System. We are a
 very tiny team and so rely on the help of the community to make improvements which
 we wouldn't otherwise have time to make!
 
 ## Getting Started
+
 * Make sure you have a [GitHub account](https://github.com/signup/free)
 * Read through this Guide and our [Code of Conduct](CODE_OF_CONDUCT.md) and make
   sure that you're happy with them
@@ -16,6 +18,7 @@ we wouldn't otherwise have time to make!
 * Start working!
 
 ## Making and Submitting Changes
+
 * Make sure that you follows the [PSR-2 Coding Style](http://www.php-fig.org/psr/psr-2/)
   and make regular commits detailing changes made
 * Write tests where possible and be sure to test non-trivial changes on a test server!
@@ -26,4 +29,5 @@ we wouldn't otherwise have time to make!
   merge your changes into the repository!
 
 ## Need Help?
-* Email the [project team](mailto:hi@andrewying.com)
+
+* Email the [project team](mailto:hi@janoticketing.co.uk)
