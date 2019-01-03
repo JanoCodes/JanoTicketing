@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+  ~ Jano Ticketing System
+  ~ Copyright (C) 2019 Andrew Ying and other contributors.
+  ~
+  ~ This file is part of Jano Ticketing System.
+  ~
+  ~ Jano Ticketing System is free software: you can redistribute it and/or
+  ~ modify it under the terms of the GNU Affero General Public License
+  ~ v3.0 supplemented by additional permissions and terms as published at
+  ~ COPYING.md.
+  ~
+  ~ Jano Ticketing System is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public
+  ~ License along with this program. If not, see
+  ~ <http://www.gnu.org/licenses/>.
+  -->
+
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer"
+         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+    <description>Coding standard for Jano Ticketing System.</description>
+
+    <file>app</file>
+    <file>config</file>
+    <file>database</file>
+    <file>resources</file>
+    <file>routes</file>
+
+    <extensions>php</extensions>
+
+    <exclude-pattern>*/tests/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="parallel" value="75"/>
+    <arg value="np"/>
+
+    <php_version>701025</php_version>
+
+    <!-- Don't hide tokenizer exceptions -->
+    <rule ref="Internal.Tokenizer.Exception">
+        <type>error</type>
+    </rule>
+
+    <rule ref="PSR2"/>
+    <rule ref="PSR12"/>
+
+    <!-- Private methods MUST not be prefixed with an underscore -->
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <type>error</type>
+    </rule>
+
+    <!-- Private properties MUST not be prefixed with an underscore -->
+    <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
+        <type>error</type>
+    </rule>
+
+</ruleset>

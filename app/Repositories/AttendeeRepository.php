@@ -1,22 +1,22 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying and other contributors.
+ * Copyright (C) 2019 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License
- * v3.0 as published by the Free Software Foundation. You must preserve
- * all legal notices and author attributions present.
+ * v3.0 supplemented by additional permissions and terms as published at
+ * COPYING.md.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
 
@@ -80,14 +80,17 @@ class AttendeeRepository implements AttendeeContract
 
             DB::beginTransaction();
 
-            $charge_created = $this->charge->store($account, [
-                'amount' => $amount,
-                'description' => trans_choice(
-                    'system.ticket_order_for_attendee',
-                    $attendees->count(),
-                    ['count' => $attendees->count()]
-                )
-            ]);
+            $charge_created = $this->charge->store(
+                $account,
+                [
+                    'amount' => $amount,
+                    'description' => trans_choice(
+                        'system.ticket_order_for_attendee',
+                        $attendees->count(),
+                        ['count' => $attendees->count()]
+                    )
+                ]
+            );
 
             $account->amount_due += $amount;
             $account->save();
@@ -108,12 +111,17 @@ class AttendeeRepository implements AttendeeContract
 
         foreach ($attendees as $attendee) {
             $ticket = $tickets->where('id', $attendee['ticket']['id'])->first();
-            $return->push($this->ticket->reserve([
-                'ticket' => $ticket,
-                'user' => $user,
-                'charge' => $charge_created,
-                'data' => $attendee
-            ], $frontend));
+            $return->push(
+                $this->ticket->reserve(
+                    [
+                        'ticket' => $ticket,
+                        'user' => $user,
+                        'charge' => $charge_created,
+                        'data' => $attendee
+                    ],
+                    $frontend
+                )
+            );
         }
 
         DB::commit();

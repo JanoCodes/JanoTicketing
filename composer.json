@@ -12,6 +12,7 @@
     "type": "project",
     "require": {
         "php": ">=7.1.0",
+        "ext-bcmath": "*",
         "arrilot/laravel-widgets": "^3.12",
         "barryvdh/laravel-dompdf": "^0.8",
         "erusev/parsedown": "^1.7",

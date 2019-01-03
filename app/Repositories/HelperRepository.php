@@ -1,22 +1,23 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2019 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
- * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation. You must preserve all legal
- * notices and author attributions present.
+ * modify it under the terms of the GNU Affero General Public License
+ * v3.0 supplemented by additional permissions and terms as published at
+ * COPYING.md.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 
 namespace Jano\Repositories;
@@ -83,7 +84,9 @@ class HelperRepository
     {
         $hashids = new Hashids(config('app.key'));
 
-        return $hashids->encode(self::bcRandomInteger(0, bcsub(bcpow(44, $length - 1), '1')));
+        return $hashids->encode(
+            self::bcRandomInteger(0, bcsub(bcpow(44, $length - 1), '1'))
+        );
     }
 
     /**
@@ -97,13 +100,17 @@ class HelperRepository
     protected static function bcRandomInteger($min, $max)
     {
         if (bccomp($max, $min) !== 1) {
-            throw new InvalidArgumentException('Minimum value must be less than the maximum value');
+            throw new InvalidArgumentException(
+                'Minimum value must be less than the maximum value'
+            );
         }
 
         $desired = bcsub($max, $min);
 
         if (bccomp($desired, bcmul(PHP_INT_MAX, 10 ** 5)) === 1) {
-            throw new InvalidArgumentException('The range is too large for efficient random integer generation.');
+            throw new InvalidArgumentException(
+                'The range is too large for efficient random integer generation.'
+            );
         }
 
         $return = $min;
