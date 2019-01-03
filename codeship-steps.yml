@@ -11,4 +11,5 @@
     command: /var/www/codeship/docker.sh
     image_name: janorocks/ticketing
     image_tag: "{{.ServiceName}}"
+    registry: https://index.docker.io/v1/
     encrypted_dockercfg_path: /var/www/codeship/dockercfg
