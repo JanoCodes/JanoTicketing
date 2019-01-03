@@ -8,7 +8,7 @@
     - name: FOSSA analyse
       command: fossa analyze
   - name: Docker push development
-    command: /var/www/codeship/docker.sh
+    type: push
     image_name: janorocks/ticketing
     image_tag: "{{.ServiceName}}"
     registry: https://index.docker.io/v1/
