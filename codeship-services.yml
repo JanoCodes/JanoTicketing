@@ -1,4 +1,4 @@
-jano_dev:
+development:
   build:
     image: janorocks/ticketing
     dockerfile: Dockerfile

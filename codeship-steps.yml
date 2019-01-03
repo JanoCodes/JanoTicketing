@@ -1,13 +1,14 @@
-- service: jano_dev
+- service: development
   type: serial
   steps:
   - type: parallel
     steps:
     - name: PHPUnit
       command: /var/www/codeship/phpunit.sh
-    - type: serial
-      steps:
-      - name: FOSSA Analyse
-        command: fossa analyze
-  - name: Docker
+    - name: FOSSA analyse
+      command: fossa analyze
+  - name: Docker push development
     command: /var/www/codeship/docker.sh
+    image_name: janorocks/ticketing
+    image_tag: "{{.ServiceName}}"
+    encrypted_dockercfg_path: /var/www/codeship/dockercfg
