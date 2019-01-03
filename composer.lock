@@ -1533,16 +1533,16 @@
         },
         {
             "name": "laravel/passport",
-            "version": "v7.0.4",
+            "version": "v7.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "670a358d15e4320bd5d2ddb0253ec65344df4a3c"
+                "reference": "d7f24f6d4e95049b04369d60596d7a5b619a1dc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/670a358d15e4320bd5d2ddb0253ec65344df4a3c",
-                "reference": "670a358d15e4320bd5d2ddb0253ec65344df4a3c",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/d7f24f6d4e95049b04369d60596d7a5b619a1dc9",
+                "reference": "d7f24f6d4e95049b04369d60596d7a5b619a1dc9",
                 "shasum": ""
             },
             "require": {
@@ -1598,7 +1598,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2018-12-31T15:03:54+00:00"
+            "time": "2019-01-02T10:25:07+00:00"
         },
         {
             "name": "laravel/slack-notification-channel",
