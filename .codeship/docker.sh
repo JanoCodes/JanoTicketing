@@ -2,10 +2,11 @@
 set -e
 
 if [ -z "$1" ]; then
-    DOCKER_TAG = "development"
+    DOCKER_TAG="development"
 else
-    DOCKER_TAG = "$1"
+    DOCKER_TAG="$1"
 fi
+
 
 ## Login to docker hub on release action
 if [ ! -f "/root/.docker/config.json" ]; then
