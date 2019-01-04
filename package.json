@@ -28,7 +28,7 @@
     "file-loader": "^3.0.1",
     "flatpickr": "^4.5.2",
     "jquery": "^3.3.1",
-    "laravel-mix": "^4.0.12",
+    "laravel-mix": "^4.0.13",
     "lodash": "^4.17.11",
     "mapbox-gl": "^0.52.0",
     "popper.js": "^1.14.6",
