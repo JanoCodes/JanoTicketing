@@ -5,7 +5,8 @@ LABEL org.label-schema.name="Jano Ticketing System" \
     org.label-schema.vcs-url="https://github.com/jano-may-ball/ticketing" \
     org.label-schema.schema-version="1.0"
 
-ARG BUILD_ENV=development
+ENV BUILD_ENV=development
+ENV ROOT_PASSWORD=password
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
@@ -51,8 +52,8 @@ RUN sed -ie 's/upload_max_filesize\ =\ 2M/upload_max_filesize\ =\ 200M/g' /etc/p
 RUN set -xe; \
     bash -c "mysqld_safe --user=mysql &"; \
     sleep 10; \
-    echo "GRANT ALL ON *.* TO root@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql; \
-    echo "CREATE DATABASE jano" | mysql -u root -ppassword
+    echo "GRANT ALL ON *.* TO root@'localhost' IDENTIFIED BY '$ROOT_PASSWORD' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql; \
+    echo "CREATE DATABASE jano" | mysql -u root -p"$ROOT_PASSWORD"
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN apt-get clean \
@@ -68,8 +69,7 @@ WORKDIR /var/www/jano
 RUN chown -R www-data:www-data /var/www/jano \
     && if [ "$BUILD_ENV" = "development" ]; \
            then HOME=/var/www/jano sudo -u www-data composer install --prefer-source --no-interaction \
-                && curl https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash \
-                && fossa init; \
+                && curl https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash
            else HOME=/var/www/jano sudo -u www-data composer install --prefer-source --no-dev --no-interaction; \
        fi \
     && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \

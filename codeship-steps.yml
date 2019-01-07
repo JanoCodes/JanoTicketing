@@ -1,13 +1,21 @@
-- service: development
-  type: serial
+- type: serial
   steps:
   - type: parallel
+    service: test
     steps:
     - name: PHPUnit
       command: /var/www/codeship/phpunit.sh
     - name: FOSSA analyse
-      command: fossa analyze
-  - name: Docker push development
+      command: /var/www/codeship/fossa.sh
+  - name: Docker push development image
+    service: development
+    type: push
+    image_name: janorocks/ticketing
+    image_tag: "{{.ServiceName}}"
+    registry: https://index.docker.io/v1/
+    encrypted_dockercfg_path: .codeship/dockercfg
+  - name: Docker push latest image
+    service: latest
     type: push
     image_name: janorocks/ticketing
     image_tag: "{{.ServiceName}}"
