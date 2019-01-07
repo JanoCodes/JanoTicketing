@@ -14,5 +14,5 @@ latest:
     image: janorocks/ticketing
     dockerfile: Dockerfile
     cached: true
-  environment:
-    - BUILD_ENV=production
+  arg:
+    BUILD_ENV: production

@@ -5,8 +5,6 @@ LABEL org.label-schema.name="Jano Ticketing System" \
     org.label-schema.vcs-url="https://github.com/jano-may-ball/ticketing" \
     org.label-schema.schema-version="1.0"
 
-ENV BUILD_ENV=development
-ENV ROOT_PASSWORD=password
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
@@ -49,6 +47,8 @@ RUN sed -ie 's/upload_max_filesize\ =\ 2M/upload_max_filesize\ =\ 200M/g' /etc/p
     && sed -ie 's/post_max_size\ =\ 8M/post_max_size\ =\ 200M/g' /etc/php/7.1/apache2/php.ini \
     && sed -ie 's/bind/# bind/g' /etc/redis/redis.conf \
     && sed -ie 's/daemonize yes/daemonize no/g' /etc/redis/redis.conf
+
+ARG ROOT_PASSWORD=password
 RUN set -xe; \
     bash -c "mysqld_safe --user=mysql &"; \
     sleep 10; \
@@ -66,6 +66,7 @@ RUN chmod +x /var/www/codeship/*
 COPY . /var/www/jano
 WORKDIR /var/www/jano
 
+ARG BUILD_ENV=development
 RUN chown -R www-data:www-data /var/www/jano \
     && if [ "$BUILD_ENV" = "development" ]; \
            then HOME=/var/www/jano sudo -u www-data composer install --prefer-source --no-interaction \
