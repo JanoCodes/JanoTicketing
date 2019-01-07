@@ -69,7 +69,7 @@ WORKDIR /var/www/jano
 RUN chown -R www-data:www-data /var/www/jano \
     && if [ "$BUILD_ENV" = "development" ]; \
            then HOME=/var/www/jano sudo -u www-data composer install --prefer-source --no-interaction \
-                && curl https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash
+                && curl https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash; \
            else HOME=/var/www/jano sudo -u www-data composer install --prefer-source --no-dev --no-interaction; \
        fi \
     && sudo -u www-data openssl genpkey -algorithm RSA -out storage/oauth-private.key -pkeyopt rsa_keygen_bits:2048 \
