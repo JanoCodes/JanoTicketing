@@ -1,18 +1,18 @@
 test:
   build:
-    image: janorocks/ticketing
+    image: janorocks/ticketing:test
     dockerfile: Dockerfile
   cached: true
   encrypted_env_file: .codeship/env
 development:
   build:
-    image: janorocks/ticketing
+    image: janorocks/ticketing:development
     dockerfile: Dockerfile
-    cached: true
+  cached: true
 latest:
   build:
-    image: janorocks/ticketing
+    image: janorocks/ticketing:latest
     dockerfile: Dockerfile
-    cached: true
-  arg:
+  cached: true
+  args:
     BUILD_ENV: production
