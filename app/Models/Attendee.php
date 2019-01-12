@@ -1,22 +1,23 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2017 Andrew Ying
+ * Copyright (C) 2016-2019 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
- * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation. You must preserve all legal
- * notices and author attributions present.
+ * modify it under the terms of the GNU Affero General Public License
+ * v3.0 supplemented by additional permissions and terms as published at
+ * COPYING.md.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 
 namespace Jano\Models;
@@ -24,6 +25,7 @@ namespace Jano\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Jano\Models\Traits\Chargeable;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
@@ -46,7 +48,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  */
 class Attendee extends Model implements AuditableContract
 {
-    use Notifiable, SoftDeletes, Auditable;
+    use Chargeable, Notifiable, SoftDeletes, Auditable;
 
     /**
      * All of the relationships to be touched.
@@ -87,16 +89,6 @@ class Attendee extends Model implements AuditableContract
     public function user()
     {
         return $this->belongsTo('Jano\Models\User');
-    }
-
-    /**
-     * The charge associated with the attendee.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function charge()
-    {
-        return $this->belongsTo('Jano\Models\Charge');
     }
 
     /*
