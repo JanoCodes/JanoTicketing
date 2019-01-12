@@ -19,21 +19,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-window._ = require('lodash');
+import lodash from 'lodash';
+import jquery from 'jquery';
+import Popper from 'popper.js';
+import Vue from 'vue';
+import Slideout from 'slideout';
+import axios from 'axios';
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 
-try {
-    window.$ = window.jQuery = require('jquery');
-    window.Popper = require('popper.js');
-    require('bootstrap');
+window._ = lodash;
 
-    window.Vue = require('vue');
+window.$ = window.jQuery = jquery;
+window.Popper = Popper;
+require('bootstrap');
 
-    window.Slideout = require('slideout');
-    window.axios = require('axios');
-    window.mapboxgl = require('mapbox-gl/dist/mapbox-gl');
-} catch (e) {}
+window.Vue = Vue;
 
+window.Slideout = Slideout;
+window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.mapboxgl = mapboxgl;
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

@@ -1,6 +1,4 @@
 <!-- Scripts -->
-<script src="{{ mix('js/manifest.js') }}"></script>
-<script src="{{ mix('js/vendor.js') }}"></script>
 <script src="{{ mix('js/' . $script) }}"></script>
 <script type="text/javascript">
     var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
