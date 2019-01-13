@@ -12,8 +12,7 @@ target="_blank"><img
 src="https://img.shields.io/codacy/grade/25ff23782c494860967de4de1eded43a/master.svg"
 alt="Codacy"></a>
 <a href="https://app.fossa.io/projects/custom%2B372%2Fgit%40github.com%3AJanoCodes%2FTicketing.git?ref=badge_shield" alt="FOSSA Status">
-<img src="https://app.fossa.io/api/projects/custom%2B372%2Fgit%40github.com%3AJanoCodes%2FTicketing.git.svg?type=shield"/>
-</a>
+<img src="https://app.fossa.io/api/projects/custom%2B372%2Fgit%40github.com%3AJanoCodes%2FTicketing.git.svg?type=shield"/></a>
 <a href="https://github.com/JanoRocks/Ticketing/blob/master/README.md"
 target="_blank"><img src="https://img.shields.io/badge/license-GNU%20AGPL%20v3.0-blue.svg"
 alt="Licensed under GNU AGPL v3.0"></a>
@@ -22,7 +21,7 @@ alt="Licensed under GNU AGPL v3.0"></a>
 <p align="center">
 Copyright &copy; Andrew Ying and <a
 href="https://github.com/JanoCodes/Ticketing/graphs/contributors" target="_blank">
-other contributors</a> 2016-2018.
+other contributors</a> 2016-2019.
 </p>
 
 ## Installing
