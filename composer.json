@@ -20,7 +20,7 @@
         "fzaninotto/faker": "~1.4",
         "guzzlehttp/guzzle": "^6.2",
         "hashids/hashids": "^3.0",
-        "jano-may-ball/settings": "^1.0",
+        "jano/settings": "^1.1",
         "kris/laravel-form-builder": "^1.15",
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.0",
@@ -66,8 +66,14 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.janoticketing.co.uk"
+        }
+    ],
     "extra": {
-        "class": "Jano\\Composer\\InstallerRepository",
+        "class": "Jano\\Composer\\InstallerPlugin",
         "laravel": {
             "dont-discover": [
             ]
