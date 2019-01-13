@@ -5,15 +5,14 @@
 @section('content')
 <div class="clearfix">&nbsp;</div>
 <form id="form" role="form" method="POST" action="{{ route('backend.payments.store') }}">
-    <div class="grid-x grid-padding-x">
-        @include('partials.error')
-        {{ csrf_field() }}
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('account') ? ' is-invalid-label' : '' }}">
-                {{ __('system.account') }}
-            </label>
-        </div>
-        <div class="small-9 large-8 cell">
+    @include('partials.error')
+    {{ csrf_field() }}
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label{{ $errors->has('account')
+                ? ' is-invalid-label' : '' }}">
+            {{ __('system.account') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
             <v-select :debounce="500" :value.sync="account" :on-change="setAccount" :on-search="getOptions"
                 :options="options" placeholder="{{ __('system.search') }}">
             </v-select>
@@ -24,16 +23,18 @@
                 </span>
             @endif
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('amount') ? ' is-invalid-label' : '' }}">
-                {{ __('system.amount_paid') }}
-            </label>
-        </div>
-        <div class="small-9 large-8 cell">
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label{{ $errors->has('amount')
+                ? ' is-invalid-label' : '' }}">
+            {{ __('system.amount_paid') }}
+        </label>
+        <div class="col-sm-9 col-md-8">
             <div class="input-group">
-                <span class="input-group-label">{{ Setting::get('payment.currency') }}</span>
-                <input name="amount" id="amount" class="input-group-field" type="number" pattern="integer"
-                    required>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ Setting::get('payment.currency') }}</span>
+                </div>
+                <input name="amount" id="amount" class="form-control" type="number" pattern="integer" required>
             </div>
             @if ($errors->has('price'))
                 <span class="form-error">
@@ -41,13 +42,14 @@
                 </span>
             @endif
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('type') ? ' is-invalid-label' : '' }}">
-                {{ __('system.method') }}
-            </label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <select id="type" name="type" required>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label{{ $errors->has('type')
+                ? ' is-invalid-label' : '' }}">
+            {{ __('system.method') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
+            <select id="type" name="type" class="custom-select" required>
                 @foreach (__('system.payment_methods') as $key => $value)
                     <option value="{{ $key }}">{{ $value }}</option>
                 @endforeach
@@ -58,34 +60,42 @@
                 </span>
             @endif
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('reference') ? ' is-invalid-label' : '' }}">{{ __('system.reference') }}</label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <input type="text" name="reference" id="reference" required>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label{{ $errors->has('reference')
+                ? ' is-invalid-label' : '' }}">
+            {{ __('system.reference') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
+            <input type="text" name="reference" id="reference" class="form-control" required>
             @if ($errors->has('reference'))
                 <span class="form-error">
                     <strong>{{ $errors->first('reference') }}</strong>
                 </span>
             @endif
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('internal_reference') ? ' is-invalid-label' : '' }}">
-                {{ __('system.internal_reference') }}
-            </label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <input type="text" name="internal_reference" id="internal_reference">
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label{{ $errors->has('internal_reference')
+                ? ' is-invalid-label' : '' }}">
+            {{ __('system.internal_reference') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
+            <input type="text" name="internal_reference" id="internal_reference" class="form-control">
             @if ($errors->has('internal_reference'))
                 <span class="form-error">
                     <strong>{{ $errors->first('internal_reference') }}</strong>
                 </span>
             @endif
         </div>
-        <div class="small-offset-3 small-9 large-8 cell">
-            <a class="button warning" href="{{ request('redirect') ? urldecode(request('redirect')) :
+    </div>
+    <div class="row form-group">
+        <div class="offset-sm-3 col-sm-9 col-lg-8">
+            <div class="btn-group">
+                <a class="btn btn-warning" href="{{ request('redirect') ? urldecode(request('redirect')) :
                 route('backend.payments.index') }}">{{ __('system.back') }}</a>
-            <button type="submit" class="button">{{ __('system.submit') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('system.submit') }}</button>
+            </div>
         </div>
     </div>
 </form>
@@ -93,21 +103,6 @@
 
 @push('scripts')
 <script type="text/javascript">
-    (function($){
-        $.getQuery = function( query ) {
-            query = query.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-            var expr = "[\\?&]"+query+"=([^&#]*)";
-            var regex = new RegExp( expr );
-            var results = regex.exec( window.location.href );
-            if( results !== null ) {
-                return results[1];
-                return decodeURIComponent(results[1].replace(/\+/g, " "));
-            } else {
-                return false;
-            }
-        };
-    })(jQuery);
-
     const vm = new Vue({
         el: '#form',
         @if (isset($account))
@@ -148,5 +143,19 @@
             }
         }
     });
+
+    (function($){
+        $.getQuery = function( query ) {
+            query = query.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+            var expr = "[\\?&]"+query+"=([^&#]*)";
+            var regex = new RegExp( expr );
+            var results = regex.exec( window.location.href );
+            if( results !== null ) {
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+            } else {
+                return false;
+            }
+        };
+    })($);
 </script>
 @endpush

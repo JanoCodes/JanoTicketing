@@ -51,78 +51,102 @@
 
 @push('scripts')
 <script type="text/html" id="details">
-    <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
-        <form method="POST" data-abide novalidate>
-            @include('partials.error')
-            <div class="grid-x grid-padding-x vuetable-form">
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.slug') }}</label>
+    <div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}
+                    </h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="small-12 medium-9 cell">
-                    <span class="field-content">@{{ editData.slug }}</span>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.group') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="text" name="name" id="name" v-model="editData.name" required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.ticket_order_begins') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="text" name="can_order_at" id="can_order_at"
-                           v-model="editData.can_order_at" required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.ticket_limit') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="number" name="ticket_limit" id="ticket_limit" pattern="integer"
-                           v-model="editData.ticket_limit" required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.surcharge') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <div class="input-group">
-                        <span class="input-group-label">{{ Setting::get('payment.currency') }}</span>
-                        <input name="amount" id="amount" class="input-group-field" type="number"
-                               pattern="integer" v-model="editData.surcharge" required>
-                    </div>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.right_to_buy') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <div class="input-group">
-                        <input name="right_to_buy" id="right_to_buy" class="input-group-field"
-                               type="number" pattern="integer" v-model="editData.right_to_buy" required>
-                        <span class="input-group-label">{{ __('system.ticket_s') }}</span>
-                    </div>
-                </div>
-                <div class="small-12 cell">
-                    <div class="float-right">
-                        <button id="submit" type="submit" class="button warning" @click="submit($event)">
-                            {{ __('system.update') }}
-                        </button>
-                    </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        @include('partials.error')
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.slug') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" id="slug" readonly class="form-control-plaintext" v-model="editData.slug">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.group') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" name="name" id="name" class="form-control" v-model="editData.name" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.ticket_order_begins') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" name="can_order_at" id="can_order_at" class="form-control"
+                                       v-model="editData.can_order_at" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.ticket_limit') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="number" name="ticket_limit" id="ticket_limit" class="form-control"
+                                       v-model="editData.ticket_limit" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.surcharge') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{{ Setting::get('payment.currency') }}</span>
+                                    </div>
+                                    <input name="amount" id="amount" class="input-group-field" type="number" class="form-control"
+                                           pattern="integer" v-model="editData.surcharge" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.right_to_buy') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <div class="input-group">
+                                    <input name="right_to_buy" id="right_to_buy" class="form-control" type="number"
+                                           v-model="editData.right_to_buy" required>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">{{ __('system.ticket_s') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-12 offset-md-3 col-md-9">
+                                <div class="float-right">
+                                    <button id="submit" type="submit" class="btn btn-warning" @click="submit($event)">
+                                        {{ __('system.update') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="exception">
-    <div class="reveal" id="exception-modal" data-reveal>
-        <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}</h3>
-        {{ __('system.exception_message') }}
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal fade" id="exception-modal" tabindex="-1" role="document">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}
+                    </h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('system.exception_message') }}
+                </div>
+            </div>
+        </div>
     </div>
 </script>
 <script type="text/javascript">
@@ -159,7 +183,7 @@
             props: ['rowData'],
             methods: {
                 load: _.once(function() {
-                    $('#details-modal').foundation();
+                    $('#details-modal').modal();
 
                     $('#can_order_at').flatpickr({
                         altFormat: 'j M Y h:i K',
@@ -169,7 +193,7 @@
                     });
                 }),
                 close: function() {
-                    $('#details-modal').foundation('close');
+                    $('#details-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
                 submit: function(event) {
@@ -209,7 +233,7 @@
                 this.$nextTick();
 
                 this.load();
-                $('#details-modal').foundation('open');
+                $('#details-modal').modal('open');
             }
         });
 
@@ -217,16 +241,16 @@
             template: '#exception',
             methods: {
                 load: _.once(function () {
-                    $('#exception-modal').foundation();
+                    $('#exception-modal').modal();
                 }),
                 close: function() {
-                    $('#exception-modal').foundation('close');
+                    $('#exception-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
             },
             activated: function(event) {
                 this.load();
-                $('#exception-modal').foundation('open');
+                $('#exception-modal').modal('show');
             }
         });
 

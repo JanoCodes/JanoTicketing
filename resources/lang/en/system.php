@@ -1,22 +1,22 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying and other contributors.
+ * Copyright (C) 2016-2019 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License
- * v3.0 as published by the Free Software Foundation. You must preserve
- * all legal notices and author attributions present.
+ * v3.0 supplemented by additional permissions and terms as published at
+ * COPYING.md.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/>.
  */
 
@@ -26,8 +26,8 @@ return [
      * System Languages
      */
     'about' => 'About',
-    'about_copyright' => '&copy; Andrew Ying and contributors 2016-18.',
-    'about_license' => 'Jano Ticketing System is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GNU General Public License v3.0</a>. You <b>must</b> preserve all legal notices and author attributions present.',
+    'about_copyright' => '&copy; Andrew Ying and contributors 2016-19.',
+    'about_license' => 'Jano Ticketing System is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GNU Affero General Public License v3.0</a> supplemented by <a href="https://github.com/jano-may-ball/ticketing/blob/master/COPYING.md" target="_blank">additional permissions and terms</a>.',
     'account' => 'Your Account',
     'accepted_file_types' => 'Accepted file type(s): :extensions',
     'access_level' => 'Access Level',
@@ -47,7 +47,7 @@ return [
     'collection_edit' => 'Edit Proxy Information',
     'confirm_password' => 'Confirm Password',
     'continue' => 'Continue',
-    'copyright' => 'Copyright &copy; Andrew Ying 2016-18. Licensed under the <a href="https://github.com/jano-may-ball/ticketing/blob/master/LICENSE.md" target="_blank">GNU General Public License v3.0</a>.',
+    'copyright' => 'Copyright &copy; Andrew Ying 2016-19. Licensed under the <a href="https://github.com/jano-may-ball/ticketing/blob/master/COPYING.md" target="_blank">GNU Affero General Public License v3.0</a>.',
     'currency' => 'Currency',
     'create_group' => 'Create Group',
     'create_order' => 'Create Order',

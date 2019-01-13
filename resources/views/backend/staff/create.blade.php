@@ -5,15 +5,14 @@
 @section('content')
 <div class="clearfix">&nbsp;</div>
 <form id="form" role="form" method="POST" action="{{ route('backend.staffs.store') }}">
-    <div class="grid-x grid-padding-x">
-        @include('partials.error')
-        {{ csrf_field() }}
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('user') ? ' is-invalid-label' : '' }}">
-                {{ __('system.user') }}
-            </label>
-        </div>
-        <div class="small-9 large-8 cell">
+    @include('partials.error')
+    {{ csrf_field() }}
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label{{ $errors->has('user')
+                ? ' is-invalid-label' : '' }}">
+            {{ __('system.user') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
             <v-select :debounce="500" :value.sync="user" :on-change="setUser" :on-search="getOptions"
                 :options="options" placeholder="{{ __('system.search') }}">
             </v-select>
@@ -24,22 +23,29 @@
                 </span>
             @endif
         </div>
-        <div class="small-3 large-offset-1 large-2 cell">
-            <label class="text-right middle{{ $errors->has('access_level') ? ' is-invalid-label' : '' }}">
-                {{ __('system.access_level') }}
-            </label>
-        </div>
-        <div class="small-9 large-8 cell">
-            <input type="number" name="access_level" id="access_level" pattern="integer" required>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 offset-lg-1 col-lg-2 col-form-label{{ $errors->has('access_level')
+                ? ' is-invalid-label' : '' }}">
+            {{ __('system.access_level') }}
+        </label>
+        <div class="col-sm-9 col-lg-8">
+            <input type="number" name="access_level" id="access_level" class="form-control" required>
             @if ($errors->has('access_level'))
                 <span class="form-error">
                     <strong>{{ $errors->first('access_level') }}</strong>
                 </span>
             @endif
         </div>
-        <div class="small-offset-3 small-9 large-8 cell">
-            <a class="button warning" href="{{ route('backend.staffs.index') }}">{{ __('system.back') }}</a>
-            <button class="button" type="submit">{{ __('system.submit') }}</button>
+    </div>
+    <div class="row form-group">
+        <div class="offset-sm-3 col-sm-9 col-lg-8 cell">
+            <div class="btn-group" role="group">
+                <a class="btn btn-warning" href="{{ route('backend.staffs.index') }}">
+                    {{ __('system.back') }}
+                </a>
+                <button class="btn btn-primary" type="submit">{{ __('system.submit') }}</button>
+            </div>
         </div>
     </div>
 </form>

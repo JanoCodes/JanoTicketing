@@ -128,12 +128,22 @@
     </div>
 </script>
 <script type="text/html" id="exception">
-    <div class="modal" id="exception-modal" tabindex="-1" role="document">
-        <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}</h3>
-        {{ __('system.exception_message') }}
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal fade" id="exception-modal" tabindex="-1" role="document">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}
+                    </h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('system.exception_message') }}
+                </div>
+            </div>
+        </div>
     </div>
 </script>
 <script type="text/javascript">
@@ -225,7 +235,7 @@
                 this.$nextTick();
 
                 this.load();
-                $('#details-modal').foundation('open');
+                $('#details-modal').modal('show');
             }
         });
 
@@ -233,16 +243,16 @@
             template: '#exception',
             methods: {
                 load: _.once(function () {
-                    $('#exception-modal').foundation();
+                    $('#exception-modal').modal();
                 }),
                 close: function() {
-                    $('#exception-modal').foundation('close');
+                    $('#exception-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
             },
             activated: function(event) {
                 this.load();
-                $('#exception-modal').foundation('open');
+                $('#exception-modal').modal('show');
             }
         });
 

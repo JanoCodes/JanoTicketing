@@ -51,48 +51,66 @@
 
 @push('scripts')
 <script type="text/html" id="details">
-    <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
-        <form method="POST" data-abide novalidate>
-            @include('partials.error')
-            <div class="grid-x grid-padding-x vuetable-form">
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.type') }}</label>
+    <div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="text" name="name" id="name" v-model="editData.name" required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.price') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <div class="input-group">
-                        <span class="input-group-label">{{ Setting::get('payment.currency') }}</span>
-                        <input name="amount" id="amount" class="input-group-field" type="number"
-                               pattern="integer" v-model="editData.price" required>
-                    </div>
-                </div>
-                <div class="small-12 cell">
-                    <div class="float-right">
-                        <button id="submit" type="submit" class="button warning" @click="submit">
-                            {{ __('system.update') }}
-                        </button>
-                    </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        @include('partials.error')
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.type') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" name="name" id="name" class="form-control" v-model="editData.name" required>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.price') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{{ Setting::get('payment.currency') }}</span>
+                                    </div>
+                                    <input name="amount" id="amount" class="form-control" type="number"
+                                           v-model="editData.price" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-12 offset-md-3 col-md-9">
+                                <button id="submit" type="submit" class="btn btn-warning" @click="submit">
+                                    {{ __('system.update') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="exception">
-    <div class="reveal" id="exception-modal" data-reveal>
-        <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}</h3>
-        {{ __('system.exception_message') }}
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal fade" id="exception-modal" tabindex="-1" role="document">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}
+                    </h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('system.exception_message') }}
+                </div>
+            </div>
+        </div>
     </div>
 </script>
 <script type="text/javascript">
@@ -125,10 +143,10 @@
             props: ['rowData'],
             methods: {
                 load: _.once(function() {
-                    $('#details-modal').foundation();
+                    $('#details-modal').modal();
                 }),
                 close: function() {
-                    $('#details-modal').foundation('close');
+                    $('#details-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
                 submit: function() {
@@ -157,7 +175,7 @@
                             if (error.response && error.response.status === '422') {
                                 processErrorBag(error.response.data.errors);
                             } else {
-                                $('#details-modal').foundation('close');
+                                $('#details-modal').modal('hide');
                                 parent.$emit('exception-occured');
                             }
                         });
@@ -168,7 +186,7 @@
                 this.$nextTick();
 
                 this.load();
-                $('#details-modal').foundation('open');
+                $('#details-modal').modal('show');
             }
         });
 
@@ -176,16 +194,16 @@
             template: '#exception',
             methods: {
                 load: _.once(function () {
-                    $('#exception-modal').foundation();
+                    $('#exception-modal').modal();
                 }),
                 close: function() {
-                    $('#exception-modal').foundation('close');
+                    $('#exception-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
             },
             activated: function(event) {
                 this.load();
-                $('#exception-modal').foundation('open');
+                $('#exception-modal').modal('show');
             }
         });
 

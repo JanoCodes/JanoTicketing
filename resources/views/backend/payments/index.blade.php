@@ -56,72 +56,90 @@
 
 @push('scripts')
 <script type="text/html" id="details">
-    <div class="reveal" id="details-modal" data-reveal>
-        <h3><i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}</h3>
-        <form method="POST" data-abide novalidate>
-            @include('partials.error')
-            <div class="grid-x grid-padding-x vuetable-form">
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.amount_paid') }}</label>
+    <div class="modal fade" id="details-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-pencil-alt" aria-hidden="true"></i> {{ __('system.edit') }}
+                    </h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="small-12 medium-9 cell">
-                    @{{ editData.full_amount }}
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.method') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <span class="field-content">@{{ editData.type }}</span>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.account') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <v-select :debounce="250" :on-search="getOptions" :options="options"
-                              :value-sync="editData.account.id" label="account_id"></v-select>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.reference') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="text" name="reference" id="reference" v-model="editData.reference" required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.internal_reference') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <input type="text" name="reference" id="reference" v-model="editData.internal_reference"
-                           required>
-                </div>
-                <div class="small-12 medium-3 cell">
-                    <label class="text-right">{{ __('system.account') }}</label>
-                </div>
-                <div class="small-12 medium-9 cell">
-                    <v-select :value.sync="editData.account.id" :debounce="500" :on-search="getOptions"
-                         :options="options" placeholder="{{ __('system.search') }}">
-                    </v-select>
-                </div>
-                <div class="small-12 cell">
-                    <div class="float-right">
-                        <button id="submit" type="submit" class="button warning" @click="submit($event)">
-                            {{ __('system.update') }}
-                        </button>
-                    </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        @include('partials.error')
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.amount_paid') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" readonly class="form-control-plaintext" :value="editData.full_amount">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.method') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <input type="text" readonly class="form-control-plaintext" :value="editData.type">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-12 col-md-3 col-form-label">{{ __('system.account') }}</label>
+                            <div class="col-sm-12 col-md-9">
+                                <v-select :debounce="250" :on-search="getOptions" :options="options"
+                                          :value-sync="editData.account.id" label="account_id"></v-select>
+                            </div>
+                            <div class="small-12 medium-3 cell">
+                                <label class="text-right">{{ __('system.reference') }}</label>
+                            </div>
+                            <div class="small-12 medium-9 cell">
+                                <input type="text" name="reference" id="reference" v-model="editData.reference" required>
+                            </div>
+                            <div class="small-12 medium-3 cell">
+                                <label class="text-right">{{ __('system.internal_reference') }}</label>
+                            </div>
+                            <div class="small-12 medium-9 cell">
+                                <input type="text" name="reference" id="reference" v-model="editData.internal_reference"
+                                       required>
+                            </div>
+                            <div class="small-12 medium-3 cell">
+                                <label class="text-right">{{ __('system.account') }}</label>
+                            </div>
+                            <div class="small-12 medium-9 cell">
+                                <v-select :value.sync="editData.account.id" :debounce="500" :on-search="getOptions"
+                                          :options="options" placeholder="{{ __('system.search') }}">
+                                </v-select>
+                            </div>
+                            <div class="small-12 cell">
+                                <div class="float-right">
+                                    <button id="submit" type="submit" class="button warning" @click="submit($event)">
+                                        {{ __('system.update') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="exception">
-    <div class="reveal" id="exception-modal" data-reveal>
-        <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}</h3>
-        {{ __('system.exception_message') }}
-        <button class="close-button" @click="close" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal fade" id="exception-modal" tabindex="-1" role="document">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ __('system.exception_title') }}
+                    </h4>
+                    <button type="button" class="close" @click="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('system.exception_message') }}
+                </div>
+            </div>
+        </div>
     </div>
 </script>
 <script type="text/javascript">
@@ -160,7 +178,7 @@
             props: ['rowData'],
             methods: {
                 load: _.once(function() {
-                    $('#details-modal').foundation();
+                    $('#details-modal').modal();
                 }),
                 getOptions: function(search, loading) {
                     loading(true);
@@ -181,7 +199,7 @@
                         });
                 },
                 close: function() {
-                    $('#details-modal').foundation('close');
+                    $('#details-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
                 submit: function(event) {
@@ -221,7 +239,7 @@
                 this.$nextTick();
 
                 this.load();
-                $('#details-modal').foundation('open');
+                $('#details-modal').modal('show');
             }
         });
 
@@ -229,16 +247,16 @@
             template: '#exception',
             methods: {
                 load: _.once(function () {
-                    $('#exception-modal').foundation();
+                    $('#exception-modal').modal();
                 }),
                 close: function() {
-                    $('#exception-modal').foundation('close');
+                    $('#exception-modal').modal('hide');
                     this.$emit('modal-closed');
                 },
             },
             activated: function(event) {
                 this.load();
-                $('#exception-modal').foundation('open');
+                $('#exception-modal').modal('show');
             }
         });
 

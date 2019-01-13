@@ -5,7 +5,7 @@
 @section('content')
 <div class="text-wrap">
     <h2>{{ __('system.jano_ticketing_system') }}</h2>
-    <p>{{ __('system.about_copyright') }}</p>
+    <p>{!! __('system.about_copyright') !!}</p>
     <p>{!! __('system.about_license') !!}</p>
     <div class="credits" id="credits">
         {!! $credits !!}
