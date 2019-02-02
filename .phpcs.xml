@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
   ~ Jano Ticketing System
-  ~ Copyright (C) 2019 Andrew Ying and other contributors.
+  ~ Copyright (C) 2016-2019 Andrew Ying and other contributors.
   ~
   ~ This file is part of Jano Ticketing System.
   ~
@@ -20,8 +20,8 @@
   ~ <http://www.gnu.org/licenses/>.
   -->
 
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer"
-         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Jano"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
     <description>Coding standard for Jano Ticketing System.</description>
 
     <file>app</file>
@@ -29,8 +29,6 @@
     <file>database</file>
     <file>resources</file>
     <file>routes</file>
-
-    <extensions>php</extensions>
 
     <exclude-pattern>*/tests/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
@@ -40,15 +38,50 @@
     <arg name="parallel" value="75"/>
     <arg value="np"/>
 
-    <php_version>701025</php_version>
-
     <!-- Don't hide tokenizer exceptions -->
     <rule ref="Internal.Tokenizer.Exception">
         <type>error</type>
     </rule>
 
+    <!-- Include the whole PSR-1 standard -->
+    <rule ref="PSR1"/>
+    <!-- Include the whole PSR-2 standard -->
     <rule ref="PSR2"/>
+
+    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+    <rule ref="Generic.Functions.CallTimePassByReference"/>
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+    <rule ref="Squiz.ControlStructures.ControlSignature"/>
+    <rule ref="Squiz.ControlStructures.ForEachLoopDeclaration"/>
+    <rule ref="Squiz.ControlStructures.ForLoopDeclaration"/>
+    <rule ref="Squiz.ControlStructures.LowercaseDeclaration"/>
+    <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+    <rule ref="Squiz.Scope.MemberVarScope"/>
+
     <rule ref="PSR12"/>
+
+    <rule ref="PEAR.Commenting.InlineComment"/>
+
+    <!-- Import Zend coding standard (which in turn imports PEAR) -->
+    <rule ref="Zend">
+        <!-- but exclude their code analyzer -->
+        <exclude name="Zend.Debug.CodeAnalyzer"/>
+        <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
+
+        <!-- covered by Squiz ControlSignature, which enforces try/catch as well -->
+        <exclude name="PEAR.ControlStructures.ControlSignature"/>
+
+        <exclude name="PEAR.Commenting.FunctionComment.SpacingBeforeTags"/>
+
+        <!-- do not check line length -->
+        <exclude name="Generic.Files.LineLength"/>
+
+        <!-- covered by Squiz FunctionDeclarationSniff -->
+        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine"/>
+    </rule>
 
     <!-- Private methods MUST not be prefixed with an underscore -->
     <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
@@ -59,5 +92,23 @@
     <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
         <type>error</type>
     </rule>
+    <rule ref="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+        <severity>0</severity>
+    </rule>
 
+    <!-- Ignore variables that contains numbers -->
+    <rule ref="Zend.NamingConventions.ValidVariableName.ContainsNumbers">
+        <severity>0</severity>
+    </rule>
+
+    <!-- In practice, Symfony spaces multiline function calls differently than Zend -->
+    <rule ref="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PEAR.Functions.FunctionCallSignature.SpaceAfterCloseBracket">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PEAR.Functions.FunctionCallSignature.CloseBracketLine">
+        <severity>0</severity>
+    </rule>
 </ruleset>
