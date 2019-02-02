@@ -23,6 +23,7 @@
 namespace Jano\Http\Controllers;
 
 use Carbon\Carbon;
+use Kris\LaravelFormBuilder\FormBuilder;
 use Jano\Http\Traits\WithAuthenticationForms;
 use Setting;
 
