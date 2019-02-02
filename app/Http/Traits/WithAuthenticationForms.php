@@ -34,41 +34,44 @@ trait WithAuthenticationForms
      */
     protected function loginForm(FormBuilder $builder)
     {
-        return $builder->createByArray([
+        return $builder->createByArray(
             [
-                'name' => 'email',
-                'type' => 'email',
-                'label' => __('system.email'),
-                'rules' => ['required'],
-                'validationMessage' => __('validation.email', ['attribute' => strtolower(__('system.email'))])
-            ],
-            [
-                'name' => 'password',
-                'type' => 'password',
-                'label' => __('system.password'),
-                'rules' => ['required'],
-                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.password'))])
-            ],
-            [
-                'name' => 'remember',
-                'type' => 'checkbox',
-                'label' => __('system.remember_me')
-            ],
-            [
-                'name' => 'submit',
-                'type' => 'submit',
-                'label' => __('system.login'),
-                'wrapper' => [
-                    'class' => 'col-sm-8 offset-sm-4'
+                [
+                    'name' => 'email',
+                    'type' => 'email',
+                    'label' => __('system.email'),
+                    'rules' => ['required'],
+                    'validationMessage' => __('validation.email', ['attribute' => strtolower(__('system.email'))])
                 ],
-                'attr' => [
-                    'class' => 'btn btn-primary'
+                [
+                    'name' => 'password',
+                    'type' => 'password',
+                    'label' => __('system.password'),
+                    'rules' => ['required'],
+                    'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.password'))])
+                ],
+                [
+                    'name' => 'remember',
+                    'type' => 'checkbox',
+                    'label' => __('system.remember_me')
+                ],
+                [
+                    'name' => 'submit',
+                    'type' => 'submit',
+                    'label' => __('system.login'),
+                    'wrapper' => [
+                        'class' => 'col-sm-8 offset-sm-4'
+                    ],
+                    'attr' => [
+                        'class' => 'btn btn-primary'
+                    ]
                 ]
+            ],
+            [
+                'method' => 'POST',
+                'url' => route('login')
             ]
-        ], [
-            'method' => 'POST',
-            'url' => route('login')
-        ]);
+        );
     }
 
     /**
@@ -79,66 +82,69 @@ trait WithAuthenticationForms
      */
     protected function registerForm(FormBuilder $builder)
     {
-        return $builder->createByArray([
+        return $builder->createByArray(
             [
-                'name' => 'title',
-                'type' => 'select',
-                'label' => __('system.title'),
-                'choices' => __('system.titles'),
-                'rules' => ['required'],
-                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.title'))])
-            ],
-            [
-                'name' => 'first_name',
-                'type' => 'text',
-                'label' => __('system.first_name'),
-                'rules' => ['required'],
-                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.first_name'))])
-            ],
-            [
-                'name' => 'last_name',
-                'type' => 'text',
-                'label' => __('system.last_name'),
-                'rules' => ['required'],
-                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.last_name'))])
-            ],
-            [
-                'name' => 'email',
-                'type' => 'email',
-                'label' => __('system.email'),
-                'rules' => ['required'],
-                'validationMessage' => __('validation.email', ['attribute' => strtolower(__('system.email'))])
-            ],
-            [
-                'name' => 'password',
-                'type' => 'password',
-                'label' => __('system.password'),
-                'rules' => ['required'],
-                'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.password'))])
-            ],
-            [
-                'name' => 'password_confirmation',
-                'type' => 'password',
-                'label' => __('system.confirm_password'),
-                'rules' => [
-                    'required',
-                    'confirmed'
-                ]
-            ],
-            [
-                'name' => 'submit',
-                'type' => 'submit',
-                'label' => __('system.register'),
-                'wrapper' => [
-                    'class' => 'col-sm-8 offset-sm-4'
+                [
+                    'name' => 'title',
+                    'type' => 'select',
+                    'label' => __('system.title'),
+                    'choices' => __('system.titles'),
+                    'rules' => ['required'],
+                    'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.title'))])
                 ],
-                'attr' => [
-                    'class' => 'btn btn-primary'
+                [
+                    'name' => 'first_name',
+                    'type' => 'text',
+                    'label' => __('system.first_name'),
+                    'rules' => ['required'],
+                    'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.first_name'))])
+                ],
+                [
+                    'name' => 'last_name',
+                    'type' => 'text',
+                    'label' => __('system.last_name'),
+                    'rules' => ['required'],
+                    'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.last_name'))])
+                ],
+                [
+                    'name' => 'email',
+                    'type' => 'email',
+                    'label' => __('system.email'),
+                    'rules' => ['required'],
+                    'validationMessage' => __('validation.email', ['attribute' => strtolower(__('system.email'))])
+                ],
+                [
+                    'name' => 'password',
+                    'type' => 'password',
+                    'label' => __('system.password'),
+                    'rules' => ['required'],
+                    'validationMessage' => __('validation.required', ['attribute' => strtolower(__('system.password'))])
+                ],
+                [
+                    'name' => 'password_confirmation',
+                    'type' => 'password',
+                    'label' => __('system.confirm_password'),
+                    'rules' => [
+                        'required',
+                        'confirmed'
+                    ]
+                ],
+                [
+                    'name' => 'submit',
+                    'type' => 'submit',
+                    'label' => __('system.register'),
+                    'wrapper' => [
+                        'class' => 'col-sm-8 offset-sm-4'
+                    ],
+                    'attr' => [
+                        'class' => 'btn btn-primary'
+                    ]
                 ]
+            ],
+            [
+                'method' => 'POST',
+                'url' => route('register')
             ]
-        ], [
-            'method' => 'POST',
-            'url' => route('register')
-        ]);
+        );
     }
 }
