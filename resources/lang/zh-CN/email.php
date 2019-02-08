@@ -25,7 +25,7 @@ return [
     'closing' => 'Best west，<br>:event',
     'generic_user' => '先生/女士',
     'order_created_message' => '感谢您对事件的关注。 我们很高兴确认已为您预留了以下凭单:',
-    'order_created_closing' => '我们期待着与您见面:活动!',
+    'order_created_closing' => '我们期待着在:event中与您见面!',
     'bank_payment_message' => '请将以下余额转移到以下银行帐户:截止期限工作日。 请确保使用付款参考**完全如所示**。',
     'bank_account_name' => '帐户名称',
     'bank_account_sort_code' => '排序代码',
