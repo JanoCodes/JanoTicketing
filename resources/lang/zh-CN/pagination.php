@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'previous' => '&laquo; Previous',
-    'next' => 'Next &raquo;',
+    'previous' => '&laquo; 上一个',
+    'next' => '接下来的 &raquo;',
 
 ];
