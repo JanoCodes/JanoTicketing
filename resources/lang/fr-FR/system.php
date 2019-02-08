@@ -79,7 +79,7 @@ return [
     'home' => 'Accueil',
     'import_entries' => 'Importer des entrées',
     'internal_reference' => 'Référence interne',
-    'jano_ticketing_system' => 'Système de billetterie Jano',
+    'jano_ticketing_system' => 'Jano Ticketing System',
     'job_successfully_queued' => 'La mise en file d\'attente du travail a abouti. Vous en serez averti lorsqu\'il aura été traité avec succès.',
     'last_name' => 'Nom de famille',
     'location_name' => 'Nom de l\'emplacement',
