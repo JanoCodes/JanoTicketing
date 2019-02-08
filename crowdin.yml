@@ -1,0 +1,4 @@
+commit_message: "[ci skip]"
+files:
+  - source: /resources/lang/en/*.php
+    translation: /resources/lang/%locale%/%original_file_name%
