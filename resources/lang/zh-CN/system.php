@@ -191,7 +191,7 @@ return [
     'update_primary_ticket_holder' => '更新主凭单占位符',
     'update_success' => '已成功更新条目',
     'upload' => '上传',
-    'upload_column_match_message' => '我们无法自动识别 {{ name }}的列标题... 请在下面手动执行匹配。',
+    'upload_column_match_message' => '我们无法自动识别 {{ name }}的标题... 请在下面手动执行匹配。',
     'upload_error_message' => '文件上载失败',
     'upload_info_required_message' => '所需资料',
     'upload_manual_column_match_error' => '列标题的匹配无效。 请重试。',
