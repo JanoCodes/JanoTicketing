@@ -1,5 +1,5 @@
 {
-    "name": "jano-may-ball/ticketing",
+    "name": "jano-codes/ticketing",
     "description": "Jano Ticketing System",
     "keywords": ["php", "mysql", "event-ticketing"],
     "license": "AGPL-3.0",
@@ -94,7 +94,6 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true,
-        "classmap-authoritative": true
+        "optimize-autoloader": true
     }
 }
