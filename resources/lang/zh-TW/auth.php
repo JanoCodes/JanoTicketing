@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => '這些認證不符合我們的記錄。',
+    'throttle' => '登入嘗試次數太多。 請在秒秒內重試。',
 
 ];
