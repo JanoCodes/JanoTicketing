@@ -26,7 +26,7 @@ return [
      * System Languages
      */
     'about' => '關於',
-    'about_copyright' => '&copy; Andrew Ying and contributors 2016-19.',
+    'about_copyright' => '&copy; Andrew Ying 和貢獻者2016-19。',
     'about_license' => 'Jano Ticketing System is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GNU Affero General Public License v3.0</a> supplemented by <a href="https://github.com/jano-may-ball/ticketing/blob/master/COPYING.md" target="_blank">additional permissions and terms</a>.',
     'account' => '您的帳戶',
     'accepted_file_types' => '接受的檔案類型： :延伸',
@@ -84,7 +84,7 @@ return [
     'last_name' => '姓氏',
     'location_name' => '位置名稱',
     'login' => '登入',
-    'login_required' => 'Please login/register <a href="#login-modal" data-toggle="modal">here</a> to purchase tickets for this event.',
+    'login_required' => '請在<a href="#login-modal" data-toggle="modal">這裡</a>註冊購買此活動的門票。',
     'logout' => '登出',
     'method' => '方法',
     'new_entry' => '新項目',
@@ -191,7 +191,7 @@ return [
     'update_primary_ticket_holder' => '更新主要通行證持有者',
     'update_success' => '已順利更新項目',
     'upload' => '上傳',
-    'upload_column_match_message' => 'We were unable to automatically identify the column headings for {{ name }}... Please do the matching manually below.',
+    'upload_column_match_message' => '我們無法自動標識 {{ name }}的標題..。請在下面手動進行匹配。',
     'upload_error_message' => '檔案上傳失敗',
     'upload_info_required_message' => '所需資訊',
     'upload_manual_column_match_error' => '直欄標題的比對無效。 請重試。',
