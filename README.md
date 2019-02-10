@@ -71,6 +71,11 @@ You are welcomed to work at issues and submit pull requests. Please note our
 [Contributing Guide](CONTRIBUTING.md) and our
 [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
 
+## Localisation
+We want to make Jano Ticketing System accessible to everyone, no matter where you live, 
+or which language you speak. Give us a hand in helping us translate the program at
+[Crowdin](https://translate.jano.rocks)!
+
 ## License
 Jano Ticketing System is free software: you can redistribute it and/or modify it under
 the terms of the [GNU Affero General Public License v3.0](LICENSE.md) supplemented by
@@ -112,5 +117,4 @@ alt="BrowserStack" /></a><br />Browser compatibility testing
 </table>
 
 * Application monitoring by [Bugsnag](https://www.bugsnag.com/)
-* Translation management by [Lokalise](https://lokalise.co)
 * License management by [FOSSA](https://fossa.com)
