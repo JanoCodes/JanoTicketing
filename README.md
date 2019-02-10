@@ -63,7 +63,7 @@ php jano migrate
 * Point web server to `public` directory and **you're done**!
 
 If you do not want to have to worry about the dependencies, you can also use the Docker
-image [janomayball/ticketing](https://hub.docker.com/r/janomayball/ticketing).
+image [janorocks/ticketing](https://hub.docker.com/r/janorocks/ticketing).
 
 ## Contributing
 Jano Ticketing System is open source and relies on the help of the community to maintain.
