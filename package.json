@@ -20,7 +20,7 @@
     "@mapbox/mapbox-gl-geocoder": "^3.1.1",
     "@xkeshi/vue-countdown": "github:xkeshi/vue-countdown",
     "axios": "^0.18.0",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.0",
     "cross-env": "^5.2.0",
     "dropzone": "^5.5.1",
     "file-loader": "^3.0.1",
