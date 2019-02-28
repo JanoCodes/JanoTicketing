@@ -70,21 +70,21 @@
         },
         {
             "name": "barryvdh/laravel-dompdf",
-            "version": "v0.8.3",
+            "version": "v0.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-dompdf.git",
-                "reference": "46781d0304277845a19c09c169bc595fd182cce4"
+                "reference": "3fd817065e1c820b1ddace8b2bf65ca45088df4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/46781d0304277845a19c09c169bc595fd182cce4",
-                "reference": "46781d0304277845a19c09c169bc595fd182cce4",
+                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/3fd817065e1c820b1ddace8b2bf65ca45088df4f",
+                "reference": "3fd817065e1c820b1ddace8b2bf65ca45088df4f",
                 "shasum": ""
             },
             "require": {
                 "dompdf/dompdf": "^0.8",
-                "illuminate/support": "5.5.x|5.6.x|5.7.x",
+                "illuminate/support": "5.5.x|5.6.x|5.7.x|5.8.x",
                 "php": ">=7"
             },
             "type": "library",
@@ -122,7 +122,7 @@
                 "laravel",
                 "pdf"
             ],
-            "time": "2018-08-31T13:25:44+00:00"
+            "time": "2019-02-26T18:07:43+00:00"
         },
         {
             "name": "defuse/php-encryption",
