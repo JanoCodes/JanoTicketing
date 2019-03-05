@@ -24,7 +24,7 @@
     "cross-env": "^5.2.0",
     "dropzone": "^5.5.1",
     "file-loader": "^3.0.1",
-    "flatpickr": "^4.5.4",
+    "flatpickr": "^4.5.6",
     "jquery": "^3.3.1",
     "laravel-mix": "^4.0.14",
     "lodash": "^4.17.11",
