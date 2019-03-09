@@ -85,7 +85,7 @@ class RegisterController extends Controller
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'phone' => 'required',
-            'password' => 'required|min:6|pwned|confirmed',
+            'password' => 'required|min:8|pwned|confirmed',
             'group_id' => 'required|exists:groups,id',
         ]);
     }

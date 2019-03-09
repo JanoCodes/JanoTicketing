@@ -20,7 +20,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-use Illuminate\Routing\Router as Route;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

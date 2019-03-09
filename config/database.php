@@ -1,4 +1,24 @@
 <?php
+/**
+ * Jano Ticketing System
+ * Copyright (C) 2016-2019 Andrew Ying and other contributors.
+ *
+ * This file is part of Jano Ticketing System.
+ *
+ * Jano Ticketing System is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License
+ * v3.0 supplemented by additional permissions and terms as published at
+ * COPYING.md.
+ *
+ * Jano Ticketing System is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
 
 return [
 
@@ -53,6 +73,9 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
         ],
 
         'pgsql' => [
@@ -103,13 +126,17 @@ return [
     |
     | Redis is an open source, fast, and advanced key-value store that also
     | provides a richer body of commands than a typical key-value system
-    | such as APC or Memcached. Laravel makes it easy to dig right in.
+    | such as APC or Memcached.
     |
     */
 
     'redis' => [
 
-        'client' => 'predis',
+        'client' => env('REDIS_CLIENT', 'predis'),
+
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'predis'),
+        ],
 
         'default' => [
             'host' => env('REDIS_HOST', '127.0.0.1'),
