@@ -41,8 +41,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->enum('method', ['database', 'oauth']);
             $table->string('password')->nullable();
-            $table->integer('oauth_id')->unsigned()->nullable();
-            $table->integer('group_id')->unsigned();
+            $table->bigInteger('oauth_id')->unsigned()->nullable();
+            $table->bigInteger('group_id')->unsigned();
             $table->string('phone')->nullable();
             $table->dateTime('can_order_at')->nullable();
             $table->integer('ticket_limit')->unsigned()->nullable();
