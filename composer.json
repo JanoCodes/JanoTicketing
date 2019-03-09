@@ -43,7 +43,7 @@
         "codacy/coverage": "dev-master",
         "filp/whoops": "^2.0",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^2.0",
+        "nunomaduro/collision": "^3.0",
         "phpmd/phpmd": "^2.6",
         "phpunit/php-code-coverage": "^6.0",
         "phpunit/phpunit": "^7.0",
