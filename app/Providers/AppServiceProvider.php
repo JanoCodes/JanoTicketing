@@ -1,22 +1,23 @@
 <?php
 /**
  * Jano Ticketing System
- * Copyright (C) 2016-2018 Andrew Ying
+ * Copyright (C) 2016-2019 Andrew Ying and other contributors.
  *
  * This file is part of Jano Ticketing System.
  *
  * Jano Ticketing System is free software: you can redistribute it and/or
- * modify it under the terms of the GNU General Public License v3.0 as
- * published by the Free Software Foundation. You must preserve all legal
- * notices and author attributions present.
+ * modify it under the terms of the GNU Affero General Public License
+ * v3.0 supplemented by additional permissions and terms as published at
+ * COPYING.md.
  *
  * Jano Ticketing System is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 
 namespace Jano\Providers;
@@ -24,7 +25,10 @@ namespace Jano\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
+use Spatie\Menu\Html;
 use Spatie\Menu\Laravel\Facades\Menu;
+use Spatie\Menu\Link;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -55,28 +59,42 @@ class AppServiceProvider extends ServiceProvider
 
             return Menu::new()
                 ->link('/', __('system.home'))
-                ->htmlIf(!$authenticated, '<a href="#" data-open="login-modal">'
+                ->htmlIf(!$authenticated, '<a href="#login-modal" class="nav-link" data-toggle="modal">'
                     . __('system.login') . __('system.slash') . __('system.register')
                     . '</a>')
                 ->linkIf($authenticated, '/account', __('system.account'))
                 ->htmlIf($authenticated, '<form method="post" action="' . url('logout') . '">'
-                    . csrf_field() . '<button type="submit" class="clear button">'
-                    . __('system.logout') . '</button></form>')
+                    . csrf_field() . '<button type="submit" class="btn btn-link">' . __('system.logout')
+                    . '</button></form>')
+                ->each(function (Link $link) {
+                    $link->addClass('nav-link');
+                    $link->addParentClass('nav-item');
+                })
+                ->each(function (Html $link) {
+                    $link->addParentClass('nav-item');
+                })
                 ->setActiveFromRequest();
         });
 
         Menu::macro('backend', function () {
             return Menu::new()
-               ->link('/admin', __('system.home'))
-               ->link('/admin/users', __('system.users'))
-               ->link('/admin/groups', __('system.groups'))
-               ->link('/admin/attendees', __('system.attendees'))
-               ->link('/admin/tickets', __('system.types'))
-               ->link('/admin/payments', __('system.payments'))
-               ->link('/admin/staffs', __('system.staff'))
-               ->link('/admin/settings', __('system.settings'))
-               ->link('/admin/about', __('system.about'))
-               ->setActiveFromRequest('/admin');
+                ->link('/admin', __('system.home'))
+                ->link('/admin/users', __('system.users'))
+                ->link('/admin/groups', __('system.groups'))
+                ->link('/admin/attendees', __('system.attendees'))
+                ->link('/admin/tickets', __('system.types'))
+                ->link('/admin/payments', __('system.payments'))
+                ->link('/admin/staffs', __('system.staff'))
+                ->link('/admin/settings', __('system.settings'))
+                ->link('/admin/about', __('system.about'))
+                ->each(function (Link $link) {
+                    $link->addClass('nav-link');
+                    $link->addParentClass('nav-item');
+                })
+                ->each(function (Html $link) {
+                    $link->addParentClass('nav-item');
+                })
+                ->setActiveFromRequest('/admin');
         });
 
         Schema::defaultStringLength(191);
@@ -117,6 +135,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Passport::ignoreMigrations();
     }
 }
