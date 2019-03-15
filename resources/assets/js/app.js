@@ -23,7 +23,7 @@ require('./bootstrap');
 
 import Vuex from 'vuex';
 
-import VueCountdown from '@xkeshi/vue-countdown';
+import VueCountdown from '@chenfengyuan/vue-countdown';
 import createPersistedState from 'vuex-persistedstate';
 
 window.Vuex = Vuex;
