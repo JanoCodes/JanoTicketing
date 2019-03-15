@@ -44,7 +44,7 @@ incorporated pursuant to section 13 of the GNU AGPL.
 You shall preserve the following legal notices and author attributions in 
 the Program and the Appropriate Legal Notices displayed by the Program:
 
-* "Copyright &copy; Andrew Ying 2016-18"; and
+* "Copyright &copy; Andrew Ying 2016-[current year e.g. 19]"; and
 * "Licensed under the GNU Affero General Public License v3.0".
 
 #### 3. Origin of Materal; Trademarks.
