@@ -40,8 +40,8 @@ installed on your machine:
 
 * Clone repository and install dependencies
 ```bash
-git clone https://github.com/jano-may-ball/ticketing.git
-cd ticketing
+git clone https://github.com/JanoCodes/Ticketing.git
+cd Ticketing
 composer install --no-dev
 npm install
 ```
