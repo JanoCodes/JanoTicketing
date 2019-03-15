@@ -33,6 +33,7 @@
         "predis/predis": "^1.1",
         "propaganistas/laravel-phone": "^4.0",
         "spatie/laravel-menu": "^3.1",
+        "tormjens/eventy": "^0.5.4",
         "valorin/pwned-validator": "^1.1"
     },
     "require-dev": {
@@ -46,7 +47,7 @@
         "nunomaduro/collision": "^3.0",
         "phpmd/phpmd": "^2.6",
         "phpunit/php-code-coverage": "^6.0",
-        "phpunit/phpunit": "^7.5",
+        "phpunit/phpunit": "^7.0",
         "sebastian/phpcpd": "^4.0",
         "squizlabs/php_codesniffer": "^3.0"
     },
