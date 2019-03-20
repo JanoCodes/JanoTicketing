@@ -13,7 +13,7 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js; sass --style compressed resources/assets/sass/mail.scss resources/views/vendor/mail/html/themes/mail.css;"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/fontawesome-svg-core": "^1.2.16",
     "@fortawesome/free-brands-svg-icons": "^5.7.2",
     "@fortawesome/free-regular-svg-icons": "^5.7.2",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
