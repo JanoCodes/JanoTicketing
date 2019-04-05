@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
-            "version": "3.12",
+            "version": "3.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/arrilot/laravel-widgets.git",
-                "reference": "a1007a077114e6616009d2776a6a664e7425a047"
+                "reference": "24297e9a7b1988808b782567892170cd421e6715"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/arrilot/laravel-widgets/zipball/a1007a077114e6616009d2776a6a664e7425a047",
-                "reference": "a1007a077114e6616009d2776a6a664e7425a047",
+                "url": "https://api.github.com/repos/arrilot/laravel-widgets/zipball/24297e9a7b1988808b782567892170cd421e6715",
+                "reference": "24297e9a7b1988808b782567892170cd421e6715",
                 "shasum": ""
             },
             "require": {
@@ -66,7 +66,7 @@
                 "laravel",
                 "widgets"
             ],
-            "time": "2018-04-15T19:59:08+00:00"
+            "time": "2019-03-25T14:20:55+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
