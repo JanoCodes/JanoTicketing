@@ -2583,16 +2583,16 @@
         },
         {
             "name": "owen-it/laravel-auditing",
-            "version": "v9.0.0",
+            "version": "v9.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/owen-it/laravel-auditing.git",
-                "reference": "001ea7e67af75b1d07a96476d48a5336d6ad0ec8"
+                "reference": "0379d973c34e00138eb8ac7196c6661980564f72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/owen-it/laravel-auditing/zipball/001ea7e67af75b1d07a96476d48a5336d6ad0ec8",
-                "reference": "001ea7e67af75b1d07a96476d48a5336d6ad0ec8",
+                "url": "https://api.github.com/repos/owen-it/laravel-auditing/zipball/0379d973c34e00138eb8ac7196c6661980564f72",
+                "reference": "0379d973c34e00138eb8ac7196c6661980564f72",
                 "shasum": ""
             },
             "require": {
@@ -2661,7 +2661,7 @@
                 "revision",
                 "tracking"
             ],
-            "time": "2019-03-06T21:18:39+00:00"
+            "time": "2019-04-11T22:21:58+00:00"
         },
         {
             "name": "paragonie/random_compat",
