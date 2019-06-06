@@ -25,7 +25,7 @@
     "dropzone": "^5.5.1",
     "file-loader": "^3.0.1",
     "flatpickr": "^4.5.7",
-    "jquery": "^3.4.0",
+    "jquery": "^3.4.1",
     "laravel-mix": "^4.0.15",
     "lodash": "^4.17.11",
     "mapbox-gl": "^0.53.1",
