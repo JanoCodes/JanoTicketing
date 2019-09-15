@@ -114,7 +114,14 @@ src="https://cdn.auth0.com/oss/badges/a0-badge-light.png" /></a><br />Single Sig
 alt="BrowserStack" /></a><br />Browser compatibility testing
 </td>
 </tr>
+<tr>
+<td style="text-align:center;" colspan="2">
+<a href="https://www.bugsnag.com/">
+<img src="https://global-uploads.webflow.com/5c741219fd0819540590e785/5c741219fd0819856890e790_asset%2039.svg" 
+alt="Bugsnag" height="45px">
+</a><br />Application monitoring
+</td>
+</tr>
 </table>
 
-* Application monitoring by [Bugsnag](https://www.bugsnag.com/)
 * License management by [FOSSA](https://fossa.com)
