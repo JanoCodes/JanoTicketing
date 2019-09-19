@@ -1294,22 +1294,22 @@
         },
         {
             "name": "kris/laravel-form-builder",
-            "version": "1.20.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kristijanhusak/laravel-form-builder.git",
-                "reference": "4080568ed181b0ae7fa8b0846741ca787fce5b8d"
+                "reference": "1e7d14e53f88c3e7fb55e15feced89c7ce6ca326"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kristijanhusak/laravel-form-builder/zipball/4080568ed181b0ae7fa8b0846741ca787fce5b8d",
-                "reference": "4080568ed181b0ae7fa8b0846741ca787fce5b8d",
+                "url": "https://api.github.com/repos/kristijanhusak/laravel-form-builder/zipball/1e7d14e53f88c3e7fb55e15feced89c7ce6ca326",
+                "reference": "1e7d14e53f88c3e7fb55e15feced89c7ce6ca326",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "5.*@dev",
-                "illuminate/validation": "5.*@dev",
-                "laravelcollective/html": "5.*",
+                "illuminate/database": "5.*@dev|^6.0",
+                "illuminate/validation": "5.*@dev|^6.0",
+                "laravelcollective/html": "5.*|^6.0",
                 "php": ">=5.6.0"
             },
             "require-dev": {
@@ -1349,15 +1349,24 @@
                 {
                     "name": "Kristijan Husak",
                     "email": "husakkristijan@gmail.com"
+                },
+                {
+                    "name": "Mike Erickson",
+                    "email": "codedungeon@gmail.com"
+                },
+                {
+                    "name": "Mike Erickson",
+                    "email": "mike.erickson@codedungeon.io"
                 }
             ],
             "description": "Laravel form builder - symfony like",
             "keywords": [
                 "builder",
                 "form",
-                "laravel"
+                "laravel",
+                "symfony"
             ],
-            "time": "2019-02-27T20:23:16+00:00"
+            "time": "2019-09-04T04:49:11+00:00"
         },
         {
             "name": "laktak/hjson",
@@ -1757,16 +1766,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.8.0",
+            "version": "v5.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "0e360143d3476fe4141d267a260c140569fa207b"
+                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/0e360143d3476fe4141d267a260c140569fa207b",
-                "reference": "0e360143d3476fe4141d267a260c140569fa207b",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/3a1c9974ea629eed96e101a24e3852ced382eb29",
+                "reference": "3a1c9974ea629eed96e101a24e3852ced382eb29",
                 "shasum": ""
             },
             "require": {
@@ -1811,17 +1820,17 @@
             ],
             "authors": [
                 {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                },
-                {
                     "name": "Adam Engebretson",
                     "email": "adam@laravelcollective.com"
+                },
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
                 }
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2019-03-01T22:53:41+00:00"
+            "time": "2019-09-05T12:32:25+00:00"
         },
         {
             "name": "lcobucci/jwt",
