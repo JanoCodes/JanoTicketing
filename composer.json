@@ -19,7 +19,7 @@
         "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "~1.4",
         "guzzlehttp/guzzle": "^6.2",
-        "hashids/hashids": "^3.0",
+        "hashids/hashids": "^4.0",
         "jano/settings": "^1.1",
         "kris/laravel-form-builder": "^1.15",
         "laravel/framework": "5.8.*",
